@@ -5,7 +5,7 @@ import DefaultTemplate from './template/DefaultTemplate';
 function App() {
   return (
     <DefaultTemplate>
-      <Router></Router>
+      <Router />
     </DefaultTemplate>
   );
 }
