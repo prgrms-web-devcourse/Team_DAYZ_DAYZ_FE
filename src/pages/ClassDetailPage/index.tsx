@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useParams } from 'react-router';
-import ReviewModal from './Review';
+import Modal from '../../components/base/Modal';
 
 const ClassDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [reviewModal, setReviewModal] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   // 여기서 id 값으로 데이터를 불러온다. api
   // 현재 context안에는 공방인지 유저인지 데이터가 담겨져 있어야 한다.
   // id를 조회하면 class 소개, 별점, 후기, author 항목이 조회가 되어야함.
-
-  const setReviewDetails = () => {
-    console.log('리뷰 모달창 열리기');
-    setReviewModal(!reviewModal);
-  };
 
   return (
     <>
@@ -35,7 +30,7 @@ const ClassDetailPage = () => {
           후기<span>999+</span>
         </div>
         <div> 우선 그냥 후기(내용, 날짜?)</div>
-        <div onClick={setReviewDetails}>+ 후기 더보기</div>
+        <div onClick={() => setVisible(true)}>+ 후기 더보기</div>
       </ClassReviewContainer>
 
       <AuthorDetailContainer>
@@ -47,7 +42,11 @@ const ClassDetailPage = () => {
         <div>가격 45,000</div>
         <ReservationButton>예약하기</ReservationButton>
       </ReservationContainer>
-      {reviewModal && ReviewModal()}
+
+      <Modal visible={visible} onClose={() => setVisible(false)} width={500} height={500}>
+        Hi!
+        <button onClick={() => setVisible(false)}>Close</button>
+      </Modal>
     </>
   );
 };
