@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Home, Grid, Search } from 'react-feather';
+import { Home, Grid, Search, Circle } from 'react-feather';
 
 /* eslint-disable react/react-in-jsx-scope */
 const Navigator = () => {
@@ -7,15 +7,19 @@ const Navigator = () => {
     <NavWrapper>
       <IconWrapper>
         <Home size={30} />
+        <IconDescription>메인 화면</IconDescription>
       </IconWrapper>
       <IconWrapper>
         <Grid size={30} />
+        <IconDescription>피드</IconDescription>
       </IconWrapper>
       <IconWrapper>
         <Search size={30} />
+        <IconDescription>검색 하기</IconDescription>
       </IconWrapper>
       <IconWrapper>
-        <UserProfile />
+        <Circle size={30} />
+        <IconDescription>내 정보</IconDescription>
       </IconWrapper>
     </NavWrapper>
   );
@@ -38,9 +42,16 @@ const UserProfile = styled.div`
   height: 30px;
   background-color: black;
   border-radius: 50%;
+  align-items: center;
+  text-align: center;
 `;
 
 const IconWrapper = styled.div`
-  margin: 30px;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+`;
+const IconDescription = styled.div`
+  font-size: 16px;
 `;
 export default Navigator;
