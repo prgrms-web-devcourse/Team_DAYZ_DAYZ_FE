@@ -42,15 +42,15 @@ const Title = styled.div`
   font-size: 30px;
   font-weight: 700;
   color: #f5f5f5;
-  margin-bottom: 10px;
-  margin-left: 10px;
+  margin-bottom: 15px;
+  margin-left: 15px;
 `;
 
 const Location = styled.div`
   font-size: 16px;
   font-weight: 700;
   color: #f5f5f5;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -59,8 +59,8 @@ const BellIcon = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
-  margin-bottom: 10px;
-  margin-right: 10px;
+  margin-bottom: 15px;
+  margin-right: 15px;
 `;
 
 export default Header;
