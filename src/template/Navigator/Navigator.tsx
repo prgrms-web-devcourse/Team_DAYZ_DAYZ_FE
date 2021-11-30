@@ -1,26 +1,38 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import { Home, Grid, Search, Circle } from 'react-feather';
 
 /* eslint-disable react/react-in-jsx-scope */
 const Navigator = () => {
   return (
     <NavWrapper>
-      <IconWrapper>
-        <Home size={30} />
-        <IconDescription>메인 화면</IconDescription>
-      </IconWrapper>
-      <IconWrapper>
-        <Grid size={30} />
-        <IconDescription>피드</IconDescription>
-      </IconWrapper>
-      <IconWrapper>
-        <Search size={30} />
-        <IconDescription>검색 하기</IconDescription>
-      </IconWrapper>
-      <IconWrapper>
-        <Circle size={30} />
-        <IconDescription>내 정보</IconDescription>
-      </IconWrapper>
+      <Link to="/" style={{ textDecoration: 'none', marginLeft: '20px' }}>
+        <IconWrapper>
+          <Home size={30} />
+          <IconDescription>메인화면</IconDescription>
+        </IconWrapper>
+      </Link>
+
+      <Link to="/" style={{ textDecoration: 'none' }}>
+        <IconWrapper>
+          <Grid size={30} />
+          <IconDescription>피드</IconDescription>
+        </IconWrapper>
+      </Link>
+
+      <Link to="/explore" style={{ textDecoration: 'none' }}>
+        <IconWrapper>
+          <Search size={30} />
+          <IconDescription>검색하기</IconDescription>
+        </IconWrapper>
+      </Link>
+
+      <Link to="/" style={{ textDecoration: 'none', marginRight: '20px' }}>
+        <IconWrapper>
+          <Circle size={30} />
+          <IconDescription>내정보</IconDescription>
+        </IconWrapper>
+      </Link>
     </NavWrapper>
   );
 };
@@ -37,19 +49,11 @@ const NavWrapper = styled.div`
   align-items: center;
 `;
 
-const UserProfile = styled.div`
-  width: 30px;
-  height: 30px;
-  background-color: black;
-  border-radius: 50%;
-  align-items: center;
-  text-align: center;
-`;
-
 const IconWrapper = styled.div`
   align-items: center;
   text-align: center;
   width: 100%;
+  color: black;
 `;
 const IconDescription = styled.div`
   font-size: 16px;
