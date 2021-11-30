@@ -1,15 +1,20 @@
 /* eslint-disable react/react-in-jsx-scope */
 import styled from '@emotion/styled';
 import { Bell, ChevronDown } from 'react-feather';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <HeaderWrapper>
       <Title>DAYZ</Title>
-      <Location>
-        <div>서울시 송파구</div>
-        <ChevronDown size={20} color="#f5f5f5" />
-      </Location>
+
+      <Link to="/location" style={{ textDecoration: 'none' }}>
+        <Location>
+          <div>서울시 송파구</div>
+          <ChevronDown size={20} color="#f5f5f5" />
+        </Location>
+      </Link>
+
       <BellIcon>
         <Bell size={20} color="#f5f5f5" />
       </BellIcon>
@@ -50,7 +55,6 @@ const Location = styled.div`
   justify-content: center;
   align-items: flex-end;
 `;
-
 const BellIcon = styled.div`
   position: absolute;
   bottom: 0;
