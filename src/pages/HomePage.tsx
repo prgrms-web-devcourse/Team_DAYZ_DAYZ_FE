@@ -70,6 +70,27 @@ const HomePage = () => {
             </CategoryItem>
           </Link>
         </CategoryWrapper>
+        <BestClassesWrapper>
+          <Title>금주의 인기 클래스</Title>
+          <BestClassItemWrapper>
+            <BestClassesItem>
+              <BestClassesImg />
+              <BestClassesTitle>1시간으로 크리스마스 트리 완성하기</BestClassesTitle>
+            </BestClassesItem>
+            <BestClassesItem>
+              <BestClassesImg />
+              <BestClassesTitle>1시간으로 크리스마스 트리 완성하기</BestClassesTitle>
+            </BestClassesItem>
+            <BestClassesItem>
+              <BestClassesImg />
+              <BestClassesTitle>1시간으로 크리스마스 트리 완성하기</BestClassesTitle>
+            </BestClassesItem>
+          </BestClassItemWrapper>
+        </BestClassesWrapper>
+
+        <NewClassesWrapper>
+          <Title>신규 공방</Title>
+        </NewClassesWrapper>
       </Container>
     </HomePageWrapper>
   );
@@ -120,4 +141,46 @@ const CategoryItem = styled.div`
   color: black;
   padding: 5px;
 `;
+const Title = styled.div`
+  color: black;
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 20px;
+  margin-bottom: 10px;
+`;
+const BestClassesWrapper = styled.section`
+  width: ;
+`;
+const BestClassItemWrapper = styled.div`
+  width: 100vw;
+  overflow: scroll;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+const BestClassesItem = styled.div`
+  position: relative;
+`;
+const BestClassesImg = styled.div`
+  margin: 0px 20px;
+  width: 340px;
+  height: 120px;
+  border-radius: 16px;
+  background-color: grey;
+`;
+const BestClassesTitle = styled.div`
+  color: #f5f5f5;
+  font-weight: 600;
+  position: absolute;
+  bottom: 15px;
+  left: calc(50% - 170px + 20px);
+  font-size: 20px;
+`;
+
+const NewClassesWrapper = styled.section``;
+
+const NewClassesItemWrapper = styled.div``;
+const NewClassesItem = styled.div``;
+const NewClassesImg = styled.div``;
+const NewClassesTitle = styled.div``;
 export default HomePage;
