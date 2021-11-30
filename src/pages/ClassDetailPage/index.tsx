@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useParams } from 'react-router';
-import Modal from '../../components/base/Modal';
+import { Modal } from '../../components';
 
 const ClassDetailPage = () => {
   const { id } = useParams<{ id: string }>();
