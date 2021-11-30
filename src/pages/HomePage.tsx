@@ -1,16 +1,75 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { BookOpen } from 'react-feather';
 
 const HomePage = () => {
   return (
     <HomePageWrapper>
       <Container>
         <Link to="/explore" style={{ textDecoration: 'none' }}>
-          <SearchBar>
+          <SearchBarWrapper>
             <PlaceHolder>공방이름,지역,클래스명으로 검색</PlaceHolder>
-          </SearchBar>
+          </SearchBarWrapper>
         </Link>
+        <CategoryWrapper>
+          {/* 1번 */}
+          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
+            <CategoryItem>
+              <BookOpen />
+              <div>도자기</div>
+            </CategoryItem>
+          </Link>
+          {/* 2번 */}
+          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
+            <CategoryItem>
+              <BookOpen />
+              <div>도자기</div>
+            </CategoryItem>
+          </Link>
+          {/* 3번 */}
+          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
+            <CategoryItem>
+              <BookOpen />
+              <div>도자기</div>
+            </CategoryItem>
+          </Link>
+          {/* 4번 */}
+          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
+            <CategoryItem>
+              <BookOpen />
+              <div>도자기</div>
+            </CategoryItem>
+          </Link>
+          {/* 5번 */}
+          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
+            <CategoryItem>
+              <BookOpen />
+              <div>도자기</div>
+            </CategoryItem>
+          </Link>
+          {/* 6번 */}
+          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
+            <CategoryItem>
+              <BookOpen />
+              <div>도자기</div>
+            </CategoryItem>
+          </Link>
+          {/* 7번 */}
+          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
+            <CategoryItem>
+              <BookOpen />
+              <div>도자기</div>
+            </CategoryItem>
+          </Link>
+          {/* 8번 */}
+          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
+            <CategoryItem>
+              <BookOpen />
+              <div>도자기</div>
+            </CategoryItem>
+          </Link>
+        </CategoryWrapper>
       </Container>
     </HomePageWrapper>
   );
@@ -27,7 +86,7 @@ const Container = styled.div`
   height: 1000px;
 `;
 
-const SearchBar = styled.div`
+const SearchBarWrapper = styled.section`
   width: 300px;
   height: 60px;
   border-radius: 16px;
@@ -50,4 +109,15 @@ const PlaceHolder = styled.div`
   text-align: center;
 `;
 
+const CategoryWrapper = styled.section`
+  width: 300px;
+  margin: 50px calc(50% - 150px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+`;
+const CategoryItem = styled.div`
+  color: black;
+  padding: 5px;
+`;
 export default HomePage;
