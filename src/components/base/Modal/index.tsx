@@ -27,6 +27,7 @@ const Modal = ({ children, width, height, visible = false, onClose, ...props }: 
   );
 
   const el = useMemo(() => document.createElement('div'), []);
+
   useEffect(() => {
     document.body.appendChild(el);
     return () => {
@@ -57,8 +58,8 @@ const BackgroundDim = styled.div`
 const ModalContainer = styled.div`
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
+  left: 0;
+  max-width: 640px;
   padding: 8px;
   background-color: white;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
