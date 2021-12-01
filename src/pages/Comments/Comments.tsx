@@ -1,8 +1,15 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { ChevronLeft } from 'react-feather';
 const Comments = () => {
+  // 추후에 하단 NAV없애야 함
   return (
     <CommentsWrapper>
+      <CommentsBackButton>
+        <ChevronLeft size={40} />
+        <CommentsBackButtonText>돌아가기</CommentsBackButtonText>
+      </CommentsBackButton>
+
       <CommentsTopWrapper>
         <CommentsAuthorAvatar>
           <CommentsAuthorImg />
@@ -20,6 +27,10 @@ const Comments = () => {
           <CommentsCommentorContents>와 좋아요</CommentsCommentorContents>
         </CommentsCommentor>
       </CommentsItemWrapper>
+      <NewCommentsWrapper>
+        <NewCommentsInput placeholder={'댓글을 입력해 주세요'} />
+        <NewCommnetsSubmit>게시</NewCommnetsSubmit>
+      </NewCommentsWrapper>
     </CommentsWrapper>
   );
 };
@@ -27,6 +38,18 @@ const CommentsWrapper = styled.section`
   overflow: scroll;
   width: 100%;
   height: calc(100vh - 190px);
+  position: relative;
+`;
+const CommentsBackButton = styled.div`
+  position: fix;
+  top: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+`;
+const CommentsBackButtonText = styled.div`
+  font-size: 20px;
 `;
 const CommentsTopWrapper = styled.div`
   display: flex;
@@ -81,5 +104,31 @@ const CommentsCommentorName = styled.div`
 const CommentsCommentorContents = styled.div`
   font-size: 20px;
 `;
-
+const NewCommentsWrapper = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+`;
+const NewCommentsInput = styled.input`
+  width: calc(100% - 40px);
+  height: 50px;
+  background-color: transparent;
+  border-radius: 16px;
+  font-size: 20px;
+  border: solid 1px #c4c4c4;
+`;
+const NewCommnetsSubmit = styled.button`
+  position: absolute;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: none;
+  color: #b88bd6;
+  font-size: 20px;
+  font-weight: 600;
+`;
 export default Comments;
