@@ -1,4 +1,2 @@
-export { default as HomePage } from './HomePage';
-export { default as ExplorePage } from './ExplorePage';
-export { default as ChangeLocation } from './ChangeLocation';
-export { default as ClassDetailPage } from './ClassDetailPage';
+export { default as MainPage } from './MainPage/MainPage';
+export { default as ProductsDetailPage } from './ProductsDetailPage';
