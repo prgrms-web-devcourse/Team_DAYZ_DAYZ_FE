@@ -7,7 +7,8 @@ interface Props {
 }
 
 const isLoginPage = () => {
-  if (window.location.pathname === '/login') {
+  const path = window.location.pathname;
+  if (path === '/loginHome' || path === '/signupHome') {
     return true;
   }
 };
