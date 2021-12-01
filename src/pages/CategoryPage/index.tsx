@@ -1,5 +1,8 @@
+import React from 'react';
+import { useParams } from 'react-router';
+
 const CategoryPage = () => {
-  // eslint-disable-next-line react/react-in-jsx-scope
-  return <div>도자기 카테고리 입니다.</div>;
+  const { genre } = useParams<{ genre: string }>();
+  return <div> {genre} 카테고리 입니다.</div>;
 };
 export default CategoryPage;
