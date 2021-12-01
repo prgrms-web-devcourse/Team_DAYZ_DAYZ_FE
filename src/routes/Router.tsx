@@ -5,7 +5,6 @@ import { ChangeLocation, ExplorePage, HomePage, ClassDetailPage } from '../pages
 import FeedPage from '../pages/FeedPage';
 import LoginHome from '../pages/Login/LoginHome';
 
-
 const Router = () => {
   return (
     <Switch>
