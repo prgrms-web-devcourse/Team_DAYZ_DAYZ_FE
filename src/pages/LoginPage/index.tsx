@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-function LoginForm() {
+function LoginPage() {
   return (
     <div>
       <LoginTitle>
@@ -16,7 +16,7 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default LoginPage;
 
 const LoginTitle = styled.p`
   font-size: 36px;
