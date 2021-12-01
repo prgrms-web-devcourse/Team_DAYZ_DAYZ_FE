@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
-import { ChangeLocation, ExplorePage, HomePage } from '../pages';
+import { ChangeLocation, ExplorePage, HomePage, ClassDetailPage } from '../pages';
 import LoginForm from '../pages/Login/LoginForm';
 
 const Router = () => {
@@ -10,6 +10,7 @@ const Router = () => {
       <Route path="/explore" exact component={ExplorePage} />
       <Route path="/location" exact component={ChangeLocation} />
       <Route path="/login" exact component={LoginForm} />
+      <Route path="/class/:id" exact component={ClassDetailPage} />
     </Switch>
   );
 };
