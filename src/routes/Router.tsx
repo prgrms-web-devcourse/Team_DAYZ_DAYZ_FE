@@ -19,11 +19,11 @@ const Router = () => {
       <Route path="/login" exact component={LoginPage} />
       <Route path="/category/:genre" exact component={CategoryPage} />
       <Route path="/feed" exact component={FeedPage} />
-      <Route path="/Search" exact component={SearchPage} />
+      <Route path="/search" exact component={SearchPage} />
       <Route path="/products/:id" exact component={ProductsDetailPage} />
       <Route path="/reservation" exact component={ReservationPage} />
-      <Route path="/User" exact component={UserPage} />
-      <Route path="/Author" exact component={AuthorPage} />
+      <Route path="/user" exact component={UserPage} />
+      <Route path="/author" exact component={AuthorPage} />
     </Switch>
   );
 };
