@@ -18,16 +18,26 @@ const DefaultTemplate = ({ children }: Props): JSX.Element => {
   return (
     <>
       {isLoginPage() ? (
-        <div>{children}</div>
+        <Container>{children}</Container>
       ) : (
-        <main>
+        <Container>
           <Header />
-          <div>{children}</div>
+          <StyledMain>{children}</StyledMain>
           <Navigator />
-        </main>
+        </Container>
       )}
     </>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+  width: 100%;
+`;
+const StyledMain = styled.main`
+  flex: 1;
+`;
 
 export default DefaultTemplate;
