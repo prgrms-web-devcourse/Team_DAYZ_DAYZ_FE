@@ -13,7 +13,7 @@ const Navigator = () => {
         </IconWrapper>
       </Link>
 
-      <Link to="/" style={{ textDecoration: 'none' }}>
+      <Link to="/feed" style={{ textDecoration: 'none' }}>
         <IconWrapper>
           <Grid size={30} />
           <IconDescription>피드</IconDescription>
