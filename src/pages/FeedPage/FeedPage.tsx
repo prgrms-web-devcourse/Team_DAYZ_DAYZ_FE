@@ -27,7 +27,7 @@ const FeedPage = () => {
             <FeedContentTextTitle>오늘도 힘차게 화이팅~</FeedContentTextTitle>
           </FeedContentText>
         </FeedContentWrapper>
-        <Link to="/feed/:id" style={{ textDecoration: 'none' }}>
+        <Link to="/feed/comments/:id" style={{ textDecoration: 'none' }}>
           <FeedComment>댓글 더 보기</FeedComment>
         </Link>
       </FeedItem>
