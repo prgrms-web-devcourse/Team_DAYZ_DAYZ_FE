@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-const LoginForm = () => {
+function LoginForm() {
   return (
     <div>
       <LoginTitle>
@@ -14,7 +14,7 @@ const LoginForm = () => {
       </LoginBtnContainer>
     </div>
   );
-};
+}
 
 export default LoginForm;
 
