@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { useParams } from 'react-router';
 import { Modal } from '../../components';
 
-const ClassDetailPage = () => {
+const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const [visible, setVisible] = useState(false);
 
@@ -13,25 +13,25 @@ const ClassDetailPage = () => {
 
   return (
     <>
-      <div>ClassDetailPage {id} 입니다.</div>
+      <div>ProductsDetailPage {id} 입니다.</div>
       <img src="https://via.placeholder.com/150" />
 
-      <ClassDetailContainer>
-        <ClassNameWrapper>
+      <ProductsDetailContainer>
+        <ProductsNameWrapper>
           <div>클래스 이름</div>
           <div>별점 4.0</div>
-        </ClassNameWrapper>
+        </ProductsNameWrapper>
         <div>클래스 소개</div>
         <div>커리큘럼</div>
-      </ClassDetailContainer>
+      </ProductsDetailContainer>
 
-      <ClassReviewContainer>
+      <ProductsReviewContainer>
         <div>
           후기<span>999+</span>
         </div>
         <div> 우선 그냥 후기(내용, 날짜?)</div>
         <div onClick={() => setVisible(true)}>+ 후기 더보기</div>
-      </ClassReviewContainer>
+      </ProductsReviewContainer>
 
       <AuthorDetailContainer>
         <div>작가 정보들들...</div>
@@ -50,14 +50,14 @@ const ClassDetailPage = () => {
     </>
   );
 };
-const ClassDetailContainer = styled.div`
+const ProductsDetailContainer = styled.div`
   min-height: 100px;
 `;
-const ClassNameWrapper = styled.div`
+const ProductsNameWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const ClassReviewContainer = styled.div`
+const ProductsReviewContainer = styled.div`
   min-height: 100px;
 `;
 const AuthorDetailContainer = styled.div`
@@ -80,4 +80,4 @@ const ReservationButton = styled.button`
   line-height: 29px;
 `;
 
-export default ClassDetailPage;
+export default ProductsDetailPage;
