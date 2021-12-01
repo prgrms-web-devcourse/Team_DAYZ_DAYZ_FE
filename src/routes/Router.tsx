@@ -1,6 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
-
+import { Route, Switch } from 'react-router-dom';
 import {
   AuthorPage,
   CategoryPage,
@@ -21,7 +20,7 @@ const Router = () => {
       <Route path="/category/:genre" exact component={CategoryPage} />
       <Route path="/feed" exact component={FeedPage} />
       <Route path="/Search" exact component={SearchPage} />
-      <Route path="/Products/:id" exact component={ProductsDetailPage} />
+      <Route path="/products/:id" exact component={ProductsDetailPage} />
       <Route path="/reservation" exact component={ReservationPage} />
       <Route path="/User" exact component={UserPage} />
       <Route path="/Author" exact component={AuthorPage} />
