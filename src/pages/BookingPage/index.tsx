@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { useParams } from 'react-router';
 import 'react-datepicker/dist/react-datepicker.css';
+import styled from '@emotion/styled';
+import './calendar.css';
 
 const BookingPage = () => {
   const [date, setDate] = useState(new Date());
