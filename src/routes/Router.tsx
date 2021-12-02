@@ -7,7 +7,7 @@ import {
   LoginPage,
   HomePage,
   ProductsDetailPage,
-  ReservationPage,
+  BookingPage,
   SearchPage,
   UserPage,
   NotFoundPage,
@@ -22,7 +22,7 @@ const Router = () => {
       <Route path="/feed" exact component={FeedPage} />
       <Route path="/search" exact component={SearchPage} />
       <Route path="/products/:id" exact component={ProductsDetailPage} />
-      <Route path="/reservation" exact component={ReservationPage} />
+      <Route path="/booking/:id" exact component={BookingPage} />
       <Route path="/user" exact component={UserPage} />
       <Route path="/author" exact component={AuthorPage} />
       <Route path="*" component={NotFoundPage} />
