@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SearchResultsPage = () => {
   return (
@@ -21,13 +22,15 @@ const SearchResultsPage = () => {
         <ResultsCategoryTitle>클래스 검색 결과</ResultsCategoryTitle>
         <ProductResultsWrapper>
           <ProductResultsItemWrapper>
-            <ProductItem>
-              <ProductImg />
-              <ProductTitle>희진공방어쩌구</ProductTitle>
-              <ProductContent>
-                크리스마스 어쩌구 저쩌구크리스마스 어쩌구 저쩌구크리스마스 어쩌구 저쩌구
-              </ProductContent>
-            </ProductItem>
+            <Link to="/products/:id" style={{ textDecoration: 'none' }}>
+              <ProductItem>
+                <ProductImg />
+                <ProductTitle>희진공방어쩌구</ProductTitle>
+                <ProductContent>
+                  크리스마스 어쩌구 저쩌구크리스마스 어쩌구 저쩌구크리스마스 어쩌구 저쩌구
+                </ProductContent>
+              </ProductItem>
+            </Link>
           </ProductResultsItemWrapper>
         </ProductResultsWrapper>
       </ResultsCategory>
