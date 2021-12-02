@@ -38,11 +38,12 @@ const Navigator = () => {
 };
 
 const NavWrapper = styled.nav`
-  position: fix;
+  position: sticky;
   bottom: 0;
   left: 0;
+  right: 0;
+  height: 65px;
   width: 100%;
-  height: 95px;
   border-top: solid 1px #c4c4c4;
   display: flex;
   justify-content: space-between;
@@ -50,7 +51,6 @@ const NavWrapper = styled.nav`
 `;
 
 const IconWrapper = styled.div`
-  align-items: center;
   text-align: center;
   width: 100%;
   color: black;

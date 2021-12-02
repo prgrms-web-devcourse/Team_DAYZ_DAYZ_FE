@@ -41,7 +41,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 640px;
-  width: 100%;
+  height: 100vh;
+  position: relative;
+  margin: auto;
 `;
 const StyledMain = styled.main`
   flex: 1;
