@@ -1,38 +1,41 @@
+import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { Home, Grid, Search, Circle } from 'react-feather';
 
-/* eslint-disable react/react-in-jsx-scope */
 const Navigator = () => {
+  const navIcons = [
+    {
+      to: '/',
+      Icon: Home,
+      contents: '메인화면',
+    },
+    {
+      to: '/feed',
+      Icon: Grid,
+      contents: '피드',
+    },
+    {
+      to: '/search',
+      Icon: Search,
+      contents: '검색하기',
+    },
+    {
+      to: '/user',
+      Icon: Circle,
+      contents: '내정보',
+    },
+  ];
   return (
     <NavWrapper>
-      <Link to="/" style={{ textDecoration: 'none', marginLeft: '20px' }}>
-        <IconWrapper>
-          <Home size={30} />
-          <IconDescription>메인화면</IconDescription>
-        </IconWrapper>
-      </Link>
-
-      <Link to="/feed" style={{ textDecoration: 'none' }}>
-        <IconWrapper>
-          <Grid size={30} />
-          <IconDescription>피드</IconDescription>
-        </IconWrapper>
-      </Link>
-
-      <Link to="/search" style={{ textDecoration: 'none' }}>
-        <IconWrapper>
-          <Search size={30} />
-          <IconDescription>검색하기</IconDescription>
-        </IconWrapper>
-      </Link>
-
-      <Link to="/" style={{ textDecoration: 'none', marginRight: '20px' }}>
-        <IconWrapper>
-          <Circle size={30} />
-          <IconDescription>내정보</IconDescription>
-        </IconWrapper>
-      </Link>
+      {navIcons.map(({ to, Icon, contents }) => (
+        <Link to={to} key={to} style={{ textDecoration: 'none' }}>
+          <IconWrapper>
+            <Icon size={30} />
+            <IconDescription>{contents}</IconDescription>
+          </IconWrapper>
+        </Link>
+      ))}
     </NavWrapper>
   );
 };
