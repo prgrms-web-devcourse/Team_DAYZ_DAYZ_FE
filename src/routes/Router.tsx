@@ -5,17 +5,18 @@ import {
   CategoryPage,
   FeedPage,
   LoginPage,
-  MainPage,
+  HomePage,
   ProductsDetailPage,
   ReservationPage,
   SearchPage,
   UserPage,
+  NotFoundPage,
 } from '../pages';
 
 const Router = () => {
   return (
     <Switch>
-      <Route path="/" exact component={MainPage} />
+      <Route path="/" exact component={HomePage} />
       <Route path="/login" exact component={LoginPage} />
       <Route path="/category/:genre" exact component={CategoryPage} />
       <Route path="/feed" exact component={FeedPage} />
@@ -24,6 +25,7 @@ const Router = () => {
       <Route path="/reservation" exact component={ReservationPage} />
       <Route path="/user" exact component={UserPage} />
       <Route path="/author" exact component={AuthorPage} />
+      <Route path="*" component={NotFoundPage} />
     </Switch>
   );
 };
