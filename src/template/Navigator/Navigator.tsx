@@ -20,7 +20,7 @@ const Navigator = () => {
         </IconWrapper>
       </Link>
 
-      <Link to="/explore" style={{ textDecoration: 'none' }}>
+      <Link to="/search" style={{ textDecoration: 'none' }}>
         <IconWrapper>
           <Search size={30} />
           <IconDescription>검색하기</IconDescription>

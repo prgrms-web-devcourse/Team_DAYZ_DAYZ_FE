@@ -7,7 +7,7 @@ const HomePage = () => {
   return (
     <MainPageWrapper>
       <Container>
-        <Link to="/explore" style={{ textDecoration: 'none' }}>
+        <Link to="/search" style={{ textDecoration: 'none' }}>
           <SearchBarWrapper>
             <PlaceHolder>공방이름,지역,클래스명으로 검색</PlaceHolder>
           </SearchBarWrapper>
@@ -123,7 +123,7 @@ const HomePage = () => {
 
 const MainPageWrapper = styled.div`
   overflow: scroll;
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - 190px);
 `;
 
