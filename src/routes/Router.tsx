@@ -18,7 +18,7 @@ const Router = () => {
   return (
     <Switch>
       <Route path="/" exact component={HomePage} />
-      <Route path="/login" exact component={LoginPage} />
+      <Route path="/loginHome" exact component={LoginPage} />
       <Route path="/category/:genre" exact component={CategoryPage} />
       <Route path="/feed" exact component={FeedPage} />
       <Route path="/search" exact component={SearchPage} />

@@ -9,7 +9,7 @@ interface Props {
 
 const isLoginPage = () => {
   const path = window.location.pathname;
-  if (path === '/loginHome' || path === '/signupHome') {
+  if (path === '/loginHome' || path === '/signupAuthorInfo' || path === '/signupCheckLocation') {
     return true;
   }
 };
