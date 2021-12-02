@@ -3,10 +3,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen } from 'react-feather';
 
-const MainPage = () => {
+const HomePage = () => {
   return (
     <MainPageWrapper>
       <Container>
+        <Link to="/explore" style={{ textDecoration: 'none' }}>
+          <SearchBarWrapper>
+            <PlaceHolder>공방이름,지역,클래스명으로 검색</PlaceHolder>
+          </SearchBarWrapper>
+        </Link>
         <CategoryWrapper>
           {/* 1번 */}
           <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
@@ -225,4 +230,4 @@ const NewClassesTitle = styled.div`
   font-weight: 600;
   color: #f5f5f5;
 `;
-export default MainPage;
+export default HomePage;
