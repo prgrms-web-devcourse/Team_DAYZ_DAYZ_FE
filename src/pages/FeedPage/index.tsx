@@ -37,12 +37,11 @@ const FeedPage = () => {
 
 const FeedPageWrapper = styled.section`
   overflow: scroll;
-  width: 100vw;
-  height: calc(100vh - 190px);
+  overflow-x: hidden;
+  width: 100%;
+  height: calc(100vh - 160px);
 `;
-const FeedItem = styled.div`
-  margin-bottom: 40px;
-`;
+const FeedItem = styled.div``;
 const FeedTopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -71,12 +70,12 @@ const FeedAvatarName = styled.div`
 `;
 const FeedContentWrapper = styled.div``;
 const FeedContentImg = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vw;
   background-color: grey;
 `;
 const FeedContentClassWrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 60px;
   background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
   display: flex;

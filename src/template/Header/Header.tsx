@@ -1,4 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import styled from '@emotion/styled';
 import { Bell, ChevronDown } from 'react-feather';
 import { Link } from 'react-router-dom';
@@ -32,6 +32,7 @@ const HeaderWrapper = styled.header`
   width: 100%;
   height: 95px;
   background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
+  z-index: 1000;
 `;
 
 const Title = styled.h1`

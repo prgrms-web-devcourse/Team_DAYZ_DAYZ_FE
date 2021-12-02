@@ -51,6 +51,8 @@ const NavWrapper = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: white;
+  box-sizing: border-box;
 `;
 
 const IconWrapper = styled.div`

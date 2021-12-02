@@ -123,8 +123,9 @@ const HomePage = () => {
 
 const MainPageWrapper = styled.div`
   overflow: scroll;
+  overflow-x: hidden;
   width: 100%;
-  height: calc(100vh - 190px);
+  height: calc(100vh - 160px);
 `;
 
 const Container = styled.div`
@@ -175,8 +176,9 @@ const Title = styled.div`
 `;
 const BestClassesWrapper = styled.section``;
 const BestClassItemWrapper = styled.div`
-  width: 100vw;
-  overflow: scroll;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: auto;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -203,8 +205,8 @@ const BestClassesTitle = styled.div`
 const NewClassesWrapper = styled.section`
   margin-top: 40px;
   padding-bottom: 40px;
-  width: calc(100vw - 40px);
-  overflow: none;
+  width: 100%;
+  overflow-x: auto;
 `;
 const NewClassesItemWrapper = styled.div`
   display: grid;
