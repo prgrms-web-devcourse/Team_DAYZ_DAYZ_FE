@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 interface Props<T> {
   initialValues: T;
   onSubmit: (values: T) => void;
-  validate: (values: T) => T;
+  validate: (errors: T) => T;
 }
 
 const useForm = <T>({ initialValues, onSubmit, validate }: Props<T>) => {
@@ -19,6 +19,13 @@ const useForm = <T>({ initialValues, onSubmit, validate }: Props<T>) => {
       setValues({ ...values, [name]: value });
     }
   };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(e);
+    console.log(e.target);
+    console.log(e.target.value);
+  };
+  // 위와 한번에 작성하는 방법이 없는지 물어보기 찾아보기
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsLoading(true);
@@ -38,6 +45,7 @@ const useForm = <T>({ initialValues, onSubmit, validate }: Props<T>) => {
     handleChange,
     handleSubmit,
     setValues,
+    handleSelectChange,
   };
 };
 
