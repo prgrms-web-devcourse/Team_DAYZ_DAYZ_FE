@@ -7,6 +7,11 @@ const HomePage = () => {
   return (
     <MainPageWrapper>
       <Container>
+        <Link to="/explore" style={{ textDecoration: 'none' }}>
+          <SearchBarWrapper>
+            <PlaceHolder>공방이름,지역,클래스명으로 검색</PlaceHolder>
+          </SearchBarWrapper>
+        </Link>
         <CategoryWrapper>
           {/* 1번 */}
           <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
