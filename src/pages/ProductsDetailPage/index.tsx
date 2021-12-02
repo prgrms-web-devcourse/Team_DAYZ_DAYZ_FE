@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
-import { Modal } from '../../components';
+import { Modal } from '../../components/base';
 
 const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
