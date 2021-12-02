@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import React from 'react';
+import styled from '@emotion/styled';
 import { Header } from './Header';
 import { Navigator } from './Navigator';
 
@@ -43,6 +43,7 @@ const Container = styled.div`
   max-width: 640px;
   height: 100vh;
   position: relative;
+  overflow-x: hidden;
   margin: auto;
 `;
 const StyledMain = styled.main`
