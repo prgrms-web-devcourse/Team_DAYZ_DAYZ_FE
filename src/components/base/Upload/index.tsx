@@ -4,9 +4,9 @@ import React, { ReactNode, useRef, useState } from 'react';
 interface Props {
   children: ReactNode;
   droppable?: boolean;
-  name: string;
-  accept: string;
-  value: File;
+  name?: string;
+  accept?: string;
+  value?: File;
   onChange?: any;
 }
 
