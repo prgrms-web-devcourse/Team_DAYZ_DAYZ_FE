@@ -20,13 +20,16 @@ const Comments = () => {
       <CommentsContents>
         가나다라마바사아자차카타파하아아아하하하후후후가나다라마바사아자차카타파하아아아하하하후후후
       </CommentsContents>
-      <CommentsItemWrapper>
-        <CommentsCommentor>
-          <CommentsCommentorImg />
-          <CommentsCommentorName>임효성</CommentsCommentorName>
-          <CommentsCommentorContents>와 좋아요</CommentsCommentorContents>
-        </CommentsCommentor>
-      </CommentsItemWrapper>
+
+      <CommentsListsWrapper>
+        <CommentsItemWrapper>
+          <CommentsCommentor>
+            <CommentsCommentorImg />
+            <CommentsCommentorName>임효성</CommentsCommentorName>
+            <CommentsCommentorContents>와 좋아요</CommentsCommentorContents>
+          </CommentsCommentor>
+        </CommentsItemWrapper>
+      </CommentsListsWrapper>
       <NewCommentsWrapper>
         <NewCommentsInput placeholder={'댓글을 입력해 주세요'} />
         <NewCommnetsSubmit>게시</NewCommnetsSubmit>
@@ -37,7 +40,7 @@ const Comments = () => {
 const CommentsWrapper = styled.section`
   overflow: scroll;
   width: 100%;
-  height: calc(100vh - 190px);
+  height: 100vh;
   position: relative;
 `;
 const CommentsBackButton = styled.div`
@@ -50,6 +53,7 @@ const CommentsBackButton = styled.div`
 `;
 const CommentsBackButtonText = styled.div`
   font-size: 20px;
+  margin-left: calc(50% - 70px);
 `;
 const CommentsTopWrapper = styled.div`
   display: flex;
@@ -78,10 +82,15 @@ const CommentsTime = styled.div`
 `;
 const CommentsContents = styled.div`
   font-size: 20px;
-  margin: 0 20px;
-  border-bottom: solid 1px #c4c4c4;
+  margin: 0 20px 20px 20px;
 `;
-const CommentsItemWrapper = styled.div`
+
+const CommentsListsWrapper = styled.ul`
+  height: calc(100vh - 300px);
+  overflow: scroll;
+  border-top: solid 1px #c5c5c5;
+`;
+const CommentsItemWrapper = styled.li`
   margin: 20px;
 `;
 const CommentsCommentor = styled.div`
@@ -111,6 +120,7 @@ const NewCommentsWrapper = styled.form`
   width: 100%;
   position: absolute;
   bottom: 0;
+  margin-bottom: 20px;
 `;
 const NewCommentsInput = styled.input`
   width: calc(100% - 40px);
@@ -119,6 +129,7 @@ const NewCommentsInput = styled.input`
   border-radius: 16px;
   font-size: 20px;
   border: solid 1px #c4c4c4;
+  padding-left: 10px;
 `;
 const NewCommnetsSubmit = styled.button`
   position: absolute;

@@ -14,10 +14,17 @@ const isLoginPage = () => {
   }
 };
 
+const isCommentsPage = () => {
+  const path = window.location.pathname;
+  if (path === '/feed/comments/:id') {
+    return true;
+  }
+};
+
 const DefaultTemplate = ({ children }: Props): JSX.Element => {
   return (
     <>
-      {isLoginPage() ? (
+      {isLoginPage() || isCommentsPage() ? (
         <Container>{children}</Container>
       ) : (
         <Container>

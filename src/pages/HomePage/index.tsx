@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen } from 'react-feather';
 
-const MainPage = () => {
+const HomePage = () => {
   return (
     <MainPageWrapper>
       <Container>
@@ -225,4 +225,4 @@ const NewClassesTitle = styled.div`
   font-weight: 600;
   color: #f5f5f5;
 `;
-export default MainPage;
+export default HomePage;
