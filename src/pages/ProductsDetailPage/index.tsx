@@ -42,11 +42,18 @@ const ProductsDetailPage = () => {
         <div>가격 45,000</div>
         <ReservationButton>예약하기</ReservationButton>
       </ReservationContainer>
-
-      <Modal visible={visible} onClose={() => setVisible(false)} width={500} height={500}>
-        Hi!
-        <button onClick={() => setVisible(false)}>Close</button>
-      </Modal>
+      <ModalWrapper>
+        <Modal visible={visible} onClose={() => setVisible(false)} width={'100%'} height={'70%'}>
+          <button onClick={() => setVisible(false)}>Close</button>
+          <div>별점</div>
+          <ReviewWrapper>후기1</ReviewWrapper>
+          <ReviewWrapper>후기2</ReviewWrapper>
+          <ReviewWrapper>후기2</ReviewWrapper>
+          <ReviewWrapper>후기2</ReviewWrapper>
+          <ReviewWrapper>후기2</ReviewWrapper>
+          <ReviewWrapper>후기2</ReviewWrapper>
+        </Modal>
+      </ModalWrapper>
     </>
   );
 };
@@ -79,5 +86,13 @@ const ReservationButton = styled.button`
   font-size: 25px;
   line-height: 29px;
 `;
-
+const ModalWrapper = styled.div`
+  width: 100%;
+`;
+const ReviewWrapper = styled.div`
+  height: 100px;
+  width: 100%;
+  background-color: blue;
+  margin: 20px 0;
+`;
 export default ProductsDetailPage;
