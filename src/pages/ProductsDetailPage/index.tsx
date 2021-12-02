@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { Modal } from '../../components';
 
 const ProductsDetailPage = () => {
