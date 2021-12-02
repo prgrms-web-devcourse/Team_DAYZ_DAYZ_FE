@@ -52,6 +52,9 @@ const UploadFeedPage = () => {
         <option value="도자기">도자기 공방</option>
         <option value="반지">반지</option>
       </select>
+      <div>
+        <SubmitButton type="submit">업로드하기</SubmitButton>
+      </div>
     </form>
   );
 };
@@ -67,4 +70,11 @@ const Input = styled.input`
   height: 200px;
 `;
 
+const SubmitButton = styled.button`
+  width: 100%;
+  height: 65px;
+  background: linear-gradient(270deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
+  border: none;
+  cursor: pointer;
+`;
 export default UploadFeedPage;
