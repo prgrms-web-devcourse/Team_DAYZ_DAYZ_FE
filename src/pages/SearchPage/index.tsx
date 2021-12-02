@@ -25,7 +25,9 @@ const SearchPage = () => {
         {/* <SearchResultsItem>크리스마스</SearchResultsItem>
         <SearchResultsItem>크리스마스 케익</SearchResultsItem>
         <SearchResultsItem>크리스마스 리스</SearchResultsItem> */}
-        <SearchResultsItem>{searchList}</SearchResultsItem>
+        <Link to="/search/results" style={{ textDecoration: 'none' }}>
+          <SearchResultsItem>{searchList}</SearchResultsItem>
+        </Link>
       </SearchResults>
     </SearchPageWrapper>
   );
@@ -88,6 +90,7 @@ const SearchResultsItem = styled.li`
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 10px;
+  color: black;
 `;
 
 export default SearchPage;

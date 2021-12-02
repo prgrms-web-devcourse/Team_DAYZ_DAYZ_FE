@@ -37,7 +37,7 @@ const Navigator = () => {
   );
 };
 
-const NavWrapper = styled.div`
+const NavWrapper = styled.nav`
   position: fix;
   bottom: 0;
   left: 0;

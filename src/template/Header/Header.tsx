@@ -22,7 +22,7 @@ const Header = () => {
   );
 };
 
-const HeaderWrapper = styled.div`
+const HeaderWrapper = styled.header`
   position: fix;
   top: 0px;
   left: 0px;
@@ -35,7 +35,7 @@ const HeaderWrapper = styled.div`
   position: relative;
 `;
 
-const Title = styled.div`
+const Title = styled.h1`
   position: absolute;
   bottom: 0;
   left: 0;
