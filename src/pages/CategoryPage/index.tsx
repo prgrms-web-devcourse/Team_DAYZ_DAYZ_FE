@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 const CategoryPage = () => {
   const { genre } = useParams<{ genre: string }>();
