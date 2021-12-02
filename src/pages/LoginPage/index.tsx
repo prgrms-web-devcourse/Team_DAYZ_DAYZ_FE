@@ -4,7 +4,7 @@ import { ArrowRightCircle, ArrowLeftCircle } from 'react-feather';
 function LoginPage() {
   return (
     <>
-      <LoginHomeContainer>
+      <LoginContainer>
         <Title>
           <p>오늘은</p>
           <p>뭘 해볼까?</p>
@@ -29,7 +29,7 @@ function LoginPage() {
             </div>
           </AuthorContainer>
         </SelectContainer>
-      </LoginHomeContainer>
+      </LoginContainer>
       <PopUpContainer>
         <PopUp>
           <p className="PopUpTitle">처음이시군요!</p>
@@ -46,7 +46,7 @@ function LoginPage() {
 
 export default LoginPage;
 
-const LoginHomeContainer = styled.div`
+const LoginContainer = styled.div`
   margin: 40px;
 `;
 
