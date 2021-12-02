@@ -123,7 +123,7 @@ const HomePage = () => {
 
 const MainPageWrapper = styled.div`
   overflow: scroll;
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - 190px);
 `;
 
