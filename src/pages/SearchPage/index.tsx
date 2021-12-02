@@ -18,7 +18,7 @@ const SearchPage = () => {
       </SearchBackButtonWrapper>
 
       <SearchBarWrapper>
-        <SearchBar placeholder={'클래스명, 지역으로 검색하기'} onChange={handleChange} />
+        <SearchBar placeholder={'클래스명, 지역으로 검색하기'} onChange={handleChange} autoFocus />
       </SearchBarWrapper>
 
       <SearchResults>
@@ -75,6 +75,9 @@ const SearchBar = styled.input`
   text-align: flex-start;
   padding-left: 20px;
   border: none;
+  :focus {
+    outline: solid 1px #c4c4c4;
+  }
 `;
 
 const SearchResults = styled.ul`
