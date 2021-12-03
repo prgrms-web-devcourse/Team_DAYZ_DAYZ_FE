@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import React from 'react';
+import styled from '@emotion/styled';
 import { Header } from './Header';
 import { Navigator } from './Navigator';
 
@@ -41,7 +41,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 640px;
-  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  margin: auto;
 `;
 const StyledMain = styled.main`
   flex: 1;
