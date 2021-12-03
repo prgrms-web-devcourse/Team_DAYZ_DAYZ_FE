@@ -6,7 +6,7 @@ export { default as FeedPage } from './FeedPage';
 export { default as LoginPage } from './LoginPage';
 export { default as BookingPage } from './BookingPage';
 export { default as SearchPage } from './SearchPage';
-export { default as UserPage } from './UserPage';
+export { UserPage, UserBookedPage } from './UserPage';
 export { default as NotFoundPage } from './NotFoundPage';
 export { default as Comments } from './Comments';
 export { default as SearchResultsPage } from './SearchResultsPage';
