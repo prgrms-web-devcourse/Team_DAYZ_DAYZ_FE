@@ -13,6 +13,7 @@ import {
   NotFoundPage,
   Comments,
   SearchResultsPage,
+  UploadFeedPage,
 } from '../pages';
 
 const Router = () => {
@@ -29,6 +30,7 @@ const Router = () => {
       <Route path="/author" exact component={AuthorPage} />
       <Route path="/feed/comments/:id" exact component={Comments} />
       <Route path="/search/results" exact component={SearchResultsPage} />
+      <Route path="/upload" exact component={UploadFeedPage} />
       <Route path="*" component={NotFoundPage} />
     </Switch>
   );
