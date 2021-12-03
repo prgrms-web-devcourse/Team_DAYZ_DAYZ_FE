@@ -58,7 +58,7 @@ const WorkshopContainer = styled.div`
 
 const WorkshopProfile = styled.section`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   margin-bottom: 36px;
   & .profileImg {
@@ -70,7 +70,6 @@ const WorkshopProfile = styled.section`
     display: flex;
     flex-direction: column;
     font-size: 18px;
-    margin: 0 36px;
     & span:first-child {
       font-size: 24px;
       font-weight: 600;
@@ -84,8 +83,4 @@ const Tabs = styled.div`
   justify-content: space-around;
   background-color: #eed6fc;
   padding: 12px 0;
-`;
-
-const Tab = styled.span`
-  font-size: 24px;
 `;
