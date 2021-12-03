@@ -53,6 +53,7 @@ const NavWrapper = styled.nav`
   align-items: center;
   background-color: white;
   box-sizing: border-box;
+  padding: 20px;
 `;
 
 const IconWrapper = styled.div`
