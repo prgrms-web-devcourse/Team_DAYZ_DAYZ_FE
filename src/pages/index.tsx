@@ -11,3 +11,4 @@ export { default as NotFoundPage } from './NotFoundPage';
 export { default as Comments } from './Comments';
 export { default as SearchResultsPage } from './SearchResultsPage';
 export { default as UploadFeedPage } from './UploadFeedPage';
+export { default as LeaveCommentPage } from './LeaveCommentPage';
