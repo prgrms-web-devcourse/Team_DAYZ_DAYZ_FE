@@ -20,10 +20,13 @@ const UserPage = () => {
       </ImportantInfo>
 
       <UserSettingLists>
-        <UserSettingList>
-          <ListText>팔로잉한 계정</ListText>
-          <ChevronRight size={40} />
-        </UserSettingList>
+        <Link to="/user/following" style={{ textDecoration: 'none' }}>
+          <UserSettingList>
+            <ListText>팔로잉한 계정</ListText>
+            <ChevronRight size={40} />
+          </UserSettingList>
+        </Link>
+
         <UserSettingList>
           <ListText>찜한 클래스</ListText>
           <ChevronRight size={40} />
