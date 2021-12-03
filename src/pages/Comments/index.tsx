@@ -53,6 +53,7 @@ const CommentsBackButton = styled.div`
   justify-content: flex-start;
   align-items: center;
   margin-top: 20px;
+  color: black;
 `;
 const CommentsBackButtonText = styled.div`
   font-size: 20px;
