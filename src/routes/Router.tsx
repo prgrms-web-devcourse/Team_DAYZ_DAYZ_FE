@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import {
-  AuthorPage,
+  WorkshopPage,
   CategoryPage,
   FeedPage,
   LoginPage,
@@ -31,9 +31,9 @@ const Router = () => {
       <Route path="/user" exact component={UserPage} />
       <Route path="/user/book" exact component={UserBookedPage} />
       <Route path="/user/edit" exact component={UserProfileEditPage} />
-      <Route path="/author" exact component={AuthorPage} />
       <Route path="/feed/comments/:id" exact component={Comments} />
       <Route path="/search/results" exact component={SearchResultsPage} />
+      <Route path="/workshop" component={WorkshopPage} />
       <Route path="/upload" exact component={UploadFeedPage} />
       <Route path="*" component={NotFoundPage} />
     </Switch>
