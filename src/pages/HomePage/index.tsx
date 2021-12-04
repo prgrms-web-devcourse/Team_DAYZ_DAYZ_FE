@@ -74,10 +74,13 @@ const HomePage = () => {
           <Title>금주의 인기 클래스</Title>
           <BestClassItemWrapper>
             {/* 1번 */}
-            <BestClassesItem>
-              <BestClassesImg />
-              <BestClassesTitle>1시간으로 크리스마스 트리 완성하기</BestClassesTitle>
-            </BestClassesItem>
+            <Link to="/products/:id">
+              <BestClassesItem>
+                <BestClassesImg />
+                <BestClassesTitle>1시간으로 크리스마스 트리 완성하기</BestClassesTitle>
+              </BestClassesItem>
+            </Link>
+
             {/* 2번 */}
             <BestClassesItem>
               <BestClassesImg />
@@ -95,10 +98,13 @@ const HomePage = () => {
           <Title>신규 공방</Title>
           <NewClassesItemWrapper>
             {/* 1번 */}
-            <NewClassesItem>
-              <NewClassesImg />
-              <NewClassesTitle>희진 공방</NewClassesTitle>
-            </NewClassesItem>
+            <Link to="/workshop">
+              <NewClassesItem>
+                <NewClassesImg />
+                <NewClassesTitle>희진 공방</NewClassesTitle>
+              </NewClassesItem>
+            </Link>
+
             {/* 2번 */}
             <NewClassesItem>
               <NewClassesImg />
@@ -174,32 +180,36 @@ const Title = styled.div`
   margin-left: 20px;
   margin-bottom: 10px;
 `;
-const BestClassesWrapper = styled.section``;
+const BestClassesWrapper = styled.section`
+  width: 100%;
+`;
 const BestClassItemWrapper = styled.div`
   width: 100%;
+  margin-left: 20px;
   overflow-y: hidden;
-  overflow-x: auto;
+  overflow-x: scroll;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 `;
 const BestClassesItem = styled.div`
   position: relative;
+  margin-right: 10px;
 `;
 const BestClassesImg = styled.div`
-  margin: 0px 20px;
-  width: calc(100vw - 40px);
+  width: 200px;
+  height: 100px;
   height: 120px;
   border-radius: 16px;
   background-color: grey;
 `;
 const BestClassesTitle = styled.div`
-  color: #f5f5f5;
-  font-weight: 600;
   position: absolute;
-  bottom: 15px;
-  left: calc(50% - 170px + 20px);
+  bottom: 10px;
+  left: 10px;
   font-size: 20px;
+  font-weight: 600;
+  color: #f5f5f5;
 `;
 
 const NewClassesWrapper = styled.section`
@@ -210,7 +220,7 @@ const NewClassesWrapper = styled.section`
 `;
 const NewClassesItemWrapper = styled.div`
   display: grid;
-  margin-left: 20px;
+  margin: 0 20px;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 10px;
   column-gap: 10px;
@@ -219,8 +229,8 @@ const NewClassesItem = styled.div`
   position: relative;
 `;
 const NewClassesImg = styled.div`
-  width: calc(50vw - 25px);
-  height: calc(50vw - 25px);
+  width: 100%;
+  padding-top: 100%;
   border-radius: 16px;
   background-color: grey;
 `;
