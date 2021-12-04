@@ -70,7 +70,7 @@ const WorkshopProfile = styled.section`
     display: flex;
     flex-direction: column;
     font-size: 18px;
-    & span:first-child {
+    & span:first-of-type {
       font-size: 24px;
       font-weight: 600;
       margin-bottom: 12px;
