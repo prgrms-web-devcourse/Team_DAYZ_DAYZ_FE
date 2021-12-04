@@ -16,6 +16,7 @@ import {
   UploadFeedPage,
   UserBookedPage,
 } from '../pages';
+import { UserProfileEditPage } from '../pages/UserPage';
 
 const Router = () => {
   return (
@@ -29,6 +30,7 @@ const Router = () => {
       <Route path="/booking/:id" exact component={BookingPage} />
       <Route path="/user" exact component={UserPage} />
       <Route path="/user/book" exact component={UserBookedPage} />
+      <Route path="/user/edit" exact component={UserProfileEditPage} />
       <Route path="/author" exact component={AuthorPage} />
       <Route path="/feed/comments/:id" exact component={Comments} />
       <Route path="/search/results" exact component={SearchResultsPage} />
