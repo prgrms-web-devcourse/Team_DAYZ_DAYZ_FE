@@ -184,7 +184,7 @@ const BestClassesWrapper = styled.section`
   width: 100%;
 `;
 const BestClassItemWrapper = styled.div`
-  width: 100%;
+  width: calc(100% - 40px);
   margin-left: 20px;
   overflow-y: hidden;
   overflow-x: scroll;
