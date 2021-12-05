@@ -40,10 +40,9 @@ const DefaultTemplate = ({ children }: Props): JSX.Element => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 640px;
-  height: 100vh;
   position: relative;
-  overflow-x: hidden;
+  max-width: 640px;
+  min-height: 100vh;
   margin: auto;
 `;
 const StyledMain = styled.main`

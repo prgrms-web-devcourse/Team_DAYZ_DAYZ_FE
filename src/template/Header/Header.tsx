@@ -24,8 +24,8 @@ const Header = () => {
 
 const HeaderWrapper = styled.header`
   position: sticky;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: flex-end;

@@ -16,12 +16,12 @@ import {
   UploadFeedPage,
   UserBookedPage,
   UserFollowingPage,
+  LeaveCommentPage,
 } from '../pages';
 
 import { UserReviewPage } from '../pages/UserPage';
 
 import { UserProfileEditPage } from '../pages/UserPage';
-
 
 const Router = () => {
   return (
@@ -38,16 +38,15 @@ const Router = () => {
 
       <Route path="/user/review" exact component={UserReviewPage} />
 
-
       <Route path="/user/following" exact component={UserFollowingPage} />
 
       <Route path="/user/edit" exact component={UserProfileEditPage} />
-
 
       <Route path="/feed/comments/:id" exact component={Comments} />
       <Route path="/search/results" exact component={SearchResultsPage} />
       <Route path="/workshop" component={WorkshopPage} />
       <Route path="/upload" exact component={UploadFeedPage} />
+      <Route path="/upload/comments/:id" exact component={LeaveCommentPage} />
       <Route path="*" component={NotFoundPage} />
     </Switch>
   );
