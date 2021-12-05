@@ -17,6 +17,7 @@ import {
   UserBookedPage,
   UserFollowingPage,
 } from '../pages';
+import { UserProfileEditPage } from '../pages/UserPage';
 
 const Router = () => {
   return (
@@ -30,7 +31,11 @@ const Router = () => {
       <Route path="/booking/:id" exact component={BookingPage} />
       <Route path="/user" exact component={UserPage} />
       <Route path="/user/book" exact component={UserBookedPage} />
+
       <Route path="/user/following" exact component={UserFollowingPage} />
+
+      <Route path="/user/edit" exact component={UserProfileEditPage} />
+
       <Route path="/feed/comments/:id" exact component={Comments} />
       <Route path="/search/results" exact component={SearchResultsPage} />
       <Route path="/workshop" component={WorkshopPage} />
