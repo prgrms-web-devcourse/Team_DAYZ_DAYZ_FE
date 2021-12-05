@@ -5,5 +5,3 @@ export { default as UserReviewPage } from './UserReviewPage';
 
 export { default as UserFollowingPage } from './UserFollowingPage';
 export { default as UserProfileEditPage } from './UserProfileEditPage';
-
-

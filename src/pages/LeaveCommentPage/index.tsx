@@ -28,7 +28,7 @@ const LeaveCommentPage = () => {
   });
 
   return (
-    <form onSubmit={handleSubmit}>
+    <FormContainer onSubmit={handleSubmit}>
       <div>{id} 후기 남기기 페이지</div>
       <ClassNameWrapper>
         <Image
@@ -54,9 +54,10 @@ const LeaveCommentPage = () => {
         <StyledInput type="text" onChange={handleChange} />
       </ReviewContentsWrapper>
       <StyledButton type="submit">후기 남기기!</StyledButton>
-    </form>
+    </FormContainer>
   );
 };
+const FormContainer = styled.form``;
 
 const ClassNameWrapper = styled.div`
   display: flex;
@@ -73,7 +74,7 @@ const ReviewContentsWrapper = styled.div`
 `;
 const StyledInput = styled.input`
   width: 80%;
-  height: 100px;
+  height: 1000px;
   font-size: 20px;
 `;
 const StyledText = styled(Text)`
