@@ -1,11 +1,10 @@
-import React, { ReactChild } from 'react';
+import React, { ReactChild, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 
 interface Props {
-  children: ReactChild;
+  children: ReactNode;
   block?: boolean;
   paragraph?: boolean;
-  size?: number;
   strong?: boolean;
   underline?: boolean;
   delete?: boolean;
@@ -19,7 +18,6 @@ const Text = ({
   children,
   block,
   paragraph,
-  size,
   strong,
   underline,
   delete: del,
@@ -31,7 +29,6 @@ const Text = ({
   const Tag = block ? 'div' : paragraph ? 'p' : 'span';
   const fontStyle = {
     fontWeight: strong ? 'bold' : undefined,
-    fontSize: typeof size === 'number' ? size : undefined,
     textDecoration: underline ? 'underline' : undefined,
     color,
   };
@@ -55,7 +52,6 @@ const Text = ({
 
 Text.propTypes = {
   children: PropTypes.node.isRequired,
-  size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   block: PropTypes.bool,
   paragraph: PropTypes.bool,
   delete: PropTypes.bool,
