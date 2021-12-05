@@ -1,18 +1,19 @@
 import React from 'react';
 import Router from './routes/Router';
 import DefaultTemplate from './template/DefaultTemplate';
-import { Global } from '@emotion/react';
-import reset from './reset';
+import { Global, ThemeProvider } from '@emotion/react';
+import { reset, theme } from './style';
 
 function App() {
   return (
     <>
       <Global styles={reset} />
-      <DefaultTemplate>
-        <Router />
-      </DefaultTemplate>
+      <ThemeProvider theme={theme}>
+        <DefaultTemplate>
+          <Router />
+        </DefaultTemplate>
+      </ThemeProvider>
     </>
   );
 }
-
 export default App;
