@@ -1,16 +1,17 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import ImageComponent from '../Image';
+import ImageComponent, { Mode } from '../Image';
 
+type Shape = 'circle' | 'round' | 'square';
 interface Props {
   lazy?: boolean;
   threshold?: number;
   src: string;
   size: number;
-  shape: 'circle' | 'round' | 'square';
+  shape: Shape;
   placeholder: string;
   alt: string;
-  mode?: string;
+  mode?: Mode;
   style?: CSSProperties;
 }
 
@@ -19,7 +20,7 @@ const Avatar = ({
   threshold,
   src,
   size = 70,
-  shape = 'circle', // round, square
+  shape = 'circle',
   placeholder,
   alt,
   mode = 'cover',
@@ -65,7 +66,7 @@ const ShapeToCssValue = {
   square: '0px',
 };
 
-const AvatarWrapper = styled.div`
+const AvatarWrapper = styled.div<{ shape: Props['shape'] }>`
   position: relative;
   display: inline-block;
   border: 1px solid #dadada;

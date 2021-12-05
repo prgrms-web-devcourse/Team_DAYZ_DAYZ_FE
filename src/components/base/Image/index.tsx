@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 let observer = null;
 const LOAD_IMG_EVENT_TYPE = 'loadImage';
 
-type Mode = 'cover' | 'fill' | 'contain';
+export type Mode = 'cover' | 'fill' | 'contain';
 interface Props {
   lazy?: boolean;
   threshold?: number;
