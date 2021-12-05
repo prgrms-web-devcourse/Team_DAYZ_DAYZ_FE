@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { Settings, ChevronRight } from 'react-feather';
+import { Settings, ChevronRight, Upload } from 'react-feather';
 import { Link } from 'react-router-dom';
 const UserPage = () => {
   return (
@@ -8,7 +8,9 @@ const UserPage = () => {
       <UserInfo>
         <UserInfoImg />
         <UserInfoName>희진짱</UserInfoName>
-        <Settings style={{ position: 'absolute', top: '50px', left: '60px' }} />
+        <Link to="/user/edit" style={{ textDecoration: 'none' }}>
+          <Settings style={{ position: 'absolute', top: '50px', left: '60px', color: 'black' }} />
+        </Link>
       </UserInfo>
 
       <ImportantInfo>
@@ -21,10 +23,13 @@ const UserPage = () => {
       </ImportantInfo>
 
       <UserSettingLists>
-        <UserSettingList>
-          <ListText>팔로잉한 계정</ListText>
-          <ChevronRight size={40} />
-        </UserSettingList>
+        <Link to="/user/following" style={{ textDecoration: 'none' }}>
+          <UserSettingList>
+            <ListText>팔로잉한 계정</ListText>
+            <ChevronRight size={40} />
+          </UserSettingList>
+        </Link>
+
         <UserSettingList>
           <ListText>찜한 클래스</ListText>
           <ChevronRight size={40} />
