@@ -17,8 +17,9 @@ const UserPage = () => {
         <Link to="/user/book" style={{ textDecoration: 'none' }}>
           <ImortantInfoLists>예약 내역</ImortantInfoLists>
         </Link>
-
-        <ImortantInfoLists style={{ border: 'none' }}>나의 후기</ImortantInfoLists>
+        <Link to="/user/review" style={{ textDecoration: 'none' }}>
+          <ImortantInfoLists style={{ border: 'none' }}>나의 후기</ImortantInfoLists>
+        </Link>
       </ImportantInfo>
 
       <UserSettingLists>
