@@ -1,12 +1,19 @@
-import styled from '@emotion/styled';
 import React from 'react';
-import { Settings, ChevronRight, Upload } from 'react-feather';
+import styled from '@emotion/styled';
+import { Settings, ChevronRight } from 'react-feather';
 import { Link } from 'react-router-dom';
+import Avatar from '../../components/base/Avatar';
 const UserPage = () => {
   return (
     <UserPageWrapper>
       <UserInfo>
-        <UserInfoImg />
+        <Avatar
+          size={80}
+          alt={'프로필'}
+          shape={'circle'}
+          src={'https://pngrow.com/preview/4227/circle-profile-picture-png'}
+          placeholder={'https://via.placeholder.com/150'}
+        />
         <UserInfoName>희진짱</UserInfoName>
         <Link to="/user/edit" style={{ textDecoration: 'none' }}>
           <Settings style={{ position: 'absolute', top: '50px', left: '60px', color: 'black' }} />
