@@ -1,8 +1,8 @@
-import styled from '@emotion/styled';
 import React from 'react';
+import styled from '@emotion/styled';
 import { ChevronLeft } from 'react-feather';
 import { Link } from 'react-router-dom';
-const Comments = () => {
+const CommentsPage = () => {
   // 추후에 하단 NAV없애야 함
   return (
     <CommentsWrapper>
@@ -143,4 +143,4 @@ const NewCommnetsSubmit = styled.button`
   font-size: 20px;
   font-weight: 600;
 `;
-export default Comments;
+export default CommentsPage;

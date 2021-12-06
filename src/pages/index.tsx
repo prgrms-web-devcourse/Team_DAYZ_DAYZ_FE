@@ -14,7 +14,7 @@ export {
   UserReviewPage,
 } from './UserPage';
 export { default as NotFoundPage } from './NotFoundPage';
-export { default as Comments } from './Comments';
+export { default as CommentsPage } from './CommentsPage';
 export { default as SearchResultsPage } from './SearchResultsPage';
 export { default as UploadFeedPage } from './UploadFeedPage';
 export { default as UploadCommentPage } from './UploadCommentPage';

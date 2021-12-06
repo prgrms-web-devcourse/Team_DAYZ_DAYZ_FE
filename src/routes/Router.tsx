@@ -11,7 +11,7 @@ import {
   SearchPage,
   UserPage,
   NotFoundPage,
-  Comments,
+  CommentsPage,
   SearchResultsPage,
   UploadFeedPage,
   UserBookedPage,
@@ -37,7 +37,7 @@ const Router = () => {
       <Route path="/user/review" exact component={UserReviewPage} />
       <Route path="/user/following" exact component={UserFollowingPage} />
       <Route path="/user/edit" exact component={UserProfileEditPage} />
-      <Route path="/feed/comments/:id" exact component={Comments} />
+      <Route path="/feed/comments/:id" exact component={CommentsPage} />
       <Route path="/search/:results" exact component={SearchResultsPage} />
       <Route path="/workshop" component={WorkshopPage} />
       <Route path="/upload/feed" exact component={UploadFeedPage} />
