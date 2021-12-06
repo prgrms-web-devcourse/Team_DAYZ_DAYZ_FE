@@ -39,9 +39,7 @@ const SearchResultsPage = () => {
 };
 
 const SearchResultsWrapper = styled.section`
-  overflow: scroll;
   width: 100%;
-  height: calc(100vh - 190px);
 `;
 const SearchBarWrapper = styled.form`
   width: 300px;

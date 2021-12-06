@@ -34,13 +34,11 @@ const SearchPage = () => {
 };
 
 const SearchPageWrapper = styled.section`
-  overflow: scroll;
   width: 100%;
-  height: calc(100vh - 190px);
 `;
 const SearchBackButtonWrapper = styled.div`
-  position: fix;
-  top: 0;
+  /* position: fix; */
+  /* top: 0; */
   display: flex;
   justify-content: flex-start;
   align-items: center;

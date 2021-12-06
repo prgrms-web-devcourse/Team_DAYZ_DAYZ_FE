@@ -35,11 +35,7 @@ const CategoryPage = () => {
   );
 };
 
-const CategoryPageWrapper = styled.section`
-  overflow: scroll;
-  width: 100%;
-  height: calc(100vh - 190px);
-`;
+const CategoryPageWrapper = styled.section``;
 const BackButton = styled.div`
   position: fix;
   top: 0;

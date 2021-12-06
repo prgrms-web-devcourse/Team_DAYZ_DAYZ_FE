@@ -36,10 +36,8 @@ const FeedPage = () => {
 };
 
 const FeedPageWrapper = styled.section`
-  overflow: scroll;
   overflow-x: hidden;
   width: 100%;
-  height: calc(100vh - 160px);
 `;
 const FeedItem = styled.div``;
 const FeedTopWrapper = styled.div`
