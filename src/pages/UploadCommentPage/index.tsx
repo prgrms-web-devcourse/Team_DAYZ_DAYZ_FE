@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import { Button, Image, Text } from '../../components/base';
 import { useForm } from '../../hooks';
 
-const LeaveCommentPage = () => {
+const UploadCommentPage = () => {
   const { id } = useParams<{ id: string }>();
 
   // const onSubmitReview = (value: object) => {
@@ -86,4 +86,4 @@ const StyledButton = styled(Button)`
   width: 100%;
   height: 50px;
 `;
-export default LeaveCommentPage;
+export default UploadCommentPage;

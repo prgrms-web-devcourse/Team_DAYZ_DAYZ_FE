@@ -16,7 +16,7 @@ import {
   UploadFeedPage,
   UserBookedPage,
   UserFollowingPage,
-  LeaveCommentPage,
+  UploadCommentPage,
   UploadProductPage,
   UserReviewPage,
   UserProfileEditPage,
@@ -41,7 +41,7 @@ const Router = () => {
       <Route path="/search/:results" exact component={SearchResultsPage} />
       <Route path="/workshop" component={WorkshopPage} />
       <Route path="/upload/feed" exact component={UploadFeedPage} />
-      <Route path="/upload/comments/:id" exact component={LeaveCommentPage} />
+      <Route path="/upload/comments/:id" exact component={UploadCommentPage} />
       <Route path="/upload/products" exact component={UploadProductPage} />
       <Route path="*" component={NotFoundPage} />
     </Switch>
