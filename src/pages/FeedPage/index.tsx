@@ -36,10 +36,7 @@ const FeedPage = () => {
 };
 
 const FeedPageWrapper = styled.section`
-  overflow: scroll;
-  overflow-x: hidden;
   width: 100%;
-  height: calc(100vh - 160px);
 `;
 const FeedItem = styled.div``;
 const FeedTopWrapper = styled.div`
@@ -71,7 +68,7 @@ const FeedAvatarName = styled.div`
 const FeedContentWrapper = styled.div``;
 const FeedContentImg = styled.div`
   width: 100%;
-  height: 100vw;
+  padding-top: 100%;
   background-color: grey;
 `;
 const FeedContentClassWrapper = styled.div`

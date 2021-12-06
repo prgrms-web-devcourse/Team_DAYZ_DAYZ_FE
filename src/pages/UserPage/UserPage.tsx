@@ -50,9 +50,7 @@ const UserPage = () => {
   );
 };
 const UserPageWrapper = styled.section`
-  overflow: scroll;
   width: 100%;
-  height: calc(100vh - 190px);
 `;
 const UserInfo = styled.div`
   display: flex;

@@ -128,10 +128,7 @@ const HomePage = () => {
 };
 
 const MainPageWrapper = styled.div`
-  overflow: scroll;
-  overflow-x: hidden;
   width: 100%;
-  height: calc(100vh - 160px);
 `;
 
 const Container = styled.div`

@@ -41,9 +41,6 @@ const Comments = () => {
   );
 };
 const CommentsWrapper = styled.section`
-  overflow: scroll;
-  width: 100%;
-  height: 100vh;
   position: relative;
 `;
 const CommentsBackButton = styled.div`
