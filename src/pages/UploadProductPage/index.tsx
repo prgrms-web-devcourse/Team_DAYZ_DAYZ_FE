@@ -9,11 +9,14 @@ import { ko } from 'date-fns/esm/locale';
 const UploadProductPage = () => {
   const [date, setDate] = useState(new Date());
   const [imgLink, setImgLink] = useState<string | undefined>(undefined);
+  const [pickDate, setPickDate] = useState<any | undefined>('');
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    console.log(date.toDateString());
+    // setPickDate((pickDate: any) => [...new Set([...pickDate, date.toDateString()])]);
+    setPickDate([...pickDate, date.toDateString()]);
   };
+
   return (
     <UploadProductPageWrapper>
       <InputForm>
@@ -81,6 +84,7 @@ const UploadProductPage = () => {
         />
         <ul className="dateLists" />
         <Button onClick={handleClick}>+ 추가</Button>
+        {pickDate ? pickDate.map((date: any) => <li key={date}>{date}</li>) : ''}
         <RowInputForm>
           <InputTitle>인원</InputTitle>
           <div
