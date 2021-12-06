@@ -128,7 +128,6 @@ const HomePage = () => {
 };
 
 const MainPageWrapper = styled.div`
-  overflow-x: hidden;
   width: 100%;
 `;
 
