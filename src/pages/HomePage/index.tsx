@@ -61,7 +61,13 @@ const HomePage = () => {
         </Link>
         <CategoryWrapper>
           {categoryIcons.map(({ genre, Icon, contents }) => (
-            <Link to={genre} key={genre} style={{ textDecoration: 'none' }}>
+            <Link
+              to={genre}
+              key={genre}
+              style={{
+                textDecoration: 'none',
+              }}
+            >
               <CategoryItem>
                 <Icon size={28} />
                 <div>{contents}</div>
