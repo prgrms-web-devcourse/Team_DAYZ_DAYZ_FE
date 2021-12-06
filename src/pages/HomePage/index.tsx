@@ -1,9 +1,56 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen } from 'react-feather';
+import { GiPaintedPottery, GiLipstick } from 'react-icons/gi';
+import { BiDish, BiPaint } from 'react-icons/bi';
+import { BsFlower1 } from 'react-icons/bs';
+import { HiOutlineMusicNote } from 'react-icons/hi';
+import { IoHammerOutline } from 'react-icons/io5';
+import { MdOutlineSurfing } from 'react-icons/md';
 
 const HomePage = () => {
+  const categoryIcons = [
+    {
+      genre: '/category/pottery',
+      Icon: GiPaintedPottery,
+      contents: '도자기',
+    },
+    {
+      genre: '/category/cooking',
+      Icon: BiDish,
+      contents: '요리',
+    },
+    {
+      genre: '/category/flower',
+      Icon: BsFlower1,
+      contents: '플라워',
+    },
+    {
+      genre: '/category/drawing',
+      Icon: BiPaint,
+      contents: '미술',
+    },
+    {
+      genre: '/category/beauty',
+      Icon: GiLipstick,
+      contents: '뷰티',
+    },
+    {
+      genre: '/category/music',
+      Icon: HiOutlineMusicNote,
+      contents: '음악',
+    },
+    {
+      genre: '/category/handcraft',
+      Icon: IoHammerOutline,
+      contents: '수공예',
+    },
+    {
+      genre: '/category/activity',
+      Icon: MdOutlineSurfing,
+      contents: '액티비티',
+    },
+  ];
   return (
     <MainPageWrapper>
       <Container>
@@ -13,62 +60,14 @@ const HomePage = () => {
           </SearchBarWrapper>
         </Link>
         <CategoryWrapper>
-          {/* 1번 */}
-          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
-            <CategoryItem>
-              <BookOpen />
-              <div>도자기</div>
-            </CategoryItem>
-          </Link>
-          {/* 2번 */}
-          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
-            <CategoryItem>
-              <BookOpen />
-              <div>도자기</div>
-            </CategoryItem>
-          </Link>
-          {/* 3번 */}
-          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
-            <CategoryItem>
-              <BookOpen />
-              <div>도자기</div>
-            </CategoryItem>
-          </Link>
-          {/* 4번 */}
-          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
-            <CategoryItem>
-              <BookOpen />
-              <div>도자기</div>
-            </CategoryItem>
-          </Link>
-          {/* 5번 */}
-          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
-            <CategoryItem>
-              <BookOpen />
-              <div>도자기</div>
-            </CategoryItem>
-          </Link>
-          {/* 6번 */}
-          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
-            <CategoryItem>
-              <BookOpen />
-              <div>도자기</div>
-            </CategoryItem>
-          </Link>
-          {/* 7번 */}
-          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
-            <CategoryItem>
-              <BookOpen />
-              <div>도자기</div>
-            </CategoryItem>
-          </Link>
-          {/* 8번 */}
-          <Link to="/category/pottery" style={{ textDecoration: 'none' }}>
-            <CategoryItem>
-              <BookOpen />
-              <div>도자기</div>
-            </CategoryItem>
-          </Link>
+          {categoryIcons.map(({ genre, Icon, contents }) => (
+            <Link to={genre} key={genre} style={{ textDecoration: 'none' }}>
+              <CategoryItem>
+                <Icon size={28} />
+                <div>{contents}</div>
+              </CategoryItem>
+            </Link>
+          ))}
         </CategoryWrapper>
         <BestClassesWrapper>
           <Title>금주의 인기 클래스</Title>
