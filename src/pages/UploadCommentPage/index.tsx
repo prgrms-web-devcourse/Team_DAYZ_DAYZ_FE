@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useParams } from 'react-router';
 import { Button, Image, Text } from '../../components/base';
 import { useForm } from '../../hooks';
+import { Rating } from 'react-simple-star-rating';
 
 const UploadCommentPage = () => {
+  const [rating, setRating] = useState(0);
   const { id } = useParams<{ id: string }>();
 
   // const onSubmitReview = (value: object) => {
@@ -27,6 +29,12 @@ const UploadCommentPage = () => {
     },
   });
 
+  const handleRating = (rate: number) => {
+    setRating(rate);
+    console.log(rating / 20);
+    // https://github.com/awran5/react-simple-star-rating
+  };
+
   return (
     <FormContainer onSubmit={handleSubmit}>
       <div>{id} 후기 남기기 페이지</div>
@@ -46,7 +54,9 @@ const UploadCommentPage = () => {
 
       <ReviewStarWrapper>
         <StyledText>강의가 만족스러우셨나요?</StyledText>
-        <div>1점부터 5점까지! 별점 컴포넌트 만들기!?</div>
+        <div>
+          <Rating onClick={handleRating} ratingValue={rating} size={80} />
+        </div>
       </ReviewStarWrapper>
 
       <ReviewContentsWrapper>
