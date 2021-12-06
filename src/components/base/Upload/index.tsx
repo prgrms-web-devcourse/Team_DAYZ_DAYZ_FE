@@ -19,7 +19,14 @@ const Upload = ({ children, droppable, name, accept, value, onChange, ...props }
     const files = e.target.files!;
     const changedFile = files[0];
     setFile(changedFile);
-    onChange && onChange(changedFile);
+
+    //선택한 IMG URL 불러오기
+    // onChange && onChange(changedFile);
+    // const reader = new FileReader();
+    // reader.readAsDataURL(changedFile);
+    // reader.onload = () => {
+    //   console.log(reader.result);
+    // };
   };
 
   const handleChooseFile = () => {
