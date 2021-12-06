@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import React, { ReactNode, useRef, useState } from 'react';
+import React, { Dispatch, ReactNode, useRef, useState } from 'react';
+import { SetStateAction } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -8,9 +9,19 @@ interface Props {
   accept?: string;
   value?: File;
   onChange?: any;
+  setImgLink?: any;
 }
 
-const Upload = ({ children, droppable, name, accept, value, onChange, ...props }: Props) => {
+const Upload = ({
+  children,
+  droppable,
+  name,
+  accept,
+  value,
+  onChange,
+  setImgLink,
+  ...props
+}: Props) => {
   const [file, setFile] = useState(value);
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -19,14 +30,12 @@ const Upload = ({ children, droppable, name, accept, value, onChange, ...props }
     const files = e.target.files!;
     const changedFile = files[0];
     setFile(changedFile);
-
-    //선택한 IMG URL 불러오기
-    // onChange && onChange(changedFile);
-    // const reader = new FileReader();
-    // reader.readAsDataURL(changedFile);
-    // reader.onload = () => {
-    //   console.log(reader.result);
-    // };
+    onChange && onChange(changedFile);
+    const reader = new FileReader();
+    reader.readAsDataURL(changedFile);
+    reader.onload = () => {
+      setImgLink(reader.result);
+    };
   };
 
   const handleChooseFile = () => {
