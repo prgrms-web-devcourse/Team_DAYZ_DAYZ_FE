@@ -59,12 +59,20 @@ const ModalContainer = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
+  right: 0;
+  margin: auto;
   max-width: 640px;
-  padding: 8px;
   background-color: white;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   overflow-y: auto;
+  & {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default Modal;
