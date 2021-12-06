@@ -36,7 +36,6 @@ const FeedPage = () => {
 };
 
 const FeedPageWrapper = styled.section`
-  overflow-x: hidden;
   width: 100%;
 `;
 const FeedItem = styled.div``;

@@ -37,8 +37,6 @@ const SearchPageWrapper = styled.section`
   width: 100%;
 `;
 const SearchBackButtonWrapper = styled.div`
-  /* position: fix; */
-  /* top: 0; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
