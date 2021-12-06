@@ -1,13 +1,13 @@
-import { CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 import styled from '@emotion/styled';
-import React from 'react';
 
 interface InputProps {
   style?: CSSProperties;
+  type: 'text' | 'number';
 }
 
-const Input = ({ ...props }: InputProps) => {
-  return <InputStyled type="text" style={{ ...props.style }} {...props} />;
+const Input = ({ type, ...props }: InputProps) => {
+  return <InputStyled type={type} style={{ ...props.style }} {...props} />;
 };
 export default Input;
 

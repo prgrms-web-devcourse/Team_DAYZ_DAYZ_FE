@@ -8,15 +8,11 @@ interface LinkBoxProps {
   style?: CSSProperties;
 }
 
-const hasImg = (check: boolean | undefined) => {
-  return check;
-};
-
 const LinkBox = ({ children, hasImage, ...props }: LinkBoxProps) => {
   return (
     <LinkContainer style={{ ...props.style }} {...props}>
-      {hasImg(hasImage) ? <LinkImg /> : null}
-      <div className="withoutImg">
+      {hasImage ? <LinkImg /> : null}
+      <div>
         <LinkText>{children}</LinkText>
         <ChevronRight size={40} />
       </div>
@@ -34,7 +30,7 @@ const LinkContainer = styled.div`
   color: black;
   position: relative;
   margin-bottom: 10px;
-  & .withoutImg {
+  & > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
