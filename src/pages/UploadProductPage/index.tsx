@@ -8,6 +8,7 @@ import './calendar.css';
 import { ko } from 'date-fns/esm/locale';
 const UploadProductPage = () => {
   const [date, setDate] = useState(new Date());
+  const [imgLink, setImgLink] = useState<string | undefined>(undefined);
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -32,33 +33,37 @@ const UploadProductPage = () => {
         <InputTitle>클래스 소개</InputTitle>
         <InputTextArea style={{ height: '100px' }} />
         <InputTitle>클래스 이미지</InputTitle>
-        <Upload droppable accept="image/*">
-          {(file: File, dragging: React.DragEvent<HTMLDivElement>) => (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-                marginBottom: '10px',
-              }}
-            >
-              <div>{file ? file.name : ''}</div>
+        <Upload droppable accept="image/*" setImgLink={setImgLink}>
+          {(file: File, dragging: React.DragEvent<HTMLDivElement>) => {
+            return (
               <div
                 style={{
-                  width: '50px',
-                  height: '50px',
-                  background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
-                  borderRadius: '50%',
                   display: 'flex',
-                  justifyContent: 'center',
+                  justifyContent: 'flex-start',
                   alignItems: 'center',
-                  marginTop: '20px',
+                  marginBottom: '10px',
                 }}
               >
-                <Plus style={{ color: '#f5f5f5' }} size={40} />
+                {file ? <img src={imgLink} style={{ width: '300px', marginRight: '20px' }} /> : ''}
+
+                {/* <div>{file ? file.name : ''}</div> */}
+                <div
+                  style={{
+                    width: '50px',
+                    height: '50px',
+                    background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '20px',
+                  }}
+                >
+                  <Plus style={{ color: '#f5f5f5' }} size={40} />
+                </div>
               </div>
-            </div>
-          )}
+            );
+          }}
         </Upload>
         <InputTitle>커리큘럼</InputTitle>
         <InputSubTitle>1단계</InputSubTitle>
