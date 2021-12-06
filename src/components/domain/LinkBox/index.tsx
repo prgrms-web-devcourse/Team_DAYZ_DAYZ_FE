@@ -28,7 +28,6 @@ const LinkContainer = styled.div`
   border-radius: 16px;
   padding: 10px 20px;
   color: black;
-  position: relative;
   margin-bottom: 10px;
   & > div {
     display: flex;
