@@ -23,7 +23,7 @@ const Header = () => {
       </Location>
 
       <Modal visible={visible} onClose={() => setVisible(false)} width={'100%'} height={'70%'}>
-        <LocationSetting on={false} onChange={handleChange} />
+        <LocationSetting />
       </Modal>
 
       <BellIcon>
