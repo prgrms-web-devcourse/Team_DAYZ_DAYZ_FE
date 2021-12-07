@@ -5,9 +5,10 @@ import { Link, Switch, Route } from 'react-router-dom';
 import FeedList from './FeedList';
 import ProductsList from './ProductsList';
 import ReviewList from './ReviewList';
+import Avatar from '../../components/base/Avatar';
 const AuthorPage = () => {
   const ICON_SIZE = 32;
-  const showFeed = () => {
+  const isFeed = () => {
     const path = window.location.pathname;
     if (path === '/workshop') {
       return true;
@@ -16,7 +17,13 @@ const AuthorPage = () => {
   return (
     <WorkshopContainer>
       <WorkshopProfile>
-        <img className="profileImg" src="https://picsum.photos/id/1/200/300" alt="test" />
+        <Avatar
+          size={80}
+          alt={'프로필'}
+          shape={'circle'}
+          src={'https://picsum.photos/id/1/200/300'}
+          placeholder={'https://via.placeholder.com/150'}
+        />
         <div className="info">
           <span>방탄공방</span>
           <span>서울 강남구 테헤란로</span>
@@ -37,7 +44,7 @@ const AuthorPage = () => {
           <Star size={`${ICON_SIZE}px`} />
         </Link>
       </Tabs>
-      {showFeed() ? <FeedList /> : null}
+      {isFeed() ? <FeedList /> : null}
 
       <Switch>
         <Route path="/workshop/productsList">
