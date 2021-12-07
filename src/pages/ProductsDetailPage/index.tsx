@@ -112,14 +112,14 @@ const MoreReviewWrapper = styled.div`
   margin: 20px 0;
 `;
 const AuthorDetailContainer = styled.div`
-  padding-bottom: 60px;
+  padding-bottom: calc(${(props) => props.theme.height.bottomHeight});
 `;
 const ReservationContainer = styled.div`
   position: fixed;
   width: 100%;
   max-width: 640px;
   display: flex;
-  bottom: 65px;
+  bottom: ${(props) => props.theme.height.bottomHeight};
   background-color: #aaa;
   z-index: 100;
   display: flex;
