@@ -46,13 +46,14 @@ const NavWrapper = styled.nav`
   left: 0;
   right: 0;
   height: 65px;
-  width: 100%;
+  width: calc(100% - 20px);
   border-top: solid 1px #c4c4c4;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: white;
   box-sizing: border-box;
+  margin: 0 10px;
 `;
 
 const IconWrapper = styled.div`
