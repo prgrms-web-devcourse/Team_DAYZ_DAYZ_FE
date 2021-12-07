@@ -2,13 +2,11 @@ import React from 'react';
 import styled from '@emotion/styled';
 const FeedList = () => {
   return (
-    <div>
-      <RowFeedContainer>
-        <div />
-        <div />
-        <div />
-      </RowFeedContainer>
-    </div>
+    <RowFeedContainer>
+      <div />
+      <div />
+      <div />
+    </RowFeedContainer>
   );
 };
 export default FeedList;

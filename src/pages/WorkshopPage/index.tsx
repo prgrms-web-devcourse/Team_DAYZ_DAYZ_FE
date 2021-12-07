@@ -1,57 +1,35 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Settings, Layout, Calendar, Star } from 'react-feather';
-import { Link, Switch, Route } from 'react-router-dom';
-import FeedList from './FeedList';
+import { Switch, Route } from 'react-router-dom';
 import ProductsList from './ProductsList';
 import ReviewList from './ReviewList';
-import Avatar from '../../components/base/Avatar';
+import Setting from './Setting';
+import WorkshopHeader from './WorkshopHeader';
+import FeedList from './FeedList';
 const AuthorPage = () => {
-  const ICON_SIZE = 32;
+  const canShowHeader = () => {
+    const path = window.location.pathname;
+    return (
+      path === '/workshop' || path === '/workshop/productsList' || path === '/workshop/reviewList'
+    );
+  };
   const isFeed = () => {
     const path = window.location.pathname;
-    if (path === '/workshop') {
-      return true;
-    }
+    return path === '/workshop';
   };
   return (
     <WorkshopContainer>
-      <WorkshopProfile>
-        <Avatar
-          size={80}
-          alt={'프로필'}
-          shape={'circle'}
-          src={'https://picsum.photos/id/1/200/300'}
-          placeholder={'https://via.placeholder.com/150'}
-        />
-        <div className="info">
-          <span>방탄공방</span>
-          <span>서울 강남구 테헤란로</span>
-          <span>12-7 3층</span>
-          <span>010-1234-5678</span>
-          <span>09:00 - 17:00</span>
-        </div>
-        <Settings />
-      </WorkshopProfile>
-      <Tabs>
-        <Link to="/workshop">
-          <Layout size={`${ICON_SIZE}px`} />
-        </Link>
-        <Link to="/workshop/productsList">
-          <Calendar size={`${ICON_SIZE}px`} />
-        </Link>
-        <Link to="/workshop/reviewList">
-          <Star size={`${ICON_SIZE}px`} />
-        </Link>
-      </Tabs>
-      {isFeed() ? <FeedList /> : null}
-
+      {canShowHeader() && <WorkshopHeader />}
+      {isFeed() && <FeedList />}
       <Switch>
         <Route path="/workshop/productsList">
           <ProductsList />
         </Route>
         <Route path="/workshop/reviewList">
           <ReviewList />
+        </Route>
+        <Route path="/workshop/setting">
+          <Setting />
         </Route>
       </Switch>
     </WorkshopContainer>
@@ -61,33 +39,4 @@ export default AuthorPage;
 
 const WorkshopContainer = styled.div`
   margin-top: 36px;
-`;
-
-const WorkshopProfile = styled.section`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 36px;
-  & .profileImg {
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
-  }
-  & .info {
-    display: flex;
-    flex-direction: column;
-    font-size: 18px;
-    & span:first-of-type {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-  }
-`;
-
-const Tabs = styled.div`
-  display: flex;
-  justify-content: space-around;
-  background-color: #eed6fc;
-  padding: 12px 0;
 `;
