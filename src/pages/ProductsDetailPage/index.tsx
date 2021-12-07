@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
 import { Image, Modal, Text } from '../../components/base';
 import { X } from 'react-feather';
-import { SimpleReview } from '../../components/domain';
+import { AteliarInformation, SimpleReview } from '../../components/domain';
 
 const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -58,13 +58,21 @@ const ProductsDetailPage = () => {
 
       <AuthorDetailContainer>
         <HeaderText>작가 정보</HeaderText>
-        <div>위치 보기</div>
-        {/* 스크롤 되었을 때, 확인을 위해 임시로 넣어둠*/}
-        <input style={{ width: 200, height: 2000 }} />
+        <AteliarInformation
+          profileImg={
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png'
+          }
+          name={'희진 공방'}
+          location={'서울시 송파구 100번지'}
+          phoneNumber={'010-5555-3333'}
+          openTime={'9 : 00 ~ 18 : 00'}
+        />
+
+        <HeaderText>위치 보기</HeaderText>
       </AuthorDetailContainer>
 
       <ReservationContainer>
-        <div>가격 45,000</div>
+        <HeaderText>45,000</HeaderText>
         <ReservationButton>예약하기</ReservationButton>
       </ReservationContainer>
 
@@ -74,6 +82,7 @@ const ProductsDetailPage = () => {
         width={'100%'}
         height={'80%'}
       >
+        {/* 바깥 스크롤 막기 추가 */}
         <ModalHeader>
           <StyledButton onClick={() => setVisible(false)}>
             <X size={40} />
@@ -99,9 +108,7 @@ const ProductsDetailPage = () => {
   );
 };
 
-// min-height는 우선 어떠한 모양으로 나올지 보는 것이기 때문에 나중에 삭제
 const ProductsDetailContainer = styled.div`
-  min-height: 100px;
   margin: 20px 0;
   border-bottom: 2px solid black;
 `;
@@ -118,7 +125,6 @@ const HeaderText = styled(Text)`
   font-weight: 700;
 `;
 const ProductReviewContainer = styled.div`
-  min-height: 100px;
   margin: 20px 0;
   border-bottom: 2px solid black;
 `;
@@ -133,7 +139,7 @@ const MoreReviewWrapper = styled.div`
   margin: 20px 0;
 `;
 const AuthorDetailContainer = styled.div`
-  min-height: 100px;
+  padding-bottom: 60px;
 `;
 const ReservationContainer = styled.div`
   position: fixed;
@@ -164,12 +170,12 @@ const StyledModal = styled(Modal)`
 const ModalHeader = styled.div`
   background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
   height: 56px;
+  display: flex;
+  justify-content: flex-end;
 `;
 const StyledButton = styled.button`
   background: none;
   border: none;
-  right: 0;
-  position: relative;
 `;
 const ReviewContainer = styled.div`
   display: flex;
@@ -177,7 +183,6 @@ const ReviewContainer = styled.div`
   align-items: center;
 `;
 const ReviewWrapper = styled.div`
-  min-height: 100px;
   width: 90%;
   background-color: lightcyan;
   margin: 20px 0;
