@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Bell, ChevronDown } from 'react-feather';
 import { Link } from 'react-router-dom';
+import { Modal } from '../../components/base';
 
 const Header = () => {
+  const [visible, setVisible] = useState(false);
+
   return (
     <HeaderWrapper>
       <Title>DAYZ</Title>
 
-      <Link to="/location" style={{ textDecoration: 'none' }}>
-        <Location>
-          <div>서울시 송파구</div>
-          <ChevronDown size={20} color="#f5f5f5" />
-        </Location>
-      </Link>
+      <Location onClick={() => setVisible(true)}>
+        <div>서울시 송파구</div>
+        <ChevronDown size={20} color="#f5f5f5" />
+      </Location>
+
+      <Modal visible={visible} onClose={() => setVisible(false)} width={'100%'} height={'70%'}>
+        <div>송파구</div>
+      </Modal>
 
       <BellIcon>
         <Bell size={20} color="#f5f5f5" />
@@ -62,5 +67,4 @@ const BellIcon = styled.div`
   margin-bottom: 15px;
   margin-right: 15px;
 `;
-
 export default Header;
