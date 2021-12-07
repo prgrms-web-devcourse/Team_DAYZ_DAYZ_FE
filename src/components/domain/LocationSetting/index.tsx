@@ -29,14 +29,17 @@ const LocationSetting = () => {
     '중랑구',
   ];
   return (
-    <Form>
-      {district.map((location) => (
-        <div key={location}>
-          <Input data-id={location} />
-          <Button>{location}</Button>
-        </div>
-      ))}
-    </Form>
+    <>
+      <H4>관심지역 3곳을 선택해 주세요</H4>
+      <Form>
+        {district.map((location) => (
+          <div key={location}>
+            <Input data-id={location} />
+            <Button>{location}</Button>
+          </div>
+        ))}
+      </Form>
+    </>
   );
 };
 
@@ -51,7 +54,10 @@ const Input = styled.input`
     background: lightgreen;
   }
 `;
-
+const H4 = styled.h4`
+  font-size: 24px;
+  font-weight: 600;
+`;
 const Button = styled.div`
   font-size: 20px;
   color: #c4c4c4;
