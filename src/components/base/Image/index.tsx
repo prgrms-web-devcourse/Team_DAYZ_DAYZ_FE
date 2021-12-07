@@ -11,8 +11,8 @@ interface Props {
   placeholder?: string;
   src: string;
   block?: boolean;
-  width: number;
-  height: number;
+  width: number | string;
+  height: number | string;
   alt: string;
   mode: Mode;
   style?: CSSProperties;
