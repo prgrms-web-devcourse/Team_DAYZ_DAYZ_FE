@@ -6,15 +6,26 @@ import 'react-datepicker/dist/react-datepicker.css';
 import ReactDatePicker from 'react-datepicker';
 import './calendar.css';
 import { ko } from 'date-fns/esm/locale';
+import { MinusCircle } from 'react-feather';
+
 const UploadProductPage = () => {
   const [date, setDate] = useState(new Date());
   const [imgLink, setImgLink] = useState<string | undefined>(undefined);
   const [pickDate, setPickDate] = useState<any | undefined>('');
 
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handlePost = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    // setPickDate((pickDate: any) => [...new Set([...pickDate, date.toDateString()])]);
-    setPickDate([...pickDate, date.toDateString()]);
+    const target = date.toDateString();
+    if (!pickDate?.includes(target)) {
+      setPickDate([...pickDate, date.toDateString()]);
+    }
+  };
+
+  const handleDelete = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
+    e.preventDefault();
+    const target = (e.target as HTMLLIElement).closest('li')?.dataset.id;
+    pickDate.splice(pickDate?.indexOf(target), 1);
+    setPickDate([...pickDate]);
   };
 
   return (
@@ -82,9 +93,23 @@ const UploadProductPage = () => {
           onChange={(date: Date) => setDate(date)}
           inline
         />
-        <ul className="dateLists" />
-        <Button onClick={handleClick}>+ 추가</Button>
-        {pickDate ? pickDate.map((date: any) => <li key={date}>{date}</li>) : ''}
+        <ul className="dateLists">
+          {pickDate
+            ? pickDate.map((date: any) => (
+                <li
+                  key={date}
+                  data-id={date}
+                  style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}
+                >
+                  <MinusCircle style={{ color: 'red' }} size={16} onClick={handleDelete} />
+                  <DateDiv>{date}</DateDiv>
+                </li>
+              ))
+            : ''}
+        </ul>
+
+        <Button onClick={handlePost}>+ 추가</Button>
+
         <RowInputForm>
           <InputTitle>인원</InputTitle>
           <div
@@ -179,5 +204,9 @@ const Submit = styled.button`
   font-size: 20px;
   font-weight: 700;
   margin-left: 30%;
+`;
+const DateDiv = styled.div`
+  font-size: 20px;
+  margin-left: 10px;
 `;
 export default UploadProductPage;
