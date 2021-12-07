@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
 import { Image, Modal, Text } from '../../components/base';
 import { X } from 'react-feather';
+import { SimpleReview } from '../../components/domain';
 
 const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -46,8 +47,13 @@ const ProductsDetailPage = () => {
         <HeaderText>
           후기<span>(999+)</span>
         </HeaderText>
-        <div> 우선 그냥 후기(내용, 날짜?)</div>
-        <div onClick={() => setVisible(true)}>+ 후기 더보기</div>
+        <SimpleReviewContainer>
+          <SimpleReview date={'2010-05-17'}>좋아요좋아요~</SimpleReview>
+          <SimpleReview date={'2010-03-08'}>좋아요좋아요~</SimpleReview>
+        </SimpleReviewContainer>
+        <MoreReviewWrapper>
+          <span onClick={() => setVisible(true)}>+ 후기 더보기</span>
+        </MoreReviewWrapper>
       </ProductReviewContainer>
 
       <AuthorDetailContainer>
@@ -115,6 +121,16 @@ const ProductReviewContainer = styled.div`
   min-height: 100px;
   margin: 20px 0;
   border-bottom: 2px solid black;
+`;
+const SimpleReviewContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const MoreReviewWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
 `;
 const AuthorDetailContainer = styled.div`
   min-height: 100px;

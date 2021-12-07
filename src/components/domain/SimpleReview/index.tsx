@@ -18,7 +18,7 @@ const SimpleReview = ({ children, date }: Props) => {
 const ReveiwWrapper = styled.div`
   background-color: #ddd;
   width: 90%;
-  margin: 15px 0;
+  margin-top: 20px;
   padding: 0 15px;
   box-sizing: border-box;
   border-radius: 15px;
