@@ -100,6 +100,8 @@ const UploadProductPage = () => {
                 >
                   <MinusCircle style={{ color: 'red' }} size={16} onClick={handleDelete} />
                   <DateDiv>{date}</DateDiv>
+                  <input type="time" style={{ width: '130px', height: '15px' }} required />
+                  <input type="time" style={{ width: '130px', height: '15px' }} required />
                 </li>
               ))
             : ''}
@@ -203,7 +205,8 @@ const Submit = styled.button`
   margin-left: 30%;
 `;
 const DateDiv = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   margin-left: 10px;
 `;
+
 export default UploadProductPage;
