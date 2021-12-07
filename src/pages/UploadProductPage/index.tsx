@@ -15,10 +15,7 @@ const UploadProductPage = () => {
 
   const handlePost = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    const target = date.toDateString();
-    if (!pickDate?.includes(target)) {
-      setPickDate([...pickDate, date.toDateString()]);
-    }
+    setPickDate([...pickDate, date.toDateString()]);
   };
 
   const handleDelete = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
@@ -60,7 +57,6 @@ const UploadProductPage = () => {
               >
                 {file ? <img src={imgLink} style={{ width: '300px', marginRight: '20px' }} /> : ''}
 
-                {/* <div>{file ? file.name : ''}</div> */}
                 <div
                   style={{
                     width: '50px',
@@ -94,6 +90,7 @@ const UploadProductPage = () => {
           inline
         />
         <ul className="dateLists">
+          <InputSubTitle>선택한 날짜</InputSubTitle>
           {pickDate
             ? pickDate.map((date: any) => (
                 <li
