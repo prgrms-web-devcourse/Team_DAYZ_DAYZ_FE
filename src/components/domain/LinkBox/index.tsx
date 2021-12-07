@@ -4,14 +4,18 @@ import React, { CSSProperties } from 'react';
 
 interface LinkBoxProps {
   children: React.ReactNode;
-  hasImage?: boolean;
+  src?: string;
   style?: CSSProperties;
 }
 
-const LinkBox = ({ children, hasImage, ...props }: LinkBoxProps) => {
+const checkHasImage = (str: string | undefined) => {
+  return str;
+};
+
+const LinkBox = ({ children, src, ...props }: LinkBoxProps) => {
   return (
     <LinkContainer style={{ ...props.style }} {...props}>
-      {hasImage ? <LinkImg /> : null}
+      {checkHasImage(src) ? <LinkImg src={src} /> : null}
       <div>
         <LinkText>{children}</LinkText>
         <ChevronRight size={40} />
@@ -29,11 +33,15 @@ const LinkContainer = styled.div`
   padding: 10px 20px;
   color: black;
   margin-bottom: 10px;
+  transition: border 0.2s;
   & > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+  }
+  &:hover {
+    border: solid 1px black;
   }
 `;
 
@@ -44,6 +52,8 @@ const LinkText = styled.span`
 const LinkImg = styled.img`
   min-width: 80px;
   min-height: 80px;
+  max-width: 80px;
+  max-height: 80px;
   border-radius: 16px;
   background-color: black;
   margin-right: 20px;
