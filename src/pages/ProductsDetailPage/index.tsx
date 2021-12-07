@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
-import { Image, Modal, Text } from '../../components/base';
-import { X } from 'react-feather';
+import { Image, Text } from '../../components/base';
 import { AteliarInformation, SimpleReview } from '../../components/domain';
+import ReviewModal from './ReviewModal';
 
 const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -76,34 +76,7 @@ const ProductsDetailPage = () => {
         <ReservationButton>예약하기</ReservationButton>
       </ReservationContainer>
 
-      <StyledModal
-        visible={visible}
-        onClose={() => setVisible(false)}
-        width={'100%'}
-        height={'80%'}
-      >
-        {/* 바깥 스크롤 막기 추가 */}
-        <ModalHeader>
-          <StyledButton onClick={() => setVisible(false)}>
-            <X size={40} />
-          </StyledButton>
-        </ModalHeader>
-        <div>별점</div>
-        <ReviewContainer>
-          {/* 리뷰 보여주는 칸은 컴포넌트화 */}
-          <ReviewWrapper>
-            후기1가 길면후기1가 길면후기1가 길면후기1가 길면후기1가 길면후기1가 길면후기1가
-            길면후기1가 길면후기1가 길면후기1가 길면후기1가 길면후기1가 길면후기1가 길면후기1가
-            길면후기1가 길면후기1가 길면후기1가 길면후기1가 길면후기1가 길면후기1가 길면후기1가
-            길면후기1가 길면후기1가 길면후기1가 길면
-          </ReviewWrapper>
-          <ReviewWrapper>후기2</ReviewWrapper>
-          <ReviewWrapper>후기2</ReviewWrapper>
-          <ReviewWrapper>후기2</ReviewWrapper>
-          <ReviewWrapper>후기2</ReviewWrapper>
-          <ReviewWrapper>후기2</ReviewWrapper>
-        </ReviewContainer>
-      </StyledModal>
+      <ReviewModal visible={visible} setVisible={setVisible} />
     </>
   );
 };
@@ -162,29 +135,5 @@ const ReservationButton = styled.button`
   font-size: 25px;
   line-height: 29px;
 `;
-const StyledModal = styled(Modal)`
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
-`;
 
-const ModalHeader = styled.div`
-  background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
-  height: 56px;
-  display: flex;
-  justify-content: flex-end;
-`;
-const StyledButton = styled.button`
-  background: none;
-  border: none;
-`;
-const ReviewContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-const ReviewWrapper = styled.div`
-  width: 90%;
-  background-color: lightcyan;
-  margin: 20px 0;
-`;
 export default ProductsDetailPage;
