@@ -6,6 +6,7 @@ import ReviewList from './ReviewList';
 import Setting from './Setting';
 import WorkshopHeader from './WorkshopHeader';
 import FeedList from './FeedList';
+import Edit from './Edit';
 const AuthorPage = () => {
   const canShowHeader = () => {
     const path = window.location.pathname;
@@ -30,6 +31,9 @@ const AuthorPage = () => {
         </Route>
         <Route path="/workshop/setting">
           <Setting />
+        </Route>
+        <Route path="/workshop/edit">
+          <Edit />
         </Route>
       </Switch>
     </WorkshopContainer>
