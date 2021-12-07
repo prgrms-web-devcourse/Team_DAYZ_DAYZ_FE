@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import styled from '@emotion/styled';
 import { Bell, ChevronDown } from 'react-feather';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,11 @@ import { LocationSetting } from '../../components/domain';
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
+  const [state, setState] = useState('');
+
+  const handleChange = () => {
+    console.log('a');
+  };
 
   return (
     <HeaderWrapper>
@@ -18,7 +23,7 @@ const Header = () => {
       </Location>
 
       <Modal visible={visible} onClose={() => setVisible(false)} width={'100%'} height={'70%'}>
-        <LocationSetting />
+        <LocationSetting on={false} onChange={handleChange} />
       </Modal>
 
       <BellIcon>

@@ -1,7 +1,24 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import useToggle from '../../../hooks/useToggle';
 
-const LocationSetting = () => {
+interface Props {
+  // on?: boolean;
+  // disabled?: boolean;
+  // onChange?: () => void;
+  [x: string]: any;
+  on?: boolean | undefined;
+  onChange?: () => void;
+}
+
+const LocationSetting = ({ on = false, onChange, ...props }) => {
+  const [checked, toggle] = useToggle(on);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    toggle();
+    onChange && onChange();
+  };
+
   const district = [
     '강남구',
     '강동구',
@@ -33,27 +50,30 @@ const LocationSetting = () => {
       <H4>관심지역 3곳을 선택해 주세요</H4>
       <Form>
         {district.map((location) => (
-          <Button data-id={location} key={location}>
-            {location}
-          </Button>
+          <div key={location}>
+            <Input type="checkbox" data-id={location} onChange={handleChange} checked={checked} />
+            <Button>{location}</Button>
+          </div>
         ))}
       </Form>
     </>
   );
 };
 
-const Form = styled.form``;
+const Form = styled.form`
+  /* display: grid;
+  grid-template-columns: repeat(6, 1fr); */
+`;
 
-// const Input = styled.input`
-//   display: none;
-//   &:checked + div {
-//     background: lightgreen;
-//   }
-// `;
+const Input = styled.input`
+  /* display: none; */
+  &:checked + div {
+    background: lightgreen;
+  }
+`;
 const H4 = styled.h4`
   font-size: 24px;
   font-weight: 600;
-  margin-top: 40px;
 `;
 const Button = styled.div`
   font-size: 20px;
