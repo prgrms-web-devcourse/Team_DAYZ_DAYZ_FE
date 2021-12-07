@@ -33,30 +33,27 @@ const LocationSetting = () => {
       <H4>관심지역 3곳을 선택해 주세요</H4>
       <Form>
         {district.map((location) => (
-          <div key={location}>
-            <Input data-id={location} />
-            <Button>{location}</Button>
-          </div>
+          <Button data-id={location} key={location}>
+            {location}
+          </Button>
         ))}
       </Form>
     </>
   );
 };
 
-const Form = styled.form`
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-`;
+const Form = styled.form``;
 
-const Input = styled.input`
-  display: none;
-  &:checked + div {
-    background: lightgreen;
-  }
-`;
+// const Input = styled.input`
+//   display: none;
+//   &:checked + div {
+//     background: lightgreen;
+//   }
+// `;
 const H4 = styled.h4`
   font-size: 24px;
   font-weight: 600;
+  margin-top: 40px;
 `;
 const Button = styled.div`
   font-size: 20px;
