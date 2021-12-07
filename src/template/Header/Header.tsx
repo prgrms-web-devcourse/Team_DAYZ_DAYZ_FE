@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Bell, ChevronDown } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Modal } from '../../components/base';
+import { LocationSetting } from '../../components/domain';
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
@@ -17,7 +18,7 @@ const Header = () => {
       </Location>
 
       <Modal visible={visible} onClose={() => setVisible(false)} width={'100%'} height={'70%'}>
-        <div>송파구</div>
+        <LocationSetting />
       </Modal>
 
       <BellIcon>

@@ -73,6 +73,8 @@ const ModalContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 `;
 
 export default Modal;
