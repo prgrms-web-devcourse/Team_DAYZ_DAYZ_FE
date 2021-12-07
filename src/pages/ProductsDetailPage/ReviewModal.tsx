@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Modal } from '../../components/base';
 import { X } from 'react-feather';
@@ -10,9 +10,16 @@ interface Props {
 }
 
 const ReviewModal = ({ visible = false, setVisible }: Props) => {
+  const [reviewList, setReviewList] = useState([]);
+
+  // Todo: 바깥 스크롤 막기 추가
+  useEffect(() => {
+    if (visible && reviewList.length === 0) {
+      // visible이 true이고 reviewList에 값이 없을때 api 호출 실행.
+    }
+  }, []);
   return (
     <StyledModal visible={visible} onClose={() => setVisible(false)} width={'100%'} height={'80%'}>
-      {/* 바깥 스크롤 막기 추가 */}
       <ModalHeader>
         <StyledButton onClick={() => setVisible(false)}>
           <X size={40} />
@@ -20,9 +27,46 @@ const ReviewModal = ({ visible = false, setVisible }: Props) => {
       </ModalHeader>
       <div>별점</div>
       <ReviewContainer>
-        <Review />
-        <Review />
-        <Review />
+        {/* 이 부분에서 map을 돌면 될 것이다. */}
+        <Review
+          profileImg={
+            'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
+          }
+          ateliarName={'희진 공방'}
+          content={
+            '도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~'
+          }
+          uploadDate={'2020-12-30'}
+          imgList={[
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQnKvFqnhspQFrblkvMfVhGZ8GvfjihBNqjw&usqp=CAU',
+          ]}
+        />
+        <Review
+          profileImg={
+            'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
+          }
+          ateliarName={'희진 공방'}
+          content={
+            '도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~'
+          }
+          uploadDate={'2020-12-30'}
+          imgList={[
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQnKvFqnhspQFrblkvMfVhGZ8GvfjihBNqjw&usqp=CAU',
+          ]}
+        />
+        <Review
+          profileImg={
+            'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
+          }
+          ateliarName={'희진 공방'}
+          content={
+            '도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~'
+          }
+          uploadDate={'2020-12-30'}
+          imgList={[
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQnKvFqnhspQFrblkvMfVhGZ8GvfjihBNqjw&usqp=CAU',
+          ]}
+        />
       </ReviewContainer>
     </StyledModal>
   );

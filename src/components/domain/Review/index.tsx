@@ -4,52 +4,44 @@ import { Avatar, Image } from '../../base';
 
 interface Props {
   profileImg: string;
+  ateliarName: string;
   content: string;
   uploadDate: string;
   imgList: string[];
 }
 
-const Review = () => {
+const Review = ({ profileImg, ateliarName, content, uploadDate, imgList }: Props) => {
   return (
     <ReviewWrapper>
       <AteliarContainer>
         <Avatar
           size={60}
-          placeholder={
-            'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
-          }
-          src={
-            'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
-          }
+          placeholder={'https://via.placeholder.com/150'}
+          src={profileImg}
           shape={'circle'}
           alt={'profile'}
         />
         <NameWrapper>
-          <div>희진 공방</div>
-          <div>Date</div>
+          <div>{ateliarName}</div>
+          <div>{uploadDate}</div>
         </NameWrapper>
       </AteliarContainer>
       <ContentsContainer>
-        <ContentWrapper>
-          도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기
-          좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기
-          좋아요~도자기 좋아요~ 도자기 좋아요~ 도자기 좋아요~
-        </ContentWrapper>
+        <ContentWrapper>{content}</ContentWrapper>
         <ImageWrapper>
-          <Image
-            lazy
-            src={
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQnKvFqnhspQFrblkvMfVhGZ8GvfjihBNqjw&usqp=CAU'
-            }
-            placeholder={
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQnKvFqnhspQFrblkvMfVhGZ8GvfjihBNqjw&usqp=CAU'
-            }
-            width={100}
-            height={100}
-            alt={'image'}
-            mode={'cover'}
-            style={{ borderRadius: '15px' }}
-          />
+          {imgList.map((img) => (
+            <Image
+              lazy
+              src={img}
+              placeholder={'https://via.placeholder.com/150'}
+              width={100}
+              height={100}
+              alt={'image'}
+              mode={'cover'}
+              style={{ borderRadius: '15px' }}
+              key={img}
+            />
+          ))}
         </ImageWrapper>
       </ContentsContainer>
     </ReviewWrapper>
