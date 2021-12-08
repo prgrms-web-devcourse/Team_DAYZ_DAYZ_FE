@@ -19,10 +19,10 @@ function LoginPage() {
               <p>일반 회원으로</p>
               <p>시작하기</p>
             </div>
-            <ArrowRightCircle size={90} />
+            <ArrowRightCircle size={50} />
           </UserContainer>
           <AuthorContainer>
-            <ArrowLeftCircle size={90} />
+            <ArrowLeftCircle size={50} />
             <div>
               <p>작가 회원으로</p>
               <p>시작하기</p>
@@ -30,7 +30,7 @@ function LoginPage() {
           </AuthorContainer>
         </SelectContainer>
       </LoginContainer>
-      <PopUpContainer>
+      {/* <PopUpContainer>
         <PopUp>
           <p className="PopUpTitle">처음이시군요!</p>
           <div className="PopUpSubtitle">
@@ -39,7 +39,7 @@ function LoginPage() {
           </div>
           <button className="PopUpKakaoBtn">Kakao로 시작</button>
         </PopUp>
-      </PopUpContainer>
+      </PopUpContainer> */}
     </>
   );
 }
@@ -51,20 +51,19 @@ const LoginContainer = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 58px;
+  font-size: 56px;
   font-weight: 600;
   margin-bottom: 24px;
 `;
 
 const Subtitle = styled.p`
-  font-size: 24px;
-  margin-bottom: 180px;
+  margin-bottom: 80px;
 `;
 
 const SelectContainer = styled.section`
   display: flex;
   flex-direction: column;
-  font-size: 58px;
+  font-size: 36px;
   font-weight: 600;
 `;
 
@@ -98,7 +97,7 @@ const PopUpContainer = styled.section`
 
 const PopUp = styled.div`
   background-color: white;
-  width: 480px;
+  width: 220px;
   flex-direction: column;
   padding: 24px 30px;
   border-radius: 12px;
@@ -110,12 +109,11 @@ const PopUp = styled.div`
   align-items: center;
   position: absolute;
   & .PopUpTitle {
-    font-size: 58px;
+    font-size: 32px;
     font-weight: 600;
     margin-bottom: 36px;
   }
   & .PopUpSubtitle {
-    font-size: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -127,10 +125,9 @@ const PopUp = styled.div`
   & .PopUpKakaoBtn {
     background-color: #f9e000;
     border-style: none;
-    border-radius: 12px;
-    height: 54px;
-    width: 480px;
-    font-size: 24px;
+    border-radius: 8px;
+    height: 34px;
+    width: 150px;
     transition: background-color 0.2s;
     &:hover {
       background-color: #9b8b005e;

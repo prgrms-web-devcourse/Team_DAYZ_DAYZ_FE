@@ -9,16 +9,12 @@ interface Props {
 
 const isLoginPage = () => {
   const path = window.location.pathname;
-  if (path === '/loginHome' || path === '/signupAuthorInfo' || path === '/signupCheckLocation') {
-    return true;
-  }
+  return path === '/login' || path === '/signupAuthorInfo' || path === '/signupCheckLocation';
 };
 
 const isCommentsPage = () => {
   const path = window.location.pathname;
-  if (path === '/feed/comments/:id') {
-    return true;
-  }
+  return path === '/feed/comments/:id';
 };
 
 const DefaultTemplate = ({ children }: Props): JSX.Element => {
