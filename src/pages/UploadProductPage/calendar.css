@@ -11,3 +11,12 @@
   height: 40px !important;
   background-color: #f5f5f5;
 }
+.react-datepicker__day--selected {
+  background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
+  z-index: 1000;
+}
+.react-datepicker__day--today {
+  font-size: 15px;
+  border: solid 1px #b88bd6;
+  border-radius: 8px;
+}

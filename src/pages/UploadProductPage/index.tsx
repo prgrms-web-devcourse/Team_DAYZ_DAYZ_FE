@@ -6,15 +6,23 @@ import 'react-datepicker/dist/react-datepicker.css';
 import ReactDatePicker from 'react-datepicker';
 import './calendar.css';
 import { ko } from 'date-fns/esm/locale';
+import { MinusCircle } from 'react-feather';
+
 const UploadProductPage = () => {
   const [date, setDate] = useState(new Date());
   const [imgLink, setImgLink] = useState<string | undefined>(undefined);
   const [pickDate, setPickDate] = useState<any | undefined>('');
 
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handlePost = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    // setPickDate((pickDate: any) => [...new Set([...pickDate, date.toDateString()])]);
     setPickDate([...pickDate, date.toDateString()]);
+  };
+
+  const handleDelete = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
+    e.preventDefault();
+    const target = (e.target as HTMLLIElement).closest('li')?.dataset.id;
+    pickDate.splice(pickDate?.indexOf(target), 1);
+    setPickDate([...pickDate]);
   };
 
   return (
@@ -49,7 +57,6 @@ const UploadProductPage = () => {
               >
                 {file ? <img src={imgLink} style={{ width: '300px', marginRight: '20px' }} /> : ''}
 
-                {/* <div>{file ? file.name : ''}</div> */}
                 <div
                   style={{
                     width: '50px',
@@ -82,9 +89,26 @@ const UploadProductPage = () => {
           onChange={(date: Date) => setDate(date)}
           inline
         />
-        <ul className="dateLists" />
-        <Button onClick={handleClick}>+ 추가</Button>
-        {pickDate ? pickDate.map((date: any) => <li key={date}>{date}</li>) : ''}
+        <ul className="dateLists">
+          <InputSubTitle>선택한 날짜</InputSubTitle>
+          {pickDate
+            ? pickDate.map((date: any) => (
+                <li
+                  key={date}
+                  data-id={date}
+                  style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}
+                >
+                  <MinusCircle style={{ color: 'red' }} size={16} onClick={handleDelete} />
+                  <DateDiv>{date}</DateDiv>
+                  <input type="time" style={{ width: '130px', height: '15px' }} required />
+                  <input type="time" style={{ width: '130px', height: '15px' }} required />
+                </li>
+              ))
+            : ''}
+        </ul>
+
+        <Button onClick={handlePost}>+ 추가</Button>
+
         <RowInputForm>
           <InputTitle>인원</InputTitle>
           <div
@@ -180,4 +204,9 @@ const Submit = styled.button`
   font-weight: 700;
   margin-left: 30%;
 `;
+const DateDiv = styled.div`
+  font-size: 16px;
+  margin-left: 10px;
+`;
+
 export default UploadProductPage;

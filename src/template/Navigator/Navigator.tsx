@@ -21,7 +21,7 @@ const Navigator = () => {
       contents: '검색하기',
     },
     {
-      to: '/user',
+      to: '/user/:id',
       Icon: Circle,
       contents: '내정보',
     },
@@ -46,14 +46,14 @@ const NavWrapper = styled.nav`
   left: 0;
   right: 0;
   height: 65px;
-  width: calc(100% - 20px);
+  width: 100%;
   border-top: solid 1px #c4c4c4;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: white;
   box-sizing: border-box;
-  margin: 0 10px;
+  padding: 0 10px;
 `;
 
 const IconWrapper = styled.div`

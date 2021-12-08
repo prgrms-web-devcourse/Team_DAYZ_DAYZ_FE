@@ -32,11 +32,11 @@ const Router = () => {
       <Route path="/search" exact component={SearchPage} />
       <Route path="/products/:id" exact component={ProductsDetailPage} />
       <Route path="/booking/:id" exact component={BookingPage} />
-      <Route path="/user/:id" exact component={UserPage} />
       <Route path="/user/book" exact component={UserBookedPage} />
       <Route path="/user/review" exact component={UserReviewPage} />
       <Route path="/user/following" exact component={UserFollowingPage} />
       <Route path="/user/edit" exact component={UserProfileEditPage} />
+      <Route path="/user/:id" exact component={UserPage} />
       <Route path="/feed/comments/:id" exact component={CommentsPage} />
       <Route path="/search/:results" exact component={SearchResultsPage} />
       <Route path="/workshop" component={WorkshopPage} />
