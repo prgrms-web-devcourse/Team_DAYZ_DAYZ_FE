@@ -87,6 +87,7 @@ const UploadProductPage = () => {
           dateFormat="yyyy-MM-dd"
           onChange={(date: Date) => setDate(date)}
           inline
+          minDate={new Date()}
         />
         <ul className="dateLists">
           <InputSubTitle>선택한 날짜</InputSubTitle>

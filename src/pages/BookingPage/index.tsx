@@ -16,7 +16,12 @@ const BookingPage = () => {
     <>
       <div>
         {id} 에 대한 예약 페이지 입니다.
-        <ReactDatePicker selected={date} onChange={(date: Date) => setDate(date)} inline />
+        <ReactDatePicker
+          selected={date}
+          onChange={(date: Date) => setDate(date)}
+          inline
+          minDate={new Date()}
+        />
       </div>
       {date.toDateString()}
       <br />
