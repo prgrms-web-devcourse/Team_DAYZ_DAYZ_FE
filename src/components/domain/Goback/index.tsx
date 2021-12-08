@@ -21,12 +21,10 @@ const GoBack = ({ children, to, ...props }: Props) => {
 };
 
 const SearchBackButtonWrapper = styled.div`
-  position: fixed;
   top: 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 100px;
   margin-left: 20px;
 `;
 
