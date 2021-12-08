@@ -4,49 +4,49 @@ import { useParams } from 'react-router';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../style/calendar.css';
+import { GoBack } from '../../components/domain';
+import { Button, Text } from '../../components/base';
+import { Link } from 'react-router-dom';
 
 // <Route path="/booking/:id" exact component={BookingPage} />
-const district = [
-  '강남구',
-  '강동구',
-  '강북구',
-  '강서구',
-  '관악구',
-  '구로구',
-  '금천구',
-  '노원구',
-  '도봉구',
-  '동대문구',
-  '동작구',
-  '마포구',
-  '서대문구',
-  '서초구',
-  '성동구',
-  '성북구',
-  '송파구',
-  '양천구',
-  '영등포구',
-  '용산구',
-  '은평구',
-  '종로구',
-  '중구',
-  '중랑구',
+
+type Data = { time: string; available: number };
+
+const totalPeople = 5;
+
+const Dummy_Data: Data[] = [
+  {
+    time: '09:00 - 10:00',
+    available: 3,
+  },
+  {
+    time: '11:00 - 12:00',
+    available: 2,
+  },
+  {
+    time: '14:00 - 16:00',
+    available: 0,
+  },
+
+  {
+    time: '13:00 - 14:00',
+    available: 1,
+  },
+  {
+    time: '16:00 - 17:00',
+    available: 5,
+  },
 ];
 const BookingPage = () => {
   const [date, setDate] = useState(new Date());
   const { id } = useParams<{ id: string }>();
-
+  // state에 시간과 비어있는 인원값이 들어가야한다.
   const [pickState, setPickState] = useState<string[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
     const target: string = e.target.value;
     if (!pickState?.includes(target)) {
-      if (pickState.length < 3) {
-        setPickState([...pickState, target]);
-      } else {
-        pickState.shift();
-        setPickState([...pickState, target]);
-      }
+      setPickState([target]);
     } else {
       setPickState(pickState.filter((pick: string) => pick !== target));
     }
@@ -55,10 +55,12 @@ const BookingPage = () => {
   useEffect(() => {
     // date가 바끨때마다 호출 해야함.
     console.log(date);
+    setPickState([]);
   }, [date]);
 
   return (
     <>
+      <GoBack to={`/products/${id}`}>이전으로 돌아가기</GoBack>
       <div>
         <ReactDatePicker
           selected={date}
@@ -67,44 +69,41 @@ const BookingPage = () => {
           minDate={new Date()}
         />
         <Wrapper onChange={handleChange}>
-          {district.map((location) => (
-            <ToggleContainer key={location}>
-              {/* disabled -  받은 인원이 0일 경우 true 아니면 false */}
+          {Dummy_Data.map(({ time, available }) => (
+            <ToggleContainer key={time}>
               <Input
                 type="checkbox"
-                value={location}
-                disabled={false}
-                checked={pickState?.includes(location)}
+                value={time}
+                disabled={available ? false : true}
+                checked={pickState?.includes(time)}
               />
-              <Button>
-                {/* <div>마감됨/ 모집중</div> */}
-                <div>{location}</div>
-                <div>1/5</div>
-              </Button>
+              <StyledDiv>
+                <div>{available ? '모집중' : '마감'}</div>
+                <div>{time}</div>
+                <div>
+                  {available}/{totalPeople}명
+                </div>
+              </StyledDiv>
             </ToggleContainer>
           ))}
         </Wrapper>
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      {date.toDateString()}
-      <br />
-      {date.toString()}
-      <br />
-      {date.toTimeString()}
-      <br />
-      {date.toLocaleDateString()}
-      <br />
-      {date.toLocaleString()}
-      <br />
-      {date.toLocaleTimeString()}
-      <br />
-      {date.valueOf()}
+
+      {pickState.length ? (
+        <DataWrapper>
+          {date.toLocaleDateString()} {pickState}
+          <input type="number" min={1} max={3} />
+        </DataWrapper>
+      ) : (
+        ''
+      )}
+
+      <ReservationContainer>
+        <HeaderText>45,000</HeaderText>
+        <Link to={`/booking/success`} style={{ textDecoration: 'none' }}>
+          <ReservationButton type="button">결제하기</ReservationButton>
+        </Link>
+      </ReservationContainer>
     </>
   );
 };
@@ -133,15 +132,22 @@ const Input = styled.input`
     background: #b88bd6;
     color: #f5f5f5;
     border: none;
+    font-weight: bold;
+  }
+  &:disabled + div {
+    background: #ccc;
+    color: black;
+    border: none;
+    font-weight: bold;
   }
 `;
 
-const Button = styled.div`
-  width: 18vw;
+const StyledDiv = styled.div`
+  width: 19vw;
   max-width: 90px;
   height: 60px;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 500;
   color: #c4c4c4;
   border: solid 1px #c4c4c4;
   border-radius: 20px;
@@ -149,5 +155,37 @@ const Button = styled.div`
   padding: 5px 10px;
   text-align: center;
   margin: 5px;
+`;
+
+const DataWrapper = styled.div`
+  margin-top: 10px;
+  font-size: 25px;
+  text-align: center;
+`;
+
+const HeaderText = styled(Text)`
+  font-size: 25px;
+  font-weight: 700;
+`;
+
+const ReservationContainer = styled.div`
+  position: fixed;
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  bottom: ${(props) => props.theme.height.bottomHeight};
+  background-color: #aaa;
+  z-index: 100;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+const ReservationButton = styled(Button)`
+  height: 56px;
+  width: 174px;
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 29px;
 `;
 export default BookingPage;
