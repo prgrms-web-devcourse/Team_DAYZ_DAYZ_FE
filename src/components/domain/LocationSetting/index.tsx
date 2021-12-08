@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 const LocationSetting = () => {
   const [pickState, setPickState] = useState<string[]>([]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
-    const target: string = (e.target as HTMLFormElement).dataset.id!;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target: string = (e.target as HTMLInputElement).dataset.id!;
     if (!pickState?.includes(target)) {
       if (pickState.length < 3) {
         setPickState([...pickState, target]);
@@ -59,13 +59,14 @@ const LocationSetting = () => {
           ? pickState.map((pick: any) => <SelectedButton key={pick}>{pick}</SelectedButton>)
           : ''}
       </div>
-      <form onChange={handleChange}>
+      <form>
         {district.map((location) => (
           <ToggleContainer key={location}>
             <Input
               type="checkbox"
               data-id={location}
-              defaultChecked={pickState?.includes(location)}
+              checked={pickState?.includes(location)}
+              onChange={handleChange}
             />
             <Button>{location}</Button>
           </ToggleContainer>
