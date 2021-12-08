@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import ReactDatePicker from 'react-datepicker';
-import { useParams } from 'react-router';
-import 'react-datepicker/dist/react-datepicker.css';
 import styled from '@emotion/styled';
-import './calendar.css';
+import { useParams } from 'react-router';
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import '../../style/calendar.css';
+
+// <Route path="/booking/:id" exact component={BookingPage} />
 
 const BookingPage = () => {
   const [date, setDate] = useState(new Date());

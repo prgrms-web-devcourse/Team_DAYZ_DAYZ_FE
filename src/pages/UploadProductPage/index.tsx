@@ -1,12 +1,11 @@
-import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import styled from '@emotion/styled';
 import { Upload } from '../../components/base';
-import { Plus } from 'react-feather';
-import 'react-datepicker/dist/react-datepicker.css';
+import { Plus, MinusCircle } from 'react-feather';
 import ReactDatePicker from 'react-datepicker';
-import './calendar.css';
+import 'react-datepicker/dist/react-datepicker.css';
+import '../../style/calendar.css';
 import { ko } from 'date-fns/esm/locale';
-import { MinusCircle } from 'react-feather';
 
 const UploadProductPage = () => {
   const [date, setDate] = useState(new Date());
