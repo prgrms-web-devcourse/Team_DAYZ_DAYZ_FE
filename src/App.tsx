@@ -1,26 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Router from './routes/Router';
+import DefaultTemplate from './template/DefaultTemplate';
+import { Global, ThemeProvider } from '@emotion/react';
+import { reset, theme } from './style';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Global styles={reset} />
+      <ThemeProvider theme={theme}>
+        <DefaultTemplate>
+          <Router />
+        </DefaultTemplate>
+      </ThemeProvider>
+    </>
   );
 }
-
 export default App;
