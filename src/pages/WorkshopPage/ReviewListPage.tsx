@@ -3,7 +3,7 @@ import React from 'react';
 import { Star } from 'react-feather';
 const ReviewList = () => {
   return (
-    <div>
+    <>
       <StarContainer>
         <Star size={36} />
         <span>3.7</span>
@@ -28,7 +28,7 @@ const ReviewList = () => {
           </div>
         </ReviewContainer>
       </section>
-    </div>
+    </>
   );
 };
 export default ReviewList;

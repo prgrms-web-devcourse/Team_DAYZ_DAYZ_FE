@@ -5,3 +5,4 @@ export { default as Image } from './Image';
 export { default as Text } from './Text';
 export { default as Button } from './Button';
 export { default as Toast } from './Toast';
+export { default as Input } from './Input';
