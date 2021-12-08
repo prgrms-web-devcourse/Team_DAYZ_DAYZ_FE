@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Settings, ChevronRight } from 'react-feather';
+import { Settings } from 'react-feather';
 import { Link } from 'react-router-dom';
-import Avatar from '../../components/base/Avatar';
+import { Avatar } from '../../components/base';
+import { LinkBox } from '../../components/domain';
 const UserPage = () => {
   return (
     <UserPageWrapper>
@@ -31,20 +32,10 @@ const UserPage = () => {
 
       <UserSettingLists>
         <Link to="/user/following" style={{ textDecoration: 'none' }}>
-          <UserSettingList>
-            <ListText>팔로잉한 계정</ListText>
-            <ChevronRight size={40} />
-          </UserSettingList>
+          <LinkBox>팔로잉한 계정</LinkBox>
         </Link>
-
-        <UserSettingList>
-          <ListText>찜한 클래스</ListText>
-          <ChevronRight size={40} />
-        </UserSettingList>
-        <UserSettingList>
-          <ListText>로그아웃</ListText>
-          <ChevronRight size={40} />
-        </UserSettingList>
+        <LinkBox>찜한 클래스</LinkBox>
+        <LinkBox>로그아웃</LinkBox>
       </UserSettingLists>
     </UserPageWrapper>
   );
@@ -58,12 +49,6 @@ const UserInfo = styled.div`
   align-items: center;
   margin: 20px;
   position: relative;
-`;
-const UserInfoImg = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: grey;
 `;
 const UserInfoName = styled.div`
   font-size: 30px;
@@ -91,19 +76,5 @@ const ImortantInfoLists = styled.div`
 
 const UserSettingLists = styled.ul`
   margin: 20px;
-`;
-const UserSettingList = styled.li`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: solid 1px #c4c4c4;
-  border-radius: 16px;
-  padding: 10px 20px;
-  color: black;
-  margin-bottom: 10px;
-`;
-
-const ListText = styled.div`
-  font-size: 20px;
 `;
 export default UserPage;
