@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 
 const LocationSetting = () => {
-  const [pickState, setPickState] = useState<any | ''>('');
+  const [pickState, setPickState] = useState<string[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
-    const target = (e.target as HTMLFormElement).dataset.id;
+    const target: string = (e.target as HTMLFormElement).dataset.id!;
     if (!pickState?.includes(target)) {
       if (pickState.length < 3) {
         setPickState([...pickState, target]);
@@ -14,7 +14,7 @@ const LocationSetting = () => {
         setPickState([...pickState, target]);
       }
     } else {
-      setPickState(pickState.filter((pick: any) => pick !== target));
+      setPickState(pickState.filter((pick: string) => pick !== target));
     }
   };
   const district = [
