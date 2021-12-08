@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { Button, Input } from '../../components/base';
 
 const UserProfileEditPage = () => {
   return (
@@ -12,17 +13,17 @@ const UserProfileEditPage = () => {
 
         <UserInputItem>
           <UserInputName>이름</UserInputName>
-          <UserInput name="userName" />
+          <InfoInput type="text" />
         </UserInputItem>
         <UserInputItem>
           <UserInputName>비밀번호</UserInputName>
-          <UserInput name="password" />
+          <InfoInput type="password" />
         </UserInputItem>
         <UserInputItem>
           <UserInputName>비밀번호 확인</UserInputName>
-          <UserInput name="confirmPassword" />
+          <InfoInput type="password" />
         </UserInputItem>
-        <Submit>저장</Submit>
+        <SubmitBtn type="submit">저장</SubmitBtn>
       </UserEditForm>
     </UserEditWrapper>
   );
@@ -53,20 +54,15 @@ const UserAvatar = styled.div`
 const AvatarChange = styled.input`
   margin-top: 10px;
 `;
-const UserInput = styled.input`
+const InfoInput = styled(Input)`
   width: calc(100% - 20px);
   height: 40px;
-  background: none;
-  border: solid 1px #c4c4c4;
-  border-radius: 8px;
   font-size: 16px;
   padding-left: 20px;
 `;
-const Submit = styled.button`
+const SubmitBtn = styled(Button)`
   width: 40%;
   height: 50px;
-  background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
-  border: none;
   text-decoration: none;
   border-radius: 16px;
   color: #f5f5f5;
