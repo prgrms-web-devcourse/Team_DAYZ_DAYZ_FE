@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 interface InputProps {
   style?: CSSProperties;
-  type: 'text' | 'number';
+  type: 'text' | 'number' | 'password';
 }
 
 const Input = ({ type, ...props }: InputProps) => {
