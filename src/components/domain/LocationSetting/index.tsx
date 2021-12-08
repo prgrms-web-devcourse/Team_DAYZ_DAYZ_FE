@@ -62,7 +62,11 @@ const LocationSetting = () => {
       <form onChange={handleChange}>
         {district.map((location) => (
           <ToggleContainer key={location}>
-            <Input type="checkbox" data-id={location} checked={pickState?.includes(location)} />
+            <Input
+              type="checkbox"
+              data-id={location}
+              defaultChecked={pickState?.includes(location)}
+            />
             <Button>{location}</Button>
           </ToggleContainer>
         ))}
