@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { Settings } from 'react-feather';
 import { Link, Switch, Route } from 'react-router-dom';
-import Avatar from '../../components/base/Avatar';
-import { GoBack } from '../../components/domain';
-import LinkBox from '../../components/domain/LinkBox';
-import Edit from './Edit';
+import { Avatar } from '../../components/base';
+import { GoBack, LinkBox } from '../../components/domain';
+import { EditPage } from '.';
+import { EDIT } from '.';
 
-const Setting = () => {
+const SettingPage = () => {
   return (
     <div>
       <WorkshopProfileContainer>
@@ -20,7 +20,7 @@ const Setting = () => {
           placeholder={'https://via.placeholder.com/150'}
         />
         <WorkshopName>공방짱</WorkshopName>
-        <Link to="/workshop/edit">
+        <Link to={EDIT}>
           <Settings style={{ position: 'absolute', top: '50px', left: '60px', color: 'black' }} />
         </Link>
       </WorkshopProfileContainer>
@@ -31,14 +31,14 @@ const Setting = () => {
       </SettingListContainer>
 
       <Switch>
-        <Route path="/workshop/edit">
-          <Edit />
+        <Route path={EDIT}>
+          <EditPage />
         </Route>
       </Switch>
     </div>
   );
 };
-export default Setting;
+export default SettingPage;
 
 const WorkshopProfileContainer = styled.div`
   display: flex;

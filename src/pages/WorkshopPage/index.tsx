@@ -1,46 +1,12 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import { Switch, Route } from 'react-router-dom';
-import ProductsList from './ProductsList';
-import ReviewList from './ReviewList';
-import Setting from './Setting';
-import WorkshopHeader from './WorkshopHeader';
-import FeedList from './FeedList';
-import Edit from './Edit';
-const AuthorPage = () => {
-  const canShowHeader = () => {
-    const path = window.location.pathname;
-    return (
-      path === '/workshop' || path === '/workshop/productsList' || path === '/workshop/reviewList'
-    );
-  };
-  const isFeed = () => {
-    const path = window.location.pathname;
-    return path === '/workshop';
-  };
-  return (
-    <WorkshopContainer>
-      {canShowHeader() && <WorkshopHeader />}
-      {isFeed() && <FeedList />}
-      <Switch>
-        <Route path="/workshop/productsList">
-          <ProductsList />
-        </Route>
-        <Route path="/workshop/reviewList">
-          <ReviewList />
-        </Route>
-        <Route path="/workshop/setting">
-          <Setting />
-        </Route>
-        <Route path="/workshop/edit">
-          <Edit />
-        </Route>
-      </Switch>
-    </WorkshopContainer>
-  );
-};
-export default AuthorPage;
+export { default as WorkshopPage } from './WorkshopPage';
+export { default as FeedListPage } from './FeedListPage';
+export { default as ProductsListPage } from './ProductsListPage';
+export { default as ReviewListPage } from './ReviewListPage';
+export { default as SettingPage } from './SettingPage';
+export { default as EditPage } from './EditPage';
 
-const WorkshopContainer = styled.div`
-  margin-top: 36px;
-`;
+export const WORKSHOP = '/workshop';
+export const PRODUCTSLIST = '/workshop/productsList';
+export const REVIEWLIST = '/workshop/reviewList';
+export const SETTING = '/workshop/setting';
+export const EDIT = '/workshop/edit';

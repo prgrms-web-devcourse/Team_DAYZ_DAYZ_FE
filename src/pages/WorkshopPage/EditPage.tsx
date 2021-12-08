@@ -1,9 +1,8 @@
-import Input from '../../components/base/Input';
 import React from 'react';
 import styled from '@emotion/styled';
-import { Button } from '../../components/base';
+import { Button, Input } from '../../components/base';
 
-const Edit = () => {
+const EditPage = () => {
   return (
     <>
       <UserEditForm>
@@ -28,7 +27,7 @@ const Edit = () => {
     </>
   );
 };
-export default Edit;
+export default EditPage;
 
 const UserEditForm = styled.form`
   margin-top: 40px;

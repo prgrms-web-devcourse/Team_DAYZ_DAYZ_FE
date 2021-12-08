@@ -1,8 +1,9 @@
 import React from 'react';
-import Avatar from '../../components/base/Avatar';
+import { Avatar } from '../../components/base';
 import { Settings, Layout, Calendar, Star } from 'react-feather';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { SETTING, WORKSHOP, PRODUCTSLIST, REVIEWLIST } from '.';
 
 const WorkshopHeader = () => {
   const ICON_SIZE = 32;
@@ -23,18 +24,18 @@ const WorkshopHeader = () => {
           <span>010-1234-5678</span>
           <span>09:00 - 17:00</span>
         </div>
-        <Link to="/workshop/setting">
+        <Link to={SETTING}>
           <Settings />
         </Link>
       </WorkshopProfile>
       <Tabs>
-        <Link to="/workshop">
+        <Link to={WORKSHOP}>
           <Layout size={`${ICON_SIZE}px`} />
         </Link>
-        <Link to="/workshop/productsList">
+        <Link to={PRODUCTSLIST}>
           <Calendar size={`${ICON_SIZE}px`} />
         </Link>
-        <Link to="/workshop/reviewList">
+        <Link to={REVIEWLIST}>
           <Star size={`${ICON_SIZE}px`} />
         </Link>
       </Tabs>

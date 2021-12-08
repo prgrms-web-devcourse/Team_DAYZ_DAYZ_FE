@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import LinkBox from '../../components/domain/LinkBox';
+import { LinkBox } from '../../components/domain';
 
 const ProductsList = () => {
   return (
