@@ -16,11 +16,11 @@ const EditPage = () => {
         </InputContainer>
         <InputContainer>
           <Text>비밀번호</Text>
-          <InfoInput type="text" />
+          <InfoInput type="password" />
         </InputContainer>
         <InputContainer>
           <Text>비밀번호 확인</Text>
-          <InfoInput type="text" />
+          <InfoInput type="password" />
         </InputContainer>
         <SubmitBtn type="submit">저장</SubmitBtn>
       </UserEditForm>
