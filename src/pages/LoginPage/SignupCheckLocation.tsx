@@ -35,21 +35,19 @@ const LoginContainer = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 58px;
+  font-size: 52px;
   font-weight: 600;
   margin-bottom: 24px;
 `;
 
 const Subtitle = styled.p`
-  font-size: 24px;
-  margin-bottom: 180px;
+  margin-bottom: 80px;
 `;
 
 const SelectContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 24px;
   & p {
     margin-bottom: 12px;
   }
