@@ -9,7 +9,9 @@ const FeedPage = () => {
       <FeedItem>
         <FeedTopWrapper>
           <FeedAvatar>
-            <FeedAvatarImg />
+            <Link to="/workshop">
+              <FeedAvatarImg />
+            </Link>
             <FeedAvatarName>희진공방</FeedAvatarName>
           </FeedAvatar>
           <FeedTime>3시간전</FeedTime>

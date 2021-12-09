@@ -41,7 +41,7 @@ const HeaderWrapper = styled.header`
   justify-content: center;
   align-items: flex-end;
   width: 100%;
-  height: 95px;
+  height: 60px;
   background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
   z-index: 1000;
 `;
@@ -53,7 +53,7 @@ const Title = styled.h1`
   font-size: 30px;
   font-weight: 700;
   color: #f5f5f5;
-  margin-bottom: 15px;
+  margin-bottom: 13px;
   margin-left: 15px;
 `;
 
@@ -61,7 +61,7 @@ const Location = styled.div`
   font-size: 16px;
   font-weight: 700;
   color: #f5f5f5;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
