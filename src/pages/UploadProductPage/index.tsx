@@ -65,7 +65,7 @@ const UploadProductPage = () => {
         <InputTitle>클래스 소개</InputTitle>
         <InputTextArea style={{ height: '100px' }} />
         <InputTitle>클래스 이미지</InputTitle>
-        <Upload droppable accept="image/*" setImgLink={setImgLink}>
+        <Upload droppable accept="image/*" imgLink={imgLink} setImgLink={setImgLink}>
           {(file: File, dragging: React.DragEvent<HTMLDivElement>) => {
             return (
               <div

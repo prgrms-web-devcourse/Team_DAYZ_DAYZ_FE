@@ -10,6 +10,7 @@ interface Props {
   value?: File;
   onChange?: any;
   setImgLink?: any;
+  imgLink?: any;
 }
 
 const Upload = ({
@@ -20,16 +21,19 @@ const Upload = ({
   value,
   onChange,
   setImgLink,
+  imgLink,
   ...props
 }: Props) => {
   const [file, setFile] = useState(value);
   const [dragging, setDragging] = useState(false);
+  const [state, setState] = useState<any | ''>('');
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files!;
     const changedFile = files[0];
     setFile(changedFile);
+    console.log(files);
     onChange && onChange(changedFile);
     const reader = new FileReader();
     reader.readAsDataURL(changedFile);
