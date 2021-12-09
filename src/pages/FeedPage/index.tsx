@@ -9,7 +9,7 @@ const FeedPage = () => {
       <FeedItem>
         <FeedTopWrapper>
           <FeedAvatar>
-            <Link to="/workshop">
+            <Link to="/workshop/:id">
               <FeedAvatarImg />
             </Link>
             <FeedAvatarName>희진공방</FeedAvatarName>

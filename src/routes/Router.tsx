@@ -39,7 +39,7 @@ const Router = () => {
       <Route path="/user/:id" exact component={UserPage} />
       <Route path="/feed/comments/:id" exact component={CommentsPage} />
       <Route path="/search/:results" exact component={SearchResultsPage} />
-      <Route path="/workshop" component={WorkshopPage} />
+      <Route path="/workshop/:id" component={WorkshopPage} />
       <Route path="/upload/feed" exact component={UploadFeedPage} />
       <Route path="/upload/comments/:id" exact component={UploadCommentPage} />
       <Route path="/upload/products" exact component={UploadProductPage} />

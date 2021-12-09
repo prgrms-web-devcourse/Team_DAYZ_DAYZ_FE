@@ -103,7 +103,7 @@ const HomePage = () => {
           <Title>신규 공방</Title>
           <NewClassesItemWrapper>
             {/* 1번 */}
-            <Link to="/workshop">
+            <Link to="/workshop/:id">
               <NewClassesItem>
                 <NewClassesImg />
                 <NewClassesTitle>희진 공방</NewClassesTitle>
