@@ -4,4 +4,4 @@ export const API_METHOD = {
   PUT: 'put',
   PATCH: 'patch',
   DELETE: 'delete',
-};
+} as const;
