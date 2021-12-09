@@ -52,14 +52,6 @@ const Avatar = ({
   );
 };
 
-Avatar.defaultProps = {
-  __TYPE: 'Avatar',
-};
-
-Avatar.propTypes = {
-  __TYPE: 'Avatar',
-};
-
 const ShapeToCssValue = {
   circle: '50%',
   round: '4px',

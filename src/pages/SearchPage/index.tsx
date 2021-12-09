@@ -1,31 +1,31 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import { ChevronLeft } from 'react-feather';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { GoBack } from '../../components/domain';
 
 const SearchPage = () => {
+  const history = useHistory();
   const [searchList, setSearchList] = useState('');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchList(event?.currentTarget.value);
   };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    history.push({
+      pathname: `/search/${searchList}`,
+      state: searchList,
+    });
+  };
+
   return (
     <SearchPageWrapper>
-      <SearchBackButtonWrapper>
-        <Link to="/">
-          <ChevronLeft size={40} />
-        </Link>
-        <SearchBackButtonText> 메인 페이지로 돌아가기</SearchBackButtonText>
-      </SearchBackButtonWrapper>
-
-      <SearchBarWrapper>
+      <GoBack to={'/'}>메인 페이지로 돌아가기</GoBack>
+      <SearchBarWrapper onSubmit={handleSubmit}>
         <SearchBar placeholder={'클래스명, 지역으로 검색하기'} onChange={handleChange} autoFocus />
       </SearchBarWrapper>
 
       <SearchResults>
-        {/* <SearchResultsItem>크리스마스</SearchResultsItem>
-        <SearchResultsItem>크리스마스 케익</SearchResultsItem>
-        <SearchResultsItem>크리스마스 리스</SearchResultsItem> */}
-        <Link to="/search/results" style={{ textDecoration: 'none' }}>
+        <Link to={`/search/${searchList}`} style={{ textDecoration: 'none' }}>
           <SearchResultsItem>{searchList}</SearchResultsItem>
         </Link>
       </SearchResults>
@@ -36,25 +36,14 @@ const SearchPage = () => {
 const SearchPageWrapper = styled.section`
   width: 100%;
 `;
-const SearchBackButtonWrapper = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 20px;
-  margin-left: 20px;
-`;
-
-const SearchBackButtonText = styled.div`
-  font-size: 20px;
-  font-weight: 600;
-  text-align: center;
-`;
 
 const SearchBarWrapper = styled.form`
   width: 300px;
   height: 60px;
   border-radius: 16px;
-  margin: 50px calc(50% - 150px);
+  margin: 0 calc(50% - 150px);
+  margin-top: 30px;
+  margin-bottom: 50px;
   background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
   display: flex;
   justify-content: center;
@@ -87,6 +76,7 @@ const SearchResultsItem = styled.li`
   font-weight: 600;
   margin-bottom: 10px;
   color: black;
+  cursor: pointer;
 `;
 
 export default SearchPage;
