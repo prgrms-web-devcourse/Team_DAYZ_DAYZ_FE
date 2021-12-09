@@ -144,6 +144,11 @@ const AvatarName = styled.div`
   color: black;
   text-align: center;
   margin-top: 5px;
+  width: 70px;
+  padding: 0 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 const ProductResultsWrapper = styled.section`
   margin-top: 20px;
@@ -163,12 +168,7 @@ const ProductResultsItemWrapper = styled.div`
 const ProductItem = styled.div`
   position: relative;
 `;
-const ProductImg = styled.div`
-  width: 100%;
-  padding-top: 100%;
-  border-radius: 16px;
-  background-color: grey;
-`;
+
 const ProductTitle = styled.h6`
   font-size: 20px;
   font-weight: 600;
