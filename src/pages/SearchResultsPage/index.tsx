@@ -86,7 +86,8 @@ const ResultsCategoryTitle = styled.h4`
   font-weight: 700;
 `;
 const WorkShopResultsWrapper = styled.section`
-  margin-left: 20px;
+  padding-left: 20px;
+  box-sizing: border-box;
   display: flex;
   justify-content: flex-start;
   width: 100%;
