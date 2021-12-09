@@ -1,9 +1,10 @@
 .react-datepicker {
-  /*  width: 100% !important; */
+  height: 270px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
+  margin-top: 20px;
 }
 
 .react-datepicker__header {
