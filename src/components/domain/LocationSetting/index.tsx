@@ -1,8 +1,40 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const LocationSetting = () => {
   const [pickState, setPickState] = useState<string[]>([]);
+  const DummyData: any = {
+    success: false,
+    serverDateTime: '2021-11-05T16:55:37.436056',
+    data: {
+      addresses: [
+        {
+          cityId: 1,
+          cityName: '서울시',
+          regions: [
+            { regionId: 1, regionName: '강남구' },
+            { regionId: 3, regionName: '송파구' },
+            { regionId: 2, regionName: '마포구' },
+          ],
+        },
+        {
+          cityId: 2,
+          cityName: '부산시',
+          regions: [
+            { regionId: 1, regionName: '남포동' },
+            { regionId: 2, regionName: '영도동' },
+          ],
+        },
+      ],
+    },
+  };
+
+  useEffect(() => {
+    const info = DummyData.data.addresses[0].regions
+      .sort((a: any, b: any) => a.regionId - b.regionId)
+      .map((list: any) => (list = list.regionName));
+    setPickState([...info]);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target: string = (e.target as HTMLInputElement).dataset.id!;
@@ -88,7 +120,7 @@ const ToggleContainer = styled.label`
 const Input = styled.input`
   display: none;
   &:checked + div {
-    background: #b88bd6;
+    background: #c4c4c4;
     color: #f5f5f5;
     border: none;
   }
