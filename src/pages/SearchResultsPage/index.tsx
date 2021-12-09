@@ -51,9 +51,9 @@ const SearchResultsPage = () => {
                 <ProductItem>
                   <Image
                     width={'100%'}
+                    height={'25vh'}
                     src={imageUrl}
                     alt={'product'}
-                    height={'100%'}
                     mode={'cover'}
                     lazy
                   />
