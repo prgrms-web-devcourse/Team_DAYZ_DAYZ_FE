@@ -133,22 +133,3 @@ const ReviewContainer = styled.div`
     }
   }
 `;
-
-{
-  /* <div className="review">
-            <div className="profile">
-              <img src="https://picsum.photos/id/1/200/300" alt="" />
-              <div>
-                <p>희진공방</p>
-                <p>2021-12-22</p>
-              </div>
-            </div>
-            <div className="content">
-              <p>도자기 만들어</p>
-            </div>
-            <div className="photos">
-              <img src="https://picsum.photos/id/1/200/300" alt="" />
-              <img src="https://picsum.photos/id/1/200/300" alt="" />
-            </div>
-          </div> */
-}
