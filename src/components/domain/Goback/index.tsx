@@ -12,7 +12,7 @@ interface Props {
 const GoBack = ({ children, to, ...props }: Props) => {
   return (
     <SearchBackButtonWrapper>
-      <Link to={to} replace={true}>
+      <Link to={to} replace={true} style={{ color: 'black' }}>
         <ChevronLeft size={40} />
       </Link>
       <SearchBackButtonText> {children}</SearchBackButtonText>

@@ -2,16 +2,12 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { ChevronLeft } from 'react-feather';
 import { Link } from 'react-router-dom';
+import { GoBack } from '../../components/domain';
 const CommentsPage = () => {
   // 추후에 하단 NAV없애야 함
   return (
     <CommentsWrapper>
-      <CommentsBackButton>
-        <Link to="/feed">
-          <ChevronLeft size={40} />
-        </Link>
-        <CommentsBackButtonText>돌아가기</CommentsBackButtonText>
-      </CommentsBackButton>
+      <GoBack to={'/feed'}>돌아가기</GoBack>
 
       <CommentsTopWrapper>
         <CommentsAuthorAvatar>
