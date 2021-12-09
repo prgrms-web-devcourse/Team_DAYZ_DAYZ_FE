@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { useParams } from 'react-router-dom';
-import { Image, Text } from '../../components/base';
+import { Link, useParams } from 'react-router-dom';
+import { Button, Image, Text } from '../../components/base';
 import { AteliarInformation, SimpleReview } from '../../components/domain';
 import ReviewModal from './ReviewModal';
 
@@ -73,7 +73,9 @@ const ProductsDetailPage = () => {
 
       <ReservationContainer>
         <HeaderText>45,000</HeaderText>
-        <ReservationButton>예약하기</ReservationButton>
+        <Link to={`/booking/${id}`} style={{ textDecoration: 'none' }}>
+          <ReservationButton type="button">예약하기</ReservationButton>
+        </Link>
       </ReservationContainer>
 
       <ReviewModal visible={visible} setVisible={setVisible} />
@@ -126,10 +128,9 @@ const ReservationContainer = styled.div`
   justify-content: space-around;
   align-items: center;
 `;
-const ReservationButton = styled.button`
+const ReservationButton = styled(Button)`
   height: 56px;
   width: 174px;
-  background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
   border-radius: 15px;
   font-weight: bold;
   font-size: 25px;
