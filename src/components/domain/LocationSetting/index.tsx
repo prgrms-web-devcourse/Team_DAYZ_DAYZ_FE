@@ -4,50 +4,30 @@ import React, { useEffect, useState } from 'react';
 const LocationSetting = () => {
   const [pickState, setPickState] = useState<string[]>([]);
   const DummyData: any = {
-    success: false,
-    serverDateTime: '2021-11-05T16:55:37.436056',
+    success: true,
     data: {
-      addresses: [
-        {
-          cityId: 1,
-          cityName: '서울시',
-          regions: [
-            { regionId: 1, regionName: '강남구' },
-            { regionId: 3, regionName: '송파구' },
-            { regionId: 2, regionName: '마포구' },
-          ],
-        },
-        {
-          cityId: 2,
-          cityName: '부산시',
-          regions: [
-            { regionId: 1, regionName: '남포동' },
-            { regionId: 2, regionName: '영도동' },
-          ],
-        },
-      ],
+      id: 1,
+      token:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+      name: '김영태',
+      profileImageUrl: '',
+      cityId: 1,
+      cityName: '서울시',
+      regionId: 1,
+      regionName: '송파구',
+      auth: 'ROLE_USER',
+      atelierId: 1,
     },
+    serverDateTime: '2021-11-05T16:55:37.436056',
   };
 
   useEffect(() => {
-    const info = DummyData.data.addresses[0].regions
-      .sort((a: any, b: any) => a.regionId - b.regionId)
-      .map((list: any) => (list = list.regionName));
-    setPickState([...info]);
+    setPickState(DummyData.data.regionName);
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target: string = (e.target as HTMLInputElement).dataset.id!;
-    if (!pickState?.includes(target)) {
-      if (pickState.length < 3) {
-        setPickState([...pickState, target]);
-      } else {
-        pickState.shift();
-        setPickState([...pickState, target]);
-      }
-    } else {
-      setPickState(pickState.filter((pick: string) => pick !== target));
-    }
+    const target: any = (e.target as HTMLInputElement).dataset.id!;
+    setPickState(target);
   };
   const district = [
     '강남구',
@@ -77,7 +57,7 @@ const LocationSetting = () => {
   ];
   return (
     <Wrapper>
-      <H4>관심지역 3곳을 선택해 주세요</H4>
+      <H4>관심지역을 선택해 주세요</H4>
       <div
         style={{
           margin: '10px auto',
@@ -87,9 +67,7 @@ const LocationSetting = () => {
           right: '0',
         }}
       >
-        {pickState.length
-          ? pickState.map((pick: any) => <SelectedButton key={pick}>{pick}</SelectedButton>)
-          : ''}
+        <SelectedButton>{pickState}</SelectedButton>
       </div>
       <form>
         {district.map((location) => (

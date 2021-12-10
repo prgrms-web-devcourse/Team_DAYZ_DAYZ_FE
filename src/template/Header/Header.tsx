@@ -7,11 +7,6 @@ import { LocationSetting } from '../../components/domain';
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
-  const [state, setState] = useState('');
-
-  const handleChange = () => {
-    console.log('a');
-  };
 
   return (
     <HeaderWrapper>
@@ -24,6 +19,7 @@ const Header = () => {
 
       <Modal visible={visible} onClose={() => setVisible(false)} width={'100%'} height={'70%'}>
         <LocationSetting />
+        {/* UI로 보이는 관심지역은 회원 기본정보로 가져옴 */}
       </Modal>
 
       <BellIcon>
