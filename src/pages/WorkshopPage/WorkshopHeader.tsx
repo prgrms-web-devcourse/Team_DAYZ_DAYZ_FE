@@ -4,25 +4,30 @@ import { Settings, Layout, Calendar, Star } from 'react-feather';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { SETTING, WORKSHOP, PRODUCTSLIST, REVIEWLIST } from '.';
+import { DUMMY_ATELIER_DATA } from './DUMMY_DATA';
+// 1. 공방 상세정보 조회 https://backend-devcourse.notion.site/2158d2bf8bab4792baea605062c15d69
 
 const WorkshopHeader = () => {
-  const ICON_SIZE = 24;
+  const { intro, name, imageUrl, address, callNo, startTime, endTime } = DUMMY_ATELIER_DATA;
+  const ICON_SIZE = 26;
   return (
     <Container>
       <WorkshopProfile>
         <Avatar
           size={80}
-          alt={'프로필'}
+          alt={'profile'}
           shape={'circle'}
-          src={'https://picsum.photos/id/1/200/300'}
+          src={imageUrl}
           placeholder={'https://via.placeholder.com/150'}
         />
         <div className="info">
-          <span>방탄공방</span>
-          <span>서울 강남구 테헤란로</span>
-          <span>12-7 3층</span>
-          <span>010-1234-5678</span>
-          <span>09:00 - 17:00</span>
+          <span>{name}</span>
+          <span>{intro}</span>
+          <span>{address}</span>
+          <span>{callNo}</span>
+          <span>
+            {startTime} - {endTime}
+          </span>
         </div>
         <Link to={SETTING} style={{ textDecoration: 'none', color: 'black' }}>
           <Settings />
