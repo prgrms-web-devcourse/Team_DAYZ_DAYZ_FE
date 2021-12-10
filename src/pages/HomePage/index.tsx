@@ -65,7 +65,6 @@ const HomePage = () => {
         <NewClassesWrapper>
           <Title>신규 공방</Title>
           <NewClassesItemWrapper>
-
             {DUMMY_NEW_ATELIER_DATA.ateliers.length ? (
               DUMMY_NEW_ATELIER_DATA.ateliers.map(({ atelierId, name, imageUrl, intro }) => (
                 <Link to={`/workshop/${atelierId}`} key={atelierId}>
@@ -87,7 +86,6 @@ const HomePage = () => {
             ) : (
               <div>신규 공방이 없어요 ㅠ</div>
             )}
-
           </NewClassesItemWrapper>
         </NewClassesWrapper>
       </Container>
