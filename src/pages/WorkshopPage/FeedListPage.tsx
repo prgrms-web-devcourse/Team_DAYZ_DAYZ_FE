@@ -1,33 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
-const FeedList = () => {
-  const DummyData = {
-    data: {
-      totalCount: 20,
-      pageIndex: 0,
-      pageSize: 10,
-      hasNext: true,
-      post: [
-        {
-          postId: 1,
-          imageUrl: 'https://pngrow.com/preview/4227/circle-profile-picture-png',
-          createdAt: '',
-        },
-        {
-          postId: 1,
-          imageUrl: 'https://pngrow.com/preview/4227/circle-profile-picture-png',
-          createdAt: '',
-        },
-        {
-          postId: 1,
-          imageUrl: 'https://pngrow.com/preview/4227/circle-profile-picture-png',
-          createdAt: '',
-        },
-      ],
-    },
-    success: true,
-    serverDateTime: '2021-12-19 21:23:01',
-  };
+
+// 1. 공방 게시글 목록 조회 https://backend-devcourse.notion.site/f9eef5aaed3a4effa755c3b8f716d6bd
+
+const FeedListPage = () => {
   return (
     <RowFeedContainer>
       {DummyData.data.post
@@ -36,7 +12,7 @@ const FeedList = () => {
     </RowFeedContainer>
   );
 };
-export default FeedList;
+export default FeedListPage;
 
 const RowFeedContainer = styled.div`
   display: grid;

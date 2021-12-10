@@ -4,36 +4,7 @@ import { Link } from 'react-router-dom';
 import { LinkBox } from '../../components/domain';
 import { Plus } from 'react-feather';
 
-const ProductsList = () => {
-  const DummyData = {
-    data: {
-      class: [
-        {
-          classId: 1,
-          name: '킹왕짱클래스',
-          imageUrl: 'http://s3.abc.jpg',
-        },
-        {
-          classId: 2,
-          name: '짱클래스짱',
-          imageUrl: 'http://s3.abc.jpg',
-        },
-        {
-          classId: 3,
-          name: '방탄클래스',
-          imageUrl: 'http://s3.abc.jpg',
-        },
-        {
-          classId: 4,
-          name: '무야호',
-          imageUrl: 'http://s3.abc.jpg',
-        },
-      ],
-      totalCount: 4,
-      pageIndex: 0,
-      hasNext: false,
-    },
-  };
+const ProductsListPage = () => {
   return (
     <ProductsListContainer>
       <ProductsCnt>
@@ -58,7 +29,7 @@ const ProductsList = () => {
     </ProductsListContainer>
   );
 };
-export default ProductsList;
+export default ProductsListPage;
 
 const ProductsListContainer = styled.div`
   margin: 14px;
