@@ -40,6 +40,7 @@ const ReviewListPage = () => {
                       <StyledText>{name}</StyledText>
                       <StyledText>{createdAt}</StyledText>
                     </AteliarDetailWrapper>
+                    <ScoreWrapper>별이 {score}</ScoreWrapper>
                   </AteliarWrapper>
                   <ContentWrapper>{content}</ContentWrapper>
                   <ImageContainer>
@@ -99,6 +100,9 @@ const AteliarDetailWrapper = styled.div`
   flex-direction: column;
   margin-left: 20px;
 `;
+const ScoreWrapper = styled.div`
+  margin-left: 30px;
+`;
 
 const StyledText = styled(Text)`
   margin: 5px 0;
@@ -108,6 +112,7 @@ const ContentWrapper = styled.div`
   margin: 20px 0;
   box-sizing: border-box;
   padding: 0 20px;
+  font-weight: bold;
 `;
 const ImageContainer = styled.div`
   display: flex;
