@@ -38,5 +38,5 @@ const WorkshopPage = () => {
 export default WorkshopPage;
 
 const WorkshopContainer = styled.div`
-  margin-top: 36px;
+  margin-top: 25px;
 `;
