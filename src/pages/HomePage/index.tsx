@@ -1,56 +1,16 @@
-import styled from '@emotion/styled';
 import React from 'react';
+import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { GiPaintedPottery, GiLipstick } from 'react-icons/gi';
-import { BiDish, BiPaint } from 'react-icons/bi';
-import { BsFlower1 } from 'react-icons/bs';
-import { HiOutlineMusicNote } from 'react-icons/hi';
-import { IoHammerOutline } from 'react-icons/io5';
-import { MdOutlineSurfing } from 'react-icons/md';
+import { Image } from '../../components/base';
+import { categoryIcons } from './categoryIcons';
+import { DUMMY_NEW_ATELIER_DATA, DUMMY_POPULAR_DATA } from './DUMMY_DATA';
+
+// 1. 카테고리 목록 조회 https://backend-devcourse.notion.site/d1a5d88893d642a48e169f5ccc10cc7c
+// 2. 금주의 인기 클래스 조회 https://backend-devcourse.notion.site/66ebc05aa398421dbf463023b8a9224f
+// 3. 공방 목록 조회 https://backend-devcourse.notion.site/6c1b449c3ae846a88f262fc67f25a281
+// 동기 처리하면 DUMMY_DATA는 삭제
 
 const HomePage = () => {
-  const categoryIcons = [
-    {
-      genre: '/category/pottery',
-      Icon: GiPaintedPottery,
-      contents: '도자기',
-    },
-    {
-      genre: '/category/cooking',
-      Icon: BiDish,
-      contents: '요리',
-    },
-    {
-      genre: '/category/flower',
-      Icon: BsFlower1,
-      contents: '플라워',
-    },
-    {
-      genre: '/category/drawing',
-      Icon: BiPaint,
-      contents: '미술',
-    },
-    {
-      genre: '/category/beauty',
-      Icon: GiLipstick,
-      contents: '뷰티',
-    },
-    {
-      genre: '/category/music',
-      Icon: HiOutlineMusicNote,
-      contents: '음악',
-    },
-    {
-      genre: '/category/handcraft',
-      Icon: IoHammerOutline,
-      contents: '수공예',
-    },
-    {
-      genre: '/category/activity',
-      Icon: MdOutlineSurfing,
-      contents: '액티비티',
-    },
-  ];
   return (
     <MainPageWrapper>
       <Container>
@@ -78,53 +38,56 @@ const HomePage = () => {
         <BestClassesWrapper>
           <Title>금주의 인기 클래스</Title>
           <BestClassItemWrapper>
-            {/* 1번 */}
-            <Link to="/products/:id">
-              <BestClassesItem>
-                <BestClassesImg />
-                <BestClassesTitle>1시간으로 크리스마스 트리 완성하기</BestClassesTitle>
-              </BestClassesItem>
-            </Link>
-
-            {/* 2번 */}
-            <BestClassesItem>
-              <BestClassesImg />
-              <BestClassesTitle>1시간으로 크리스마스 트리 완성하기</BestClassesTitle>
-            </BestClassesItem>
-            {/* 3번 */}
-            <BestClassesItem>
-              <BestClassesImg />
-              <BestClassesTitle>1시간으로 크리스마스 트리 완성하기</BestClassesTitle>
-            </BestClassesItem>
+            {DUMMY_POPULAR_DATA.classes.length ? (
+              DUMMY_POPULAR_DATA.classes.map(({ classId, name, imageUrl, intro }) => (
+                <Link to={`/workshop/${classId}`} key={classId}>
+                  <BestClassesItem>
+                    <Image
+                      lazy
+                      src={imageUrl}
+                      placeholder="https://via.placeholder.com/150"
+                      width={200}
+                      height={120}
+                      alt="Atelier"
+                      mode="fill"
+                      style={{ borderRadius: '16px' }}
+                    />
+                    <BestClassesTitle>{name}</BestClassesTitle>
+                  </BestClassesItem>
+                </Link>
+              ))
+            ) : (
+              <div>인기 클래스가 없어요 ㅠ</div>
+            )}
           </BestClassItemWrapper>
         </BestClassesWrapper>
 
         <NewClassesWrapper>
           <Title>신규 공방</Title>
           <NewClassesItemWrapper>
-            {/* 1번 */}
-            <Link to="/workshop/:id">
-              <NewClassesItem>
-                <NewClassesImg />
-                <NewClassesTitle>희진 공방</NewClassesTitle>
-              </NewClassesItem>
-            </Link>
 
-            {/* 2번 */}
-            <NewClassesItem>
-              <NewClassesImg />
-              <NewClassesTitle>희진 공방</NewClassesTitle>
-            </NewClassesItem>
-            {/* 3번 */}
-            <NewClassesItem>
-              <NewClassesImg />
-              <NewClassesTitle>희진 공방</NewClassesTitle>
-            </NewClassesItem>
-            {/* 4번 */}
-            <NewClassesItem>
-              <NewClassesImg />
-              <NewClassesTitle>희진 공방</NewClassesTitle>
-            </NewClassesItem>
+            {DUMMY_NEW_ATELIER_DATA.ateliers.length ? (
+              DUMMY_NEW_ATELIER_DATA.ateliers.map(({ atelierId, name, imageUrl, intro }) => (
+                <Link to={`/workshop/${atelierId}`} key={atelierId}>
+                  <NewClassesItem>
+                    <Image
+                      lazy
+                      src={imageUrl}
+                      placeholder="https://via.placeholder.com/150"
+                      width={'100%'}
+                      height={'100%'}
+                      alt="Atelier"
+                      mode="fill"
+                      style={{ borderRadius: '16px' }}
+                    />
+                    <NewClassesTitle>{name}</NewClassesTitle>
+                  </NewClassesItem>
+                </Link>
+              ))
+            ) : (
+              <div>신규 공방이 없어요 ㅠ</div>
+            )}
+
           </NewClassesItemWrapper>
         </NewClassesWrapper>
       </Container>
@@ -145,7 +108,8 @@ const SearchBarWrapper = styled.section`
   width: 300px;
   height: 60px;
   border-radius: 16px;
-  margin: 50px calc(50% - 150px);
+  margin: 30px calc(50% - 150px);
+  margin-top: 40px;
   background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
   display: flex;
   justify-content: center;
@@ -167,6 +131,7 @@ const PlaceHolder = styled.div`
 const CategoryWrapper = styled.section`
   width: 300px;
   margin: 50px calc(50% - 150px);
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   text-align: center;
@@ -193,17 +158,19 @@ const BestClassItemWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  & {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const BestClassesItem = styled.div`
   position: relative;
   margin-right: 10px;
-`;
-const BestClassesImg = styled.div`
-  width: 200px;
-  height: 100px;
-  height: 120px;
-  border-radius: 16px;
-  background-color: grey;
+  text-align: center;
+  word-break: keep-all;
 `;
 const BestClassesTitle = styled.div`
   position: absolute;
@@ -229,12 +196,6 @@ const NewClassesItemWrapper = styled.div`
 `;
 const NewClassesItem = styled.div`
   position: relative;
-`;
-const NewClassesImg = styled.div`
-  width: 100%;
-  padding-top: 100%;
-  border-radius: 16px;
-  background-color: grey;
 `;
 const NewClassesTitle = styled.div`
   position: absolute;

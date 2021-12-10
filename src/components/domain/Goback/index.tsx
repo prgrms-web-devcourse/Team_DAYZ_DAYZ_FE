@@ -12,7 +12,7 @@ interface Props {
 const GoBack = ({ children, to, ...props }: Props) => {
   return (
     <SearchBackButtonWrapper>
-      <Link to={to} replace={true}>
+      <Link to={to} replace={true} style={{ color: 'black' }}>
         <ChevronLeft size={40} />
       </Link>
       <SearchBackButtonText> {children}</SearchBackButtonText>
@@ -26,6 +26,7 @@ const SearchBackButtonWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   margin-left: 20px;
+  margin-top: 20px;
 `;
 
 const SearchBackButtonText = styled.div`
