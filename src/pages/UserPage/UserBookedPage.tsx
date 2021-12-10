@@ -1,11 +1,77 @@
 import styled from '@emotion/styled';
-import React from 'react';
-
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 const UserBookedPage = () => {
+  const [getID, setGetID] = useState<number | undefined>(undefined);
+
+  console.log(getID);
+
+  const DummyData = {
+    success: true,
+    serverDateTime: '2021-12-05T16:50:37.436090',
+    data: {
+      totalCount: 3,
+      pageIndex: 1,
+      hasNext: true,
+      reservations: [
+        {
+          reservationID: 1,
+          name: '반지 만들기',
+          date: '21/12/30',
+          startTime: '13:00',
+          endTime: '15:00',
+          status: '진행중',
+        },
+        {
+          reservationID: 2,
+          name: '도자기 만들기',
+          date: '21/11/31',
+          startTime: '13:00',
+          endTime: '15:00',
+          status: '진행 완료',
+        },
+      ],
+    },
+  };
+
   return (
     <UserBookedPageWrapper>
       <BookedLists>
-        <BookedItem>
+        {DummyData.data.reservations.length ? (
+          DummyData.data.reservations.map((item) => (
+            <BookedItem key={item.reservationID}>
+              <div
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              >
+                <ProductName>{item.name}</ProductName>
+                {item.status === '진행중' ? (
+                  <Button
+                    style={{ backgroundColor: '#b88bd6' }}
+                    onClick={() => setGetID(item.reservationID)}
+                  >
+                    취소 하기
+                  </Button>
+                ) : (
+                  <Link to={`/upload/comments/${item.reservationID}`}>
+                    <Button style={{ backgroundColor: '#a8bac8' }}>후기 쓰기</Button>
+                  </Link>
+                )}
+              </div>
+
+              <ProductDateData>
+                <ProductDate>{item.date}</ProductDate>
+                <ProductDay>{}</ProductDay>
+                <ProductTime>
+                  {item.startTime} ~ {item.endTime}
+                </ProductTime>
+              </ProductDateData>
+            </BookedItem>
+          ))
+        ) : (
+          <div>예약 내역이 없습니다!</div>
+        )}
+
+        {/* <BookedItem>
           <ProductName>크리스마스 트리 만들기 클래스</ProductName>
           <ProductDateData>
             <ProductDate>2021.12.02</ProductDate>
@@ -22,7 +88,7 @@ const UserBookedPage = () => {
             <ProductTime>오후 6:00</ProductTime>
           </ProductDateData>
           <ReviewButton>후기 남기기</ReviewButton>
-        </BookedItem>
+        </BookedItem> */}
       </BookedLists>
     </UserBookedPageWrapper>
   );
@@ -56,27 +122,14 @@ const ProductTime = styled.div`
   font-size: 20px;
 `;
 
-const CancelButton = styled.button`
-  font-size: 24px;
+const Button = styled.button`
+  font-size: 20px;
   font-weight: 600;
-  background-color: #b88bd6;
   color: #f5f5f5;
   border: none;
-  width: 50%;
-  margin: 20px 25% 0px 25%;
-  padding: 15px;
-  border-radius: 15px;
+  width: 100px;
+  height: 40px;
+  border-radius: 8px;
 `;
 
-const ReviewButton = styled.button`
-  font-size: 24px;
-  font-weight: 600;
-  background-color: #a8bac8;
-  color: #f5f5f5;
-  border: none;
-  width: 50%;
-  margin: 20px 25% 0px 25%;
-  padding: 15px;
-  border-radius: 15px;
-`;
 export default UserBookedPage;
