@@ -25,10 +25,4 @@ const RowFeedContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 3px;
-<<<<<<< HEAD
-  & img {
-    width: 100%;
-  }
-=======
->>>>>>> af06236... Refactor: 더미데이터 적용
 `;
