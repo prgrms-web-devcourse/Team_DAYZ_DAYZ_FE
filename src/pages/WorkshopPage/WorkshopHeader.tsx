@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { SETTING, WORKSHOP, PRODUCTSLIST, REVIEWLIST } from '.';
 
 const WorkshopHeader = () => {
-  const ICON_SIZE = 32;
+  const ICON_SIZE = 24;
   return (
     <Container>
       <WorkshopProfile>
@@ -24,18 +24,18 @@ const WorkshopHeader = () => {
           <span>010-1234-5678</span>
           <span>09:00 - 17:00</span>
         </div>
-        <Link to={SETTING}>
+        <Link to={SETTING} style={{ textDecoration: 'none', color: 'black' }}>
           <Settings />
         </Link>
       </WorkshopProfile>
       <Tabs>
-        <Link to={WORKSHOP}>
+        <Link to={WORKSHOP} style={{ textDecoration: 'none', color: 'black' }}>
           <Layout size={`${ICON_SIZE}px`} />
         </Link>
-        <Link to={PRODUCTSLIST}>
+        <Link to={PRODUCTSLIST} style={{ textDecoration: 'none', color: 'black' }}>
           <Calendar size={`${ICON_SIZE}px`} />
         </Link>
-        <Link to={REVIEWLIST}>
+        <Link to={REVIEWLIST} style={{ textDecoration: 'none', color: 'black' }}>
           <Star size={`${ICON_SIZE}px`} />
         </Link>
       </Tabs>
@@ -71,6 +71,6 @@ const WorkshopProfile = styled.section`
 const Tabs = styled.div`
   display: flex;
   justify-content: space-around;
-  background-color: #eed6fc;
+  background-color: #f5f5f5;
   padding: 12px 0;
 `;

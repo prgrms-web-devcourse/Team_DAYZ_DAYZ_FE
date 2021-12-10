@@ -5,7 +5,7 @@ export { default as ReviewListPage } from './ReviewListPage';
 export { default as SettingPage } from './SettingPage';
 export { default as EditPage } from './EditPage';
 
-export const WORKSHOP = '/workshop';
+export const WORKSHOP = '/workshop/:id';
 export const PRODUCTSLIST = '/workshop/productsList';
 export const REVIEWLIST = '/workshop/reviewList';
 export const SETTING = '/workshop/setting';

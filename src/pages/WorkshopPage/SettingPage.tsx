@@ -10,8 +10,8 @@ import { EDIT } from '.';
 const SettingPage = () => {
   return (
     <div>
+      <GoBack to="/workshop/:id">뒤로가기</GoBack>
       <WorkshopProfileContainer>
-        <GoBack to="/workshop">뒤로가기</GoBack>
         <Avatar
           size={80}
           alt={'프로필'}
