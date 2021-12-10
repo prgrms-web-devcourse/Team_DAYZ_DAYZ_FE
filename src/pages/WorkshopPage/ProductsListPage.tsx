@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { LinkBox } from '../../components/domain';
 import { Plus } from 'react-feather';
 import styled from '@emotion/styled';
-import { LinkBox } from '../../components/domain';
 import { DUMMY_CLASS_DATA } from './DUMMY_DATA';
 
 // 1. 클래스 목록 조회 https://backend-devcourse.notion.site/cbf7db08c6ae437b904d594dc92a8219
@@ -15,7 +14,7 @@ const ProductsListPage = () => {
       <ProductsCnt>
         총 <strong style={{ fontWeight: '600' }}>{totalCount}</strong> 개의 결과
       </ProductsCnt>
-      
+
       {oneDayClass.length ? (
         oneDayClass.map(({ classId, name, imageUrl }) => (
           <LinkBox key={classId} src={imageUrl}>
@@ -48,7 +47,6 @@ const ProductsCnt = styled.div`
   opacity: 0.7;
 `;
 
-<<<<<<< HEAD
 const ProductAdd = styled.div`
   display: flex;
   justify-content: center;
@@ -91,6 +89,5 @@ const Balloon = styled.div`
     right: 40px;
   }
 `;
-=======
+
 export default ProductsListPage;
->>>>>>> f7c50a4... Feat: productslist 더미 데이터 추가
