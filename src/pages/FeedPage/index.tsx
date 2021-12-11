@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { Component } from 'react';
 import { ChevronRight } from 'react-feather';
 import { Link } from 'react-router-dom';
-import Flicking from '@egjs/react-flicking';
+import Flicking, { ViewportSlot } from '@egjs/react-flicking';
+import { Pagination } from '@egjs/flicking-plugins';
 import '@egjs/react-flicking/dist/flicking.css';
-// Or, if you have to support IE9
 import '@egjs/react-flicking/dist/flicking-inline.css';
+import '@egjs/flicking-plugins/dist/pagination.css';
+import './flicker.css';
 
 const FeedPage = () => {
   const DUMMY_DATA = {
@@ -107,14 +109,21 @@ const FeedPage = () => {
                 <Flicking
                   align="prev"
                   circular={false}
-                  onMoveEnd={(e) => {
-                    console.log(e);
-                  }}
+                  plugins={[new Pagination({ type: 'bullet' })]}
                 >
-                  {item.images.map((img) => (
+                  {item.images?.map((img) => (
                     <FeedContentImg key={`${item.name}` + `${img.sequence}`} src={img.imageUrl} />
                   ))}
+                  <ViewportSlot>
+                    {item.images.length > 1 ? (
+                      <div className="flicking-pagination" />
+                    ) : (
+                      <div className="flicking-pagination" style={{ display: 'none' }} />
+                    )}
+                  </ViewportSlot>
                 </Flicking>
+
+                {/* <Dots images={item.images} index={2} /> */}
               </FeedImgWrapper>
 
               <Link to={`/products/${item.classId}`} style={{ textDecoration: 'none' }}>
@@ -204,6 +213,7 @@ const FeedImgWrapper = styled.div`
   align-items: center;
   width: 100%;
   overflow-x: scroll;
+  position: relative;
   & {
     -ms-overflow-style: none; //IE
     scrollbar-width: none; //firefox
@@ -218,7 +228,7 @@ const FeedContentImg = styled.img`
 `;
 const FeedContentClassWrapper = styled.div`
   width: 100%;
-  height: 40px;
+  height: 45px;
   background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
   display: flex;
   justify-content: space-between;
