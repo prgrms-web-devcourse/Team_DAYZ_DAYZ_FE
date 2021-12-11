@@ -2,7 +2,10 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { ChevronRight } from 'react-feather';
 import { Link } from 'react-router-dom';
-import { isTemplateSpan } from 'typescript';
+import Flicking from '@egjs/react-flicking';
+import '@egjs/react-flicking/dist/flicking.css';
+// Or, if you have to support IE9
+import '@egjs/react-flicking/dist/flicking-inline.css';
 
 const FeedPage = () => {
   const DUMMY_DATA = {
@@ -15,17 +18,17 @@ const FeedPage = () => {
           images: [
             {
               imageUrl:
-                'http://www.newscj.com/news/photo/202103/newscj_%EC%B2%9C%EC%A7%80%EC%9D%BC%EB%B3%B4_2021_3_12_18517_884878.jpg',
+                'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf8f324a0b9c48f77dbce3a43bd11ce785',
               sequence: 1,
             },
             {
               imageUrl:
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_QAx1rspc-DWW6TT0DnhXPqDHHISPFY2GQyiIvPk_PuWHBmY5skQuiarZ-8yP6Vu4mZs&usqp=CAU',
+                'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf41d1a2caccd0c566eab28b91e2e5d306',
               sequence: 2,
             },
             {
               imageUrl:
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsRNKCEsvwRD_MSNSC5zv7oqJE6erhx8pwOb_dGIilZ8EtZnqNDkmNhqoLJ86TFjRB_KY&usqp=CAU',
+                'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933bafa88f7b2cbb72be0bdfff91ad65b168ab',
               sequence: 3,
             },
           ],
@@ -33,7 +36,7 @@ const FeedPage = () => {
           atelierId: 1,
           name: '방탄공방',
           imageUrl:
-            'https://w.namu.la/s/027c1a94bfe08c721826d7f2d539e353fa7bb5afce420a1f4e7018f81a4907b17430e14ddce975ff9225ae333e921e46f59323879d2c0975cfe3c67de45119428d52050e2e45ee9dc9fa5fba0c96c498e82ac2bfbdb20ce29919f164ed50d7f6',
+            'https://item.kakaocdn.net/do/a1866850b14ae47d0a2fd61f409dfc057154249a3890514a43687a85e6b6cc82',
         },
         {
           postId: 2,
@@ -101,9 +104,17 @@ const FeedPage = () => {
             </FeedTopWrapper>
             <FeedContentWrapper>
               <FeedImgWrapper>
-                {item.images.map((img) => (
-                  <FeedContentImg key={img.sequence} src={img.imageUrl} />
-                ))}
+                <Flicking
+                  align="prev"
+                  circular={false}
+                  onMoveEnd={(e) => {
+                    console.log(e);
+                  }}
+                >
+                  {item.images.map((img) => (
+                    <FeedContentImg key={`${item.name}` + `${img.sequence}`} src={img.imageUrl} />
+                  ))}
+                </Flicking>
               </FeedImgWrapper>
 
               <Link to={`/products/${item.classId}`} style={{ textDecoration: 'none' }}>
@@ -203,7 +214,7 @@ const FeedImgWrapper = styled.div`
 `;
 const FeedContentImg = styled.img`
   width: 100%;
-  object-fit: fill;
+  z-index: 10;
 `;
 const FeedContentClassWrapper = styled.div`
   width: 100%;
