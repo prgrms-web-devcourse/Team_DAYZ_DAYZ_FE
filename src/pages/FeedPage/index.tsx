@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React, { Component } from 'react';
 import { ChevronRight } from 'react-feather';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Flicking, { ViewportSlot } from '@egjs/react-flicking';
 import { Pagination } from '@egjs/flicking-plugins';
 import '@egjs/react-flicking/dist/flicking.css';
@@ -10,6 +10,7 @@ import '@egjs/flicking-plugins/dist/pagination.css';
 import './flicker.css';
 
 const FeedPage = () => {
+  const history = useHistory();
   const DUMMY_DATA = {
     data: {
       post: [
@@ -137,41 +138,29 @@ const FeedPage = () => {
                 <FeedContentTextTitle>{item.content}</FeedContentTextTitle>
               </FeedContentText>
             </FeedContentWrapper>
-            <Link to="/feed/comments/:id" style={{ textDecoration: 'none' }}>
-              <FeedComment>댓글 더 보기</FeedComment>
+            <Link to={`/feed/comments/${item.postId}`} style={{ textDecoration: 'none' }}>
+              <FeedComment
+                onClick={() => {
+                  history.push({
+                    pathname: `/upload/comments/${item.postId}`,
+                    state: {
+                      postId: `${item.postId}`,
+                      authorName: `${item.name}`,
+                      createdAt: `${item.createdAt}`,
+                      authorImg: `${item.imageUrl}`,
+                      content: `${item.content}`,
+                    },
+                  });
+                }}
+              >
+                댓글 더 보기
+              </FeedComment>
             </Link>
           </FeedItem>
         ))
       ) : (
         <div>팔로우한 계정이 없네요!</div>
       )}
-      {/* // <FeedItem>
-      //   <FeedTopWrapper>
-      //     <FeedAvatar>
-      //       <Link to="/workshop/:id">
-      //         <FeedAvatarImg />
-      //       </Link>
-      //       <FeedAvatarName>희진공방</FeedAvatarName>
-      //     </FeedAvatar>
-      //     <FeedTime>3시간전</FeedTime>
-      //   </FeedTopWrapper>
-      //   <FeedContentWrapper>
-      //     <FeedContentImg />
-      //     <Link to="/products/:id" style={{ textDecoration: 'none' }}>
-      //       <FeedContentClassWrapper>
-      //         <FeedContentClassText>클래스 보러가기</FeedContentClassText>
-      //         <ChevronRight size={30} style={{ marginRight: '10px' }} />
-      //       </FeedContentClassWrapper>
-      //     </Link>
-      //     <FeedContentText>
-      //       <FeedContentTextUser>희진공방</FeedContentTextUser>
-      //       <FeedContentTextTitle>오늘도 힘차게 화이팅~</FeedContentTextTitle>
-      //     </FeedContentText>
-      //   </FeedContentWrapper>
-      //   <Link to="/feed/comments/:id" style={{ textDecoration: 'none' }}>
-      //     <FeedComment>댓글 더 보기</FeedComment>
-      //   </Link>
-      // </FeedItem> */}
     </FeedPageWrapper>
   );
 };

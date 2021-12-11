@@ -63,7 +63,10 @@ const SearchBar = styled.input`
   padding-left: 20px;
   border: none;
   :focus {
-    outline: solid 1px #c4c4c4;
+    outline: none;
+  }
+  & {
+    -webkit-border: none;
   }
 `;
 

@@ -1,10 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { ChevronLeft } from 'react-feather';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { GoBack } from '../../components/domain';
+import { useForm } from '../../hooks';
 const CommentsPage = () => {
   // 추후에 하단 NAV없애야 함
+  const postInfo: any = useLocation();
+
+  const { isLoading, errors, handleChange, handleSubmit } = useForm({
+    initialValues: {
+      comment: '',
+    },
+    onSubmit: async (values) => {
+      //await cccc
+    },
+    validate: ({ comment }) => {
+      const errors = {} as any;
+      if (!comment) errors.content = '내용을 입려해 주세요';
+
+      return errors;
+    },
+  });
+  const DUMMY_DATA = {
+    data: {
+      hasNext: true,
+      pageIndex: 0,
+      pageSize: 10,
+      comment: [
+        {
+          content: '우와짱이네요',
+          createdAt: '2021-12-10 19:23:00',
+          member: {
+            name: '나손님',
+            imageUrl:
+              'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf41d1a2caccd0c566eab28b91e2e5d306',
+          },
+        },
+        {
+          content: '우와킹이네요',
+          createdAt: '2021-12-10 19:24:12',
+          member: {
+            name: '너손님',
+            imageUrl:
+              'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf8f324a0b9c48f77dbce3a43bd11ce785',
+          },
+        },
+      ],
+      success: true,
+      serverDateTime: '2021-12-14 20:21:45',
+    },
+  };
+
   return (
     <CommentsWrapper>
       <GoBack to={'/feed'}>돌아가기</GoBack>
@@ -12,7 +59,7 @@ const CommentsPage = () => {
       <CommentsTopWrapper>
         <CommentsAuthorAvatar>
           <CommentsAuthorImg />
-          <CommentsAuthorName>희진 공방</CommentsAuthorName>
+          <CommentsAuthorName>{postInfo?.authorName}</CommentsAuthorName>
         </CommentsAuthorAvatar>
         <CommentsTime>3시간 전</CommentsTime>
       </CommentsTopWrapper>
@@ -21,17 +68,28 @@ const CommentsPage = () => {
       </CommentsContents>
 
       <CommentsListsWrapper>
-        <CommentsItemWrapper>
-          <CommentsCommentor>
-            <CommentsCommentorImg />
-            <CommentsCommentorName>임효성</CommentsCommentorName>
-            <CommentsCommentorContents>와 좋아요</CommentsCommentorContents>
-          </CommentsCommentor>
-        </CommentsItemWrapper>
+        {DUMMY_DATA.data.comment.length ? (
+          DUMMY_DATA.data.comment.map((item, i) => (
+            <CommentsItemWrapper key={i}>
+              <CommentsCommentor>
+                <CommentsCommentorImg src={item.member.imageUrl} />
+                <CommentsCommentorName>{item.member.name}</CommentsCommentorName>
+                <CommentsCommentorContents>{item.content}</CommentsCommentorContents>
+                <CommentsCreated>{item.createdAt.split(' ')[0]}</CommentsCreated>
+              </CommentsCommentor>
+            </CommentsItemWrapper>
+          ))
+        ) : (
+          <div>댓글이 없습니다</div>
+        )}
       </CommentsListsWrapper>
-      <NewCommentsWrapper>
-        <NewCommentsInput placeholder={'댓글을 입력해 주세요'} />
-        <NewCommnetsSubmit>게시</NewCommnetsSubmit>
+      <NewCommentsWrapper onSubmit={handleSubmit}>
+        <NewCommentsInput
+          placeholder={'댓글을 입력해 주세요'}
+          name="comment"
+          onChange={handleChange}
+        />
+        <NewCommnetsSubmit type="submit">게시</NewCommnetsSubmit>
       </NewCommentsWrapper>
     </CommentsWrapper>
   );
@@ -81,7 +139,6 @@ const CommentsContents = styled.div`
   font-size: 20px;
   margin: 0 20px 20px 20px;
 `;
-
 const CommentsListsWrapper = styled.ul`
   height: calc(100vh - 300px);
   overflow: scroll;
@@ -95,7 +152,7 @@ const CommentsCommentor = styled.div`
   justify-content: flex-start;
   align-items: center;
 `;
-const CommentsCommentorImg = styled.div`
+const CommentsCommentorImg = styled.img`
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -109,6 +166,11 @@ const CommentsCommentorName = styled.div`
 `;
 const CommentsCommentorContents = styled.div`
   font-size: 20px;
+`;
+const CommentsCreated = styled.div`
+  font-size: 16px;
+  color: #c4c4c4;
+  margin-left: 10px;
 `;
 const NewCommentsWrapper = styled.form`
   display: flex;
@@ -131,8 +193,6 @@ const NewCommentsInput = styled.input`
 const NewCommnetsSubmit = styled.button`
   position: absolute;
   right: 20px;
-  width: 50px;
-  height: 50px;
   background: transparent;
   border: none;
   color: #b88bd6;

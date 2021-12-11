@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { HTMLProps, useState } from 'react';
 
 interface Props<T> {
   initialValues: T;
@@ -34,6 +34,7 @@ const useForm = <T>({ initialValues, onSubmit, validate }: Props<T>) => {
     if (Object.keys(newErrors).length === 0) {
       await onSubmit(values);
     }
+    console.log(values);
     setErrors(newErrors);
     setIsLoading(false);
   };

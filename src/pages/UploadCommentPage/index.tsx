@@ -10,17 +10,16 @@ import { Plus } from 'react-feather';
 const UploadCommentPage = () => {
   const [rating, setRating] = useState(0);
   const [imgLink, setImgLink] = useState<string | undefined>(undefined);
+  const reviewInfo: any = useLocation().state;
   const { id } = useParams<{ id: string }>(); //reservationID
 
   // const onSubmitReview = (value: object) => {
   //   // 제출하는 함수
 
   // };
-
-  const reviewInfo: any = useLocation().state;
   const { values, errors, isLoading, handleChange, handleSubmit, setValues } = useForm({
     initialValues: {
-      star: '',
+      star: rating,
       content: '',
     },
     onSubmit: async (value) => {
@@ -62,7 +61,7 @@ const UploadCommentPage = () => {
 
       <ReviewContentsWrapper>
         <StyledText>후기를 남겨주세요!</StyledText>
-        <StyledInput name="review" />
+        <StyledInput name="content" />
         <StyledText>사진도 남겨주세요!</StyledText>
         <Upload droppable accept="image/*" imgLink={imgLink} setImgLink={setImgLink}>
           {(file: File, dragging: React.DragEvent<HTMLDivElement>) => {

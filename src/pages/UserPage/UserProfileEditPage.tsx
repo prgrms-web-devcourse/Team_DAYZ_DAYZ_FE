@@ -1,16 +1,60 @@
 import styled from '@emotion/styled';
-import React from 'react';
-import { Button, Input } from '../../components/base';
+import React, { useState } from 'react';
+import { Button, Input, Upload } from '../../components/base';
+import { Settings } from 'react-feather';
 
 const UserProfileEditPage = () => {
+  const [imgLink, setImgLink] = useState<string | undefined>(undefined);
   return (
     <UserEditWrapper>
       <UserEditForm>
         <UserAvatarWrapper>
-          <UserAvatar />
-          <AvatarChange type="file" accept="image/*" />
-        </UserAvatarWrapper>
+          <Upload droppable accept="image/*" imgLink={imgLink} setImgLink={setImgLink}>
+            {(file: File, dragging: React.DragEvent<HTMLDivElement>) => {
+              return (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    marginBottom: '10px',
+                    overflowX: 'scroll',
+                  }}
+                >
+                  {file ? (
+                    <img
+                      src={imgLink}
+                      style={{
+                        width: '100px',
+                        height: '100px',
+                        borderRadius: '50%',
+                        objectFit: 'fill',
+                      }}
+                    />
+                  ) : (
+                    <UserAvatar />
+                  )}
 
+                  <div
+                    style={{
+                      width: '30px',
+                      height: '30px',
+                      background:
+                        'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginTop: '20px',
+                    }}
+                  >
+                    <Settings style={{ color: '#f5f5f5' }} size={20} />
+                  </div>
+                </div>
+              );
+            }}
+          </Upload>
+        </UserAvatarWrapper>
         <UserInputItem>
           <UserInputName>이름</UserInputName>
           <InfoInput type="text" />
@@ -42,7 +86,10 @@ const UserInputName = styled.div`
   margin-bottom: 10px;
 `;
 const UserAvatarWrapper = styled.div`
-  margin-left: calc(50% - 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const UserAvatar = styled.div`
   width: 100px;
