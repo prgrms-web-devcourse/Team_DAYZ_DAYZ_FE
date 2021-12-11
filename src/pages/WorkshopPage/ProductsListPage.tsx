@@ -1,51 +1,30 @@
-import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { LinkBox } from '../../components/domain';
 import { Plus } from 'react-feather';
+import styled from '@emotion/styled';
+import { DUMMY_CLASS_DATA } from './DUMMY_DATA';
 
-const ProductsList = () => {
-  const DummyData = {
-    data: {
-      class: [
-        {
-          classId: 1,
-          name: '킹왕짱클래스',
-          imageUrl: 'http://s3.abc.jpg',
-        },
-        {
-          classId: 2,
-          name: '짱클래스짱',
-          imageUrl: 'http://s3.abc.jpg',
-        },
-        {
-          classId: 3,
-          name: '방탄클래스',
-          imageUrl: 'http://s3.abc.jpg',
-        },
-        {
-          classId: 4,
-          name: '무야호',
-          imageUrl: 'http://s3.abc.jpg',
-        },
-      ],
-      totalCount: 4,
-      pageIndex: 0,
-      hasNext: false,
-    },
-  };
+// 1. 클래스 목록 조회 https://backend-devcourse.notion.site/cbf7db08c6ae437b904d594dc92a8219
+
+const ProductsListPage = () => {
+  const { totalCount, oneDayClass } = DUMMY_CLASS_DATA;
   return (
     <ProductsListContainer>
       <ProductsCnt>
-        총 <strong style={{ fontWeight: '600' }}>{DummyData.data.totalCount}</strong> 개의 결과
+        총 <strong style={{ fontWeight: '600' }}>{totalCount}</strong> 개의 결과
       </ProductsCnt>
-      {DummyData.data.class
-        ? DummyData.data.class.map((list) => (
-            <LinkBox key={list.classId} src={list.imageUrl}>
-              <p>{list.name}</p>
-            </LinkBox>
-          ))
-        : ''}
+
+      {oneDayClass.length ? (
+        oneDayClass.map(({ classId, name, imageUrl }) => (
+          <LinkBox key={classId} src={imageUrl}>
+            <p>{name}</p>
+          </LinkBox>
+        ))
+      ) : (
+        <div>아직 클래스가 없습니다</div>
+      )}
+
       <Link to="/upload/products">
         <ProductAdd>
           <Plus size={50} style={{ color: '#f5f5f5' }} />
@@ -58,14 +37,14 @@ const ProductsList = () => {
     </ProductsListContainer>
   );
 };
-export default ProductsList;
 
 const ProductsListContainer = styled.div`
   margin: 14px;
 `;
 
 const ProductsCnt = styled.div`
-  margin-bottom: 12px;
+  margin: 15px 0;
+  opacity: 0.7;
 `;
 
 const ProductAdd = styled.div`
@@ -110,3 +89,5 @@ const Balloon = styled.div`
     right: 40px;
   }
 `;
+
+export default ProductsListPage;

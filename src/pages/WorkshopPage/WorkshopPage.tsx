@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import WorkshopHeader from './WorkshopHeader';
 import { SettingPage, ReviewListPage, FeedListPage, ProductsListPage, EditPage } from '.';
 import { WORKSHOP, PRODUCTSLIST, REVIEWLIST, SETTING, EDIT } from '.';
+
 const WorkshopPage = () => {
   const canShowHeader = () => {
     const path = window.location.pathname;
@@ -37,5 +38,5 @@ const WorkshopPage = () => {
 export default WorkshopPage;
 
 const WorkshopContainer = styled.div`
-  margin-top: 36px;
+  margin-top: 25px;
 `;

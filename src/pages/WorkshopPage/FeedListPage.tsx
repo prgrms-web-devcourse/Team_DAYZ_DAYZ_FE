@@ -1,48 +1,28 @@
 import React from 'react';
 import styled from '@emotion/styled';
-const FeedList = () => {
-  const DummyData = {
-    data: {
-      totalCount: 20,
-      pageIndex: 0,
-      pageSize: 10,
-      hasNext: true,
-      post: [
-        {
-          postId: 1,
-          imageUrl: 'https://pngrow.com/preview/4227/circle-profile-picture-png',
-          createdAt: '',
-        },
-        {
-          postId: 1,
-          imageUrl: 'https://pngrow.com/preview/4227/circle-profile-picture-png',
-          createdAt: '',
-        },
-        {
-          postId: 1,
-          imageUrl: 'https://pngrow.com/preview/4227/circle-profile-picture-png',
-          createdAt: '',
-        },
-      ],
-    },
-    success: true,
-    serverDateTime: '2021-12-19 21:23:01',
-  };
+import { DUMMY_FEED_DATA } from './DUMMY_DATA';
+import { Image } from '../../components/base';
+// 1. 공방 게시글 목록 조회 https://backend-devcourse.notion.site/f9eef5aaed3a4effa755c3b8f716d6bd
+
+const FeedListPage = () => {
   return (
     <RowFeedContainer>
-      {DummyData.data.post
-        ? DummyData.data.post.map((list) => <img key={list.postId} src={list.imageUrl} />)
-        : ''}
+      {DUMMY_FEED_DATA.post.length ? (
+        DUMMY_FEED_DATA.post.map(({ postId, imageUrl }) => (
+          <div key={postId}>
+            <Image lazy src={imageUrl} width={'100%'} height={'100%'} alt="feed" mode="fill" />
+          </div>
+        ))
+      ) : (
+        <div>아직 피드가 없어요.</div>
+      )}
     </RowFeedContainer>
   );
 };
-export default FeedList;
+export default FeedListPage;
 
 const RowFeedContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 3px;
-  & img {
-    width: 100%;
-  }
 `;

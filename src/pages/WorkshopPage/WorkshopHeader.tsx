@@ -1,29 +1,37 @@
 import React from 'react';
-import { Avatar } from '../../components/base';
-import { Settings, Layout, Calendar, Star } from 'react-feather';
-import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
+import { Settings, Layout, Calendar, Star } from 'react-feather';
+import { Avatar } from '../../components/base';
 import { SETTING, WORKSHOP, PRODUCTSLIST, REVIEWLIST } from '.';
+import { DUMMY_ATELIER_DATA } from './DUMMY_DATA';
+
+// 1. 공방 상세정보 조회 https://backend-devcourse.notion.site/2158d2bf8bab4792baea605062c15d69
+// TODO:
+// 공방 정보가 없으면 뒤로가기 or 메인페이지로 가기
 
 const WorkshopHeader = () => {
-  const ICON_SIZE = 24;
+  const { intro, name, imageUrl, address, callNo, startTime, endTime } = DUMMY_ATELIER_DATA;
+  const ICON_SIZE = 26;
   return (
-    <Container>
+    <>
       <WorkshopProfile>
         <Avatar
           size={80}
-          alt={'프로필'}
+          alt={'profile'}
           shape={'circle'}
-          src={'https://picsum.photos/id/1/200/300'}
+          src={imageUrl}
           placeholder={'https://via.placeholder.com/150'}
         />
-        <div className="info">
-          <span>방탄공방</span>
-          <span>서울 강남구 테헤란로</span>
-          <span>12-7 3층</span>
-          <span>010-1234-5678</span>
-          <span>09:00 - 17:00</span>
-        </div>
+        <ContentsWrapper>
+          <span>{name}</span>
+          <span>{intro}</span>
+          <span>{address}</span>
+          <span>{callNo}</span>
+          <span>
+            {startTime} - {endTime}
+          </span>
+        </ContentsWrapper>
         <Link to={SETTING} style={{ textDecoration: 'none', color: 'black' }}>
           <Settings />
         </Link>
@@ -39,32 +47,29 @@ const WorkshopHeader = () => {
           <Star size={`${ICON_SIZE}px`} />
         </Link>
       </Tabs>
-    </Container>
+    </>
   );
 };
 export default WorkshopHeader;
-
-const Container = styled.div``;
 
 const WorkshopProfile = styled.section`
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin-bottom: 36px;
-  & .profileImg {
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
+`;
+
+const ContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  & span:first-of-type {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
   }
-  & .info {
-    display: flex;
-    flex-direction: column;
-    font-size: 18px;
-    & span:first-of-type {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
+  & span:not(first-of-type) {
+    margin: 2px 0;
   }
 `;
 
