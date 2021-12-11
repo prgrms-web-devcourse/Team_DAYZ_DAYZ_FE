@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { useParams } from 'react-router';
-import { Button, Image, Text } from '../../components/base';
+import { useLocation, useParams } from 'react-router';
+import { Button, Image, Text, Upload } from '../../components/base';
 import { useForm } from '../../hooks';
 import { Rating } from 'react-simple-star-rating';
+import { LinkBox } from '../../components/domain';
+import { Plus } from 'react-feather';
 
 const UploadCommentPage = () => {
   const [rating, setRating] = useState(0);
-  const { id } = useParams<{ id: string }>();
+  const [imgLink, setImgLink] = useState<string | undefined>(undefined);
+  const { id } = useParams<{ id: string }>(); //reservationID
 
   // const onSubmitReview = (value: object) => {
   //   // 제출하는 함수
+
   // };
 
+  const reviewInfo: any = useLocation().state;
   const { values, errors, isLoading, handleChange, handleSubmit, setValues } = useForm({
     initialValues: {
       star: '',
@@ -37,59 +42,115 @@ const UploadCommentPage = () => {
 
   return (
     <FormContainer onSubmit={handleSubmit}>
-      <div>{id} 후기 남기기 페이지</div>
+      {/* <div>{id} 후기 남기기 페이지</div> */}
       <ClassNameWrapper>
-        <Image
-          src={'http://www.madtimes.org/news/photo/201909/3015_5297_2620.jpg'}
-          width={200}
-          height={200}
-          alt={'사진'}
-          mode={'fill'}
-        />
-        <div>
-          <div>희진 클래수</div>
-          <div>세상에 모든 것들을 만들려고 합니다!!</div>
-        </div>
+        <LinkBox style={{ width: '80%' }}>
+          <div>{reviewInfo?.name}</div>
+          <div>{reviewInfo?.date}</div>
+          <div>
+            {reviewInfo?.startTime} ~ {reviewInfo?.endTime}
+          </div>
+        </LinkBox>
       </ClassNameWrapper>
 
       <ReviewStarWrapper>
         <StyledText>강의가 만족스러우셨나요?</StyledText>
         <div>
-          <Rating onClick={handleRating} ratingValue={rating} size={80} />
+          <Rating onClick={handleRating} ratingValue={rating} size={60} allowHover={false} />
         </div>
       </ReviewStarWrapper>
 
       <ReviewContentsWrapper>
         <StyledText>후기를 남겨주세요!</StyledText>
-        <StyledInput type="text" onChange={handleChange} />
+        <StyledInput name="review" />
+        <StyledText>사진도 남겨주세요!</StyledText>
+        <Upload droppable accept="image/*" imgLink={imgLink} setImgLink={setImgLink}>
+          {(file: File, dragging: React.DragEvent<HTMLDivElement>) => {
+            return (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center',
+                  marginBottom: '10px',
+                  overflowX: 'scroll',
+                }}
+              >
+                {file ? <img src={imgLink} style={{ width: '200px', paddingRight: '20px' }} /> : ''}
+
+                <div
+                  style={{
+                    width: '50px',
+                    height: '50px',
+                    background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '20px',
+                  }}
+                >
+                  <Plus style={{ color: '#f5f5f5' }} size={40} />
+                </div>
+              </div>
+            );
+          }}
+        </Upload>
       </ReviewContentsWrapper>
-      <StyledButton type="submit">후기 남기기!</StyledButton>
+
+      <Button
+        type="submit"
+        style={{
+          width: '150px',
+          height: '60px',
+          fontSize: '20px',
+          color: '#f5f5f5',
+          fontWeight: '600',
+          borderRadius: '8px',
+          marginLeft: 'calc(50% - 75px)',
+        }}
+      >
+        후기 남기기
+      </Button>
     </FormContainer>
   );
 };
-const FormContainer = styled.form``;
+const FormContainer = styled.form`
+  margin-top: 40px;
+`;
 
 const ClassNameWrapper = styled.div`
   display: flex;
-  margin: 20px 0;
+  justify-content: center;
+  align-items: center;
 `;
 const ReviewStarWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   margin: 20px 0;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ReviewContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px 0;
+  align-items: center;
+  justify-content: center;
 `;
-const StyledInput = styled.input`
+const StyledInput = styled.textarea`
   width: 80%;
-  height: 1000px;
+  height: 200px;
   font-size: 20px;
+  border-radius: 8px;
+  border: solid 1px #c4c4c4;
+  margin-bottom: 20px;
 `;
 const StyledText = styled(Text)`
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
+  margin-bottom: 10px;
 `;
 
 const StyledButton = styled(Button)`
