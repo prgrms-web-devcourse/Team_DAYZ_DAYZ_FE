@@ -7,6 +7,7 @@ import { useForm } from '../../hooks';
 const CommentsPage = () => {
   // 추후에 하단 NAV없애야 함
   const postInfo: any = useLocation();
+  console.log(postInfo);
 
   const { isLoading, errors, handleChange, handleSubmit } = useForm({
     initialValues: {
