@@ -1,11 +1,9 @@
 import styled from '@emotion/styled';
+import { time } from 'console';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
 const UserBookedPage = () => {
-  const [getID, setGetID] = useState<number | undefined>(undefined);
-
-  console.log(getID);
-
   const DummyData = {
     success: true,
     serverDateTime: '2021-12-05T16:50:37.436090',
@@ -33,6 +31,9 @@ const UserBookedPage = () => {
       ],
     },
   };
+  const [getID, setGetID] = useState<number | undefined>(undefined);
+
+  const history = useHistory();
 
   return (
     <UserBookedPageWrapper>
@@ -52,9 +53,23 @@ const UserBookedPage = () => {
                     취소 하기
                   </Button>
                 ) : (
-                  <Link to={`/upload/comments/${item.reservationID}`}>
-                    <Button style={{ backgroundColor: '#a8bac8' }}>후기 쓰기</Button>
-                  </Link>
+                  <Button
+                    style={{ backgroundColor: '#a8bac8' }}
+                    onClick={() => {
+                      history.push({
+                        pathname: `/upload/comments/${item.reservationID}`,
+                        state: {
+                          reservationID: `${item.reservationID}`,
+                          name: `${item.name}`,
+                          date: `${item.date}`,
+                          startTime: `${item.startTime}`,
+                          endTime: `${item.endTime}`,
+                        },
+                      });
+                    }}
+                  >
+                    후기 쓰기
+                  </Button>
                 )}
               </div>
 

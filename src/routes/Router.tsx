@@ -30,6 +30,7 @@ const Router = () => {
       <Route path="/category/:genre" exact component={CategoryPage} />
       <Route path="/feed" exact component={FeedPage} />
       <Route path="/search" exact component={SearchPage} />
+      <Route path="/workshop/:id" component={WorkshopPage} />
       <Route path="/products/:id" exact component={ProductsDetailPage} />
       <Route path="/booking/:id" exact component={BookingPage} />
       <Route path="/user/book" exact component={UserBookedPage} />
@@ -39,7 +40,6 @@ const Router = () => {
       <Route path="/user/:id" exact component={UserPage} />
       <Route path="/feed/comments/:id" exact component={CommentsPage} />
       <Route path="/search/:results" exact component={SearchResultsPage} />
-      <Route path="/workshop/:id" component={WorkshopPage} />
       <Route path="/upload/feed" exact component={UploadFeedPage} />
       <Route path="/upload/comments/:id" exact component={UploadCommentPage} />
       <Route path="/upload/products" exact component={UploadProductPage} />

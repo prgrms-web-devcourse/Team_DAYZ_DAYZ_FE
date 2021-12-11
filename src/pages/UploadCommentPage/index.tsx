@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import { Button, Image, Text, Upload } from '../../components/base';
 import { useForm } from '../../hooks';
 import { Rating } from 'react-simple-star-rating';
@@ -17,6 +17,7 @@ const UploadCommentPage = () => {
 
   // };
 
+  const reviewInfo: any = useLocation().state;
   const { values, errors, isLoading, handleChange, handleSubmit, setValues } = useForm({
     initialValues: {
       star: '',
@@ -41,16 +42,16 @@ const UploadCommentPage = () => {
 
   return (
     <FormContainer onSubmit={handleSubmit}>
-      <div>{id} 후기 남기기 페이지</div>
-      {/* <ClassNameWrapper>
-        <LinkBox
-          src={'http://www.madtimes.org/news/photo/201909/3015_5297_2620.jpg'}
-          style={{ margin: '0 20px' }}
-        >
-          <div>희진 클래수</div>
-          <div>세상에 모든 것들을 만들려고 합니다!!</div>
+      {/* <div>{id} 후기 남기기 페이지</div> */}
+      <ClassNameWrapper>
+        <LinkBox style={{ width: '80%' }}>
+          <div>{reviewInfo?.name}</div>
+          <div>{reviewInfo?.date}</div>
+          <div>
+            {reviewInfo?.startTime} ~ {reviewInfo?.endTime}
+          </div>
         </LinkBox>
-      </ClassNameWrapper> */}
+      </ClassNameWrapper>
 
       <ReviewStarWrapper>
         <StyledText>강의가 만족스러우셨나요?</StyledText>
@@ -114,7 +115,9 @@ const UploadCommentPage = () => {
     </FormContainer>
   );
 };
-const FormContainer = styled.form``;
+const FormContainer = styled.form`
+  margin-top: 40px;
+`;
 
 const ClassNameWrapper = styled.div`
   display: flex;
