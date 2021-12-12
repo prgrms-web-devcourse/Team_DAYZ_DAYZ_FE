@@ -123,8 +123,6 @@ const FeedPage = () => {
                     )}
                   </ViewportSlot>
                 </Flicking>
-
-                {/* <Dots images={item.images} index={2} /> */}
               </FeedImgWrapper>
 
               <Link to={`/products/${item.classId}`} style={{ textDecoration: 'none' }}>

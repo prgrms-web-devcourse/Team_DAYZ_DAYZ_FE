@@ -5,6 +5,11 @@ import { Button, Image, Text } from '../../components/base';
 import { AteliarInformation, SimpleReview } from '../../components/domain';
 import ReviewModal from './ReviewModal';
 import { CLASS_DUMMY } from './DUMMY_DATA';
+import Flicking, { ViewportSlot } from '@egjs/react-flicking';
+import { Pagination } from '@egjs/flicking-plugins';
+import '@egjs/react-flicking/dist/flicking.css';
+import '@egjs/react-flicking/dist/flicking-inline.css';
+import '@egjs/flicking-plugins/dist/pagination.css';
 
 const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,15 +21,24 @@ const ProductsDetailPage = () => {
 
   return (
     <>
-      {/* 이미지 리스트로 바꾸기 희진님이 사용하셨던 flicker? 그거 사용하면 될듯  */}
-      <Image
-        height={'210px'}
-        width={'100%'}
-        src={'https://i.pinimg.com/564x/eb/02/19/eb021934d0750d0b91ad6d6ff3e4ed84.jpg'}
-        alt={'class'}
-        mode={'cover'}
-        placeholder={'https://via.placeholder.com/150'}
-      />
+      <Flicking align="prev" circular={false} plugins={[new Pagination({ type: 'bullet' })]}>
+        {data.images.length
+          ? data.images.map((list) => (
+              <img
+                key={list.sequence}
+                style={{ width: '100%', height: '200px', border: 'solid 1px black' }}
+                src={list.imageUrl}
+              />
+            ))
+          : ''}
+        <ViewportSlot>
+          {data.images.length > 1 ? (
+            <div className="flicking-pagination" />
+          ) : (
+            <div className="flicking-pagination" style={{ display: 'none' }} />
+          )}
+        </ViewportSlot>
+      </Flicking>
 
       <ProductsDetailContainer>
         <ProductNameWrapper>
@@ -71,7 +85,7 @@ const ProductsDetailPage = () => {
       </AuthorDetailContainer>
 
       <ReservationContainer>
-        <HeaderText>{data.price}원</HeaderText>
+        <HeaderText>{data.price.toLocaleString()}원</HeaderText>
         <Link to={`/booking/${id}`} style={{ textDecoration: 'none' }}>
           <ReservationButton type="button">예약하기</ReservationButton>
         </Link>
@@ -85,7 +99,7 @@ const ProductsDetailPage = () => {
 const ProductsDetailContainer = styled.section`
   margin: 20px 0;
   padding: 0 20px;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid #c4c4c4;
 `;
 const ProductNameWrapper = styled.div`
   display: flex;
@@ -105,7 +119,7 @@ const HeaderText = styled(Text)`
 `;
 const ProductReviewContainer = styled.div`
   margin: 20px 0;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid #c4c4c4;
   padding: 0 20px;
 `;
 const SimpleReviewContainer = styled.div`
@@ -128,11 +142,13 @@ const ReservationContainer = styled.div`
   max-width: 640px;
   display: flex;
   bottom: ${(props) => props.theme.height.bottomHeight};
-  background-color: #e3e0ff;
   z-index: 100;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  border-top: 1px solid #c4c4c4;
+  padding: 10px 0;
+  background-color: #ffffff;
 `;
 const ReservationButton = styled(Button)`
   height: 56px;
@@ -141,6 +157,7 @@ const ReservationButton = styled(Button)`
   font-weight: bold;
   font-size: 25px;
   line-height: 29px;
+  color: #f5f5f5;
 `;
 
 export default ProductsDetailPage;

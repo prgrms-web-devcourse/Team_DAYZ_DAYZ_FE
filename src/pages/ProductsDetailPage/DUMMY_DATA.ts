@@ -28,11 +28,13 @@ export const CLASS_DUMMY = {
     ],
     images: [
       {
-        imageUrl: 's3://devrun-image/KakaoTalk_20210616_220854417.jpg',
+        imageUrl:
+          'https://img.huffingtonpost.com/asset/5ddccb122500009927d2e337.jpeg?cache=GqM9tE6Yr9&ops=1200_630',
         sequence: 1,
       },
       {
-        imageUrl: 's3://devrun-image/KakaoTalk_20210616_220854417.jpg',
+        imageUrl:
+          'https://img.huffingtonpost.com/asset/5ddccb122500009927d2e337.jpeg?cache=GqM9tE6Yr9&ops=1200_630',
         sequence: 2,
       },
     ],
@@ -62,21 +64,25 @@ export const REVIEW_DUMMY = {
         score: 5,
         image: [
           {
-            imageUrl: 's3://devrun-image/KakaoTalk_20210616_220854417.jpg',
+            imageUrl:
+              'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf41d1a2caccd0c566eab28b91e2e5d306',
             sequence: 1,
             member: {
               memberId: 1,
               name: '박연수',
-              imageUrl: 's3://devrun-image/KakaoTalk_20210616_220854417.jpg',
+              imageUrl:
+                'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf41d1a2caccd0c566eab28b91e2e5d306',
             },
           },
           {
-            imageUrl: 's3://devrun-image/KakaoTalk_20210616_220854417.jpg',
+            imageUrl:
+              'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf41d1a2caccd0c566eab28b91e2e5d306',
             sequence: 1,
             member: {
               memberId: 2,
               name: '김지훈',
-              imageUrl: 's3://devrun-image/KakaoTalk_20210616_220854417.jpg',
+              imageUrl:
+                'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf41d1a2caccd0c566eab28b91e2e5d306',
             },
           },
         ],
@@ -89,21 +95,25 @@ export const REVIEW_DUMMY = {
         score: 5,
         image: [
           {
-            imageUrl: 's3://devrun-image/KakaoTalk_20210616_220854417.jpg',
+            imageUrl:
+              'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf41d1a2caccd0c566eab28b91e2e5d306',
             sequence: 1,
             member: {
               memberId: 2,
               name: '김지훈',
-              imageUrl: 's3://devrun-image/KakaoTalk_20210616_220854417.jpg',
+              imageUrl:
+                'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf41d1a2caccd0c566eab28b91e2e5d306',
             },
           },
           {
-            imageUrl: 's3://devrun-image/KakaoTalk_20210616_220854417.jpg',
+            imageUrl:
+              'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf41d1a2caccd0c566eab28b91e2e5d306',
             sequence: 1,
             member: {
               memberId: 1,
               name: '박연수',
-              imageUrl: 's3://devrun-image/KakaoTalk_20210616_220854417.jpg',
+              imageUrl:
+                'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf41d1a2caccd0c566eab28b91e2e5d306',
             },
           },
         ],
