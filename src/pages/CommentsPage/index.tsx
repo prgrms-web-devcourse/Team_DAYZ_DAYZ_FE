@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { ChevronLeft } from 'react-feather';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { GoBack } from '../../components/domain';
 import { useForm } from '../../hooks';
+import { Avatar } from '../../components/base';
+
 const CommentsPage = () => {
   // 추후에 하단 NAV없애야 함
-  const postInfo: any = useLocation();
-  console.log(postInfo);
+  const location: any = useLocation();
+  const postInfo = location.state;
 
+  console.log(postInfo);
   const { isLoading, errors, handleChange, handleSubmit } = useForm({
     initialValues: {
       comment: '',
@@ -59,14 +61,19 @@ const CommentsPage = () => {
 
       <CommentsTopWrapper>
         <CommentsAuthorAvatar>
-          <CommentsAuthorImg />
+          {/* 이 부분은 객체분해로 뺄수 있을듯 */}
+          <Avatar
+            src={postInfo?.authorImg}
+            size={40}
+            shape="circle"
+            alt="authorProfile"
+            placeholder=""
+          />
           <CommentsAuthorName>{postInfo?.authorName}</CommentsAuthorName>
         </CommentsAuthorAvatar>
-        <CommentsTime>3시간 전</CommentsTime>
+        <CommentsTime>{postInfo?.createdAt}</CommentsTime>
       </CommentsTopWrapper>
-      <CommentsContents>
-        가나다라마바사아자차카타파하아아아하하하후후후가나다라마바사아자차카타파하아아아하하하후후후
-      </CommentsContents>
+      <CommentsContents>{postInfo?.content}</CommentsContents>
 
       <CommentsListsWrapper>
         {DUMMY_DATA.data.comment.length ? (
@@ -98,19 +105,7 @@ const CommentsPage = () => {
 const CommentsWrapper = styled.section`
   position: relative;
 `;
-const CommentsBackButton = styled.div`
-  position: fix;
-  top: 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 20px;
-  color: black;
-`;
-const CommentsBackButtonText = styled.div`
-  font-size: 20px;
-  margin-left: calc(50% - 70px);
-`;
+
 const CommentsTopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -121,12 +116,6 @@ const CommentsAuthorAvatar = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-`;
-const CommentsAuthorImg = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: grey;
 `;
 const CommentsAuthorName = styled.div`
   font-size: 20px;

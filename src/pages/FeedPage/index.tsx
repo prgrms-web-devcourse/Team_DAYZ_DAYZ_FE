@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import React, { Component } from 'react';
+import styled from '@emotion/styled';
 import { ChevronRight } from 'react-feather';
 import { Link, useHistory } from 'react-router-dom';
 import Flicking, { ViewportSlot } from '@egjs/react-flicking';
@@ -71,12 +71,12 @@ const FeedPage = () => {
             {
               imageUrl:
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAcY-zc00qWPKGP32Isb1BDOvxyFK53G-M24uCRUzD_ZT8h_d9VhfYTqMog7ixWYWwY1w&usqp=CAU',
-              sequence: 1,
+              sequence: 2,
             },
             {
               imageUrl:
                 'https://img.huffingtonpost.com/asset/5ddccb122500009927d2e337.jpeg?cache=GqM9tE6Yr9&ops=1200_630',
-              sequence: 1,
+              sequence: 3,
             },
           ],
           classId: 3,
@@ -138,24 +138,22 @@ const FeedPage = () => {
                 <FeedContentTextTitle>{item.content}</FeedContentTextTitle>
               </FeedContentText>
             </FeedContentWrapper>
-            <Link to={`/feed/comments/${item.postId}`} style={{ textDecoration: 'none' }}>
-              <FeedComment
-                onClick={() => {
-                  history.push({
-                    pathname: `/upload/comments/${item.postId}`,
-                    state: {
-                      postId: `${item.postId}`,
-                      authorName: `${item.name}`,
-                      createdAt: `${item.createdAt}`,
-                      authorImg: `${item.imageUrl}`,
-                      content: `${item.content}`,
-                    },
-                  });
-                }}
-              >
-                댓글 더 보기
-              </FeedComment>
-            </Link>
+            <FeedComment
+              onClick={() => {
+                history.push({
+                  pathname: `/feed/comments/${item.postId}`,
+                  state: {
+                    postId: `${item.postId}`,
+                    authorName: `${item.name}`,
+                    createdAt: `${item.createdAt}`,
+                    authorImg: `${item.imageUrl}`,
+                    content: `${item.content}`,
+                  },
+                });
+              }}
+            >
+              댓글 더 보기
+            </FeedComment>
           </FeedItem>
         ))
       ) : (
@@ -168,7 +166,9 @@ const FeedPage = () => {
 const FeedPageWrapper = styled.section`
   width: 100%;
 `;
-const FeedItem = styled.div``;
+const FeedItem = styled.div`
+  margin: 15px 0;
+`;
 const FeedTopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -204,11 +204,11 @@ const FeedImgWrapper = styled.div`
   overflow-x: scroll;
   position: relative;
   & {
-    -ms-overflow-style: none; //IE
-    scrollbar-width: none; //firefox
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
   &::-webkit-scrollbar {
-    display: none; // chrome
+    display: none;
   }
 `;
 const FeedContentImg = styled.img`
@@ -235,6 +235,7 @@ const FeedContentText = styled.div`
   display: flex;
   justify-content: flex-start;
   margin-top: 20px;
+  margin-bottom: 5px;
 `;
 const FeedContentTextUser = styled.div`
   margin-left: 20px;
@@ -247,11 +248,12 @@ const FeedContentTextTitle = styled.div`
   font-size: 20px;
   color: black;
 `;
-const FeedComment = styled.div`
+const FeedComment = styled.span`
   margin-left: 20px;
   margin-top: 5px;
   font-size: 20px;
   color: grey;
+  cursor: pointer;
 `;
 
 export default FeedPage;
