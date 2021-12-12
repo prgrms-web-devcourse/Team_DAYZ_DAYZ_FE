@@ -33,14 +33,14 @@ const ProductsDetailPage = () => {
         </ProductNameWrapper>
         <ProductContentWrapper>
           <HeaderText>클래스 소개</HeaderText>
-          <div> {data.intro}</div>
+          <ContentWrapper> {data.intro}</ContentWrapper>
         </ProductContentWrapper>
         <ProductContentWrapper>
           <HeaderText>커리큘럼</HeaderText>
           {data.curricurums.map((curricurum) => (
-            <div key={curricurum.curricurumId}>
+            <ContentWrapper key={curricurum.curricurumId}>
               {curricurum.step}단계 {curricurum.content}
-            </div>
+            </ContentWrapper>
           ))}
         </ProductContentWrapper>
       </ProductsDetailContainer>
@@ -71,7 +71,7 @@ const ProductsDetailPage = () => {
       </AuthorDetailContainer>
 
       <ReservationContainer>
-        <HeaderText>45,000</HeaderText>
+        <HeaderText>{data.price}원</HeaderText>
         <Link to={`/booking/${id}`} style={{ textDecoration: 'none' }}>
           <ReservationButton type="button">예약하기</ReservationButton>
         </Link>
@@ -82,8 +82,9 @@ const ProductsDetailPage = () => {
   );
 };
 
-const ProductsDetailContainer = styled.div`
+const ProductsDetailContainer = styled.section`
   margin: 20px 0;
+  padding: 0 20px;
   border-bottom: 2px solid black;
 `;
 const ProductNameWrapper = styled.div`
@@ -94,6 +95,10 @@ const ProductNameWrapper = styled.div`
 const ProductContentWrapper = styled.div`
   margin: 20px 0;
 `;
+const ContentWrapper = styled.div`
+  margin: 10px 0;
+  padding-left: 10px;
+`;
 const HeaderText = styled(Text)`
   font-size: 25px;
   font-weight: 700;
@@ -101,6 +106,7 @@ const HeaderText = styled(Text)`
 const ProductReviewContainer = styled.div`
   margin: 20px 0;
   border-bottom: 2px solid black;
+  padding: 0 20px;
 `;
 const SimpleReviewContainer = styled.div`
   display: flex;
@@ -113,6 +119,7 @@ const MoreReviewWrapper = styled.div`
   margin: 20px 0;
 `;
 const AuthorDetailContainer = styled.div`
+  padding: 0 20px;
   padding-bottom: calc(${(props) => props.theme.height.bottomHeight});
 `;
 const ReservationContainer = styled.div`
@@ -121,7 +128,7 @@ const ReservationContainer = styled.div`
   max-width: 640px;
   display: flex;
   bottom: ${(props) => props.theme.height.bottomHeight};
-  background-color: #aaa;
+  background-color: #e3e0ff;
   z-index: 100;
   display: flex;
   justify-content: space-around;
