@@ -40,7 +40,7 @@ const HomePage = () => {
           <BestClassItemWrapper>
             {DUMMY_POPULAR_DATA.classes.length ? (
               DUMMY_POPULAR_DATA.classes.map(({ classId, name, imageUrl, intro }) => (
-                <Link to={`/workshop/${classId}`} key={classId}>
+                <Link to={`/products/${classId}`} key={classId}>
                   <BestClassesItem>
                     <Image
                       lazy

@@ -4,17 +4,19 @@ import { Link, useParams } from 'react-router-dom';
 import { Button, Image, Text } from '../../components/base';
 import { AteliarInformation, SimpleReview } from '../../components/domain';
 import ReviewModal from './ReviewModal';
+import { CLASS_DUMMY } from './DUMMY_DATA';
 
 const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const [visible, setVisible] = useState(false);
-
+  const { data } = CLASS_DUMMY;
   // 여기서 id 값으로 데이터를 불러온다. api
   // 현재 context안에는 공방인지 유저인지 데이터가 담겨져 있어야 한다.
   // id를 조회하면 class 소개, 별점, 후기, author 항목이 조회가 되어야함.
 
   return (
     <>
+      {/* 이미지 리스트로 바꾸기 희진님이 사용하셨던 flicker? 그거 사용하면 될듯  */}
       <Image
         height={'210px'}
         width={'100%'}
@@ -26,20 +28,20 @@ const ProductsDetailPage = () => {
 
       <ProductsDetailContainer>
         <ProductNameWrapper>
-          <HeaderText>클래스 이름</HeaderText>
-          <div>별점 4.0</div>
+          <HeaderText>{data.name}</HeaderText>
+          <div>별점 {data.avgScore}</div>
         </ProductNameWrapper>
         <ProductContentWrapper>
           <HeaderText>클래스 소개</HeaderText>
-          <div> 랩몬스터와 슈가의 음악감상하기 클래스입니다.</div>
-          <div> 랩몬스터와 슈가의 음악감상하기 클래스입니다.</div>
-          <div> 랩몬스터와 슈가의 음악감상하기 클래스입니다.</div>
+          <ContentWrapper> {data.intro}</ContentWrapper>
         </ProductContentWrapper>
         <ProductContentWrapper>
           <HeaderText>커리큘럼</HeaderText>
-          <div> 우선 춤을 배웁니다.</div>
-          <div> 우선 춤을 배웁니다.</div>
-          <div> 우선 춤을 배웁니다.</div>
+          {data.curricurums.map((curricurum) => (
+            <ContentWrapper key={curricurum.curricurumId}>
+              {curricurum.step}단계 {curricurum.content}
+            </ContentWrapper>
+          ))}
         </ProductContentWrapper>
       </ProductsDetailContainer>
 
@@ -59,20 +61,17 @@ const ProductsDetailPage = () => {
       <AuthorDetailContainer>
         <HeaderText>작가 정보</HeaderText>
         <AteliarInformation
-          profileImg={
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png'
-          }
-          name={'희진 공방'}
-          location={'서울시 송파구 100번지'}
-          phoneNumber={'010-5555-3333'}
-          openTime={'9 : 00 ~ 18 : 00'}
+          profileImg={data.aterier.imageUrl}
+          name={data.aterier.name}
+          phoneNumber={data.aterier.callNo}
+          openTime={`${data.aterier.startTime} ~ ${data.aterier.endTime}`}
         />
 
         <HeaderText>위치 보기</HeaderText>
       </AuthorDetailContainer>
 
       <ReservationContainer>
-        <HeaderText>45,000</HeaderText>
+        <HeaderText>{data.price}원</HeaderText>
         <Link to={`/booking/${id}`} style={{ textDecoration: 'none' }}>
           <ReservationButton type="button">예약하기</ReservationButton>
         </Link>
@@ -83,8 +82,9 @@ const ProductsDetailPage = () => {
   );
 };
 
-const ProductsDetailContainer = styled.div`
+const ProductsDetailContainer = styled.section`
   margin: 20px 0;
+  padding: 0 20px;
   border-bottom: 2px solid black;
 `;
 const ProductNameWrapper = styled.div`
@@ -95,6 +95,10 @@ const ProductNameWrapper = styled.div`
 const ProductContentWrapper = styled.div`
   margin: 20px 0;
 `;
+const ContentWrapper = styled.div`
+  margin: 10px 0;
+  padding-left: 10px;
+`;
 const HeaderText = styled(Text)`
   font-size: 25px;
   font-weight: 700;
@@ -102,6 +106,7 @@ const HeaderText = styled(Text)`
 const ProductReviewContainer = styled.div`
   margin: 20px 0;
   border-bottom: 2px solid black;
+  padding: 0 20px;
 `;
 const SimpleReviewContainer = styled.div`
   display: flex;
@@ -114,6 +119,7 @@ const MoreReviewWrapper = styled.div`
   margin: 20px 0;
 `;
 const AuthorDetailContainer = styled.div`
+  padding: 0 20px;
   padding-bottom: calc(${(props) => props.theme.height.bottomHeight});
 `;
 const ReservationContainer = styled.div`
@@ -122,7 +128,7 @@ const ReservationContainer = styled.div`
   max-width: 640px;
   display: flex;
   bottom: ${(props) => props.theme.height.bottomHeight};
-  background-color: #aaa;
+  background-color: #e3e0ff;
   z-index: 100;
   display: flex;
   justify-content: space-around;

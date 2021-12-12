@@ -5,18 +5,16 @@ import { Avatar, Text } from '../../base';
 interface Props {
   profileImg: string;
   name: string;
-  location: string;
   phoneNumber: string;
   openTime: string;
 }
 
-const AteliarInformation = ({ profileImg, name, location, phoneNumber, openTime }: Props) => {
+const AteliarInformation = ({ profileImg, name, phoneNumber, openTime }: Props) => {
   return (
     <AteliarContainer>
       <Avatar size={80} src={profileImg} shape={'circle'} placeholder={''} alt={'profile'} />
       <ContentWrapper>
         <StyledText strong>{name}</StyledText>
-        <StyledText>{location}</StyledText>
         <StyledText>{phoneNumber}</StyledText>
         <StyledText>{openTime}</StyledText>
       </ContentWrapper>
