@@ -54,6 +54,7 @@ const NavWrapper = styled.nav`
   background-color: white;
   box-sizing: border-box;
   padding: 0 10px;
+  z-index: 1000;
 `;
 
 const IconWrapper = styled.div`
