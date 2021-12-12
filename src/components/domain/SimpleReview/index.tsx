@@ -16,12 +16,12 @@ const SimpleReview = ({ children, date }: Props) => {
 };
 
 const ReveiwWrapper = styled.div`
-  background-color: #ddd;
   width: 90%;
   margin-top: 20px;
   padding: 0 15px;
   box-sizing: border-box;
   border-radius: 15px;
+  border: solid 1px #c4c4c4;
 `;
 const ContentWrapper = styled.div`
   margin: 10px 0;

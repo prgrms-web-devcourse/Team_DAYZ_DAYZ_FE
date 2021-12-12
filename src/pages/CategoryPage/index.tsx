@@ -3,16 +3,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { ChevronLeft } from 'react-feather';
+import { GoBack } from '../../components/domain';
 
 const CategoryPage = () => {
   const { genre } = useParams<{ genre: string }>();
   return (
     <CategoryPageWrapper>
       <Link to="/" style={{ textDecoration: 'none' }}>
-        <BackButton>
-          <ChevronLeft size={40} />
-          <BackButtonText>메인 화면으로 돌아가기</BackButtonText>
-        </BackButton>
+        <GoBack to={'/'}>메인 화면으로 돌아가기</GoBack>
       </Link>
 
       <ResultsCategory>

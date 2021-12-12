@@ -26,7 +26,7 @@ const ProductsDetailPage = () => {
           ? data.images.map((list) => (
               <img
                 key={list.sequence}
-                style={{ width: '100%', height: '200px', border: 'solid 1px black' }}
+                style={{ width: '100%', height: '210px' }}
                 src={list.imageUrl}
               />
             ))
@@ -51,8 +51,13 @@ const ProductsDetailPage = () => {
         </ProductContentWrapper>
         <ProductContentWrapper>
           <HeaderText>커리큘럼</HeaderText>
-          {data.curricurums.map((curricurum) => (
+          {data.curricurums.map((curricurum, i) => (
             <ContentWrapper key={curricurum.curricurumId}>
+              <Bullet
+                style={{
+                  backgroundColor: `rgb(184, 139, 214, ${i / data.curricurums.length + 0.4}`,
+                }}
+              />
               {curricurum.step}단계 {curricurum.content}
             </ContentWrapper>
           ))}
@@ -112,9 +117,10 @@ const ProductContentWrapper = styled.div`
 const ContentWrapper = styled.div`
   margin: 10px 0;
   padding-left: 10px;
+  align-items: center;
 `;
 const HeaderText = styled(Text)`
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 700;
 `;
 const ProductReviewContainer = styled.div`
@@ -159,5 +165,11 @@ const ReservationButton = styled(Button)`
   line-height: 29px;
   color: #f5f5f5;
 `;
-
+const Bullet = styled.span`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+`;
 export default ProductsDetailPage;
