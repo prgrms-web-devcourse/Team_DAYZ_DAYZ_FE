@@ -2,6 +2,9 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { ArrowRightCircle, ArrowLeftCircle } from 'react-feather';
 function LoginPage() {
+  const setStorage = (auth: string) => {
+    // localStorage.setItem('auth', auth);
+  };
   return (
     <>
       <LoginContainer>
@@ -14,14 +17,14 @@ function LoginPage() {
           <p>할 수 있어요</p>
         </Subtitle>
         <SelectContainer>
-          <UserContainer>
+          <UserContainer onClick={() => setStorage('normal')}>
             <div>
               <p>일반 회원으로</p>
               <p>시작하기</p>
             </div>
             <ArrowRightCircle size={50} />
           </UserContainer>
-          <AuthorContainer>
+          <AuthorContainer onClick={() => setStorage('author')}>
             <ArrowLeftCircle size={50} />
             <div>
               <p>작가 회원으로</p>
@@ -72,6 +75,7 @@ const UserContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 120px;
+  cursor: pointer;
   & div p:first-child {
     margin-bottom: 12px;
   }
@@ -80,6 +84,7 @@ const AuthorContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
   & div {
     text-align: end;
     & p:first-child {
