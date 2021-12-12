@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { Settings, Layout, Calendar, Star } from 'react-feather';
 import { Avatar } from '../../components/base';
-import { SETTING, WORKSHOP, PRODUCTSLIST, REVIEWLIST } from '.';
+import { RoutePath } from '.';
 import { DUMMY_ATELIER_DATA } from './DUMMY_DATA';
 
 // 1. 공방 상세정보 조회 https://backend-devcourse.notion.site/2158d2bf8bab4792baea605062c15d69
@@ -11,7 +11,8 @@ import { DUMMY_ATELIER_DATA } from './DUMMY_DATA';
 // 공방 정보가 없으면 뒤로가기 or 메인페이지로 가기
 
 const WorkshopHeader = () => {
-  const { intro, name, imageUrl, address, callNo, startTime, endTime } = DUMMY_ATELIER_DATA;
+  const { intro, name, imageUrl, address, callNo, startTime, endTime, atelierId } =
+    DUMMY_ATELIER_DATA;
   const ICON_SIZE = 26;
   return (
     <>
@@ -32,18 +33,24 @@ const WorkshopHeader = () => {
             {startTime} - {endTime}
           </span>
         </ContentsWrapper>
-        <Link to={SETTING} style={{ textDecoration: 'none', color: 'black' }}>
+        <Link to={RoutePath.Setting(atelierId)} style={{ textDecoration: 'none', color: 'black' }}>
           <Settings />
         </Link>
       </WorkshopProfile>
       <Tabs>
-        <Link to={WORKSHOP} style={{ textDecoration: 'none', color: 'black' }}>
+        <Link to={RoutePath.Workshop(atelierId)} style={{ textDecoration: 'none', color: 'black' }}>
           <Layout size={`${ICON_SIZE}px`} />
         </Link>
-        <Link to={PRODUCTSLIST} style={{ textDecoration: 'none', color: 'black' }}>
+        <Link
+          to={RoutePath.ProductList(atelierId)}
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
           <Calendar size={`${ICON_SIZE}px`} />
         </Link>
-        <Link to={REVIEWLIST} style={{ textDecoration: 'none', color: 'black' }}>
+        <Link
+          to={RoutePath.ReviewList(atelierId)}
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
           <Star size={`${ICON_SIZE}px`} />
         </Link>
       </Tabs>
