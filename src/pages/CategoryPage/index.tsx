@@ -9,9 +9,7 @@ const CategoryPage = () => {
   const { genre } = useParams<{ genre: string }>();
   return (
     <CategoryPageWrapper>
-      <Link to="/" style={{ textDecoration: 'none' }}>
-        <GoBack to={'/'}>메인 화면으로 돌아가기</GoBack>
-      </Link>
+      <GoBack to={'/'}>메인 화면으로 돌아가기</GoBack>
 
       <ResultsCategory>
         <ResultsCategoryTitle>{genre} 전체</ResultsCategoryTitle>
