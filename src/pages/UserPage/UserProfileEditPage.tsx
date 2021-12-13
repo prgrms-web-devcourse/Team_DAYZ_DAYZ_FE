@@ -59,14 +59,6 @@ const UserProfileEditPage = () => {
           <UserInputName>이름</UserInputName>
           <InfoInput type="text" />
         </UserInputItem>
-        <UserInputItem>
-          <UserInputName>비밀번호</UserInputName>
-          <InfoInput type="password" />
-        </UserInputItem>
-        <UserInputItem>
-          <UserInputName>비밀번호 확인</UserInputName>
-          <InfoInput type="password" />
-        </UserInputItem>
         <SubmitBtn type="submit">저장</SubmitBtn>
       </UserEditForm>
     </UserEditWrapper>
