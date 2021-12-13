@@ -7,28 +7,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../../style/calendar.css';
 import { ko } from 'date-fns/esm/locale';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { categoryIcons } from '../../constants/categoryItems';
+import { Inputs, TimeData } from './types';
 
-type TimeData = {
-  fixDate: string;
-  fixEndTime: string;
-  fixStartTime: string;
-};
-
-type Inputs = {
-  className: string;
-  classGenre: string;
-  detail: string;
-  ReactDatePicker: Date;
-  durationTime: number;
-  startTime: string;
-  people: number;
-  price: number;
-};
 const defaultValues = {
   className: '',
   classGenre: '',
   detail: '',
-  ReactDatePicker: new Date(),
+  date: new Date(),
   durationTime: 1,
   startTime: '',
   people: undefined,
@@ -45,7 +31,6 @@ const UploadProductPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
     getValues,
     control,
   } = useForm<Inputs>({ defaultValues });
@@ -58,15 +43,15 @@ const UploadProductPage = () => {
 
   const handlePost = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    const { ReactDatePicker, durationTime, startTime } = getValues();
-    if (ReactDatePicker && startTime && durationTime) {
+    const { date, durationTime, startTime } = getValues();
+    if (date && startTime && durationTime) {
       const [startHour, startMinute] = startTime.split(':');
       const endHour: number = +startHour + +durationTime;
       const endTime = endHour + ':' + startMinute;
       setPickDate([
         ...pickDate,
         {
-          fixDate: ReactDatePicker.toLocaleDateString(),
+          fixDate: date.toLocaleDateString(),
           fixStartTime: startTime,
           fixEndTime: endTime,
         },
@@ -74,7 +59,6 @@ const UploadProductPage = () => {
     }
   };
 
-  console.log(pickDate);
   const handleDelete = (e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>) => {
     e.preventDefault();
     const target = (e.target as HTMLLIElement).closest('li')?.dataset.id;
@@ -95,14 +79,11 @@ const UploadProductPage = () => {
         <InputTitle>카테고리</InputTitle>
         <InputSelect {...register('classGenre', { required: true })}>
           <option value="">카테고리를 선택해 주세요.</option>
-          <option value="요리">요리</option>
-          <option value="도자기">도자기</option>
-          <option value="플라워">플라워</option>
-          <option value="미술">미술</option>
-          <option value="뷰티">뷰티</option>
-          <option value="음악">음악</option>
-          <option value="수공예">수공예</option>
-          <option value="액티비티">액티비티</option>
+          {categoryIcons.map(({ genre, contents }) => (
+            <option value={genre} key={genre}>
+              {contents}
+            </option>
+          ))}
         </InputSelect>
         {errors.classGenre && <div>카테고리를 선택해주세요.</div>}
 
@@ -143,7 +124,7 @@ const UploadProductPage = () => {
 
         <Controller
           control={control}
-          name="ReactDatePicker"
+          name="date"
           render={({ field: { value, onChange } }) => {
             return (
               <ReactDatePicker
@@ -163,7 +144,7 @@ const UploadProductPage = () => {
             <MiniInputWrapper>
               <InputSubTitle>선택 날짜</InputSubTitle>
               <InputSubTitle style={{ paddingLeft: '10px' }}>
-                {getValues('ReactDatePicker').toLocaleDateString()}
+                {getValues('date').toLocaleDateString()}
               </InputSubTitle>
             </MiniInputWrapper>
             <MiniInputWrapper>
@@ -178,19 +159,7 @@ const UploadProductPage = () => {
 
             <MiniInputWrapper>
               <InputSubTitle>시작 시각</InputSubTitle>
-              <input
-                type="time"
-                style={{
-                  width: '120px',
-                  height: '20px',
-                  margin: '0 10px',
-                  border: 'solid 1px #c4c4c4',
-                  borderRadius: '4px',
-                  color: 'black',
-                  textAlign: 'center',
-                }}
-                {...register('startTime')}
-              />
+              <StyledTimeInput type="time" {...register('startTime')} />
               <Button onClick={handlePost}>+ 추가</Button>
             </MiniInputWrapper>
           </div>
@@ -249,7 +218,7 @@ const UploadProductPage = () => {
               {...register('people')}
             />
             <InputSubTitle style={{ fontSize: '20px', marginLeft: '10px' }}>명</InputSubTitle>
-            {errors.people && <span>선택하시오.</span>}
+            {errors.people && <div>최대 인원을 적어주세요.</div>}
           </div>
         </RowInputForm>
         <RowInputForm>
@@ -267,7 +236,7 @@ const UploadProductPage = () => {
               {...register('price')}
             />
             <InputSubTitle style={{ fontSize: '20px', marginLeft: '10px' }}>원</InputSubTitle>
-            {errors.price && <span>선택하시오.</span>}
+            {errors.price && <div>가격을 적어주세요.</div>}
           </div>
         </RowInputForm>
 
@@ -287,6 +256,15 @@ const InputForm = styled.form`
 const InputTitle = styled.h3`
   font-size: 20px;
   font-weight: 600;
+`;
+const StyledTimeInput = styled.input`
+  width: 120px;
+  height: 20px;
+  margin: 0 10px;
+  border: solid 1px #c4c4c4;
+  border-radius: 4px;
+  color: black;
+  text-align: center;
 `;
 const InputSubTitle = styled.h4`
   font-size: 16px;
@@ -337,15 +315,7 @@ const InputTextArea = styled.textarea`
   text-align: flex-start;
   padding: 0;
 `;
-const StyledSelect = styled.select`
-  width: 130px;
-  height: 20px;
-  border-radius: 4px;
-  border: solid 1px #c4c4c4;
-  text-align: center;
-  font-size: 16px;
-  margin-left: 10px;
-`;
+
 const Button = styled.button`
   width: 60px;
   height: 20px;
@@ -374,11 +344,7 @@ const Submit = styled.button`
   font-weight: 700;
   margin: 20px 30%;
 `;
-const DateDiv = styled.div`
-  font-size: 16px;
-  margin-left: 10px;
-  width: 100px;
-`;
+
 const Select = styled.select`
   width: 130px;
   height: 20px;
@@ -404,4 +370,5 @@ const DatePickerWrapper = styled.section`
   align-items: center;
   justify-content: center;
 `;
+
 export default UploadProductPage;
