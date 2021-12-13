@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { Image } from '../../components/base';
-import { categoryIcons } from './categoryIcons';
+import { categoryIcons } from '../../constants/categoryItems';
 import { DUMMY_NEW_ATELIER_DATA, DUMMY_POPULAR_DATA } from './DUMMY_DATA';
 
 // 1. 카테고리 목록 조회 https://backend-devcourse.notion.site/d1a5d88893d642a48e169f5ccc10cc7c
@@ -22,7 +22,7 @@ const HomePage = () => {
         <CategoryWrapper>
           {categoryIcons.map(({ genre, Icon, contents }) => (
             <Link
-              to={genre}
+              to={`/category/${genre}`}
               key={genre}
               style={{
                 textDecoration: 'none',
