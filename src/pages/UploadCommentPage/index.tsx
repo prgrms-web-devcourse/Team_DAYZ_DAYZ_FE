@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useLocation, useParams } from 'react-router';
-import { Button, Image, Text, Upload } from '../../components/base';
+import { Button, Image, Text, Upload, Rating } from '../../components/base';
 import { useForm } from '../../hooks';
-import { Rating } from 'react-simple-star-rating';
+// import { Rating } from 'react-simple-star-rating';
 import { LinkBox } from '../../components/domain';
 import { Plus } from 'react-feather';
 
 const UploadCommentPage = () => {
-  const [rating, setRating] = useState(0);
   const [imgLink, setImgLink] = useState<string | undefined>(undefined);
+  const [rate, setRate] = useState<number | undefined>(0);
   const reviewInfo: any = useLocation().state;
   const { id } = useParams<{ id: string }>(); //reservationID
 
@@ -19,7 +19,7 @@ const UploadCommentPage = () => {
   // };
   const { values, errors, isLoading, handleChange, handleSubmit, setValues } = useForm({
     initialValues: {
-      star: rating,
+      star: rate,
       content: '',
     },
     onSubmit: async (value) => {
@@ -32,12 +32,6 @@ const UploadCommentPage = () => {
       return errors;
     },
   });
-
-  const handleRating = (rate: number) => {
-    setRating(rate);
-    console.log(rating / 20);
-    // https://github.com/awran5/react-simple-star-rating
-  };
 
   return (
     <FormContainer onSubmit={handleSubmit}>
@@ -55,7 +49,8 @@ const UploadCommentPage = () => {
       <ReviewStarWrapper>
         <StyledText>강의가 만족스러우셨나요?</StyledText>
         <div>
-          <Rating onClick={handleRating} ratingValue={rating} size={60} allowHover={false} />
+          {/* <Rating onClick={handleRating} ratingValue={rating} size={60} allowHover={false} /> */}
+          <Rating setRate={setRate} />
         </div>
       </ReviewStarWrapper>
 
