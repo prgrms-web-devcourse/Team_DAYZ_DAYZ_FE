@@ -17,7 +17,7 @@ const WorkshopPage = () => {
           <WorkshopHeader />
           <ReviewListPage />
         </Route>
-        <Route path={RoutePath.Setting('id')}>
+        <Route path={RoutePath.Setting(':id')}>
           <SettingPage />
         </Route>
         <Route path={RoutePath.Edit(':id')}>
