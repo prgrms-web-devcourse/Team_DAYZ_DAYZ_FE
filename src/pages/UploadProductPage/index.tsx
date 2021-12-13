@@ -1,36 +1,72 @@
 import styled from '@emotion/styled';
-import React, { ChangeEvent, ReactHTMLElement, useState } from 'react';
+import React, { useState } from 'react';
 import { Upload } from '../../components/base';
 import { Plus, MinusCircle } from 'react-feather';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../style/calendar.css';
 import { ko } from 'date-fns/esm/locale';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
+type TimeData = {
+  fixDate: string;
+  fixEndTime: string;
+  fixStartTime: string;
+};
+
+type Inputs = {
+  className: string;
+  classGenre: string;
+  detail: string;
+  ReactDatePicker: Date;
+  durationTime: number;
+  startTime: string;
+  people: number;
+  price: number;
+};
+const defaultValues = {
+  className: '',
+  classGenre: '',
+  detail: '',
+  ReactDatePicker: new Date(),
+  durationTime: 1,
+  startTime: '',
+  people: undefined,
+  price: undefined,
+};
+
+// 빈 칸들 , { required: true } 처리, 에러처리
+// 처리 안한부분, imgList, 커리큘럼 부분(커리큘럼은 무조건 3개가 필수인지?)
 const UploadProductPage = () => {
-  const [date, setDate] = useState(new Date());
-  const [startTime, setStartTime] = useState<string | ''>('');
-  const [durationTime, setDurationTime] = useState<string | '1'>('1');
   const [imgLink, setImgLink] = useState<string | undefined>(undefined);
   const [pickDate, setPickDate] = useState<any | undefined>('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(e);
-    console.log(e.target);
-    // console.log(e.target.value);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    getValues,
+    control,
+  } = useForm<Inputs>({ defaultValues });
+
+  const onSubmit: SubmitHandler<any> = (data: Inputs) => {
+    // pickDate(시간 리스트)도 보내고 register를 걸어논 data도 보냄
+    console.log(pickDate);
+    console.log(data);
   };
 
   const handlePost = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    if (date && startTime && durationTime) {
+    const { ReactDatePicker, durationTime, startTime } = getValues();
+    if (ReactDatePicker && startTime && durationTime) {
       const [startHour, startMinute] = startTime.split(':');
-      const endHour: number = parseInt(startHour) + parseInt(durationTime);
+      const endHour: number = +startHour + +durationTime;
       const endTime = endHour + ':' + startMinute;
       setPickDate([
         ...pickDate,
         {
-          fixDate: date.toLocaleDateString(),
+          fixDate: ReactDatePicker.toLocaleDateString(),
           fixStartTime: startTime,
           fixEndTime: endTime,
         },
@@ -48,11 +84,16 @@ const UploadProductPage = () => {
 
   return (
     <UploadProductPageWrapper>
-      <InputForm onSubmit={handleSubmit}>
+      <InputForm onSubmit={handleSubmit(onSubmit)}>
         <InputTitle>클래스 이름</InputTitle>
-        <InputBox style={{ height: '40px', width: '100% ' }} />
+        <InputBox
+          style={{ height: '40px', width: '100% ' }}
+          {...register('className', { required: true })}
+        />
+        {errors.className && <div>클래스 이름을 입력해주세요.</div>}
+
         <InputTitle>카테고리</InputTitle>
-        <InputSelect>
+        <InputSelect {...register('classGenre', { required: true })}>
           <option value="">카테고리를 선택해 주세요.</option>
           <option value="요리">요리</option>
           <option value="도자기">도자기</option>
@@ -63,8 +104,12 @@ const UploadProductPage = () => {
           <option value="수공예">수공예</option>
           <option value="액티비티">액티비티</option>
         </InputSelect>
+        {errors.classGenre && <div>카테고리를 선택해주세요.</div>}
+
         <InputTitle>클래스 소개</InputTitle>
-        <InputTextArea style={{ height: '100px' }} />
+        <InputTextArea style={{ height: '100px' }} {...register('detail')} />
+        {errors.detail && <div>소개란을 작성해주세요.</div>}
+
         <InputTitle>클래스 이미지</InputTitle>
         <Upload droppable accept="image/*" imgLink={imgLink} setImgLink={setImgLink}>
           {(file: File, dragging: React.DragEvent<HTMLDivElement>) => (
@@ -96,13 +141,21 @@ const UploadProductPage = () => {
         <InputSubTitle>3단계</InputSubTitle>
         <InputTextArea />
 
-        <ReactDatePicker
-          selected={date}
-          locale={ko}
-          dateFormat="yyyy-MM-dd"
-          onChange={(date: Date) => setDate(date)}
-          inline
-          minDate={new Date()}
+        <Controller
+          control={control}
+          name="ReactDatePicker"
+          render={({ field: { value, onChange } }) => {
+            return (
+              <ReactDatePicker
+                selected={value}
+                onChange={onChange}
+                inline
+                minDate={new Date()}
+                locale={ko}
+                dateFormat="yyyy-MM-dd"
+              />
+            );
+          }}
         />
 
         <DatePickerWrapper className="dateLists">
@@ -110,14 +163,12 @@ const UploadProductPage = () => {
             <MiniInputWrapper>
               <InputSubTitle>선택 날짜</InputSubTitle>
               <InputSubTitle style={{ paddingLeft: '10px' }}>
-                {date.toLocaleDateString()}
+                {getValues('ReactDatePicker').toLocaleDateString()}
               </InputSubTitle>
             </MiniInputWrapper>
             <MiniInputWrapper>
               <InputSubTitle>진행 시간</InputSubTitle>
-              <Select
-                onChange={(e: ChangeEvent<HTMLSelectElement>) => setDurationTime(e.target.value)}
-              >
+              <Select {...register('durationTime')}>
                 <option value={1}>1시간</option>
                 <option value={2}>2시간</option>
                 <option value={3}>3시간</option>
@@ -138,25 +189,12 @@ const UploadProductPage = () => {
                   color: 'black',
                   textAlign: 'center',
                 }}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setStartTime((e.target as HTMLInputElement).value)
-                }
+                {...register('startTime')}
               />
               <Button onClick={handlePost}>+ 추가</Button>
             </MiniInputWrapper>
           </div>
-          {/* <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              marginLeft: '22px',
-            }}
-          >
-            <InputSubTitle>선택한 날짜</InputSubTitle>
-            <InputSubTitle style={{ marginLeft: '50px' }}>시작 시각</InputSubTitle>
-            <InputSubTitle style={{ marginLeft: '40px' }}>종료 시각</InputSubTitle>
-          </div> */}
+
           <InputSubTitle>[클래스 날짜 정보]</InputSubTitle>
           {pickDate ? (
             <table style={{ marginTop: '10px' }}>
@@ -171,7 +209,7 @@ const UploadProductPage = () => {
               </thead>
               <tbody>
                 {pickDate
-                  ? pickDate.map((date: any, index: number) => (
+                  ? pickDate.map((date: TimeData, index: number) => (
                       <tr key={index + 1} style={{ textAlign: 'center' }}>
                         <td
                           style={{
@@ -194,26 +232,6 @@ const UploadProductPage = () => {
           ) : (
             <div>날짜와 시간을 선택해 주세요!</div>
           )}
-
-          {/* {pickDate
-            ? pickDate.map((date: any) => (
-                <li
-                  key={date}
-                  data-id={date}
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                    margin: '3px 0px',
-                  }}
-                >
-                  <MinusCircle style={{ color: 'black' }} size={16} onClick={handleDelete} />
-                  <DateDiv>{date.fixDate}</DateDiv>
-                  <DateDiv style={{ marginLeft: '40px' }}>{date.fixStartTime}</DateDiv>
-                  <DateDiv>{date.fixEndTime}</DateDiv>
-                </li>
-              ))
-            : ''} */}
         </DatePickerWrapper>
 
         <RowInputForm>
@@ -225,8 +243,13 @@ const UploadProductPage = () => {
               alignItems: 'center',
             }}
           >
-            <InputBox type="number" style={{ height: '30px', width: '160px' }} />
+            <InputBox
+              type="number"
+              style={{ height: '30px', width: '160px' }}
+              {...register('people')}
+            />
             <InputSubTitle style={{ fontSize: '20px', marginLeft: '10px' }}>명</InputSubTitle>
+            {errors.people && <span>선택하시오.</span>}
           </div>
         </RowInputForm>
         <RowInputForm>
@@ -238,8 +261,13 @@ const UploadProductPage = () => {
               alignItems: 'center',
             }}
           >
-            <InputBox type="number" style={{ height: '30px', width: '160px' }} />
+            <InputBox
+              type="number"
+              style={{ height: '30px', width: '160px' }}
+              {...register('price')}
+            />
             <InputSubTitle style={{ fontSize: '20px', marginLeft: '10px' }}>원</InputSubTitle>
+            {errors.price && <span>선택하시오.</span>}
           </div>
         </RowInputForm>
 
@@ -309,6 +337,15 @@ const InputTextArea = styled.textarea`
   text-align: flex-start;
   padding: 0;
 `;
+const StyledSelect = styled.select`
+  width: 130px;
+  height: 20px;
+  border-radius: 4px;
+  border: solid 1px #c4c4c4;
+  text-align: center;
+  font-size: 16px;
+  margin-left: 10px;
+`;
 const Button = styled.button`
   width: 60px;
   height: 20px;
@@ -340,7 +377,7 @@ const Submit = styled.button`
 const DateDiv = styled.div`
   font-size: 16px;
   margin-left: 10px;
-  width: 90px;
+  width: 100px;
 `;
 const Select = styled.select`
   width: 130px;
