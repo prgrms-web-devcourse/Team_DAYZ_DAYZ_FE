@@ -102,6 +102,7 @@ const UploadCommentPage = () => {
           fontWeight: '600',
           borderRadius: '8px',
           marginLeft: 'calc(50% - 75px)',
+          marginBottom: '40px',
         }}
       >
         후기 남기기
