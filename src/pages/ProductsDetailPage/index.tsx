@@ -10,6 +10,7 @@ import { Pagination } from '@egjs/flicking-plugins';
 import '@egjs/react-flicking/dist/flicking.css';
 import '@egjs/react-flicking/dist/flicking-inline.css';
 import '@egjs/flicking-plugins/dist/pagination.css';
+import { Star } from 'react-feather';
 
 const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,7 +27,7 @@ const ProductsDetailPage = () => {
           ? data.images.map((list) => (
               <img
                 key={list.sequence}
-                style={{ width: '100%', height: '210px' }}
+                style={{ width: '100%', height: '250px' }}
                 src={list.imageUrl}
               />
             ))
@@ -43,7 +44,10 @@ const ProductsDetailPage = () => {
       <ProductsDetailContainer>
         <ProductNameWrapper>
           <HeaderText>{data.name}</HeaderText>
-          <div>별점 {data.avgScore}</div>
+          <RatingWrapper>
+            <Star size={16} style={{ paddingBottom: '5px' }} />
+            <div style={{ paddingLeft: '5px' }}>{data.avgScore}</div>
+          </RatingWrapper>
         </ProductNameWrapper>
         <ProductContentWrapper>
           <HeaderText>클래스 소개</HeaderText>
@@ -171,5 +175,10 @@ const Bullet = styled.span`
   border-radius: 50%;
   display: inline-block;
   margin-right: 5px;
+`;
+const RatingWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 `;
 export default ProductsDetailPage;

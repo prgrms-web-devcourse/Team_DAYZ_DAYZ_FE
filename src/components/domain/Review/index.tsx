@@ -50,9 +50,9 @@ const Review = ({ profileImg, ateliarName, content, uploadDate, imgList }: Props
 
 const ReviewWrapper = styled.div`
   width: 90%;
-  background-color: #eee;
-  margin-top: 20px;
-  border-top: 2px solid #aaa;
+
+  margin-bottom: 20px;
+  border-top: 1px solid #c4c4c4;
   padding-top: 20px;
 `;
 
