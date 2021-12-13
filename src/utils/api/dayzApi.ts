@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { API_METHOD } from '../constants/apiConstant';
+import { API_METHOD } from '../../constants/apiConstant';
 import { Email } from './types';
 
 const axiosInstance = axios.create();
