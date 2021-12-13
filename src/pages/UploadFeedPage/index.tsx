@@ -1,63 +1,105 @@
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import React from 'react';
-import { Upload } from '../../components/base';
-import { useForm } from '../../hooks';
+import { Plus } from 'react-feather';
+import { Button } from '../../components/base';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+type Inputs = {
+  example: string;
+  classGenre: string;
+  img: FileList;
+};
 
 const UploadFeedPage = () => {
-  // const onSubmitFeed = async (value: object) => {
-  //   console.log(values);
-  // };
+  const [imgArray, setImgArray] = useState<any[]>([]);
 
-  const { values, errors, isLoading, handleChange, handleSubmit, setValues, handleSelectChange } =
-    useForm({
-      initialValues: {
-        image: {},
-        content: '',
-        classTag: {},
-      },
-      onSubmit: async (value) => {
-        // await onSubmitFeed(value);
-      },
-      validate: ({ image, content, classTag }) => {
-        const errors = {} as any; // any를 빼면 어떻게 처리하는지 물어보기, 찾아보기
-        if (!image) errors.image = '이미지를 넣어주세요.';
-        if (!content) errors.content = '설명을 입력해주세요.';
-        if (!classTag) errors.classTag = '클래스를 선택해주세요.';
-        return errors;
-      },
-    });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    getValues,
+  } = useForm<Inputs>();
+
+  useEffect(() => {
+    // const subscription: any = watch('img');
+    const values = getValues('img');
+    console.log(values);
+    let file;
+    const fileURLs: any = [];
+    for (let i = 0; i < values!.length; i++) {
+      file = values![i];
+      const reader = new FileReader();
+      reader.onload = () => {
+        fileURLs[i] = reader.result;
+        setImgArray([...fileURLs]);
+      };
+      reader.readAsDataURL(file);
+    }
+    // return () => subscription.unsubscribe();
+  }, [getValues('img')]);
+
+  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => console.log(data);
+
   return (
-    <form onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <TextWrapper>사진 업로드</TextWrapper>
-      <Upload droppable accept="image/*" onChange={handleChange}>
-        {(file: File, dragging: React.DragEvent<HTMLDivElement>) => (
-          <div
+      <UploadContainer>
+        <Input type="file" accept="image/*" id="img1" {...register('img', { required: true })} />
+        {getValues('img')
+          ? imgArray.map((something, index) => (
+              <img key={index} src={something} style={{ width: '200px', paddingRight: '20px' }} />
+            ))
+          : ''}
+        <ImageWrapper>
+          <label
+            htmlFor="img1"
             style={{
-              width: 300,
-              height: 100,
-              border: '4px dashed #aaa',
-              borderColor: dragging ? 'black' : '#aaa',
+              width: '50px',
+              height: '50px',
+              background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
+              borderRadius: '50%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: '20px',
             }}
           >
-            {file ? file.name : 'Upload Photo'}
-          </div>
-        )}
-      </Upload>
+            <Plus style={{ color: '#f5f5f5', cursor: 'pointer' }} size={40} />
+          </label>
+        </ImageWrapper>
+        {errors.img && <div>사진 넣어.</div>}
+      </UploadContainer>
+
       <TextWrapper>글쓰기</TextWrapper>
-      <Input type="text" placeholder="Input Content" onChange={handleChange} />
+      <InputTextArea style={{ height: '100px' }} {...register('example', { required: true })} />
+      {errors.example && <span>글쓰시오.</span>}
+
       <TextWrapper>클래스 태그하기</TextWrapper>
-      <select onChange={handleSelectChange}>
+      <InputSelect {...register('classGenre', { required: true })}>
         <option value="">클래스를 선택해 주세요.</option>
-        {/* option에서 map을 돌면 되겠다. */}
         <option value="도자기">도자기 공방</option>
         <option value="반지">반지</option>
-      </select>
+      </InputSelect>
+      {errors.classGenre && <span>선택하시오.</span>}
+
       <div>
         <SubmitButton type="submit">업로드하기</SubmitButton>
       </div>
-    </form>
+    </StyledForm>
   );
 };
+const UploadContainer = styled.div`
+  display: inline-block;
+`;
+
+const Input = styled.input`
+  display: none;
+`;
+
+const StyledForm = styled.form`
+  padding-bottom: ${(props) => props.theme.height.bottomHeight};
+`;
 
 const TextWrapper = styled.div`
   font-size: 25px;
@@ -65,16 +107,47 @@ const TextWrapper = styled.div`
   margin: 10px 0;
 `;
 
-const Input = styled.input`
-  width: 200px;
-  height: 200px;
+const InputTextArea = styled.textarea`
+  width: calc(100% - 20px);
+  border: solid 1px #c4c4c4;
+  border-radius: 8px;
+  margin-top: 10px;
+  padding-left: 20px;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: flex-start;
+`;
+const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+  overflow-x: auto;
+  & {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+const InputSelect = styled.select`
+  width: 100%;
+  height: 40px;
+  border: solid 1px #c4c4c4;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: flex-start;
 `;
 
-const SubmitButton = styled.button`
+const SubmitButton = styled(Button)`
   width: 100%;
+  max-width: 640px;
   height: 65px;
-  background: linear-gradient(270deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
-  border: none;
-  cursor: pointer;
+  position: fixed;
+  bottom: ${(props) => props.theme.height.bottomHeight};
 `;
+
 export default UploadFeedPage;

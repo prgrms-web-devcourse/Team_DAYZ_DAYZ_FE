@@ -66,36 +66,26 @@ const UploadProductPage = () => {
         <InputTextArea style={{ height: '100px' }} />
         <InputTitle>클래스 이미지</InputTitle>
         <Upload droppable accept="image/*" imgLink={imgLink} setImgLink={setImgLink}>
-          {(file: File, dragging: React.DragEvent<HTMLDivElement>) => {
-            return (
+          {(file: File, dragging: React.DragEvent<HTMLDivElement>) => (
+            <ImageWrapper>
+              {file ? <img src={imgLink} style={{ width: '200px', paddingRight: '20px' }} /> : ''}
+
               <div
                 style={{
+                  width: '50px',
+                  height: '50px',
+                  background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
+                  borderRadius: '50%',
                   display: 'flex',
-                  justifyContent: 'flex-start',
+                  justifyContent: 'center',
                   alignItems: 'center',
-                  marginBottom: '10px',
-                  overflowX: 'scroll',
+                  marginTop: '20px',
                 }}
               >
-                {file ? <img src={imgLink} style={{ width: '200px', paddingRight: '20px' }} /> : ''}
-
-                <div
-                  style={{
-                    width: '50px',
-                    height: '50px',
-                    background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: '20px',
-                  }}
-                >
-                  <Plus style={{ color: '#f5f5f5' }} size={40} />
-                </div>
+                <Plus style={{ color: '#f5f5f5' }} size={40} />
               </div>
-            );
-          }}
+            </ImageWrapper>
+          )}
         </Upload>
         <InputTitle>커리큘럼</InputTitle>
         <InputSubTitle>1단계</InputSubTitle>
@@ -241,6 +231,20 @@ const InputSubTitle = styled.h4`
   font-size: 16px;
   font-weight: 600;
   margin-top: 10px;
+`;
+const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+  overflow-x: auto;
+  & {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const InputBox = styled.input`
   border: solid 1px #c4c4c4;
