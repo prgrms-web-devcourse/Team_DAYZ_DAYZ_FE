@@ -39,7 +39,7 @@ const UploadProductPage = () => {
   };
 
   console.log(pickDate);
-  const handleDelete = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
+  const handleDelete = (e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>) => {
     e.preventDefault();
     const target = (e.target as HTMLLIElement).closest('li')?.dataset.id;
     pickDate.splice(pickDate?.indexOf(target), 1);
@@ -50,17 +50,18 @@ const UploadProductPage = () => {
     <UploadProductPageWrapper>
       <InputForm onSubmit={handleSubmit}>
         <InputTitle>클래스 이름</InputTitle>
-        <InputBox style={{ height: '40px', width: 'calc(100% - 20px)' }} />
+        <InputBox style={{ height: '40px', width: '100% ' }} />
         <InputTitle>카테고리</InputTitle>
         <InputSelect>
-          <option>요리</option>
-          <option>도자기</option>
-          <option>플라워</option>
-          <option>미술</option>
-          <option>뷰티</option>
-          <option>음악</option>
-          <option>수공예</option>
-          <option>액티비티</option>
+          <option value="">카테고리를 선택해 주세요.</option>
+          <option value="요리">요리</option>
+          <option value="도자기">도자기</option>
+          <option value="플라워">플라워</option>
+          <option value="미술">미술</option>
+          <option value="뷰티">뷰티</option>
+          <option value="음악">음악</option>
+          <option value="수공예">수공예</option>
+          <option value="액티비티">액티비티</option>
         </InputSelect>
         <InputTitle>클래스 소개</InputTitle>
         <InputTextArea style={{ height: '100px' }} />
@@ -104,55 +105,47 @@ const UploadProductPage = () => {
           minDate={new Date()}
         />
 
-        <ul className="dateLists">
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              marginLeft: '22px',
-            }}
-          >
-            <InputSubTitle>진행 시간</InputSubTitle>
-            <select
-              style={{
-                width: '130px',
-                height: '20px',
-                borderRadius: '4px',
-                border: 'solid 1px #c4c4c4',
-                textAlign: 'center',
-                fontSize: '16px',
-                marginLeft: '10px',
-              }}
-              onChange={(e: ChangeEvent<HTMLSelectElement>) => setDurationTime(e.target.value)}
-            >
-              <option value={1}>1시간</option>
-              <option value={2}>2시간</option>
-              <option value={3}>3시간</option>
-              <option value={4}>4시간</option>
-            </select>
-          </div>
+        <DatePickerWrapper className="dateLists">
+          <div>
+            <MiniInputWrapper>
+              <InputSubTitle>선택 날짜</InputSubTitle>
+              <InputSubTitle style={{ paddingLeft: '10px' }}>
+                {date.toLocaleDateString()}
+              </InputSubTitle>
+            </MiniInputWrapper>
+            <MiniInputWrapper>
+              <InputSubTitle>진행 시간</InputSubTitle>
+              <Select
+                onChange={(e: ChangeEvent<HTMLSelectElement>) => setDurationTime(e.target.value)}
+              >
+                <option value={1}>1시간</option>
+                <option value={2}>2시간</option>
+                <option value={3}>3시간</option>
+                <option value={4}>4시간</option>
+              </Select>
+            </MiniInputWrapper>
 
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              marginLeft: '22px',
-            }}
-          >
-            <InputSubTitle>시작 시각</InputSubTitle>
-            <input
-              type="time"
-              style={{ width: '130px', height: '15px', margin: '0 10px' }}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setStartTime((e.target as HTMLInputElement).value)
-              }
-            />
-            <Button onClick={handlePost}>+ 추가</Button>
+            <MiniInputWrapper>
+              <InputSubTitle>시작 시각</InputSubTitle>
+              <input
+                type="time"
+                style={{
+                  width: '120px',
+                  height: '20px',
+                  margin: '0 10px',
+                  border: 'solid 1px #c4c4c4',
+                  borderRadius: '4px',
+                  color: 'black',
+                  textAlign: 'center',
+                }}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setStartTime((e.target as HTMLInputElement).value)
+                }
+              />
+              <Button onClick={handlePost}>+ 추가</Button>
+            </MiniInputWrapper>
           </div>
-
-          <div
+          {/* <div
             style={{
               display: 'flex',
               justifyContent: 'flex-start',
@@ -163,9 +156,46 @@ const UploadProductPage = () => {
             <InputSubTitle>선택한 날짜</InputSubTitle>
             <InputSubTitle style={{ marginLeft: '50px' }}>시작 시각</InputSubTitle>
             <InputSubTitle style={{ marginLeft: '40px' }}>종료 시각</InputSubTitle>
-          </div>
+          </div> */}
+          <InputSubTitle>[클래스 날짜 정보]</InputSubTitle>
+          {pickDate ? (
+            <table style={{ marginTop: '10px' }}>
+              <thead style={{ borderBottom: 'solid 1px #c4c4c4' }}>
+                <tr style={{ textAlign: 'center' }}>
+                  <th style={{ borderRight: 'solid 1px #c4c4c4' }}>No.</th>
+                  <th>선택 날짜</th>
+                  <th style={{ padding: '0 10px' }}>시작 시각</th>
+                  <th style={{ padding: '0 10px' }}>종료 시각</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                {pickDate
+                  ? pickDate.map((date: any, index: number) => (
+                      <tr key={index + 1} style={{ textAlign: 'center' }}>
+                        <td
+                          style={{
+                            borderRight: 'solid 1px #c4c4c4',
+                          }}
+                        >
+                          {index + 1}
+                        </td>
+                        <td>{date.fixDate}</td>
+                        <td>{date.fixStartTime}</td>
+                        <td> {date.fixEndTime}</td>
+                        <td onClick={handleDelete}>
+                          <MinusCircle style={{ color: 'red' }} size={16} />
+                        </td>
+                      </tr>
+                    ))
+                  : ''}
+              </tbody>
+            </table>
+          ) : (
+            <div>날짜와 시간을 선택해 주세요!</div>
+          )}
 
-          {pickDate
+          {/* {pickDate
             ? pickDate.map((date: any) => (
                 <li
                   key={date}
@@ -183,8 +213,8 @@ const UploadProductPage = () => {
                   <DateDiv>{date.fixEndTime}</DateDiv>
                 </li>
               ))
-            : ''}
-        </ul>
+            : ''} */}
+        </DatePickerWrapper>
 
         <RowInputForm>
           <InputTitle>인원</InputTitle>
@@ -195,7 +225,7 @@ const UploadProductPage = () => {
               alignItems: 'center',
             }}
           >
-            <InputBox type="number" style={{ height: '30px', width: '80px' }} />
+            <InputBox type="number" style={{ height: '30px', width: '160px' }} />
             <InputSubTitle style={{ fontSize: '20px', marginLeft: '10px' }}>명</InputSubTitle>
           </div>
         </RowInputForm>
@@ -208,7 +238,7 @@ const UploadProductPage = () => {
               alignItems: 'center',
             }}
           >
-            <InputBox type="number" style={{ height: '30px', width: '80px' }} />
+            <InputBox type="number" style={{ height: '30px', width: '160px' }} />
             <InputSubTitle style={{ fontSize: '20px', marginLeft: '10px' }}>원</InputSubTitle>
           </div>
         </RowInputForm>
@@ -219,7 +249,10 @@ const UploadProductPage = () => {
   );
 };
 
-const UploadProductPageWrapper = styled.section``;
+const UploadProductPageWrapper = styled.section`
+  width: 100%;
+  box-sizing: border-box;
+`;
 const InputForm = styled.form`
   margin: 20px;
 `;
@@ -250,10 +283,10 @@ const InputBox = styled.input`
   border: solid 1px #c4c4c4;
   border-radius: 8px;
   margin-top: 10px;
-  padding-left: 20px;
   font-size: 20px;
   margin-bottom: 10px;
   text-align: flex-start;
+  padding: 0;
 `;
 const InputSelect = styled.select`
   width: 100%;
@@ -264,20 +297,28 @@ const InputSelect = styled.select`
   font-size: 20px;
   margin-bottom: 10px;
   text-align: flex-start;
+  color: black;
 `;
 const InputTextArea = styled.textarea`
-  width: calc(100% - 20px);
+  width: 100%;
   border: solid 1px #c4c4c4;
   border-radius: 8px;
   margin-top: 10px;
-  padding-left: 20px;
   font-size: 20px;
   margin-bottom: 10px;
   text-align: flex-start;
+  padding: 0;
 `;
 const Button = styled.button`
   width: 60px;
+  height: 20px;
   display: block;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
+  color: #f5f5f5;
+  font-weight: 600;
 `;
 const RowInputForm = styled.div`
   display: flex;
@@ -301,5 +342,29 @@ const DateDiv = styled.div`
   margin-left: 10px;
   width: 90px;
 `;
+const Select = styled.select`
+  width: 130px;
+  height: 20px;
+  border-radius: 4px;
+  border: solid 1px #c4c4c4;
+  text-align: center;
+  font-size: 16px;
+  margin-left: 10px;
+  color: black;
+  padding: 0;
+`;
 
+const MiniInputWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 22px;
+`;
+
+const DatePickerWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 export default UploadProductPage;
