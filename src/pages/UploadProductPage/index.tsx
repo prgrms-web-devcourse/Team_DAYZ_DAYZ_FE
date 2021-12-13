@@ -53,14 +53,15 @@ const UploadProductPage = () => {
         <InputBox style={{ height: '40px', width: '100% ' }} />
         <InputTitle>카테고리</InputTitle>
         <InputSelect>
-          <option>요리</option>
-          <option>도자기</option>
-          <option>플라워</option>
-          <option>미술</option>
-          <option>뷰티</option>
-          <option>음악</option>
-          <option>수공예</option>
-          <option>액티비티</option>
+          <option value="">카테고리를 선택해 주세요.</option>
+          <option value="요리">요리</option>
+          <option value="도자기">도자기</option>
+          <option value="플라워">플라워</option>
+          <option value="미술">미술</option>
+          <option value="뷰티">뷰티</option>
+          <option value="음악">음악</option>
+          <option value="수공예">수공예</option>
+          <option value="액티비티">액티비티</option>
         </InputSelect>
         <InputTitle>클래스 소개</InputTitle>
         <InputTextArea style={{ height: '100px' }} />
@@ -157,38 +158,42 @@ const UploadProductPage = () => {
             <InputSubTitle style={{ marginLeft: '40px' }}>종료 시각</InputSubTitle>
           </div> */}
           <InputSubTitle>[클래스 날짜 정보]</InputSubTitle>
-          <table style={{ marginTop: '10px' }}>
-            <thead style={{ borderBottom: 'solid 1px #c4c4c4' }}>
-              <tr style={{ textAlign: 'center' }}>
-                <th style={{ borderRight: 'solid 1px #c4c4c4' }}>No.</th>
-                <th>선택 날짜</th>
-                <th style={{ padding: '0 10px' }}>시작 시각</th>
-                <th style={{ padding: '0 10px' }}>종료 시각</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {pickDate
-                ? pickDate.map((date: any, index: number) => (
-                    <tr key={index + 1} style={{ textAlign: 'center' }}>
-                      <td
-                        style={{
-                          borderRight: 'solid 1px #c4c4c4',
-                        }}
-                      >
-                        {index + 1}
-                      </td>
-                      <td>{date.fixDate}</td>
-                      <td>{date.fixStartTime}</td>
-                      <td> {date.fixEndTime}</td>
-                      <td onClick={handleDelete}>
-                        <MinusCircle style={{ color: 'red' }} size={16} />
-                      </td>
-                    </tr>
-                  ))
-                : ''}
-            </tbody>
-          </table>
+          {pickDate ? (
+            <table style={{ marginTop: '10px' }}>
+              <thead style={{ borderBottom: 'solid 1px #c4c4c4' }}>
+                <tr style={{ textAlign: 'center' }}>
+                  <th style={{ borderRight: 'solid 1px #c4c4c4' }}>No.</th>
+                  <th>선택 날짜</th>
+                  <th style={{ padding: '0 10px' }}>시작 시각</th>
+                  <th style={{ padding: '0 10px' }}>종료 시각</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                {pickDate
+                  ? pickDate.map((date: any, index: number) => (
+                      <tr key={index + 1} style={{ textAlign: 'center' }}>
+                        <td
+                          style={{
+                            borderRight: 'solid 1px #c4c4c4',
+                          }}
+                        >
+                          {index + 1}
+                        </td>
+                        <td>{date.fixDate}</td>
+                        <td>{date.fixStartTime}</td>
+                        <td> {date.fixEndTime}</td>
+                        <td onClick={handleDelete}>
+                          <MinusCircle style={{ color: 'red' }} size={16} />
+                        </td>
+                      </tr>
+                    ))
+                  : ''}
+              </tbody>
+            </table>
+          ) : (
+            <div>날짜와 시간을 선택해 주세요!</div>
+          )}
 
           {/* {pickDate
             ? pickDate.map((date: any) => (
@@ -346,6 +351,7 @@ const Select = styled.select`
   font-size: 16px;
   margin-left: 10px;
   color: black;
+  padding: 0;
 `;
 
 const MiniInputWrapper = styled.div`
