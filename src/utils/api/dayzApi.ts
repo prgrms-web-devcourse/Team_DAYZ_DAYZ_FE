@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { API_METHOD } from '../../constants/apiConstant';
-import { Email } from './types';
+import { Email, Location } from './types';
 
 const axiosInstance = axios.create();
 
@@ -44,6 +44,29 @@ export const setImageUpload = (data: File) => {
     headers: {
       // Authorization: token,
       'Content-Type': `multipart/form-data`,
+    },
+  });
+};
+export const getlocationlist = (token: string) => {
+  return request({
+    method: API_METHOD.GET,
+    url: '/api/v1/addresses',
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const changelocationlist = ({ token, cityuId, regionId }: Location) => {
+  return request({
+    method: API_METHOD.GET,
+    url: '/api/v1/addresses',
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+    data: {
+      cityuId: cityuId,
+      regionId: regionId,
     },
   });
 };

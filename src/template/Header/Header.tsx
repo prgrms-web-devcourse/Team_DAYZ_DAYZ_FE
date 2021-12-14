@@ -4,16 +4,19 @@ import { Bell, ChevronDown } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Modal } from '../../components/base';
 import { LocationSetting } from '../../components/domain';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atom';
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
+  const userInfo = useRecoilValue(userState);
 
   return (
     <HeaderWrapper>
       <Title>DAYZ</Title>
 
       <Location onClick={() => setVisible(true)}>
-        <div>서울시 송파구</div>
+        <div>{`${userInfo.cityName}` + ' ' + `${userInfo.regionName}`}</div>
         <ChevronDown size={20} color="#f5f5f5" />
       </Location>
 
