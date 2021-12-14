@@ -4,7 +4,7 @@ import { Email } from './types';
 
 const axiosInstance = axios.create();
 
-axiosInstance.defaults.baseURL = process.env.DAYZ_API_END_POINT;
+axiosInstance.defaults.baseURL = process.env.REACT_APP_DAYZ_API_END_POINT;
 
 const request = async (config: AxiosRequestConfig) => {
   return axiosInstance(config);
@@ -29,6 +29,21 @@ export const requiredtoken = (token: string) => {
     url: `/main`,
     headers: {
       authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const setImageUpload = (data: File) => {
+  const formData = new FormData();
+  formData.append('files', data);
+
+  return request({
+    method: API_METHOD.POST,
+    url: `/api/v1/images`,
+    data: formData,
+    headers: {
+      // Authorization: token,
+      'Content-Type': `multipart/form-data`,
     },
   });
 };
