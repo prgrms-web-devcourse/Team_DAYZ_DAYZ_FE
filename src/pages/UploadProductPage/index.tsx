@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import { Plus, MinusCircle } from 'react-feather';
+import { MinusCircle } from 'react-feather';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../style/calendar.css';
 import { ko } from 'date-fns/esm/locale';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryIcons } from '../../constants/categoryItems';
-import { Inputs, TimeData } from './types';
+import { InputData, TimeData } from './types';
 import { setImageUpload } from '../../utils/api/dayzApi';
+import { CustomImageUpload } from '../../components/domain';
 
 const defaultValues = {
   className: '',
@@ -33,9 +34,9 @@ const UploadProductPage = () => {
     formState: { errors },
     getValues,
     control,
-  } = useForm<Inputs>({ defaultValues });
+  } = useForm<InputData>({ defaultValues });
 
-  const onSubmit: SubmitHandler<any> = (data: Inputs) => {
+  const onSubmit: SubmitHandler<any> = (data: InputData) => {
     // data, pickDate, imgSrcArray 같이 보내야함
     console.log(pickDate);
     console.log(data);
@@ -105,35 +106,14 @@ const UploadProductPage = () => {
         {errors.detail && <div>소개란을 작성해주세요.</div>}
 
         <InputTitle>클래스 이미지</InputTitle>
-        <UploadContainer>
-          <Input type="file" accept="image/*" id="addImage" onChange={handleChange} />
-          <ImageWrapper>
-            {imgSrcArray.length
-              ? imgSrcArray.map((something, index) => (
-                  <img
-                    key={index}
-                    src={something}
-                    style={{ width: '200px', paddingRight: '20px' }}
-                  />
-                ))
-              : ''}
-            <label
-              htmlFor="addImage"
-              style={{
-                width: '50px',
-                height: '50px',
-                background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
-                borderRadius: '50%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: '20px',
-              }}
-            >
-              <Plus style={{ color: '#f5f5f5', cursor: 'pointer' }} size={40} />
-            </label>
-          </ImageWrapper>
-        </UploadContainer>
+        <CustomImageUpload onChange={handleChange}>
+          {imgSrcArray.length
+            ? imgSrcArray.map((imgSrc, index) => (
+                <img key={index} src={imgSrc} style={{ width: '200px', paddingRight: '20px' }} />
+              ))
+            : ''}
+        </CustomImageUpload>
+
         <InputTitle>커리큘럼</InputTitle>
         <InputSubTitle>1단계</InputSubTitle>
         <InputTextArea />
@@ -290,27 +270,6 @@ const InputSubTitle = styled.h4`
   font-size: 16px;
   font-weight: 600;
   margin-top: 10px;
-`;
-const UploadContainer = styled.div`
-  width: 100%;
-  display: inline-block;
-`;
-const Input = styled.input`
-  display: none;
-`;
-const ImageWrapper = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 10px;
-  overflow-x: auto;
-  & {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const InputBox = styled.input`

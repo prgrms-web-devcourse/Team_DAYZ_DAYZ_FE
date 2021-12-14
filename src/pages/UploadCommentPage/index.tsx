@@ -3,11 +3,10 @@ import styled from '@emotion/styled';
 import { useLocation, useParams } from 'react-router';
 import { Button, Text, Rating } from '../../components/base';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { LinkBox } from '../../components/domain';
-import { Plus } from 'react-feather';
+import { CustomImageUpload, LinkBox } from '../../components/domain';
 import { setImageUpload } from '../../utils/api/dayzApi';
 
-type Input = {
+type InputData = {
   content: string;
 };
 
@@ -21,9 +20,9 @@ const UploadCommentPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Input>();
+  } = useForm<InputData>();
 
-  const onSubmit: SubmitHandler<any> = (data: Input) => {
+  const onSubmit: SubmitHandler<any> = (data: InputData) => {
     // data랑 imgSrcArray랑, rate를 같이 보내야함.
     console.log(imgSrcArray);
     console.log(data);
@@ -68,35 +67,13 @@ const UploadCommentPage = () => {
         {errors.content && <div>후기를 작성해주세요!</div>}
 
         <StyledText>사진을 남겨주세요!</StyledText>
-        <UploadContainer>
-          <Input type="file" accept="image/*" id="addImage" onChange={handleChange} />
-          <ImageWrapper>
-            {imgSrcArray.length
-              ? imgSrcArray.map((something, index) => (
-                  <img
-                    key={index}
-                    src={something}
-                    style={{ width: '200px', paddingRight: '20px' }}
-                  />
-                ))
-              : ''}
-            <label
-              htmlFor="addImage"
-              style={{
-                width: '50px',
-                height: '50px',
-                background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
-                borderRadius: '50%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: '20px',
-              }}
-            >
-              <Plus style={{ color: '#f5f5f5', cursor: 'pointer' }} size={40} />
-            </label>
-          </ImageWrapper>
-        </UploadContainer>
+        <CustomImageUpload onChange={handleChange}>
+          {imgSrcArray.length
+            ? imgSrcArray.map((imgSrc, index) => (
+                <img key={index} src={imgSrc} style={{ width: '200px', paddingRight: '20px' }} />
+              ))
+            : ''}
+        </CustomImageUpload>
       </ReviewContentsWrapper>
 
       <Button
@@ -153,27 +130,6 @@ const StyledText = styled(Text)`
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
-`;
-const UploadContainer = styled.div`
-  width: 100%;
-  display: inline-block;
-`;
-const Input = styled.input`
-  display: none;
-`;
-const ImageWrapper = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 10px;
-  overflow-x: auto;
-  & {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 export default UploadCommentPage;

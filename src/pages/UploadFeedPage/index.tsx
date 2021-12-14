@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Plus } from 'react-feather';
 import { Button } from '../../components/base';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { setImageUpload } from '../../utils/api/dayzApi';
+import { CustomImageUpload } from '../../components/domain';
 
 type Inputs = {
   content: string;
@@ -39,31 +39,14 @@ const UploadFeedPage = () => {
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <TextWrapper>사진 업로드</TextWrapper>
-      <UploadContainer>
-        <Input type="file" accept="image/*" id="addImage" onChange={handleChange} />
-        <ImageWrapper>
-          {imgSrcArray.length
-            ? imgSrcArray.map((something, index) => (
-                <img key={index} src={something} style={{ width: '200px', paddingRight: '20px' }} />
-              ))
-            : ''}
-          <label
-            htmlFor="addImage"
-            style={{
-              width: '50px',
-              height: '50px',
-              background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
-              borderRadius: '50%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: '20px',
-            }}
-          >
-            <Plus style={{ color: '#f5f5f5', cursor: 'pointer' }} size={40} />
-          </label>
-        </ImageWrapper>
-      </UploadContainer>
+
+      <CustomImageUpload onChange={handleChange}>
+        {imgSrcArray.length
+          ? imgSrcArray.map((imgSrc, index) => (
+              <img key={index} src={imgSrc} style={{ width: '200px', paddingRight: '20px' }} />
+            ))
+          : ''}
+      </CustomImageUpload>
 
       <TextWrapper>글쓰기</TextWrapper>
       <InputTextArea style={{ height: '100px' }} {...register('content', { required: true })} />
@@ -83,14 +66,6 @@ const UploadFeedPage = () => {
     </StyledForm>
   );
 };
-const UploadContainer = styled.div`
-  width: 100%;
-  display: inline-block;
-`;
-
-const Input = styled.input`
-  display: none;
-`;
 
 const StyledForm = styled.form`
   padding-bottom: ${(props) => props.theme.height.bottomHeight};
@@ -112,20 +87,7 @@ const InputTextArea = styled.textarea`
   margin-bottom: 10px;
   text-align: flex-start;
 `;
-const ImageWrapper = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 10px;
-  overflow-x: auto;
-  & {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
+
 const InputSelect = styled.select`
   width: 100%;
   height: 40px;
