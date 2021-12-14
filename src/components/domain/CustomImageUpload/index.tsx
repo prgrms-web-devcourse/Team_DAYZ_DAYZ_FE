@@ -13,21 +13,9 @@ const CustomImageUpload = ({ children, onChange }: Props) => {
       <Input type="file" accept="image/*" id="addImage" onChange={onChange} />
       <ImageWrapper>
         {children}
-        <label
-          htmlFor="addImage"
-          style={{
-            width: '50px',
-            height: '50px',
-            background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
-            borderRadius: '50%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: '20px',
-          }}
-        >
+        <StyledLabel htmlFor="addImage">
           <Plus style={{ color: '#f5f5f5', cursor: 'pointer' }} size={40} />
-        </label>
+        </StyledLabel>
       </ImageWrapper>
     </UploadContainer>
   );
@@ -54,6 +42,17 @@ const ImageWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const StyledLabel = styled.label`
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 `;
 
 export default CustomImageUpload;
