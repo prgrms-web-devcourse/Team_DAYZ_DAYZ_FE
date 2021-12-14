@@ -1,41 +1,49 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useLocation, useParams } from 'react-router';
-import { Button, Image, Text, Upload, Rating } from '../../components/base';
-import { useForm } from '../../hooks';
-// import { Rating } from 'react-simple-star-rating';
+import { Button, Text, Rating } from '../../components/base';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { LinkBox } from '../../components/domain';
 import { Plus } from 'react-feather';
+import { setImageUpload } from '../../utils/api/dayzApi';
+
+type Input = {
+  content: string;
+};
 
 const UploadCommentPage = () => {
-  const [imgLink, setImgLink] = useState<string | undefined>(undefined);
+  const [imgSrcArray, setImgSrcArray] = useState<string[]>([]);
   const [rate, setRate] = useState<number | undefined>(0);
   const reviewInfo: any = useLocation().state;
   const { id } = useParams<{ id: string }>(); //reservationID
 
-  // const onSubmitReview = (value: object) => {
-  //   // 제출하는 함수
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Input>();
 
-  // };
-  const { values, errors, isLoading, handleChange, handleSubmit, setValues } = useForm({
-    initialValues: {
-      star: rate,
-      content: '',
-    },
-    onSubmit: async (value) => {
-      // await onSubmitReview(value);
-    },
-    validate: ({ star, content }) => {
-      const errors = {} as any;
-      if (!star) errors.star = '별점을 체크해주세요.';
-      if (!content) errors.content = '후기를 남겨주세요';
-      return errors;
-    },
-  });
+  const onSubmit: SubmitHandler<any> = (data: Input) => {
+    // data랑 imgSrcArray랑, rate를 같이 보내야함.
+    console.log(imgSrcArray);
+    console.log(data);
+    console.log(rate);
+  };
+
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.files) {
+      const image = e.target.files[0];
+      console.log(image);
+      const { status, data } = await setImageUpload(image);
+      if (status === 200) {
+        setImgSrcArray((prev) => [...prev, data.payload.imageUrl]);
+      }
+    }
+  };
 
   return (
-    <FormContainer onSubmit={handleSubmit}>
-      {/* <div>{id} 후기 남기기 페이지</div> */}
+    <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <ClassNameWrapper>
         <LinkBox style={{ width: '80%' }}>
           <div>{reviewInfo?.name}</div>
@@ -56,40 +64,39 @@ const UploadCommentPage = () => {
 
       <ReviewContentsWrapper>
         <StyledText>후기를 남겨주세요!</StyledText>
-        <StyledInput name="content" />
-        <StyledText>사진도 남겨주세요!</StyledText>
-        <Upload droppable accept="image/*" imgLink={imgLink} setImgLink={setImgLink}>
-          {(file: File, dragging: React.DragEvent<HTMLDivElement>) => {
-            return (
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'flex-start',
-                  alignItems: 'center',
-                  marginBottom: '10px',
-                  overflowX: 'scroll',
-                }}
-              >
-                {file ? <img src={imgLink} style={{ width: '200px', paddingRight: '20px' }} /> : ''}
+        <StyledInput {...register('content', { required: true })} />
+        {errors.content && <div>후기를 작성해주세요!</div>}
 
-                <div
-                  style={{
-                    width: '50px',
-                    height: '50px',
-                    background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: '20px',
-                  }}
-                >
-                  <Plus style={{ color: '#f5f5f5' }} size={40} />
-                </div>
-              </div>
-            );
-          }}
-        </Upload>
+        <StyledText>사진을 남겨주세요!</StyledText>
+        <UploadContainer>
+          <Input type="file" accept="image/*" id="addImage" onChange={handleChange} />
+          <ImageWrapper>
+            {imgSrcArray.length
+              ? imgSrcArray.map((something, index) => (
+                  <img
+                    key={index}
+                    src={something}
+                    style={{ width: '200px', paddingRight: '20px' }}
+                  />
+                ))
+              : ''}
+            <label
+              htmlFor="addImage"
+              style={{
+                width: '50px',
+                height: '50px',
+                background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
+                borderRadius: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '20px',
+              }}
+            >
+              <Plus style={{ color: '#f5f5f5', cursor: 'pointer' }} size={40} />
+            </label>
+          </ImageWrapper>
+        </UploadContainer>
       </ReviewContentsWrapper>
 
       <Button
@@ -147,9 +154,26 @@ const StyledText = styled(Text)`
   font-weight: bold;
   margin-bottom: 10px;
 `;
-
-const StyledButton = styled(Button)`
+const UploadContainer = styled.div`
   width: 100%;
-  height: 50px;
+  display: inline-block;
 `;
+const Input = styled.input`
+  display: none;
+`;
+const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+  overflow-x: auto;
+  & {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 export default UploadCommentPage;
