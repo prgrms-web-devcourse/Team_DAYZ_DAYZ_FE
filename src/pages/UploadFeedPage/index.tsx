@@ -1,79 +1,56 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Plus } from 'react-feather';
 import { Button } from '../../components/base';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { setImageUpload } from '../../utils/api/dayzApi';
+import { CustomImageUpload } from '../../components/domain';
 
 type Inputs = {
-  example: string;
+  content: string;
   classGenre: string;
-  img: FileList;
 };
 
 const UploadFeedPage = () => {
-  const [imgArray, setImgArray] = useState<any[]>([]);
+  const [imgSrcArray, setImgSrcArray] = useState<string[]>([]);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-    getValues,
   } = useForm<Inputs>();
 
-  useEffect(() => {
-    // const subscription: any = watch('img');
-    const values = getValues('img');
-    console.log(values);
-    let file;
-    const fileURLs: any = [];
-    for (let i = 0; i < values!.length; i++) {
-      file = values![i];
-      const reader = new FileReader();
-      reader.onload = () => {
-        fileURLs[i] = reader.result;
-        setImgArray([...fileURLs]);
-      };
-      reader.readAsDataURL(file);
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.files) {
+      const image = e.target.files[0];
+      console.log(image);
+      const { status, data } = await setImageUpload(image);
+      if (status === 200) {
+        setImgSrcArray((prev) => [...prev, data.payload.imageUrl]);
+      }
     }
-    // return () => subscription.unsubscribe();
-  }, [getValues('img')]);
+  };
 
-  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
+    // data랑 imgSrcArray를 같이 보내야함.
+    console.log(data);
+  };
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <TextWrapper>사진 업로드</TextWrapper>
-      <UploadContainer>
-        <Input type="file" accept="image/*" id="img1" {...register('img', { required: true })} />
-        {getValues('img')
-          ? imgArray.map((something, index) => (
-              <img key={index} src={something} style={{ width: '200px', paddingRight: '20px' }} />
+
+      <CustomImageUpload onChange={handleChange}>
+        {imgSrcArray.length
+          ? imgSrcArray.map((imgSrc, index) => (
+              <img key={index} src={imgSrc} style={{ width: '200px', paddingRight: '20px' }} />
             ))
           : ''}
-        <ImageWrapper>
-          <label
-            htmlFor="img1"
-            style={{
-              width: '50px',
-              height: '50px',
-              background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
-              borderRadius: '50%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: '20px',
-            }}
-          >
-            <Plus style={{ color: '#f5f5f5', cursor: 'pointer' }} size={40} />
-          </label>
-        </ImageWrapper>
-        {errors.img && <div>사진 넣어.</div>}
-      </UploadContainer>
+      </CustomImageUpload>
 
       <TextWrapper>글쓰기</TextWrapper>
-      <InputTextArea style={{ height: '100px' }} {...register('example', { required: true })} />
-      {errors.example && <span>글쓰시오.</span>}
+      <InputTextArea style={{ height: '100px' }} {...register('content', { required: true })} />
+      {errors.content && <span>글쓰시오.</span>}
 
       <TextWrapper>클래스 태그하기</TextWrapper>
       <InputSelect {...register('classGenre', { required: true })}>
@@ -89,13 +66,6 @@ const UploadFeedPage = () => {
     </StyledForm>
   );
 };
-const UploadContainer = styled.div`
-  display: inline-block;
-`;
-
-const Input = styled.input`
-  display: none;
-`;
 
 const StyledForm = styled.form`
   padding-bottom: ${(props) => props.theme.height.bottomHeight};
@@ -108,7 +78,7 @@ const TextWrapper = styled.div`
 `;
 
 const InputTextArea = styled.textarea`
-  width: calc(100% - 20px);
+  width: calc(100% - 30px);
   border: solid 1px #c4c4c4;
   border-radius: 8px;
   margin-top: 10px;
@@ -117,20 +87,7 @@ const InputTextArea = styled.textarea`
   margin-bottom: 10px;
   text-align: flex-start;
 `;
-const ImageWrapper = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 10px;
-  overflow-x: auto;
-  & {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
+
 const InputSelect = styled.select`
   width: 100%;
   height: 40px;

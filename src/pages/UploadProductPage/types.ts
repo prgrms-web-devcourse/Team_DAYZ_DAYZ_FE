@@ -4,7 +4,7 @@ export type TimeData = {
   fixStartTime: string;
 };
 
-export type Inputs = {
+export type InputData = {
   className: string;
   classGenre: string;
   detail: string;

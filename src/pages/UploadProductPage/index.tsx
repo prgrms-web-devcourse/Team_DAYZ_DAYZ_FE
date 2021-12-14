@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import { Upload } from '../../components/base';
-import { Plus, MinusCircle } from 'react-feather';
+import { MinusCircle } from 'react-feather';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../style/calendar.css';
 import { ko } from 'date-fns/esm/locale';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryIcons } from '../../constants/categoryItems';
-import { Inputs, TimeData } from './types';
+import { InputData, TimeData } from './types';
+import { setImageUpload } from '../../utils/api/dayzApi';
+import { CustomImageUpload } from '../../components/domain';
 
 const defaultValues = {
   className: '',
@@ -24,7 +25,7 @@ const defaultValues = {
 // 빈 칸들 , { required: true } 처리, 에러처리
 // 처리 안한부분, imgList, 커리큘럼 부분(커리큘럼은 무조건 3개가 필수인지?)
 const UploadProductPage = () => {
-  const [imgLink, setImgLink] = useState<string | undefined>(undefined);
+  const [imgSrcArray, setImgSrcArray] = useState<string[]>([]);
   const [pickDate, setPickDate] = useState<any | undefined>('');
 
   const {
@@ -33,12 +34,25 @@ const UploadProductPage = () => {
     formState: { errors },
     getValues,
     control,
-  } = useForm<Inputs>({ defaultValues });
+  } = useForm<InputData>({ defaultValues });
 
-  const onSubmit: SubmitHandler<any> = (data: Inputs) => {
-    // pickDate(시간 리스트)도 보내고 register를 걸어논 data도 보냄
+  const onSubmit: SubmitHandler<any> = (data: InputData) => {
+    // data, pickDate, imgSrcArray 같이 보내야함
     console.log(pickDate);
     console.log(data);
+    console.log(imgSrcArray);
+  };
+
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.files) {
+      const image = e.target.files[0];
+      console.log(image);
+      const { status, data } = await setImageUpload(image);
+      if (status === 200) {
+        setImgSrcArray((prev) => [...prev, data.payload.imageUrl]);
+      }
+    }
   };
 
   const handlePost = (e: React.MouseEvent<HTMLElement>) => {
@@ -92,28 +106,14 @@ const UploadProductPage = () => {
         {errors.detail && <div>소개란을 작성해주세요.</div>}
 
         <InputTitle>클래스 이미지</InputTitle>
-        <Upload droppable accept="image/*" imgLink={imgLink} setImgLink={setImgLink}>
-          {(file: File, dragging: React.DragEvent<HTMLDivElement>) => (
-            <ImageWrapper>
-              {file ? <img src={imgLink} style={{ width: '200px', paddingRight: '20px' }} /> : ''}
+        <CustomImageUpload onChange={handleChange}>
+          {imgSrcArray.length
+            ? imgSrcArray.map((imgSrc, index) => (
+                <img key={index} src={imgSrc} style={{ width: '200px', paddingRight: '20px' }} />
+              ))
+            : ''}
+        </CustomImageUpload>
 
-              <div
-                style={{
-                  width: '50px',
-                  height: '50px',
-                  background: 'linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%)',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: '20px',
-                }}
-              >
-                <Plus style={{ color: '#f5f5f5' }} size={40} />
-              </div>
-            </ImageWrapper>
-          )}
-        </Upload>
         <InputTitle>커리큘럼</InputTitle>
         <InputSubTitle>1단계</InputSubTitle>
         <InputTextArea />
@@ -271,20 +271,7 @@ const InputSubTitle = styled.h4`
   font-weight: 600;
   margin-top: 10px;
 `;
-const ImageWrapper = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 10px;
-  overflow-x: auto;
-  & {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
+
 const InputBox = styled.input`
   border: solid 1px #c4c4c4;
   border-radius: 8px;
