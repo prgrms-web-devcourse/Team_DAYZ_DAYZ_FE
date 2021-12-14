@@ -7,42 +7,42 @@ import { MdOutlineSurfing } from 'react-icons/md';
 
 export const categoryIcons = [
   {
-    genre: '/category/pottery',
+    genre: 'pottery',
     Icon: GiPaintedPottery,
     contents: '도자기',
   },
   {
-    genre: '/category/cooking',
+    genre: 'cooking',
     Icon: BiDish,
     contents: '요리',
   },
   {
-    genre: '/category/flower',
+    genre: 'flower',
     Icon: BsFlower1,
     contents: '플라워',
   },
   {
-    genre: '/category/drawing',
+    genre: 'drawing',
     Icon: BiPaint,
     contents: '미술',
   },
   {
-    genre: '/category/beauty',
+    genre: 'beauty',
     Icon: GiLipstick,
     contents: '뷰티',
   },
   {
-    genre: '/category/music',
+    genre: 'music',
     Icon: HiOutlineMusicNote,
     contents: '음악',
   },
   {
-    genre: '/category/handcraft',
+    genre: 'handcraft',
     Icon: IoHammerOutline,
     contents: '수공예',
   },
   {
-    genre: '/category/activity',
+    genre: 'activity',
     Icon: MdOutlineSurfing,
     contents: '액티비티',
   },
