@@ -2,10 +2,9 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { ArrowRightCircle, ArrowLeftCircle } from 'react-feather';
 function LoginPage() {
-  const setStorage = (auth: string) => {
-    localStorage.setItem('auth', auth);
-  };
-  const redirectURI = `${process.env.REACT_APP_DAYZ_API_END_POINT}/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/`;
+  const PATH_REDIRECT_KAKAO = '/redirect-after-kakao';
+  const redirectURI = `${process.env.REACT_APP_DAYZ_API_END_POINT}/oauth2/authorization/kakao?redirect_uri=http://localhost:3000${PATH_REDIRECT_KAKAO}`;
+
   return (
     <>
       <LoginContainer>
@@ -18,14 +17,14 @@ function LoginPage() {
           <p>할 수 있어요</p>
         </Subtitle>
         <SelectContainer>
-          <UserContainer href={redirectURI} onClick={() => setStorage('normal')}>
+          <UserContainer href={redirectURI}>
             <div>
               <p>일반 회원으로</p>
               <p>시작하기</p>
             </div>
             <ArrowRightCircle size={50} />
           </UserContainer>
-          <AuthorContainer href={redirectURI} onClick={() => setStorage('author')}>
+          <AuthorContainer href={redirectURI}>
             <ArrowLeftCircle size={50} />
             <div>
               <p>작가 회원으로</p>
@@ -34,6 +33,7 @@ function LoginPage() {
           </AuthorContainer>
         </SelectContainer>
       </LoginContainer>
+
       {/* <PopUpContainer>
         <PopUp>
           <p className="PopUpTitle">처음이시군요!</p>
