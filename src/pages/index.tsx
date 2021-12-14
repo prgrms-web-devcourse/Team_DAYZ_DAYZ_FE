@@ -4,6 +4,7 @@ export { default as WorkshopPage } from './WorkshopPage/WorkshopPage';
 export { default as CategoryPage } from './CategoryPage';
 export { default as FeedPage } from './FeedPage';
 export { default as LoginPage } from './LoginPage';
+export { default as RedirectPageAfterKakao } from './LoginPage/RedirectPageAfterKakao';
 export { default as BookingPage } from './BookingPage';
 export { default as SearchPage } from './SearchPage';
 export {
