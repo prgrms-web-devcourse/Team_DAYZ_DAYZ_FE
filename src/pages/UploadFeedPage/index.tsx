@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Plus } from 'react-feather';
 import { Button } from '../../components/base';
@@ -11,7 +11,7 @@ type Inputs = {
 };
 
 const UploadFeedPage = () => {
-  const [imgSrcArray, setImgSrcArray] = useState<any[]>([]);
+  const [imgSrcArray, setImgSrcArray] = useState<string[]>([]);
 
   const {
     register,
@@ -40,7 +40,7 @@ const UploadFeedPage = () => {
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <TextWrapper>사진 업로드</TextWrapper>
       <UploadContainer>
-        <Input type="file" accept="image/*" id="img1" onChange={handleChange} />
+        <Input type="file" accept="image/*" id="addImage" onChange={handleChange} />
         <ImageWrapper>
           {imgSrcArray.length
             ? imgSrcArray.map((something, index) => (
@@ -48,7 +48,7 @@ const UploadFeedPage = () => {
               ))
             : ''}
           <label
-            htmlFor="img1"
+            htmlFor="addImage"
             style={{
               width: '50px',
               height: '50px',
