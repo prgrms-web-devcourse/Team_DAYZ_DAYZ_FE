@@ -5,6 +5,8 @@ export { default as CategoryPage } from './CategoryPage';
 export { default as FeedPage } from './FeedPage';
 export { default as LoginPage } from './LoginPage';
 export { default as RedirectPageAfterKakao } from './LoginPage/RedirectPageAfterKakao';
+export { default as SignupCheckLocation } from './LoginPage/SignupCheckLocation';
+export { default as SignupAuthorInfo } from './LoginPage/SignupAuthorInfo';
 export { default as BookingPage } from './BookingPage';
 export { default as SearchPage } from './SearchPage';
 export {

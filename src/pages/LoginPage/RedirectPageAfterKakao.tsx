@@ -1,9 +1,7 @@
 import React from 'react';
-import { Route, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '../../atom';
-import SignupAuthorInfo from './SignupAuthorInfo';
-import SignupCheckLocation from './SignupCheckLocation';
 const RedirectPageAfterKakao = () => {
   const history = useHistory();
   const PATH_AUTHOR_INFO = '/signup/author-info';
@@ -27,18 +25,12 @@ const RedirectPageAfterKakao = () => {
       if (isFillAuthorInfo && isFillAddressInfo) history.push('/');
       else if (!isFillAuthorInfo) history.push(PATH_AUTHOR_INFO);
       else if (!isFillAddressInfo) history.push(PATH_CHECK_LOCATION);
+      break;
   }
 
   return (
     <>
       <span>잠시만 기다려 주세요</span>
-
-      <Route path={PATH_AUTHOR_INFO}>
-        <SignupAuthorInfo />
-      </Route>
-      <Route path={PATH_CHECK_LOCATION}>
-        <SignupCheckLocation />
-      </Route>
     </>
   );
 };
