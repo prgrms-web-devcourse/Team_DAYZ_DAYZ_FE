@@ -62,8 +62,8 @@ const LocationSetting = () => {
           <SubmitButton type="submit">저장</SubmitButton>
         </div>
 
-        {district?.map((location: any) => (
-          <ToggleContainer key={location}>
+        {district?.map((location: any, index: number) => (
+          <ToggleContainer key={index}>
             <Input
               type="checkbox"
               data-id={location.regionName}
