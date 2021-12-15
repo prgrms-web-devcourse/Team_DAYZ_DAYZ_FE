@@ -1,6 +1,23 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atom';
+import { getlocationlist } from '../../utils/api/dayzApi';
+
+interface IRegion {
+  regionId: number;
+  regionName: string;
+}
+
 function SignupCheckLocation() {
+  const { token } = useRecoilValue(userState);
+  const [regions, setRegions] = useState<IRegion[]>([]);
+  useEffect(() => {
+    getlocationlist(token).then((res) => {
+      const seoulRegions = res.data.payload.addresses[0].regions;
+      setRegions(seoulRegions);
+    });
+  }, []);
   return (
     <LoginContainer>
       <Title>
@@ -21,9 +38,11 @@ function SignupCheckLocation() {
             <option disabled value="DEFAULT">
               선택
             </option>
-            <option value="Gangdong">강동구</option>
-            <option value="Gangnam">강남구</option>
-            <option value="Seocho">서초구</option>
+            {regions?.map((region) => (
+              <option key={region.regionId} value={region.regionName}>
+                {region.regionName}
+              </option>
+            ))}
           </select>
         </div>
       </SelectContainer>
