@@ -23,7 +23,7 @@ export const userState = atom<IUser>({
     cityId: 1,
     cityName: '서울시',
     regionId: 1,
-    regionName: '자곡동',
+    regionName: '강남구',
     auth: 'ROLE_ATELIER',
     atelierId: 1,
   },
