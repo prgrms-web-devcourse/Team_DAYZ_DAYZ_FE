@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { INavigation, IUser } from './types';
+import { IUser } from './types';
 
 export const userState = atom<IUser>({
   key: 'userState',
@@ -15,13 +15,5 @@ export const userState = atom<IUser>({
     regionName: '강남구',
     auth: 'ROLE_ATELIER', // ROLE_USER
     atelierId: 1,
-  },
-});
-
-export const navigationState = atom<INavigation>({
-  key: 'navigationState',
-  default: {
-    topNavigation: true,
-    bottomNavigation: false,
   },
 });
