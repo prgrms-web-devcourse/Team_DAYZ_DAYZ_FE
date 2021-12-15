@@ -13,8 +13,13 @@ export interface IUser {
   atelierId: number;
 }
 
+export interface INav {
+  topNavigation: boolean;
+  bottomNavigation: boolean;
+}
+
 export const userState = atom<IUser>({
-  key: 'user',
+  key: 'userState',
   default: {
     id: 1,
     token:
@@ -25,7 +30,15 @@ export const userState = atom<IUser>({
     cityName: '서울시',
     regionId: 1,
     regionName: '강남구',
-    auth: 'ROLE_ATELIER',
+    auth: 'ROLE_ATELIER', // ROLE_USER
     atelierId: 1,
+  },
+});
+
+export const navState = atom<INav>({
+  key: 'navState',
+  default: {
+    topNavigation: true,
+    bottomNavigation: false,
   },
 });

@@ -2,34 +2,22 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Header } from './Header';
 import { Navigator } from './Navigator';
+import { useRecoilValue } from 'recoil';
+import { navState } from '../atom';
 
 interface Props {
   children: React.ReactNode;
 }
 
-const isLoginPage = () => {
-  const path = window.location.pathname;
-  return path === '/login' || path === '/signup/author-info' || path === '/signup/check-location';
-};
-
-const isCommentsPage = () => {
-  const path = window.location.pathname;
-  return path === '/feed/comments/:id';
-};
-
 const DefaultTemplate = ({ children }: Props): JSX.Element => {
+  const { topNavigation, bottomNavigation } = useRecoilValue(navState);
+
   return (
-    <>
-      {isLoginPage() || isCommentsPage() ? (
-        <Container>{children}</Container>
-      ) : (
-        <Container>
-          <Header />
-          <StyledMain>{children}</StyledMain>
-          <Navigator />
-        </Container>
-      )}
-    </>
+    <Container>
+      {topNavigation && <Header />}
+      <StyledMain>{children}</StyledMain>
+      {bottomNavigation && <Navigator />}
+    </Container>
   );
 };
 
