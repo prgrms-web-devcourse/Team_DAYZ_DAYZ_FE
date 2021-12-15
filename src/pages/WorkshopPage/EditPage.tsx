@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Avatar, Button, Input } from '../../components/base';
+import { Avatar, Button, Input, OfficeHourInput, PhoneNumInput } from '../../components/base';
 import { DUMMY_ATELIER_DATA } from './DUMMY_DATA';
 import { FilePlus } from 'react-feather';
 
@@ -41,23 +41,11 @@ const EditPage = () => {
       </InputContainer>
       <InputContainer>
         <Text>공방 전화번호</Text>
-        <div>
-          <select name="phoneNumberType" id="phoneNumberType">
-            <option value="010">010</option>
-            <option value="02">02</option>
-          </select>
-          <InfoInput type="number" value={splitCallNo[1]} />
-          <Dash>-</Dash>
-          <InfoInput type="number" value={splitCallNo[2]} />
-        </div>
+        <PhoneNumInput frontValue={splitCallNo[1]} secondValue={splitCallNo[2]} />
       </InputContainer>
       <InputContainer>
         <Text>공방 영업시간</Text>
-        <div>
-          <InfoInput type="time" value={startTime} />
-          <Dash>~</Dash>
-          <InfoInput type="time" value={endTime} />
-        </div>
+        <OfficeHourInput startTime={startTime} endTime={endTime} />
       </InputContainer>
       <SubmitBtn type="submit">저장</SubmitBtn>
     </EditForm>
@@ -70,16 +58,12 @@ const EditForm = styled.form`
 `;
 const InputContainer = styled.div`
   margin: 20px;
-  & > div {
-    display: flex;
-    & select {
-      border-radius: 8px;
-      margin-right: 20px;
-    }
+  & select,
+  input {
+    height: 40px;
   }
 `;
 const Text = styled.div`
-  font-size: 16px;
   font-weight: 600;
   margin-bottom: 10px;
 `;
@@ -107,9 +91,7 @@ const Label = styled.label`
 
 const InfoInput = styled(Input)`
   width: calc(100% - 20px);
-  height: 40px;
-  font-size: 16px;
-  padding-left: 20px;
+  padding-left: 10px;
 `;
 const SubmitBtn = styled(Button)`
   width: 40%;
@@ -120,8 +102,4 @@ const SubmitBtn = styled(Button)`
   font-size: 20px;
   font-weight: 700;
   margin-left: 30%;
-`;
-const Dash = styled.div`
-  font-size: 30px;
-  margin: 0 10px;
 `;
