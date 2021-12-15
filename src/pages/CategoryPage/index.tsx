@@ -1,12 +1,22 @@
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { ChevronLeft } from 'react-feather';
 import { GoBack } from '../../components/domain';
+import { useSetRecoilState } from 'recoil';
+import { navigationState } from '../atom';
 
 const CategoryPage = () => {
   const { genre } = useParams<{ genre: string }>();
+
+  const naviState = useSetRecoilState(navigationState);
+  useEffect(() => {
+    naviState({
+      topNavigation: true,
+      bottomNavigation: true,
+    });
+  }, []);
+
   return (
     <CategoryPageWrapper>
       <GoBack to={'/'}>메인 화면으로 돌아가기</GoBack>
