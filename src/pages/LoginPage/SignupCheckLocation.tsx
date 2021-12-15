@@ -17,8 +17,10 @@ function SignupCheckLocation() {
           <select name="area" id="area">
             <option value="seoul">서울</option>
           </select>
-          <select name="city" id="city">
-            <option value="">선택</option>
+          <select defaultValue={'DEFAULT'} name="city" id="city">
+            <option disabled value="DEFAULT">
+              선택
+            </option>
             <option value="Gangdong">강동구</option>
             <option value="Gangnam">강남구</option>
             <option value="Seocho">서초구</option>
@@ -52,17 +54,16 @@ const SelectContainer = styled.section`
     margin-bottom: 12px;
   }
   & select {
-    font-size: 28px;
     background-color: #eed6fc;
     border-style: none;
     border-radius: 12px;
     padding: 12px 24px;
   }
   & select:nth-of-type(1) {
-    width: 150px;
+    width: 100px;
     margin-right: 24px;
   }
   & select:nth-of-type(2) {
-    width: 300px;
+    width: 150px;
   }
 `;
