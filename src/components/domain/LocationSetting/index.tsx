@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { userState } from '../../../atoms/atom';
+import { userState } from '../../../atoms';
 import { changelocationlist, getlocationlist } from '../../../utils/api/dayzApi';
 
 const LocationSetting = () => {

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { Home, Grid, Search, Circle, Plus } from 'react-feather';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../atoms/atom';
+import { userState } from '../../atoms';
 
 const Navigator = () => {
   const user = useRecoilValue(userState);

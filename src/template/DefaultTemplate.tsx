@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Header } from './Header';
 import { Navigator } from './Navigator';
 import { useRecoilValue } from 'recoil';
-import { navigationState } from '../atoms/atom';
+import { navigationState } from '../atoms/navigation';
 
 interface Props {
   children: React.ReactNode;

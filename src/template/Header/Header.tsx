@@ -1,11 +1,10 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Bell, ChevronDown } from 'react-feather';
-import { Link } from 'react-router-dom';
 import { Modal } from '../../components/base';
 import { LocationSetting } from '../../components/domain';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../atoms/atom';
+import { userState } from '../../atoms';
 
 const Header = () => {
   const [visible, setVisible] = useState(false);

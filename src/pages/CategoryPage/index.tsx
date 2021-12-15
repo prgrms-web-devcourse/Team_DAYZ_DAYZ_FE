@@ -3,18 +3,22 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { GoBack } from '../../components/domain';
-import { useSetRecoilState } from 'recoil';
-import { navigationState } from '../../atoms/atom';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { navigationState } from '../../atoms';
 
 const CategoryPage = () => {
   const { genre } = useParams<{ genre: string }>();
 
-  const naviState = useSetRecoilState(navigationState);
+  const setNavigationState = useSetRecoilState(navigationState);
+  const resetPageState = useResetRecoilState(navigationState);
   useEffect(() => {
-    naviState({
-      topNavigation: true,
-      bottomNavigation: true,
-    });
+    setNavigationState((prev) => ({
+      ...prev,
+      bottomNavigation: false,
+    }));
+    return () => {
+      resetPageState();
+    };
   }, []);
 
   return (
@@ -42,19 +46,7 @@ const CategoryPage = () => {
 };
 
 const CategoryPageWrapper = styled.section``;
-const BackButton = styled.div`
-  position: fix;
-  top: 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 20px;
-  color: black;
-`;
-const BackButtonText = styled.div`
-  font-size: 20px;
-  margin: auto;
-`;
+
 const ResultsCategory = styled.div`
   margin-top: 20px;
 `;
