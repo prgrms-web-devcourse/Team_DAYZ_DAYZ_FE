@@ -3,14 +3,14 @@ import styled from '@emotion/styled';
 import { Header } from './Header';
 import { Navigator } from './Navigator';
 import { useRecoilValue } from 'recoil';
-import { navState } from '../atom';
+import { navigationState } from '../atoms/atom';
 
 interface Props {
   children: React.ReactNode;
 }
 
 const DefaultTemplate = ({ children }: Props): JSX.Element => {
-  const { topNavigation, bottomNavigation } = useRecoilValue(navState);
+  const { topNavigation, bottomNavigation } = useRecoilValue(navigationState);
 
   return (
     <Container>

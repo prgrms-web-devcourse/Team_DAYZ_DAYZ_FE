@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Modal } from '../../components/base';
 import { LocationSetting } from '../../components/domain';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../atom';
+import { userState } from '../../atoms/atom';
 
 const Header = () => {
   const [visible, setVisible] = useState(false);

@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { userState } from '../../../atom';
-import { setLocation, fetchLocationList } from '../../../utils/api/dayzApi';
+import { userState } from '../../../atoms/atom';
+import { changelocationlist, getlocationlist } from '../../../utils/api/dayzApi';
 
 const LocationSetting = () => {
   const [pickState, setPickState] = useState<string | ''>('');

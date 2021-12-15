@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { GoBack } from '../../components/domain';
 import { useSetRecoilState } from 'recoil';
-import { navigationState } from '../atom';
+import { navigationState } from '../../atoms/atom';
 
 const CategoryPage = () => {
   const { genre } = useParams<{ genre: string }>();

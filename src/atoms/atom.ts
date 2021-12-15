@@ -1,22 +1,5 @@
 import { atom } from 'recoil';
-
-export interface IUser {
-  id: number;
-  token: string;
-  name: string;
-  profileImageUrl: string;
-  cityId: number;
-  cityName: string;
-  regionId: number;
-  regionName: string;
-  auth: string;
-  atelierId: number;
-}
-
-export interface INav {
-  topNavigation: boolean;
-  bottomNavigation: boolean;
-}
+import { INavigation, IUser } from './types';
 
 export const userState = atom<IUser>({
   key: 'userState',
@@ -35,8 +18,8 @@ export const userState = atom<IUser>({
   },
 });
 
-export const navState = atom<INav>({
-  key: 'navState',
+export const navigationState = atom<INavigation>({
+  key: 'navigationState',
   default: {
     topNavigation: true,
     bottomNavigation: false,
