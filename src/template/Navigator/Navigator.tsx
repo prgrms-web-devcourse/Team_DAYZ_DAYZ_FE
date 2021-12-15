@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { Home, Grid, Search, Circle } from 'react-feather';
+import { Home, Grid, Search, Circle, Plus } from 'react-feather';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms/atom';
 
 const Navigator = () => {
+  const user = useRecoilValue(userState);
+
   const navIcons = [
     {
       to: '/',
@@ -15,17 +19,24 @@ const Navigator = () => {
       Icon: Grid,
       contents: '피드',
     },
-    {
-      to: '/search',
-      Icon: Search,
-      contents: '검색하기',
-    },
+    user.auth === 'ROLE_ATELIER'
+      ? {
+          to: '/upload/feed',
+          Icon: Plus,
+          contents: '업로드',
+        }
+      : {
+          to: '/search',
+          Icon: Search,
+          contents: '검색하기',
+        },
     {
       to: '/user/:id',
       Icon: Circle,
       contents: '내정보',
     },
   ];
+
   return (
     <NavWrapper>
       {navIcons.map(({ to, Icon, contents }) => (
