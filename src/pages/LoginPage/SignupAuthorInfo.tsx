@@ -60,7 +60,7 @@ const FormContainer = styled.form`
 const SubmitBtn = styled(Button)`
   height: 50px;
   text-decoration: none;
-  border-radius: 16px;
+  border-radius: 12px;
   color: #f5f5f5;
   font-size: 20px;
   font-weight: 700;

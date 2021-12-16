@@ -57,7 +57,7 @@ export const fetchLocationList = (token: string) => {
   });
 };
 
-export const postLocation = ({ token, cityId, regionId }: Location) => {
+export const setLocation = ({ token, cityId, regionId }: Location) => {
   return request({
     method: API_METHOD.POST,
     url: '/api/v1/members/address',
