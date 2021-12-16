@@ -64,7 +64,7 @@ const UploadProductPage = () => {
         classTimes: pickDate,
         maxPeopleNumber,
         price,
-        requiredTime: timeToString(getValues('requiredTime')),
+        requiredTime: timeToString(formData.requiredTime),
       };
       console.log('data : ', data);
     }
