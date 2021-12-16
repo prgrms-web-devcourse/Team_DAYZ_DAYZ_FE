@@ -1,3 +1,3 @@
 export { getSessionStorageItem, setSessionStorageItem } from './sessionStorage';
 export { convertFullDate, timeToString } from './convertDate';
-export { convertImageArray } from './convertImageArray';
+export { convertImageArray, convertCurricurums } from './convertImageArray';
