@@ -12,8 +12,6 @@ const request = async (config: AxiosRequestConfig) => {
   return axiosInstance(config);
 };
 
-const { token } = useRecoilValue(userState);
-
 // 예시1. 데이터를 불러올
 export const something = ({ email, password }: Email) => {
   return request({
@@ -37,7 +35,7 @@ export const requiredtoken = (token: string) => {
   });
 };
 
-export const setImageUpload = (data: File) => {
+export const setImageUpload = (data: File, token: string) => {
   const formData = new FormData();
   formData.append('files', data);
 
@@ -75,7 +73,13 @@ export const setLocation = ({ token, cityId, regionId }: Location) => {
   });
 };
 
-export const getAtelierClasses = ({ atelierId, pageIndex, pageSize, sort }: AtelierClass) => {
+export const getAtelierClasses = ({
+  atelierId,
+  pageIndex,
+  pageSize,
+  sort,
+  token,
+}: AtelierClass) => {
   return request({
     method: API_METHOD.GET,
     url: `api/v1/classes/ateliers/${atelierId}`,

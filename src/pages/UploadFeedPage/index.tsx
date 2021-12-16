@@ -69,7 +69,7 @@ const UploadFeedPage = () => {
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <TextWrapper>사진 업로드</TextWrapper>
 
-      <CustomImageUpload imgSrcArray={imgSrcArray} setImgSrcArray={setImgSrcArray} />
+      <CustomImageUpload imgSrcArray={imgSrcArray} setImgSrcArray={setImgSrcArray} token={token} />
 
       <TextWrapper>글쓰기</TextWrapper>
       <InputTextArea style={{ height: '100px' }} {...register('content', { required: true })} />
