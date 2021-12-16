@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../atoms';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { navigationState, userState } from '../../atoms';
 import { Button } from '../../components/base';
 import { fetchLocationList, setLocation } from '../../utils/api/dayzApi';
 
@@ -13,18 +13,35 @@ interface IRegion {
 
 function SignupCheckLocation() {
   const history = useHistory();
+  const setNavigaionState = useSetRecoilState(navigationState);
+  const resetPageState = useResetRecoilState(navigationState);
   const { token } = useRecoilValue(userState);
   const [regions, setRegions] = useState<IRegion[]>([]);
-  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setLocation({ token, cityId: 1, regionId: +e.target.value });
-    history.push('/');
+  const regionSelect = useRef<HTMLSelectElement>(null);
+
+  const onClick = async () => {
+    const regionId = +(regionSelect.current?.value ?? '1');
+    const res = await setLocation({ token, cityId: 1, regionId });
+    if (res.status === 200) {
+      history.push('/');
+    } else {
+      history.push('/nothing');
+    }
   };
 
   useEffect(() => {
+    setNavigaionState((prev) => ({
+      ...prev,
+      topNavigation: false,
+      bottomNavigation: false,
+    }));
     fetchLocationList(token).then((res) => {
-      const seoulRegions = res.data.payload.addresses[0].regions;
+      const seoulRegions = res.data.data.addresses[0].regions;
       setRegions(seoulRegions);
     });
+    return () => {
+      resetPageState();
+    };
   }, []);
 
   return (
@@ -43,7 +60,7 @@ function SignupCheckLocation() {
           <select name="area" id="area">
             <option value="seoul">서울</option>
           </select>
-          <select defaultValue={'DEFAULT'} name="city" id="city" onChange={onChange}>
+          <select defaultValue={'DEFAULT'} name="city" id="city" ref={regionSelect}>
             <option disabled value="DEFAULT">
               선택
             </option>
@@ -54,10 +71,9 @@ function SignupCheckLocation() {
             ))}
           </select>
         </div>
-        {/* todo: 버튼 누르면 관심지역 POST && push to home
-         <SubmitBtn type="submit" onSubmit={onSubmit}>
+        <SubmitBtn type="submit" onClick={onClick}>
           완료
-        </SubmitBtn> */}
+        </SubmitBtn>
       </SelectContainer>
     </LoginContainer>
   );
