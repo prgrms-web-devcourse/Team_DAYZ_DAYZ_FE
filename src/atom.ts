@@ -17,7 +17,8 @@ export const userState = atom<IUser>({
   key: 'user',
   default: {
     id: 1,
-    token: 'testToken123',
+    token:
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTYxMzEyOCwiaWF0IjoxNjM5NTUzMTI4LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.RVjuPeIvs4sRDprhFTkcaVvxve-peeWSWf-IuXuTCVhIf8FPlUSz2jKefDdP8gB0wmHz-pDW_yIsJYWoGK_4Cg',
     name: '김영태',
     profileImageUrl: 'https://picsum.photos/200',
     cityId: 1,

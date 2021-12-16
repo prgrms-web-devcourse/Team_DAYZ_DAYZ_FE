@@ -4,6 +4,6 @@ export interface Email {
 }
 export interface Location {
   token: string;
-  cityuId: number;
+  cityId: number;
   regionId: number;
 }

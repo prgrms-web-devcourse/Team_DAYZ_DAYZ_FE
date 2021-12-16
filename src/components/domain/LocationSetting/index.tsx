@@ -12,9 +12,9 @@ const LocationSetting = () => {
 
   useEffect(() => {
     async function getLocation() {
-      return await getlocationlist(
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTUxNzM1NywiaWF0IjoxNjM5NDU3MzU3LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.CROJYgprKkEN2RW05whmZJ5ZRFS7m0z58p6EcnJeY_6zB6ZAxcwXoNMNNdwWI6CWxdmdD_tRJxCpYYW-XoI53Q',
-      ).then((response) => setDistrict([...response.data.payload.addresses[0].regions]));
+      return await getlocationlist(`${userInfo.token}`).then((response) =>
+        setDistrict([...response.data.payload.addresses[0].regions]),
+      );
     }
     getLocation();
     setPickState(userInfo.regionName);
@@ -27,40 +27,20 @@ const LocationSetting = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await changelocationlist({
-      token:
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTUxNzM1NywiaWF0IjoxNjM5NDU3MzU3LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.CROJYgprKkEN2RW05whmZJ5ZRFS7m0z58p6EcnJeY_6zB6ZAxcwXoNMNNdwWI6CWxdmdD_tRJxCpYYW-XoI53Q',
-      cityuId: 1,
-      regionId: district.indexOf(pickState),
-    }).then((response) => response);
+    const [{ regionId, regionName }] = district.filter(
+      (list: any) => list.regionName === pickState,
+    );
+    // await changelocationlist({
+    //   token: `${userInfo.token}`,
+    //   cityId: 1,
+    //   regionId,
+    // }).then((response) => console.log(response));
+    // setUserInfo((oldState) => ({
+    //   ...oldState,
+    //   regionId,
+    //   regionName,
+    // }));
   };
-
-  // const district = [
-  //   '강남구',
-  //   '강동구',
-  //   '강북구',
-  //   '강서구',
-  //   '관악구',
-  //   '구로구',
-  //   '금천구',
-  //   '노원구',
-  //   '도봉구',
-  //   '동대문구',
-  //   '동작구',
-  //   '마포구',
-  //   '서대문구',
-  //   '서초구',
-  //   '성동구',
-  //   '성북구',
-  //   '송파구',
-  //   '양천구',
-  //   '영등포구',
-  //   '용산구',
-  //   '은평구',
-  //   '종로구',
-  //   '중구',
-  //   '중랑구',
-  // ];
 
   return (
     <Wrapper>
