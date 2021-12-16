@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../atoms';
-import { changelocationlist, getlocationlist } from '../../../utils/api/dayzApi';
+import { fetchLocationList } from '../../../utils/api/dayzApi';
 
 const LocationSetting = () => {
   const [pickState, setPickState] = useState<string | ''>('');
