@@ -6,7 +6,7 @@ export const userState = atom<IUser>({
   default: {
     id: 1,
     token:
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTY5NTcyNywiaWF0IjoxNjM5NjM1NzI3LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.FQzVvgKIFuxNG9WCMpylnIyc9GnAcoOxLzy6QU5yaWqGddOu43f0WtD3fCvD-X4HwNVGK5Sxk1sDfJGoXhyDjg',
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0MDI1OTM3MiwiaWF0IjoxNjM5NjU5MzcyLCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.0Sa7pVPF0T9zTZ-3J27zT_g3cK0qQCB-cIxCwa97DlffDRWpzdNsI15XHeImS3mGxTRHs_bSEKN-kTCojlkKSA',
     name: '김영태',
     profileImageUrl: 'https://picsum.photos/200',
     cityId: 1,
