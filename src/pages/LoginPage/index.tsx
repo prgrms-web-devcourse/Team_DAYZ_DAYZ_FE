@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { ArrowRightCircle, ArrowLeftCircle } from 'react-feather';
 function LoginPage() {
-  const setStorage = (auth: string) => {
-    // localStorage.setItem('auth', auth);
-  };
+  const PATH_REDIRECT_KAKAO = '/redirect-after-kakao';
+  const redirectURI = `${process.env.REACT_APP_DAYZ_API_END_POINT}/oauth2/authorization/kakao?redirect_uri=http://localhost:3000${PATH_REDIRECT_KAKAO}`;
+
   return (
     <>
       <LoginContainer>
@@ -17,14 +17,14 @@ function LoginPage() {
           <p>할 수 있어요</p>
         </Subtitle>
         <SelectContainer>
-          <UserContainer onClick={() => setStorage('normal')}>
+          <UserContainer href={redirectURI}>
             <div>
               <p>일반 회원으로</p>
               <p>시작하기</p>
             </div>
             <ArrowRightCircle size={50} />
           </UserContainer>
-          <AuthorContainer onClick={() => setStorage('author')}>
+          <AuthorContainer href={redirectURI}>
             <ArrowLeftCircle size={50} />
             <div>
               <p>작가 회원으로</p>
@@ -33,6 +33,7 @@ function LoginPage() {
           </AuthorContainer>
         </SelectContainer>
       </LoginContainer>
+
       {/* <PopUpContainer>
         <PopUp>
           <p className="PopUpTitle">처음이시군요!</p>
@@ -70,24 +71,28 @@ const SelectContainer = styled.section`
   font-weight: 600;
 `;
 
-const UserContainer = styled.div`
+const UserContainer = styled.a`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 120px;
+  color: black;
+  text-decoration: none;
   cursor: pointer;
-  & div p:first-child {
+  & div p:first-of-type {
     margin-bottom: 12px;
   }
 `;
-const AuthorContainer = styled.div`
+const AuthorContainer = styled.a`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-decoration: none;
   cursor: pointer;
+  color: black;
   & div {
     text-align: end;
-    & p:first-child {
+    & p:first-of-type {
       margin-bottom: 12px;
     }
   }
@@ -123,7 +128,7 @@ const PopUp = styled.div`
     flex-direction: column;
     align-items: center;
     margin-bottom: 36px;
-    & p:first-child {
+    & p:first-of-type {
       margin-bottom: 12px;
     }
   }

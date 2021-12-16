@@ -9,7 +9,7 @@ interface Props {
 
 const isLoginPage = () => {
   const path = window.location.pathname;
-  return path === '/login' || path === '/signupAuthorInfo' || path === '/signupCheckLocation';
+  return path === '/login' || path === '/signup/author-info' || path === '/signup/check-location';
 };
 
 const isCommentsPage = () => {

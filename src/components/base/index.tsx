@@ -6,4 +6,6 @@ export { default as Text } from './Text';
 export { default as Button } from './Button';
 export { default as Toast } from './Toast';
 export { default as Input } from './Input';
+export { default as PhoneNumInput } from './Input/PhoneNumInput';
+export { default as OfficeHourInput } from './Input/OfficeHourInput';
 export { default as Rating } from './Rating';
