@@ -5,3 +5,4 @@ export { default as Review } from './Review';
 export { default as LinkBox } from './LinkBox';
 export { default as LocationSetting } from './LocationSetting';
 export { default as CustomImageUpload } from './CustomImageUpload';
+export { default as ErrorMessage } from './ErrorMessage';
