@@ -7,7 +7,6 @@ import { ko } from 'date-fns/esm/locale';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryIcons } from '../../constants/categoryItems';
 import { InputData } from './types';
-import { setImageUpload } from '../../utils/api/dayzApi';
 import { BookingTable, CustomImageUpload, ErrorMessage, GoBack } from '../../components/domain';
 import { convertFullDate } from '../../utils/functions';
 
@@ -45,18 +44,6 @@ const UploadProductPage = () => {
       const { categoryId, intro, maxPeopleNumber, name, price } = formData;
       const data = { categoryId, intro, maxPeopleNumber, name, price }; // 더 추가해야함.
       console.log('여기에서 통신');
-    }
-  };
-
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (e.target.files) {
-      const image = e.target.files[0];
-      console.log(image);
-      const { status, data } = await setImageUpload(image);
-      if (status === 200) {
-        setImgSrcArray((prev) => [...prev, data.data.imageUrl]);
-      }
     }
   };
 
@@ -105,13 +92,7 @@ const UploadProductPage = () => {
         {errors.intro && <ErrorMessage>소개란을 작성해주세요.</ErrorMessage>}
 
         <InputTitle>클래스 이미지</InputTitle>
-        <CustomImageUpload onChange={handleChange}>
-          {imgSrcArray.length
-            ? imgSrcArray.map((imgSrc, index) => (
-                <img key={index} src={imgSrc} style={{ width: '200px', paddingRight: '20px' }} />
-              ))
-            : ''}
-        </CustomImageUpload>
+        <CustomImageUpload imgSrcArray={imgSrcArray} setImgSrcArray={setImgSrcArray} />
 
         <InputTitle>커리큘럼</InputTitle>
         <InputSubTitle>1단계</InputSubTitle>

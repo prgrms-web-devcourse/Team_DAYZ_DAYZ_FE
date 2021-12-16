@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Button } from '../../components/base';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { setImageUpload } from '../../utils/api/dayzApi';
 import { CustomImageUpload } from '../../components/domain';
 
 type Inputs = {
@@ -19,18 +18,6 @@ const UploadFeedPage = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (e.target.files) {
-      const image = e.target.files[0];
-      console.log(image);
-      const { status, data } = await setImageUpload(image);
-      if (status === 200) {
-        setImgSrcArray((prev) => [...prev, data.payload.imageUrl]);
-      }
-    }
-  };
-
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
     // data랑 imgSrcArray를 같이 보내야함.
     console.log(data);
@@ -40,13 +27,7 @@ const UploadFeedPage = () => {
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <TextWrapper>사진 업로드</TextWrapper>
 
-      <CustomImageUpload onChange={handleChange}>
-        {imgSrcArray.length
-          ? imgSrcArray.map((imgSrc, index) => (
-              <img key={index} src={imgSrc} style={{ width: '200px', paddingRight: '20px' }} />
-            ))
-          : ''}
-      </CustomImageUpload>
+      <CustomImageUpload imgSrcArray={imgSrcArray} setImgSrcArray={setImgSrcArray} />
 
       <TextWrapper>글쓰기</TextWrapper>
       <InputTextArea style={{ height: '100px' }} {...register('content', { required: true })} />
