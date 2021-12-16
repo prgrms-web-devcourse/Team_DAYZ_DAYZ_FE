@@ -4,7 +4,7 @@ import { Plus } from 'react-feather';
 import { setImageUpload } from '../../../utils/api/dayzApi';
 
 interface Props {
-  imgSrcArray: any;
+  imgSrcArray: string[];
   setImgSrcArray: (T: any) => void;
 }
 
@@ -13,10 +13,9 @@ const CustomImageUpload = ({ imgSrcArray, setImgSrcArray }: Props) => {
     e.preventDefault();
     if (e.target.files) {
       const image = e.target.files[0];
-      console.log(image);
       const { status, data } = await setImageUpload(image);
       if (status === 200) {
-        setImgSrcArray((prev: any) => [...prev, data.data.imageUrl]);
+        setImgSrcArray((prev: string[]) => [...prev, data.data.imageUrl]);
       }
     }
   };

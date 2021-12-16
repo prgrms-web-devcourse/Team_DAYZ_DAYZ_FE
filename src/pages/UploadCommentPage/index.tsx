@@ -1,19 +1,46 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { useLocation, useParams } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Button, Text, Rating } from '../../components/base';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { CustomImageUpload, LinkBox } from '../../components/domain';
+import { CustomImageUpload, ErrorMessage, LinkBox } from '../../components/domain';
+import { convertImageArray } from '../../utils/functions';
 
 type InputData = {
   content: string;
 };
 
+/* 
+  {
+		"reservationId":1
+	  "title":"아주 재밌어용",
+	  "content": "시간 가는줄 몰랐네요",
+		"score": 5
+    "images": [
+        {
+        "imageUrl": "s3://devrun-image/KakaoTalk_20210616_220854417.jpg",
+         "sequence": 1,
+         },
+        {
+        "imageUrl": "s3://devrun-image/KakaoTalk_20210616_220854417.jpg",
+         "sequence": 1,
+        }
+      ]
+}
+*/
+
 const UploadCommentPage = () => {
   const [imgSrcArray, setImgSrcArray] = useState<string[]>([]);
-  const [rate, setRate] = useState<number | undefined>(0);
-  const reviewInfo: any = useLocation().state;
+  const [score, setScore] = useState<number | undefined>(0);
+  const { state }: any = useLocation();
   const { id } = useParams<{ id: string }>(); //reservationID
+  const history = useHistory();
+
+  // useEffect(() => { // state가 없으면 뒤로가기 처리
+  //   if (!state) {
+  //     history.goBack();
+  //   }
+  // }, []);
 
   const {
     register,
@@ -21,21 +48,26 @@ const UploadCommentPage = () => {
     formState: { errors },
   } = useForm<InputData>();
 
-  const onSubmit: SubmitHandler<any> = (data: InputData) => {
-    // data랑 imgSrcArray랑, rate를 같이 보내야함.
-    console.log(imgSrcArray);
-    console.log(data);
-    console.log(rate);
+  const onSubmit: SubmitHandler<any> = (formData: InputData) => {
+    if (score && imgSrcArray.length) {
+      const data = {
+        // reservationId,
+        content: formData.content,
+        score,
+        images: convertImageArray(imgSrcArray),
+      };
+      console.log('data : ', data);
+    }
   };
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <ClassNameWrapper>
         <LinkBox style={{ width: '80%' }}>
-          <div>{reviewInfo?.name}</div>
-          <div>{reviewInfo?.date}</div>
+          <div>{state?.name}</div>
+          <div>{state?.date}</div>
           <div>
-            {reviewInfo?.startTime} ~ {reviewInfo?.endTime}
+            {state?.startTime} ~ {state?.endTime}
           </div>
         </LinkBox>
       </ClassNameWrapper>
@@ -43,35 +75,20 @@ const UploadCommentPage = () => {
       <ReviewStarWrapper>
         <StyledText>강의가 만족스러우셨나요?</StyledText>
         <div>
-          {/* <Rating onClick={handleRating} ratingValue={rating} size={60} allowHover={false} /> */}
-          <Rating setRate={setRate} />
+          <Rating setRate={setScore} />
         </div>
       </ReviewStarWrapper>
 
       <ReviewContentsWrapper>
         <StyledText>후기를 남겨주세요!</StyledText>
         <StyledInput {...register('content', { required: true })} />
-        {errors.content && <div>후기를 작성해주세요!</div>}
+        {errors.content && <ErrorMessage>후기를 작성해주세요!</ErrorMessage>}
 
         <StyledText>사진을 남겨주세요!</StyledText>
         <CustomImageUpload imgSrcArray={imgSrcArray} setImgSrcArray={setImgSrcArray} />
       </ReviewContentsWrapper>
 
-      <Button
-        type="submit"
-        style={{
-          width: '150px',
-          height: '60px',
-          fontSize: '20px',
-          color: '#f5f5f5',
-          fontWeight: '600',
-          borderRadius: '8px',
-          marginLeft: 'calc(50% - 75px)',
-          marginBottom: '40px',
-        }}
-      >
-        후기 남기기
-      </Button>
+      <StyledButton type="submit">후기 남기기</StyledButton>
     </FormContainer>
   );
 };
@@ -112,5 +129,14 @@ const StyledText = styled(Text)`
   font-weight: bold;
   margin-bottom: 10px;
 `;
-
+const StyledButton = styled(Button)`
+  width: 150px;
+  height: 60px;
+  font-size: 20px;
+  color: #f5f5f5;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-left: calc(50% - 75px);
+  margin-bottom: 40px;
+`;
 export default UploadCommentPage;

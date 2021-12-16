@@ -7,3 +7,14 @@ export interface Location {
   cityId: number;
   regionId: number;
 }
+
+type sortType = {
+  column: string;
+  order: string;
+};
+export interface AtelierClass {
+  atelierId: number;
+  pageIndex: number;
+  pageSize: number;
+  sort: sortType;
+}
