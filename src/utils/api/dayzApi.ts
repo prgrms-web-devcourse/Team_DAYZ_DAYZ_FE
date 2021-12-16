@@ -47,7 +47,7 @@ export const setImageUpload = (data: File) => {
     },
   });
 };
-export const getlocationlist = (token: string) => {
+export const fetchLocationList = (token: string) => {
   return request({
     method: API_METHOD.GET,
     url: '/api/v1/addresses',
@@ -57,7 +57,7 @@ export const getlocationlist = (token: string) => {
   });
 };
 
-export const changelocationlist = ({ token, cityId, regionId }: Location) => {
+export const postLocation = ({ token, cityId, regionId }: Location) => {
   return request({
     method: API_METHOD.POST,
     url: '/api/v1/members/address',

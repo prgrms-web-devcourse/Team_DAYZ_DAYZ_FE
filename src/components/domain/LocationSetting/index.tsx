@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../atom';
-import { changelocationlist, getlocationlist } from '../../../utils/api/dayzApi';
+import { postLocation, fetchLocationList } from '../../../utils/api/dayzApi';
 
 const LocationSetting = () => {
   const [pickState, setPickState] = useState<string | ''>('');
@@ -12,7 +12,7 @@ const LocationSetting = () => {
 
   useEffect(() => {
     async function getLocation() {
-      return await getlocationlist(`${userInfo.token}`).then((response) =>
+      return await fetchLocationList(`${userInfo.token}`).then((response) =>
         setDistrict([...response.data.payload.addresses[0].regions]),
       );
     }
@@ -30,7 +30,7 @@ const LocationSetting = () => {
     const [{ regionId, regionName }] = district.filter(
       (list: any) => list.regionName === pickState,
     );
-    // await changelocationlist({
+    // await postLocation({
     //   token: `${userInfo.token}`,
     //   cityId: 1,
     //   regionId,
