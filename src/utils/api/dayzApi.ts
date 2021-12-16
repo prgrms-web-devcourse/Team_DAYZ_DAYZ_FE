@@ -52,7 +52,7 @@ export const fetchLocationList = (token: string) => {
     method: API_METHOD.GET,
     url: '/api/v1/addresses',
     headers: {
-      authorization: `Bearer ${token}`,
+      authorization: `${token}`,
     },
   });
 };
@@ -62,7 +62,7 @@ export const setLocation = ({ token, cityId, regionId }: Location) => {
     method: API_METHOD.POST,
     url: '/api/v1/members/address',
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     },
     data: {
       cityId,
