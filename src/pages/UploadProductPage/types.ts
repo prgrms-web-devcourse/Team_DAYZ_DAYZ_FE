@@ -6,10 +6,13 @@ export type TimeData = {
 
 export type InputData = {
   name: string;
-  categoryId: string;
+  categoryId: number;
   intro: string;
+  step1: string;
+  step2: string;
+  step3: string;
   pickedDate: Date;
-  durationTime: number;
+  requiredTime: number;
   startTime: string;
   maxPeopleNumber: number;
   price: number;
