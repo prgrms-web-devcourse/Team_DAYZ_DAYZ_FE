@@ -10,15 +10,16 @@ import { categoryIcons } from '../../constants/categoryItems';
 import { InputData, TimeData } from './types';
 import { setImageUpload } from '../../utils/api/dayzApi';
 import { CustomImageUpload } from '../../components/domain';
+import { convertFullDate } from '../../utils/functions';
 
 const defaultValues = {
-  className: '',
-  classGenre: '',
-  detail: '',
-  date: new Date(),
+  name: '',
+  categoryId: '',
+  intro: '',
+  pickedDate: new Date(),
   durationTime: 1,
   startTime: '',
-  people: undefined,
+  maxPeopleNumber: undefined,
   price: undefined,
 };
 
@@ -57,17 +58,17 @@ const UploadProductPage = () => {
 
   const handlePost = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    const { date, durationTime, startTime } = getValues();
-    if (date && startTime && durationTime) {
+    const { pickedDate, durationTime, startTime } = getValues();
+    if (pickedDate && startTime && durationTime) {
       const [startHour, startMinute] = startTime.split(':');
       const endHour: number = +startHour + +durationTime;
       const endTime = endHour + ':' + startMinute;
       setPickDate([
         ...pickDate,
         {
-          fixDate: date.toLocaleDateString(),
-          fixStartTime: startTime,
-          fixEndTime: endTime,
+          date: convertFullDate(getValues('pickedDate')),
+          startTime: startTime,
+          closeTime: endTime,
         },
       ]);
     }
@@ -79,19 +80,19 @@ const UploadProductPage = () => {
     pickDate.splice(pickDate?.indexOf(target), 1);
     setPickDate([...pickDate]);
   };
-
+  console.log(getValues('pickedDate'));
   return (
     <UploadProductPageWrapper>
       <InputForm onSubmit={handleSubmit(onSubmit)}>
         <InputTitle>클래스 이름</InputTitle>
         <InputBox
           style={{ height: '40px', width: '100% ' }}
-          {...register('className', { required: true })}
+          {...register('name', { required: true })}
         />
-        {errors.className && <div>클래스 이름을 입력해주세요.</div>}
+        {errors.name && <div>클래스 이름을 입력해주세요.</div>}
 
         <InputTitle>카테고리</InputTitle>
-        <InputSelect {...register('classGenre', { required: true })}>
+        <InputSelect {...register('categoryId', { required: true })}>
           <option value="">카테고리를 선택해 주세요.</option>
           {categoryIcons.map(({ genre, contents }) => (
             <option value={genre} key={genre}>
@@ -99,11 +100,11 @@ const UploadProductPage = () => {
             </option>
           ))}
         </InputSelect>
-        {errors.classGenre && <div>카테고리를 선택해주세요.</div>}
+        {errors.categoryId && <div>카테고리를 선택해주세요.</div>}
 
         <InputTitle>클래스 소개</InputTitle>
-        <InputTextArea style={{ height: '100px' }} {...register('detail')} />
-        {errors.detail && <div>소개란을 작성해주세요.</div>}
+        <InputTextArea style={{ height: '100px' }} {...register('intro')} />
+        {errors.intro && <div>소개란을 작성해주세요.</div>}
 
         <InputTitle>클래스 이미지</InputTitle>
         <CustomImageUpload onChange={handleChange}>
@@ -124,29 +125,33 @@ const UploadProductPage = () => {
 
         <Controller
           control={control}
-          name="date"
+          name="pickedDate"
           render={({ field: { value, onChange } }) => {
             return (
-              <ReactDatePicker
-                selected={value}
-                onChange={onChange}
-                inline
-                minDate={new Date()}
-                locale={ko}
-                dateFormat="yyyy-MM-dd"
-              />
+              <>
+                <ReactDatePicker
+                  selected={value}
+                  onChange={onChange}
+                  inline
+                  minDate={new Date()}
+                  locale={ko}
+                  dateFormat="yyyy-MM-dd"
+                />
+                <DatePickerWrapper>
+                  <MiniInputWrapper>
+                    <InputSubTitle>선택 날짜</InputSubTitle>
+                    <InputSubTitle style={{ paddingLeft: '10px' }}>
+                      {convertFullDate(value)}
+                    </InputSubTitle>
+                  </MiniInputWrapper>
+                </DatePickerWrapper>
+              </>
             );
           }}
         />
 
         <DatePickerWrapper className="dateLists">
           <div>
-            <MiniInputWrapper>
-              <InputSubTitle>선택 날짜</InputSubTitle>
-              <InputSubTitle style={{ paddingLeft: '10px' }}>
-                {getValues('date').toLocaleDateString()}
-              </InputSubTitle>
-            </MiniInputWrapper>
             <MiniInputWrapper>
               <InputSubTitle>진행 시간</InputSubTitle>
               <Select {...register('durationTime')}>
@@ -177,8 +182,8 @@ const UploadProductPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {pickDate
-                  ? pickDate.map((date: TimeData, index: number) => (
+                {pickDate.length
+                  ? pickDate.map(({ date, startTime, closeTime }: TimeData, index: number) => (
                       <tr key={index + 1} style={{ textAlign: 'center' }}>
                         <td
                           style={{
@@ -187,9 +192,9 @@ const UploadProductPage = () => {
                         >
                           {index + 1}
                         </td>
-                        <td>{date.fixDate}</td>
-                        <td>{date.fixStartTime}</td>
-                        <td> {date.fixEndTime}</td>
+                        <td>{date}</td>
+                        <td>{startTime}</td>
+                        <td> {closeTime}</td>
                         <td onClick={handleDelete}>
                           <MinusCircle style={{ color: 'red' }} size={16} />
                         </td>
@@ -215,10 +220,10 @@ const UploadProductPage = () => {
             <InputBox
               type="number"
               style={{ height: '30px', width: '160px' }}
-              {...register('people')}
+              {...register('maxPeopleNumber')}
             />
             <InputSubTitle style={{ fontSize: '20px', marginLeft: '10px' }}>명</InputSubTitle>
-            {errors.people && <div>최대 인원을 적어주세요.</div>}
+            {errors.maxPeopleNumber && <div>최대 인원을 적어주세요.</div>}
           </div>
         </RowInputForm>
         <RowInputForm>
