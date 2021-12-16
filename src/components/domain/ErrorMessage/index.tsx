@@ -13,6 +13,7 @@ const ErrorMessage = ({ children, ...props }: Props) => {
 const StyledContent = styled.div`
   margin-bottom: 10px;
   color: #c24848;
+  font-weight: bold;
 `;
 
 export default ErrorMessage;
