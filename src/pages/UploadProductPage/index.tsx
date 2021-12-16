@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import styled from '@emotion/styled';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../style/calendar.css';
@@ -8,14 +8,23 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryIcons } from '../../constants/categoryItems';
 import { InputData } from './types';
 import { BookingTable, CustomImageUpload, ErrorMessage, GoBack } from '../../components/domain';
-import { convertFullDate } from '../../utils/functions';
+import {
+  convertCurricurums,
+  convertFullDate,
+  convertImageArray,
+  timeToString,
+} from '../../utils/functions';
+import { useLocation } from 'react-router-dom';
 
 const defaultValues = {
   name: '',
-  categoryId: '',
+  categoryId: undefined,
   intro: '',
+  step1: '',
+  step2: '',
+  step3: '',
   pickedDate: new Date(),
-  durationTime: 1,
+  requiredTime: 1,
   startTime: '',
   maxPeopleNumber: undefined,
   price: undefined,
@@ -24,6 +33,12 @@ const defaultValues = {
 // 빈 칸들 , { required: true } 처리, 에러처리
 // 처리 안한부분, imgList, 커리큘럼 부분(커리큘럼은 무조건 3개가 필수인지?)
 const UploadProductPage = () => {
+  /* 
+    직접 접근을 막는 로직 구현해야함
+    const { state } = useLocation(); 
+    state가 비어있으면 메인페이지로 이동  
+  */
+
   const [imgSrcArray, setImgSrcArray] = useState<string[]>([]);
   const [pickDate, setPickDate] = useState<any | undefined>('');
 
@@ -36,23 +51,31 @@ const UploadProductPage = () => {
   } = useForm<InputData>({ defaultValues });
 
   const onSubmit: SubmitHandler<any> = (formData: InputData) => {
-    // data, pickDate, imgSrcArray 데이터 조작해서 같이 보내야함
-    console.log(pickDate);
-    console.log(formData);
-    console.log(imgSrcArray);
     if (pickDate.length && imgSrcArray.length) {
-      const { categoryId, intro, maxPeopleNumber, name, price } = formData;
-      const data = { categoryId, intro, maxPeopleNumber, name, price }; // 더 추가해야함.
-      console.log('여기에서 통신');
+      const { categoryId, intro, maxPeopleNumber, name, price, step1, step2, step3 } = formData;
+
+      const data = {
+        // aterilerId 가 들어가야함
+        name,
+        intro,
+        categoryId,
+        curricurums: convertCurricurums({ step1, step2, step3 }),
+        images: convertImageArray(imgSrcArray),
+        classTimes: pickDate,
+        maxPeopleNumber,
+        price,
+        requiredTime: timeToString(formData.requiredTime),
+      };
+      console.log('data : ', data);
     }
   };
 
   const handlePost = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    const { pickedDate, durationTime, startTime } = getValues();
-    if (pickedDate && startTime && durationTime) {
+    const { pickedDate, requiredTime, startTime } = getValues();
+    if (pickedDate && startTime && requiredTime) {
       const [startHour, startMinute] = startTime.split(':');
-      const endHour: number = +startHour + +durationTime;
+      const endHour: number = +startHour + +requiredTime;
       const endTime = endHour + ':' + startMinute;
       setPickDate([
         ...pickDate,
@@ -79,8 +102,8 @@ const UploadProductPage = () => {
         <InputTitle>카테고리</InputTitle>
         <InputSelect {...register('categoryId', { required: true })}>
           <option value="">카테고리를 선택해 주세요.</option>
-          {categoryIcons.map(({ genre, contents }) => (
-            <option value={genre} key={genre}>
+          {categoryIcons.map(({ contents, categoryId }) => (
+            <option value={categoryId} key={categoryId}>
               {contents}
             </option>
           ))}
@@ -96,11 +119,14 @@ const UploadProductPage = () => {
 
         <InputTitle>커리큘럼</InputTitle>
         <InputSubTitle>1단계</InputSubTitle>
-        <InputTextArea />
+        <InputTextArea {...register('step1', { required: true })} />
         <InputSubTitle>2단계</InputSubTitle>
-        <InputTextArea />
+        <InputTextArea {...register('step2', { required: true })} />
         <InputSubTitle>3단계</InputSubTitle>
-        <InputTextArea />
+        <InputTextArea {...register('step3', { required: true })} />
+        {(errors.step1 || errors.step2 || errors.step3) && (
+          <ErrorMessage>커리큘럼을 작성해주세요.</ErrorMessage>
+        )}
 
         <Controller
           control={control}
@@ -133,7 +159,7 @@ const UploadProductPage = () => {
           <div>
             <MiniInputWrapper>
               <InputSubTitle>진행 시간</InputSubTitle>
-              <Select {...register('durationTime')}>
+              <Select {...register('requiredTime')}>
                 <option value={1}>1시간</option>
                 <option value={2}>2시간</option>
                 <option value={3}>3시간</option>
@@ -152,7 +178,7 @@ const UploadProductPage = () => {
           {pickDate.length ? (
             <BookingTable pickDate={pickDate} setPickDate={setPickDate} />
           ) : (
-            <div>날짜와 시간을 선택해 주세요!</div>
+            <ErrorMessage>날짜와 시간을 선택해 주세요!</ErrorMessage>
           )}
         </DatePickerWrapper>
 
