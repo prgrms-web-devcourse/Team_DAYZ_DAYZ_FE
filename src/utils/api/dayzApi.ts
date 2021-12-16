@@ -57,16 +57,16 @@ export const getlocationlist = (token: string) => {
   });
 };
 
-export const changelocationlist = ({ token, cityuId, regionId }: Location) => {
+export const changelocationlist = ({ token, cityId, regionId }: Location) => {
   return request({
-    method: API_METHOD.GET,
-    url: '/api/v1/addresses',
+    method: API_METHOD.POST,
+    url: '/api/v1/members/address',
     headers: {
-      authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     data: {
-      cityuId: cityuId,
-      regionId: regionId,
+      cityId,
+      regionId,
     },
   });
 };
