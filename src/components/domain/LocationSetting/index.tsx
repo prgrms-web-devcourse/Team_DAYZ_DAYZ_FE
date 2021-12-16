@@ -13,7 +13,7 @@ const LocationSetting = () => {
   useEffect(() => {
     async function getLocation() {
       return await fetchLocationList(`${userInfo.token}`).then((response) =>
-        setDistrict([...response.data.payload.addresses[0].regions]),
+        setDistrict([...response.data.data.addresses[0].regions]),
       );
     }
     getLocation();
