@@ -15,3 +15,7 @@ export interface INavigation {
   topNavigation: boolean;
   bottomNavigation: boolean;
 }
+
+export interface IModalState {
+  modalView: boolean;
+}
