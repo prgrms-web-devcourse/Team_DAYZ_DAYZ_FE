@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { userState } from '../../../atom';
-import { setLocation, fetchLocationList } from '../../../utils/api/dayzApi';
+import { userState } from '../../../atoms';
+import { fetchLocationList } from '../../../utils/api/dayzApi';
 
 const LocationSetting = () => {
   const [pickState, setPickState] = useState<string | ''>('');
@@ -13,7 +13,7 @@ const LocationSetting = () => {
   useEffect(() => {
     async function getLocation() {
       return await fetchLocationList(`${userInfo.token}`).then((response) =>
-        setDistrict([...response.data.payload.addresses[0].regions]),
+        setDistrict([...response.data.data.addresses[0].regions]),
       );
     }
     getLocation();
@@ -62,8 +62,8 @@ const LocationSetting = () => {
           <SubmitButton type="submit">저장</SubmitButton>
         </div>
 
-        {district?.map((location: any) => (
-          <ToggleContainer key={location}>
+        {district?.map((location: any, index: number) => (
+          <ToggleContainer key={index}>
             <Input
               type="checkbox"
               data-id={location.regionName}

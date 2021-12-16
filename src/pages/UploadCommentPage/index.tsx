@@ -4,7 +4,6 @@ import { useLocation, useParams } from 'react-router';
 import { Button, Text, Rating } from '../../components/base';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CustomImageUpload, LinkBox } from '../../components/domain';
-import { setImageUpload } from '../../utils/api/dayzApi';
 
 type InputData = {
   content: string;
@@ -27,18 +26,6 @@ const UploadCommentPage = () => {
     console.log(imgSrcArray);
     console.log(data);
     console.log(rate);
-  };
-
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (e.target.files) {
-      const image = e.target.files[0];
-      console.log(image);
-      const { status, data } = await setImageUpload(image);
-      if (status === 200) {
-        setImgSrcArray((prev) => [...prev, data.payload.imageUrl]);
-      }
-    }
   };
 
   return (
@@ -67,13 +54,7 @@ const UploadCommentPage = () => {
         {errors.content && <div>후기를 작성해주세요!</div>}
 
         <StyledText>사진을 남겨주세요!</StyledText>
-        <CustomImageUpload onChange={handleChange}>
-          {imgSrcArray.length
-            ? imgSrcArray.map((imgSrc, index) => (
-                <img key={index} src={imgSrc} style={{ width: '200px', paddingRight: '20px' }} />
-              ))
-            : ''}
-        </CustomImageUpload>
+        <CustomImageUpload imgSrcArray={imgSrcArray} setImgSrcArray={setImgSrcArray} />
       </ReviewContentsWrapper>
 
       <Button

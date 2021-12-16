@@ -1,12 +1,26 @@
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { ChevronLeft } from 'react-feather';
 import { GoBack } from '../../components/domain';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { navigationState } from '../../atoms';
 
 const CategoryPage = () => {
   const { genre } = useParams<{ genre: string }>();
+
+  const setNavigationState = useSetRecoilState(navigationState);
+  const resetPageState = useResetRecoilState(navigationState);
+  useEffect(() => {
+    setNavigationState((prev) => ({
+      ...prev,
+      bottomNavigation: false,
+    }));
+    return () => {
+      resetPageState();
+    };
+  }, []);
+
   return (
     <CategoryPageWrapper>
       <GoBack to={'/'}>메인 화면으로 돌아가기</GoBack>
@@ -32,19 +46,7 @@ const CategoryPage = () => {
 };
 
 const CategoryPageWrapper = styled.section``;
-const BackButton = styled.div`
-  position: fix;
-  top: 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 20px;
-  color: black;
-`;
-const BackButtonText = styled.div`
-  font-size: 20px;
-  margin: auto;
-`;
+
 const ResultsCategory = styled.div`
   margin-top: 20px;
 `;

@@ -1,18 +1,35 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Plus } from 'react-feather';
+import { setImageUpload } from '../../../utils/api/dayzApi';
 
 interface Props {
-  children: ReactNode;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+  imgSrcArray: any;
+  setImgSrcArray: (T: any) => void;
 }
 
-const CustomImageUpload = ({ children, onChange }: Props) => {
+const CustomImageUpload = ({ imgSrcArray, setImgSrcArray }: Props) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.files) {
+      const image = e.target.files[0];
+      console.log(image);
+      const { status, data } = await setImageUpload(image);
+      if (status === 200) {
+        setImgSrcArray((prev: any) => [...prev, data.data.imageUrl]);
+      }
+    }
+  };
+
   return (
     <UploadContainer>
-      <Input type="file" accept="image/*" id="addImage" onChange={onChange} />
+      <Input type="file" accept="image/*" id="addImage" onChange={handleChange} />
       <ImageWrapper>
-        {children}
+        {imgSrcArray.length
+          ? imgSrcArray.map((imgSrc: string, index: number) => (
+              <img key={index} src={imgSrc} style={{ width: '200px', paddingRight: '20px' }} />
+            ))
+          : ''}
         <StyledLabel htmlFor="addImage">
           <Plus style={{ color: '#f5f5f5', cursor: 'pointer' }} size={40} />
         </StyledLabel>

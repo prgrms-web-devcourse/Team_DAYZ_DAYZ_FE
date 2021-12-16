@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { userState } from '../../atom';
+import { userState } from '../../atoms';
 const RedirectPageAfterKakao = () => {
   const history = useHistory();
   const PATH_AUTHOR_INFO = '/signup/author-info';

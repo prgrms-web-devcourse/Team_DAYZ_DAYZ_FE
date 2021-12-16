@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../atom';
+import { userState } from '../../atoms';
 import { Button } from '../../components/base';
 import { fetchLocationList, setLocation } from '../../utils/api/dayzApi';
 

@@ -1,20 +1,8 @@
 import { atom } from 'recoil';
-
-export interface IUser {
-  id: number;
-  token: string;
-  name: string;
-  profileImageUrl: string;
-  cityId: number;
-  cityName: string;
-  regionId: number;
-  regionName: string;
-  auth: string;
-  atelierId: number;
-}
+import { IUser } from './types';
 
 export const userState = atom<IUser>({
-  key: 'user',
+  key: 'userState',
   default: {
     id: 1,
     token:
@@ -25,7 +13,7 @@ export const userState = atom<IUser>({
     cityName: '서울시',
     regionId: 1,
     regionName: '강남구',
-    auth: 'ROLE_ATELIER',
+    auth: 'ROLE_ATELIER', // ROLE_USER
     atelierId: 1,
   },
 });
