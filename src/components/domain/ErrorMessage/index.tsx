@@ -1,12 +1,13 @@
-import React, { ReactChild } from 'react';
+import React, { CSSProperties, ReactChild } from 'react';
 import styled from '@emotion/styled';
 
 interface Props {
   children: ReactChild;
+  style?: CSSProperties;
 }
 
-const ErrorMessage = ({ children }: Props) => {
-  return <StyledContent>{children}</StyledContent>;
+const ErrorMessage = ({ children, ...props }: Props) => {
+  return <StyledContent style={{ ...props.style }}>{children}</StyledContent>;
 };
 
 const StyledContent = styled.div`
