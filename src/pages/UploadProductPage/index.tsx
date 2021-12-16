@@ -9,7 +9,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryIcons } from '../../constants/categoryItems';
 import { InputData, TimeData } from './types';
 import { setImageUpload } from '../../utils/api/dayzApi';
-import { CustomImageUpload } from '../../components/domain';
+import { CustomImageUpload, ErrorMessage, GoBack } from '../../components/domain';
 import { convertFullDate } from '../../utils/functions';
 
 const defaultValues = {
@@ -37,11 +37,15 @@ const UploadProductPage = () => {
     control,
   } = useForm<InputData>({ defaultValues });
 
-  const onSubmit: SubmitHandler<any> = (data: InputData) => {
-    // data, pickDate, imgSrcArray 같이 보내야함
+  const onSubmit: SubmitHandler<any> = (formData: InputData) => {
+    // data, pickDate, imgSrcArray 데이터 조작해서 같이 보내야함
     console.log(pickDate);
-    console.log(data);
+    console.log(formData);
     console.log(imgSrcArray);
+    if (pickDate.length && imgSrcArray.length) {
+      const { categoryId, intro, maxPeopleNumber, name, price } = formData;
+      const data = { categoryId, intro, maxPeopleNumber, name, price }; // 더 추가해야함.
+    }
   };
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,16 +84,17 @@ const UploadProductPage = () => {
     pickDate.splice(pickDate?.indexOf(target), 1);
     setPickDate([...pickDate]);
   };
-  console.log(getValues('pickedDate'));
+
   return (
     <UploadProductPageWrapper>
+      <GoBack to={'/'}>돌아가기</GoBack>
       <InputForm onSubmit={handleSubmit(onSubmit)}>
         <InputTitle>클래스 이름</InputTitle>
         <InputBox
           style={{ height: '40px', width: '100% ' }}
           {...register('name', { required: true })}
         />
-        {errors.name && <div>클래스 이름을 입력해주세요.</div>}
+        {errors.name && <ErrorMessage>클래스 이름을 입력해주세요.</ErrorMessage>}
 
         <InputTitle>카테고리</InputTitle>
         <InputSelect {...register('categoryId', { required: true })}>
@@ -100,11 +105,11 @@ const UploadProductPage = () => {
             </option>
           ))}
         </InputSelect>
-        {errors.categoryId && <div>카테고리를 선택해주세요.</div>}
+        {errors.categoryId && <ErrorMessage>카테고리를 선택해주세요.</ErrorMessage>}
 
         <InputTitle>클래스 소개</InputTitle>
-        <InputTextArea style={{ height: '100px' }} {...register('intro')} />
-        {errors.intro && <div>소개란을 작성해주세요.</div>}
+        <InputTextArea style={{ height: '100px' }} {...register('intro', { required: true })} />
+        {errors.intro && <ErrorMessage>소개란을 작성해주세요.</ErrorMessage>}
 
         <InputTitle>클래스 이미지</InputTitle>
         <CustomImageUpload onChange={handleChange}>
@@ -170,7 +175,7 @@ const UploadProductPage = () => {
           </div>
 
           <InputSubTitle>[클래스 날짜 정보]</InputSubTitle>
-          {pickDate ? (
+          {pickDate.length ? (
             <table style={{ marginTop: '10px' }}>
               <thead style={{ borderBottom: 'solid 1px #c4c4c4' }}>
                 <tr style={{ textAlign: 'center' }}>
@@ -220,12 +225,14 @@ const UploadProductPage = () => {
             <InputBox
               type="number"
               style={{ height: '30px', width: '160px' }}
-              {...register('maxPeopleNumber')}
+              {...register('maxPeopleNumber', { required: true })}
             />
             <InputSubTitle style={{ fontSize: '20px', marginLeft: '10px' }}>명</InputSubTitle>
-            {errors.maxPeopleNumber && <div>최대 인원을 적어주세요.</div>}
           </div>
         </RowInputForm>
+        {errors.maxPeopleNumber && (
+          <ErrorMessage style={{ textAlign: 'right' }}>최대 인원을 적어주세요.</ErrorMessage>
+        )}
         <RowInputForm>
           <InputTitle>가격</InputTitle>
           <div
@@ -238,12 +245,14 @@ const UploadProductPage = () => {
             <InputBox
               type="number"
               style={{ height: '30px', width: '160px' }}
-              {...register('price')}
+              {...register('price', { required: true })}
             />
             <InputSubTitle style={{ fontSize: '20px', marginLeft: '10px' }}>원</InputSubTitle>
-            {errors.price && <div>가격을 적어주세요.</div>}
           </div>
         </RowInputForm>
+        {errors.price && (
+          <ErrorMessage style={{ textAlign: 'right' }}>가격을 적어주세요.</ErrorMessage>
+        )}
 
         <Submit type="submit"> 클래스 추가</Submit>
       </InputForm>
