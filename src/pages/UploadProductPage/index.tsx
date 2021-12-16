@@ -1,15 +1,14 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import { MinusCircle } from 'react-feather';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../style/calendar.css';
 import { ko } from 'date-fns/esm/locale';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryIcons } from '../../constants/categoryItems';
-import { InputData, TimeData } from './types';
+import { InputData } from './types';
 import { setImageUpload } from '../../utils/api/dayzApi';
-import { CustomImageUpload, ErrorMessage, GoBack } from '../../components/domain';
+import { BookingTable, CustomImageUpload, ErrorMessage, GoBack } from '../../components/domain';
 import { convertFullDate } from '../../utils/functions';
 
 const defaultValues = {
@@ -45,6 +44,7 @@ const UploadProductPage = () => {
     if (pickDate.length && imgSrcArray.length) {
       const { categoryId, intro, maxPeopleNumber, name, price } = formData;
       const data = { categoryId, intro, maxPeopleNumber, name, price }; // 더 추가해야함.
+      console.log('여기에서 통신');
     }
   };
 
@@ -55,7 +55,7 @@ const UploadProductPage = () => {
       console.log(image);
       const { status, data } = await setImageUpload(image);
       if (status === 200) {
-        setImgSrcArray((prev) => [...prev, data.payload.imageUrl]);
+        setImgSrcArray((prev) => [...prev, data.data.imageUrl]);
       }
     }
   };
@@ -76,13 +76,6 @@ const UploadProductPage = () => {
         },
       ]);
     }
-  };
-
-  const handleDelete = (e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>) => {
-    e.preventDefault();
-    const target = (e.target as HTMLLIElement).closest('li')?.dataset.id;
-    pickDate.splice(pickDate?.indexOf(target), 1);
-    setPickDate([...pickDate]);
   };
 
   return (
@@ -176,38 +169,7 @@ const UploadProductPage = () => {
 
           <InputSubTitle>[클래스 날짜 정보]</InputSubTitle>
           {pickDate.length ? (
-            <table style={{ marginTop: '10px' }}>
-              <thead style={{ borderBottom: 'solid 1px #c4c4c4' }}>
-                <tr style={{ textAlign: 'center' }}>
-                  <th style={{ borderRight: 'solid 1px #c4c4c4' }}>No.</th>
-                  <th>선택 날짜</th>
-                  <th style={{ padding: '0 10px' }}>시작 시각</th>
-                  <th style={{ padding: '0 10px' }}>종료 시각</th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
-                {pickDate.length
-                  ? pickDate.map(({ date, startTime, closeTime }: TimeData, index: number) => (
-                      <tr key={index + 1} style={{ textAlign: 'center' }}>
-                        <td
-                          style={{
-                            borderRight: 'solid 1px #c4c4c4',
-                          }}
-                        >
-                          {index + 1}
-                        </td>
-                        <td>{date}</td>
-                        <td>{startTime}</td>
-                        <td> {closeTime}</td>
-                        <td onClick={handleDelete}>
-                          <MinusCircle style={{ color: 'red' }} size={16} />
-                        </td>
-                      </tr>
-                    ))
-                  : ''}
-              </tbody>
-            </table>
+            <BookingTable pickDate={pickDate} setPickDate={setPickDate} />
           ) : (
             <div>날짜와 시간을 선택해 주세요!</div>
           )}
