@@ -1,16 +1,16 @@
 export type TimeData = {
-  fixDate: string;
-  fixEndTime: string;
-  fixStartTime: string;
+  date: string;
+  startTime: string;
+  closeTime: string;
 };
 
 export type InputData = {
-  className: string;
-  classGenre: string;
-  detail: string;
-  date: Date;
+  name: string;
+  categoryId: string;
+  intro: string;
+  pickedDate: Date;
   durationTime: number;
   startTime: string;
-  people: number;
+  maxPeopleNumber: number;
   price: number;
 };
