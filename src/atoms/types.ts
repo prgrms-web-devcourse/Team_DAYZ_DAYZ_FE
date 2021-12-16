@@ -7,7 +7,7 @@ export interface IUser {
   cityName: string;
   regionId: number;
   regionName: string;
-  auth: string;
+  auth: 'ROLE_ATELIER' | 'ROLE_USER';
   atelierId: number;
 }
 
