@@ -1,4 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms';
 import { API_METHOD } from '../../constants/apiConstant';
 import { AtelierClass, Email, Location } from './types';
 
@@ -9,6 +11,8 @@ axiosInstance.defaults.baseURL = process.env.REACT_APP_DAYZ_API_END_POINT;
 const request = async (config: AxiosRequestConfig) => {
   return axiosInstance(config);
 };
+
+const { token } = useRecoilValue(userState);
 
 // 예시1. 데이터를 불러올
 export const something = ({ email, password }: Email) => {
@@ -32,8 +36,6 @@ export const requiredtoken = (token: string) => {
     },
   });
 };
-const token =
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTcxMDg4OSwiaWF0IjoxNjM5NjUwODg5LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.nbpdnrbHM2T7mpuwk2Iif_ekPxMBN5fqcFxVne0R546Ix2k6kEMt-F53Wc01q1wVG7wtrMwT3TyGOYLE2sYCpw';
 
 export const setImageUpload = (data: File) => {
   const formData = new FormData();
@@ -73,13 +75,7 @@ export const setLocation = ({ token, cityId, regionId }: Location) => {
   });
 };
 
-export const getAtelierClasses = ({
-  atelierId,
-  pageIndex,
-  pageSize,
-  sort,
-  token,
-}: AtelierClass) => {
+export const getAtelierClasses = ({ atelierId, pageIndex, pageSize, sort }: AtelierClass) => {
   return request({
     method: API_METHOD.GET,
     url: `api/v1/classes/ateliers/${atelierId}`,
