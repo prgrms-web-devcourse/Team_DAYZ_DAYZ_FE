@@ -4,6 +4,8 @@ import { useRecoilValue } from 'recoil';
 import { authUserState } from '../../atoms';
 
 interface IProps {
+  path: string;
+  exact: boolean;
   component: any;
 }
 
