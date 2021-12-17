@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Router from './routes/Router';
 import DefaultTemplate from './template/DefaultTemplate';
 import { Global, ThemeProvider } from '@emotion/react';
@@ -9,9 +9,11 @@ function App() {
     <>
       <Global styles={reset} />
       <ThemeProvider theme={theme}>
-        <DefaultTemplate>
-          <Router />
-        </DefaultTemplate>
+        <Suspense fallback={<div>loading...</div>}>
+          <DefaultTemplate>
+            <Router />
+          </DefaultTemplate>
+        </Suspense>
       </ThemeProvider>
     </>
   );
