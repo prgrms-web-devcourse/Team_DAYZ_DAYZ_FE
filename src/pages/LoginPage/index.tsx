@@ -1,7 +1,21 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ArrowRightCircle, ArrowLeftCircle } from 'react-feather';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { navigationState } from '../../atoms';
 function LoginPage() {
+  const setNavigationState = useSetRecoilState(navigationState);
+  const resetPageState = useResetRecoilState(navigationState);
+  useEffect(() => {
+    setNavigationState((prev) => ({
+      ...prev,
+      topNavigation: false,
+      bottomNavigation: false,
+    }));
+    return () => {
+      resetPageState();
+    };
+  }, []);
   const PATH_REDIRECT_KAKAO = '/redirect-after-kakao';
   const redirectURI = `${process.env.REACT_APP_DAYZ_API_END_POINT}/oauth2/authorization/kakao?redirect_uri=http://localhost:3000${PATH_REDIRECT_KAKAO}`;
 

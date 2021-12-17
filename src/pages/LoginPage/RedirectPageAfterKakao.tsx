@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import { userState } from '../../atoms';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { navigationState, userState } from '../../atoms';
 const RedirectPageAfterKakao = () => {
+  const setNavigationState = useSetRecoilState(navigationState);
+  const resetPageState = useResetRecoilState(navigationState);
+  useEffect(() => {
+    setNavigationState((prev) => ({
+      ...prev,
+      topNavigation: false,
+      bottomNavigation: false,
+    }));
+    return () => {
+      resetPageState();
+    };
+  }, []);
+
   const history = useHistory();
   const PATH_AUTHOR_INFO = '/signup/author-info';
   const PATH_CHECK_LOCATION = '/signup/check-location';

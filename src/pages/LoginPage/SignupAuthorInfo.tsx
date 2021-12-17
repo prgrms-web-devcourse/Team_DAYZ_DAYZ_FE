@@ -1,7 +1,21 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { navigationState } from '../../atoms';
 import { Button, Input, OfficeHourInput, PhoneNumInput } from '../../components/base';
 function SignupAuthorInfo() {
+  const setNavigationState = useSetRecoilState(navigationState);
+  const resetPageState = useResetRecoilState(navigationState);
+  useEffect(() => {
+    setNavigationState((prev) => ({
+      ...prev,
+      topNavigation: false,
+      bottomNavigation: false,
+    }));
+    return () => {
+      resetPageState();
+    };
+  }, []);
   return (
     <LoginContainer>
       <Title>
