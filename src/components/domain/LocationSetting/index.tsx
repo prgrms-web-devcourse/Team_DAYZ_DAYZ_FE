@@ -1,14 +1,16 @@
 import styled from '@emotion/styled';
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../atoms';
-import { fetchLocationList } from '../../../utils/api/dayzApi';
+import { fetchLocationList, setLocation } from '../../../utils/api/dayzApi';
 
 const LocationSetting = () => {
   const [pickState, setPickState] = useState<string | ''>('');
   const [district, setDistrict] = useState<any | ''>([]);
   const [userInfo, setUserInfo] = useRecoilState(userState);
+  const history = useHistory();
 
   useEffect(() => {
     async function getLocation() {
@@ -30,16 +32,16 @@ const LocationSetting = () => {
     const [{ regionId, regionName }] = district.filter(
       (list: any) => list.regionName === pickState,
     );
-    // await setLocation({
-    //   token: `${userInfo.token}`,
-    //   cityId: 1,
-    //   regionId,
-    // }).then((response) => console.log(response));
-    // setUserInfo((oldState) => ({
-    //   ...oldState,
-    //   regionId,
-    //   regionName,
-    // }));
+    await setLocation({
+      token: `${userInfo.token}`,
+      cityId: 1,
+      regionId,
+    }).then(() => window.location.replace('/'));
+    setUserInfo((oldState) => ({
+      ...oldState,
+      regionId,
+      regionName,
+    }));
   };
 
   return (
