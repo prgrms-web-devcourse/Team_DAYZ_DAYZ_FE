@@ -4,11 +4,21 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { GoBack } from '../../components/domain';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { navigationState } from '../../atoms';
+import { modalState, navigationState } from '../../atoms';
 
 const CategoryPage = () => {
   const { genre } = useParams<{ genre: string }>();
 
+  const setModalState = useSetRecoilState(modalState);
+  const resetModalState = useResetRecoilState(modalState);
+  useEffect(() => {
+    setModalState(() => ({
+      modalView: false,
+    }));
+    return () => {
+      resetModalState();
+    };
+  }, []);
   const setNavigationState = useSetRecoilState(navigationState);
   const resetPageState = useResetRecoilState(navigationState);
   useEffect(() => {
