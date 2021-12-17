@@ -1,15 +1,39 @@
 import styled from '@emotion/styled';
+<<<<<<< HEAD
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../atoms';
 import { fetchLocationList, setLocation } from '../../../utils/api/dayzApi';
+=======
+import React, { useState } from 'react';
+import { useRecoilState, useRecoilValueLoadable } from 'recoil';
+import { locationState, userState } from '../../../atoms';
+import { LocationType } from '../../../types';
+import { setLocation } from '../../../utils/api/dayzApi';
+import { Toast } from '../../base';
+
+// locationList = [
+//   {
+//     regionId: 1,
+//     regionName: '강남구',
+//   },
+//   {
+//     regionId: 2,
+//     regionName: '강동구',
+//   },
+//   {
+//     regionId: 3,
+//     regionName: '강북구',
+//   } 등등의 데이터를 recoil 에서 불러옵니다.
+// ];
+>>>>>>> 42d8b35... Feat: useRecoilValueLoadable을 사용하여 데이터 가져오도록 설정
 
 const LocationSetting = () => {
   const [pickState, setPickState] = useState<string | ''>('');
-  const [district, setDistrict] = useState<any | ''>([]);
   const [userInfo, setUserInfo] = useRecoilState(userState);
+<<<<<<< HEAD
   const history = useHistory();
 
   useEffect(() => {
@@ -21,6 +45,19 @@ const LocationSetting = () => {
     getLocation();
     setPickState(userInfo.regionName);
   }, []);
+=======
+  let locationList: LocationType[] = [];
+  // recoil에서 비동기로 데이터 불러오는 로직
+  const getAsyncLocationList = useRecoilValueLoadable(locationState);
+  switch (getAsyncLocationList.state) {
+    case 'hasValue':
+      locationList = getAsyncLocationList.contents;
+      break;
+    case 'hasError':
+      break;
+    case 'loading':
+  }
+>>>>>>> 42d8b35... Feat: useRecoilValueLoadable을 사용하여 데이터 가져오도록 설정
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target: any = (e.target as HTMLInputElement).dataset.id!;
@@ -29,9 +66,10 @@ const LocationSetting = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const [{ regionId, regionName }] = district.filter(
-      (list: any) => list.regionName === pickState,
+    const [{ regionId, regionName }] = locationList.filter(
+      (list: LocationType) => list.regionName === pickState,
     );
+<<<<<<< HEAD
     await setLocation({
       token: `${userInfo.token}`,
       cityId: 1,
@@ -42,6 +80,22 @@ const LocationSetting = () => {
       regionId,
       regionName,
     }));
+=======
+    try {
+      await setLocation({
+        token: `${userInfo.token}`,
+        cityId: 1,
+        regionId,
+      });
+      setUserInfo((oldState) => ({
+        ...oldState,
+        regionId,
+        regionName,
+      }));
+    } catch (e: any) {
+      Toast.show(e.message);
+    }
+>>>>>>> 42d8b35... Feat: useRecoilValueLoadable을 사용하여 데이터 가져오도록 설정
   };
 
   return (
@@ -60,19 +114,19 @@ const LocationSetting = () => {
             alignItems: 'center',
           }}
         >
-          <SelectedButton>{pickState}</SelectedButton>
+          <SelectedButton>{pickState ? pickState : userInfo.regionName}</SelectedButton>
           <SubmitButton type="submit">저장</SubmitButton>
         </div>
 
-        {district?.map((location: any, index: number) => (
-          <ToggleContainer key={index}>
+        {locationList?.map(({ regionId, regionName }: LocationType) => (
+          <ToggleContainer key={regionId}>
             <Input
               type="checkbox"
-              data-id={location.regionName}
-              checked={pickState?.includes(location.regionName)}
+              data-id={regionName}
+              checked={pickState?.includes(regionName)}
               onChange={handleChange}
             />
-            <Button>{location.regionName}</Button>
+            <Button>{regionName}</Button>
           </ToggleContainer>
         ))}
       </form>

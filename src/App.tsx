@@ -9,11 +9,9 @@ function App() {
     <>
       <Global styles={reset} />
       <ThemeProvider theme={theme}>
-        <Suspense fallback={<div>loading...</div>}>
-          <DefaultTemplate>
-            <Router />
-          </DefaultTemplate>
-        </Suspense>
+        <DefaultTemplate>
+          <Router />
+        </DefaultTemplate>
       </ThemeProvider>
     </>
   );
