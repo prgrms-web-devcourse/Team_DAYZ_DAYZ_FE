@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
-import React, { CSSProperties } from 'react';
+import React from 'react';
 
-interface Props {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   type: 'button' | 'submit' | 'reset';
-  style?: CSSProperties;
 }
 
 const Button = ({ children, type, ...props }: Props) => {
