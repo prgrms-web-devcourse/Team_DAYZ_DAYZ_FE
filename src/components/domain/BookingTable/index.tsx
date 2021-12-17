@@ -1,6 +1,6 @@
 import React from 'react';
 import { MinusCircle } from 'react-feather';
-import { TimeData } from '../../../pages/UploadProductPage/types';
+import { TimeData } from '../../../types';
 
 interface Props {
   pickDate: any;

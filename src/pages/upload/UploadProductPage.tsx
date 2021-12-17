@@ -6,7 +6,6 @@ import '../../style/calendar.css';
 import { ko } from 'date-fns/esm/locale';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryIcons } from '../../constants/categoryItems';
-import { InputData } from './types';
 import { BookingTable, CustomImageUpload, ErrorMessage, GoBack } from '../../components/domain';
 import {
   convertCurricurums,
@@ -17,6 +16,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms';
+import { InputData } from '../../types';
 
 const defaultValues = {
   name: '',
