@@ -4,25 +4,28 @@ import { Bell, ChevronDown } from 'react-feather';
 import { Modal } from '../../components/base';
 import { LocationSetting } from '../../components/domain';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../atoms';
+import { modalState, userState } from '../../atoms';
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
   const userInfo = useRecoilValue(userState);
+  const { modalView } = useRecoilValue(modalState);
 
   return (
     <HeaderWrapper>
       <Title>DAYZ</Title>
 
-      <Location onClick={() => setVisible(true)}>
-        <div>{`${userInfo.cityName}` + ' ' + `${userInfo.regionName}`}</div>
-        <ChevronDown size={20} color="#f5f5f5" />
-      </Location>
-
-      <Modal visible={visible} onClose={() => setVisible(false)} width={'100%'} height={'70%'}>
-        <LocationSetting />
-        {/* UI로 보이는 관심지역은 회원 기본정보로 가져옴 */}
-      </Modal>
+      {modalView && (
+        <>
+          <Location onClick={() => setVisible(true)}>
+            <div>{`${userInfo.cityName}` + ' ' + `${userInfo.regionName}`}</div>
+            <ChevronDown size={20} color="#f5f5f5" />
+          </Location>
+          <Modal visible={visible} onClose={() => setVisible(false)} width={'100%'} height={'70%'}>
+            <LocationSetting />
+          </Modal>
+        </>
+      )}
 
       <BellIcon>
         <Bell size={20} color="#f5f5f5" />
@@ -63,6 +66,7 @@ const Location = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  cursor: pointer;
 `;
 const BellIcon = styled.div`
   position: absolute;

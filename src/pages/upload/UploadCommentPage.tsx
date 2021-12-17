@@ -5,6 +5,8 @@ import { Button, Text, Rating } from '../../components/base';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CustomImageUpload, ErrorMessage, LinkBox } from '../../components/domain';
 import { convertImageArray } from '../../utils/functions';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms';
 
 type InputData = {
   content: string;
@@ -35,6 +37,7 @@ const UploadCommentPage = () => {
   const { state }: any = useLocation();
   const { id } = useParams<{ id: string }>(); //reservationID
   const history = useHistory();
+  const { token } = useRecoilValue(userState);
 
   // useEffect(() => { // state가 없으면 뒤로가기 처리
   //   if (!state) {
@@ -85,7 +88,11 @@ const UploadCommentPage = () => {
         {errors.content && <ErrorMessage>후기를 작성해주세요!</ErrorMessage>}
 
         <StyledText>사진을 남겨주세요!</StyledText>
-        <CustomImageUpload imgSrcArray={imgSrcArray} setImgSrcArray={setImgSrcArray} />
+        <CustomImageUpload
+          imgSrcArray={imgSrcArray}
+          setImgSrcArray={setImgSrcArray}
+          token={token}
+        />
       </ReviewContentsWrapper>
 
       <StyledButton type="submit">후기 남기기</StyledButton>

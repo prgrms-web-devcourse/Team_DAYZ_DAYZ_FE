@@ -5,15 +5,16 @@ import { setImageUpload } from '../../../utils/api/dayzApi';
 
 interface Props {
   imgSrcArray: string[];
+  token: string;
   setImgSrcArray: (T: any) => void;
 }
 
-const CustomImageUpload = ({ imgSrcArray, setImgSrcArray }: Props) => {
+const CustomImageUpload = ({ imgSrcArray, token, setImgSrcArray }: Props) => {
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (e.target.files) {
       const image = e.target.files[0];
-      const { status, data } = await setImageUpload(image);
+      const { status, data } = await setImageUpload(image, token);
       if (status === 200) {
         setImgSrcArray((prev: string[]) => [...prev, data.data.imageUrl]);
       }

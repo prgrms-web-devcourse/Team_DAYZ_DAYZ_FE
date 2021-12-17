@@ -7,11 +7,15 @@ export interface IUser {
   cityName: string;
   regionId: number;
   regionName: string;
-  auth: string;
+  auth: 'ROLE_ATELIER' | 'ROLE_USER';
   atelierId: number;
 }
 
 export interface INavigation {
   topNavigation: boolean;
   bottomNavigation: boolean;
+}
+
+export interface IModalState {
+  modalView: boolean;
 }

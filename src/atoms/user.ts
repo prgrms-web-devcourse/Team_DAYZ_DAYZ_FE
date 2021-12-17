@@ -13,7 +13,7 @@ export const userState = atom<IUser>({
     cityName: '서울시',
     regionId: 1,
     regionName: '강남구',
-    auth: 'ROLE_ATELIER', // ROLE_USER
+    auth: 'ROLE_ATELIER',
     atelierId: 1,
   },
 });

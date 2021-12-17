@@ -6,7 +6,6 @@ import '../../style/calendar.css';
 import { ko } from 'date-fns/esm/locale';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryIcons } from '../../constants/categoryItems';
-import { InputData } from './types';
 import { BookingTable, CustomImageUpload, ErrorMessage, GoBack } from '../../components/domain';
 import {
   convertCurricurums,
@@ -15,6 +14,9 @@ import {
   timeToString,
 } from '../../utils/functions';
 import { useLocation } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms';
+import { InputData } from '../../types';
 
 const defaultValues = {
   name: '',
@@ -38,7 +40,7 @@ const UploadProductPage = () => {
     const { state } = useLocation(); 
     state가 비어있으면 메인페이지로 이동  
   */
-
+  const { token } = useRecoilValue(userState);
   const [imgSrcArray, setImgSrcArray] = useState<string[]>([]);
   const [pickDate, setPickDate] = useState<any | undefined>('');
 
@@ -115,7 +117,11 @@ const UploadProductPage = () => {
         {errors.intro && <ErrorMessage>소개란을 작성해주세요.</ErrorMessage>}
 
         <InputTitle>클래스 이미지</InputTitle>
-        <CustomImageUpload imgSrcArray={imgSrcArray} setImgSrcArray={setImgSrcArray} />
+        <CustomImageUpload
+          imgSrcArray={imgSrcArray}
+          setImgSrcArray={setImgSrcArray}
+          token={token}
+        />
 
         <InputTitle>커리큘럼</InputTitle>
         <InputSubTitle>1단계</InputSubTitle>

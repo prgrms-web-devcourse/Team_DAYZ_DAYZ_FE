@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { Image } from '../../components/base';
 import { categoryIcons } from '../../constants/categoryItems';
 import { DUMMY_NEW_ATELIER_DATA, DUMMY_POPULAR_DATA } from './DUMMY_DATA';
+import { modalState } from '../../atoms';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
 // 1. 카테고리 목록 조회 https://backend-devcourse.notion.site/d1a5d88893d642a48e169f5ccc10cc7c
 // 2. 금주의 인기 클래스 조회 https://backend-devcourse.notion.site/66ebc05aa398421dbf463023b8a9224f
@@ -11,6 +13,17 @@ import { DUMMY_NEW_ATELIER_DATA, DUMMY_POPULAR_DATA } from './DUMMY_DATA';
 // 동기 처리하면 DUMMY_DATA는 삭제
 
 const HomePage = () => {
+  const setModalState = useSetRecoilState(modalState);
+  const resetModalState = useResetRecoilState(modalState);
+  useEffect(() => {
+    setModalState(() => ({
+      modalView: true,
+    }));
+    return () => {
+      resetModalState();
+    };
+  }, []);
+
   return (
     <MainPageWrapper>
       <Container>
