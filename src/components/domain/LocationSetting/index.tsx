@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -8,7 +9,11 @@ import { userState } from '../../../atoms';
 import { fetchLocationList, setLocation } from '../../../utils/api/dayzApi';
 =======
 import React, { useState } from 'react';
+=======
+import React, { useMemo, useState } from 'react';
+>>>>>>> bdbb3bd... Refactor: recoil로 비동기 캐싱 처리
 import { useRecoilState, useRecoilValueLoadable } from 'recoil';
+import { ErrorMessage } from '..';
 import { locationState, userState } from '../../../atoms';
 import { LocationType } from '../../../types';
 import { setLocation } from '../../../utils/api/dayzApi';
@@ -28,11 +33,18 @@ import { Toast } from '../../base';
 //     regionName: '강북구',
 //   } 등등의 데이터를 recoil 에서 불러옵니다.
 // ];
+<<<<<<< HEAD
 >>>>>>> 42d8b35... Feat: useRecoilValueLoadable을 사용하여 데이터 가져오도록 설정
+=======
+interface Props {
+  setVisible: (T: boolean) => void;
+}
+>>>>>>> bdbb3bd... Refactor: recoil로 비동기 캐싱 처리
 
-const LocationSetting = () => {
+const LocationSetting = ({ setVisible }: Props) => {
   const [pickState, setPickState] = useState<string | ''>('');
   const [userInfo, setUserInfo] = useRecoilState(userState);
+<<<<<<< HEAD
 <<<<<<< HEAD
   const history = useHistory();
 
@@ -58,6 +70,19 @@ const LocationSetting = () => {
     case 'loading':
   }
 >>>>>>> 42d8b35... Feat: useRecoilValueLoadable을 사용하여 데이터 가져오도록 설정
+=======
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const { state, contents } = useRecoilValueLoadable(locationState);
+  const locationList: LocationType[] = useMemo(() => {
+    if (state === 'hasValue') {
+      return contents;
+    } else if (state === 'hasError') {
+      setErrorMessage('지역정보를 불러오지 못했습니다.');
+      return [];
+    }
+  }, [state, contents]);
+>>>>>>> bdbb3bd... Refactor: recoil로 비동기 캐싱 처리
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target: any = (e.target as HTMLInputElement).dataset.id!;
@@ -92,6 +117,8 @@ const LocationSetting = () => {
         regionId,
         regionName,
       }));
+      setVisible(false);
+      Toast.show('성공적으로 변경되었습니다.', 2000);
     } catch (e: any) {
       Toast.show(e.message);
     }
@@ -117,7 +144,8 @@ const LocationSetting = () => {
           <SelectedButton>{pickState ? pickState : userInfo.regionName}</SelectedButton>
           <SubmitButton type="submit">저장</SubmitButton>
         </div>
-
+        <div />
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
         {locationList?.map(({ regionId, regionName }: LocationType) => (
           <ToggleContainer key={regionId}>
             <Input

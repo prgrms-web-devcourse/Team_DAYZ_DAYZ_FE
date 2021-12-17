@@ -1,4 +1,5 @@
 import { atom, selector } from 'recoil';
+import { LocationType } from '../types';
 import { fetchLocationList } from '../utils/api/dayzApi';
 import { userState } from './';
 import { IModalState } from './types';
@@ -10,7 +11,7 @@ export const modalState = atom<IModalState>({
   },
 });
 
-export const locationState = selector({
+export const locationState = selector<LocationType[]>({
   key: 'locationState',
   get: async ({ get }) => {
     const user = get(userState);
