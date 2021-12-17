@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { ChevronRight } from 'react-feather';
 import { Link, useHistory } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { Pagination } from '@egjs/flicking-plugins';
 import '@egjs/react-flicking/dist/flicking.css';
 import '@egjs/react-flicking/dist/flicking-inline.css';
 import '@egjs/flicking-plugins/dist/pagination.css';
-import './flicker.css';
+import '../../style/flicker.css';
 
 const FeedPage = () => {
   const history = useHistory();
