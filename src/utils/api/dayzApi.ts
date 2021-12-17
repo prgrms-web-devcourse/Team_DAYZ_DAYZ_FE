@@ -56,7 +56,7 @@ export const fetchLocationList = (token: string) => {
     method: API_METHOD.GET,
     url: '/api/v1/addresses',
     headers: {
-      authorization: `${token}`,
+      Authorization: token,
     },
   });
 };
@@ -66,7 +66,7 @@ export const setLocation = ({ token, cityId, regionId }: Location) => {
     method: API_METHOD.POST,
     url: '/api/v1/members/address',
     headers: {
-      Authorization: `${token}`,
+      Authorization: token,
     },
     data: {
       cityId,
