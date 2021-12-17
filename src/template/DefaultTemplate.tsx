@@ -16,22 +16,23 @@ interface Props {
 
 const DefaultTemplate = ({ children }: Props): JSX.Element => {
   const { topNavigation, bottomNavigation } = useRecoilValue(navigationState);
-  const token = getSessionStorageItem(sessionStorageToken.token, '');
-  const setUserData = useSetRecoilState(userState);
-  const setAuthUser = useSetRecoilState(authUserState);
 
-  const AuthUser = useCallback(async () => {
-    const response = await checkAuthorizationUser({ token });
-    if (response.status === 200) {
-      setUserData({ ...response.data.data });
-      setAuthUser(true);
-    } else {
-      setAuthUser(false);
-    }
-  }, [token]);
-  useEffect(() => {
-    AuthUser();
-  }, [AuthUser]);
+  // 로그인 기능 + storage에 token을 넣는 기능이 추가되면 주석을 풀어주세요.
+  // const token = getSessionStorageItem(sessionStorageToken.token, '');
+  // const setUserData = useSetRecoilState(userState);
+  // const setAuthUser = useSetRecoilState(authUserState);
+
+  // const AuthUser = useCallback(async () => {
+  //   const response = await checkAuthorizationUser({ token });
+  //   if (response.status === 200) {
+  //     setUserData({ ...response.data.data });
+  //     setAuthUser(true);
+  //   }
+  // }, [token]);
+  //
+  // useEffect(() => {
+  //   AuthUser();
+  // }, [AuthUser]);
 
   return (
     <Container>
