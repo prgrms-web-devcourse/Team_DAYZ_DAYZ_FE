@@ -22,7 +22,7 @@ const Header = () => {
             <ChevronDown size={20} color="#f5f5f5" />
           </Location>
           <Modal visible={visible} onClose={() => setVisible(false)} width={'100%'} height={'70%'}>
-            <LocationSetting />
+            <LocationSetting setVisible={setVisible} />
           </Modal>
         </>
       )}
