@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosPromise, AxiosResponse } from 'axios';
 import { API_METHOD } from '../../constants/apiConstant';
 import { AtelierClass, Email, Location, Token, searhClassTypes, AtelierInfo } from './types';
 
@@ -6,7 +6,7 @@ const axiosInstance = axios.create();
 
 axiosInstance.defaults.baseURL = process.env.REACT_APP_DAYZ_API_END_POINT;
 
-const request = async (config: AxiosRequestConfig) => {
+const request = (config: AxiosRequestConfig) => {
   return axiosInstance(config);
 };
 
@@ -92,35 +92,14 @@ export const getAtelierClasses = ({
   });
 };
 
-export const setAtelierInfo = (token: string, atelierInfo: AtelierInfo) => {
-  const {
-    name,
-    businessNumber,
-    intro,
-    address: { cityId, regionId, detail },
-    workStartTime,
-    workEndTime,
-    callNumber,
-  } = atelierInfo;
+export const setAtelierInfo = async (token: string, atelierInfo: AtelierInfo) => {
   return request({
     method: API_METHOD.POST,
     url: '/api/v1/ateliers',
     headers: {
       Authorization: token,
     },
-    data: {
-      name,
-      businessNumber,
-      intro,
-      address: {
-        cityId,
-        regionId,
-        detail,
-      },
-      workStartTime,
-      workEndTime,
-      callNumber,
-    },
+    data: atelierInfo,
   });
 };
 
