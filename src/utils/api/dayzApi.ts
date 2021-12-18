@@ -1,4 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosPromise, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
+import { IUser } from '../../atoms/types';
 import { API_METHOD } from '../../constants/apiConstant';
 import { AtelierClass, Email, Location, Token, searhClassTypes, AtelierInfo } from './types';
 
@@ -116,4 +117,20 @@ export const searchClasses = ({ keyword, pageIndex, pageSize, sort, token }: sea
       sort,
     },
   });
+};
+
+export const fetchUser = async (token: string): Promise<IUser | null> => {
+  try {
+    const res = await request({
+      method: API_METHOD.GET,
+      url: '/api/v1/members/info',
+      headers: {
+        Authorization: token,
+      },
+    });
+    return res.data as IUser;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
