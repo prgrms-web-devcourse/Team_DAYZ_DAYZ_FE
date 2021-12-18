@@ -1,13 +1,26 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../atoms';
 import { GoBack } from '../../components/domain';
+import { searchClasses } from '../../utils/api/dayzApi';
 
 const SearchPage = () => {
   const history = useHistory();
+  const [userInfo, setUserInfo] = useRecoilState(userState);
   const [searchList, setSearchList] = useState('');
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchList(event?.currentTarget.value);
+  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    await searchClasses({
+      keyword: event?.currentTarget.value,
+      token: `${userInfo.token}`,
+      pageIndex: 0,
+      pageSize: 10,
+      sort: {
+        column: 'createdAt',
+        order: 'ASC',
+      },
+    }).then((response) => console.log(response));
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
