@@ -46,9 +46,15 @@ const SuccessBookPage = () => {
   }, []);
 
   const handleClick = (linkto: string) => {
-    history.push(linkto); // replace로 바꾸기
+    history.replace(linkto);
   };
-  if (loading) return <div>결제중입니다.</div>;
+  if (loading)
+    return (
+      <LoadingWrapper>
+        <LoadingText>결제중입니다.</LoadingText>
+      </LoadingWrapper>
+    );
+
   return (
     <StyledSection>
       <CheckedWrapper>
@@ -73,6 +79,17 @@ const SuccessBookPage = () => {
     </StyledSection>
   );
 };
+const LoadingWrapper = styled.div`
+  display: flex;
+  height: 70vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LoadingText = styled.div`
+  font-size: 30px;
+`;
 
 const StyledSection = styled.section`
   margin: 0 20px;
