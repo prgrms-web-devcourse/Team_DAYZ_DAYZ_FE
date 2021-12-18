@@ -7,7 +7,6 @@ export interface Email {
   password: string;
 }
 export interface Location {
-  token: string;
   cityId: number;
   regionId: number;
 }
@@ -28,4 +27,20 @@ export interface searhClassTypes extends Token {
   pageIndex: number;
   pageSize: number;
   sort: sortType;
+}
+
+export interface AtelierInfo {
+  name: string;
+  businessNumber: string;
+  intro: string;
+  address: Address;
+  workStartTime: string;
+  workEndTime: string;
+  callNumber: string;
+}
+
+export interface Address {
+  cityId: number;
+  regionId: number;
+  detail: string;
 }

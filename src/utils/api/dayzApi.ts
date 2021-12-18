@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { API_METHOD } from '../../constants/apiConstant';
-import { AtelierClass, Email, Location, Token, searhClassTypes } from './types';
+import { AtelierClass, Email, Location, Token, searhClassTypes, AtelierInfo } from './types';
 
 const axiosInstance = axios.create();
 
@@ -56,7 +56,7 @@ export const fetchLocationList = (token: string) => {
   });
 };
 
-export const setLocation = ({ token, cityId, regionId }: Location) => {
+export const setLocation = (token: string, { cityId, regionId }: Location) => {
   return request({
     method: API_METHOD.POST,
     url: '/api/v1/members/address',
@@ -91,10 +91,43 @@ export const getAtelierClasses = ({
     },
   });
 };
+
+export const setAtelierInfo = (token: string, atelierInfo: AtelierInfo) => {
+  const {
+    name,
+    businessNumber,
+    intro,
+    address: { cityId, regionId, detail },
+    workStartTime,
+    workEndTime,
+    callNumber,
+  } = atelierInfo;
+  return request({
+    method: API_METHOD.POST,
+    url: '/api/v1/ateliers',
+    headers: {
+      Authorization: token,
+    },
+    data: {
+      name,
+      businessNumber,
+      intro,
+      address: {
+        cityId,
+        regionId,
+        detail,
+      },
+      workStartTime,
+      workEndTime,
+      callNumber,
+    },
+  });
+};
+
 export const searchClasses = ({ keyword, pageIndex, pageSize, sort, token }: searhClassTypes) => {
   return request({
     method: API_METHOD.GET,
-    url: `api/v1/classes/search?keyWord="${keyword}"`,
+    url: `api/v1/classes/search?keyWord=${keyword}`,
     headers: {
       Authorization: token,
     },

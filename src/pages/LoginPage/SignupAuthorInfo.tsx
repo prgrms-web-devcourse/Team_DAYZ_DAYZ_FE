@@ -1,13 +1,19 @@
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { navigationState } from '../../atoms';
+import { useHistory } from 'react-router-dom';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { navigationState, userState } from '../../atoms';
 import { Button, Input, OfficeHourInput, PhoneNumInput } from '../../components/base';
 import { LoginLocationGetter } from '../../components/domain';
+import { setAtelierInfo } from '../../utils/api/dayzApi';
+import { Address, AtelierInfo } from '../../utils/api/types';
 function SignupAuthorInfo() {
   const setNavigationState = useSetRecoilState(navigationState);
   const resetPageState = useResetRecoilState(navigationState);
+  const regionSelect = React.createRef<HTMLSelectElement>();
+  const history = useHistory();
+  const { token } = useRecoilValue(userState);
   useEffect(() => {
     setNavigationState((prev) => ({
       ...prev,
@@ -23,11 +29,32 @@ function SignupAuthorInfo() {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm();
 
-  const onClick = () => {
-    console.log('click');
+  const onSubmit = async (data: any) => {
+    const { name, businessNumber, intro, addressDetail, workStartTime, workEndTime, callNumber } =
+      data;
+    const regionId = +(regionSelect.current?.value ?? '1');
+    const address: Address = {
+      cityId: 1,
+      regionId,
+      detail: addressDetail,
+    };
+    const atelierInfo: AtelierInfo = {
+      name,
+      businessNumber,
+      intro,
+      address,
+      workStartTime,
+      workEndTime,
+      callNumber,
+    };
+    const res = await setAtelierInfo(token, atelierInfo);
+    if (res.status === 200) {
+      history.push('/signup/check-location');
+    } else {
+      history.push('/nothing');
+    }
   };
 
   return (
@@ -39,27 +66,40 @@ function SignupAuthorInfo() {
         <p>사업자번호를 가지고 있는 공방만</p>
         <p>등록할 수 있어요</p>
       </Subtitle>
-      <FormContainer>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <label>공방 이름</label>
-        <Input type="text" {...(register('name'), { required: true })} />
+        <Input type="text" {...register('name', { required: true })} />
         <span>{errors?.name?.message}</span>
         <label>사업자 번호</label>
-        <Input type="text" {...(register('businessNumber'), { required: true })} />
+        <Input type="text" {...register('businessNumber', { required: true })} />
+        <span>{errors?.businessNumber?.message}</span>
         <label>공방 소개</label>
-        <Input type="text" {...(register('intro'), { required: true })} />
+        <Input type="text" {...register('intro', { required: true })} />
+        <span>{errors?.intro?.message}</span>
         <label>상세 주소</label>
         <LoginLocationGetterContainer>
-          <LoginLocationGetter />
+          <LoginLocationGetter ref={regionSelect} />
         </LoginLocationGetterContainer>
-        <Input type="text" {...(register('addressDetail'), { required: true })} />
+        <Input type="text" {...register('addressDetail', { required: true })} />
+        <span>{errors?.addressDetail?.message}</span>
         <label>공방 영업 시간</label>
-        <OfficeHourInput {...(register('addressDetail'), { required: true })} />
+        <InputContainer>
+          <InfoInput type="time" {...register('workStartTime', { required: true })} />
+          <Dash>~</Dash>
+          <InfoInput type="time" {...register('workEndTime', { required: true })} />
+        </InputContainer>
+        {/* <OfficeHourInput /> */}
+        <span>{errors?.workStartTime?.message}</span>
         <label>공방 전화번호</label>
-        <PhoneNumInput {...(register('addressDetail'), { required: true })} />
-        <SubmitBtn type="submit" onClick={onClick}>
-          다음
-        </SubmitBtn>
-      </FormContainer>
+        <Input
+          type="number"
+          {...register('callNumber', {
+            required: true,
+          })}
+        />
+        <span>{errors?.callNumber?.message}</span>
+        <SubmitBtn type="submit">다음</SubmitBtn>
+      </Form>
     </LoginContainer>
   );
 }
@@ -79,7 +119,7 @@ const Subtitle = styled.div`
   margin-bottom: 50px;
 `;
 
-const FormContainer = styled.form`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   font-weight: 600;
@@ -105,4 +145,18 @@ const SubmitBtn = styled(Button)`
   font-size: 20px;
   font-weight: 700;
   margin-top: 36px;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const InfoInput = styled(Input)`
+  width: 100%;
+`;
+
+const Dash = styled.div`
+  font-size: 30px;
+  margin: 0 10px;
 `;
