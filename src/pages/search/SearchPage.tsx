@@ -1,12 +1,22 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { userState } from '../../atoms';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { modalState, userState } from '../../atoms';
 import { GoBack } from '../../components/domain';
 import { searchClasses } from '../../utils/api/dayzApi';
 
 const SearchPage = () => {
+  const setModalState = useSetRecoilState(modalState);
+  const resetModalState = useResetRecoilState(modalState);
+  useEffect(() => {
+    setModalState(() => ({
+      modalView: true,
+    }));
+    return () => {
+      resetModalState();
+    };
+  }, []);
   const history = useHistory();
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [searchList, setSearchList] = useState('');
