@@ -1,8 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { useRecoilValue } from 'recoil';
+import { tokenToString } from 'typescript';
 import { userState } from '../../atoms';
 import { API_METHOD } from '../../constants/apiConstant';
-import { AtelierClass, Email, Location } from './types';
+import { AtelierClass, Email, Location, searhClassTypes } from './types';
 
 const axiosInstance = axios.create();
 
@@ -88,6 +89,20 @@ export const getAtelierClasses = ({
     },
     data: {
       atelierId,
+      pageIndex,
+      pageSize,
+      sort,
+    },
+  });
+};
+export const searchClasses = ({ keyword, pageIndex, pageSize, sort, token }: searhClassTypes) => {
+  return request({
+    method: API_METHOD.GET,
+    url: `api/v1/classes/search?keyWord="${keyword}"`,
+    headers: {
+      Authorization: token,
+    },
+    data: {
       pageIndex,
       pageSize,
       sort,

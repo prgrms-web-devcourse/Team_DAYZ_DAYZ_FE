@@ -22,3 +22,10 @@ export interface AtelierClass extends Token {
   pageSize: number;
   sort: sortType;
 }
+
+export interface searhClassTypes extends Token {
+  keyword: string;
+  pageIndex: number;
+  pageSize: number;
+  sort: sortType;
+}
