@@ -1,17 +1,5 @@
 import styled from '@emotion/styled';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import axios from 'axios';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { userState } from '../../../atoms';
-import { fetchLocationList, setLocation } from '../../../utils/api/dayzApi';
-=======
-import React, { useState } from 'react';
-=======
 import React, { useMemo, useState } from 'react';
->>>>>>> bdbb3bd... Refactor: recoil로 비동기 캐싱 처리
 import { useRecoilState, useRecoilValueLoadable } from 'recoil';
 import { ErrorMessage } from '..';
 import { locationState, userState } from '../../../atoms';
@@ -33,44 +21,13 @@ import { Toast } from '../../base';
 //     regionName: '강북구',
 //   } 등등의 데이터를 recoil 에서 불러옵니다.
 // ];
-<<<<<<< HEAD
->>>>>>> 42d8b35... Feat: useRecoilValueLoadable을 사용하여 데이터 가져오도록 설정
-=======
 interface Props {
   setVisible: (T: boolean) => void;
 }
->>>>>>> bdbb3bd... Refactor: recoil로 비동기 캐싱 처리
 
 const LocationSetting = ({ setVisible }: Props) => {
   const [pickState, setPickState] = useState<string | ''>('');
   const [userInfo, setUserInfo] = useRecoilState(userState);
-<<<<<<< HEAD
-<<<<<<< HEAD
-  const history = useHistory();
-
-  useEffect(() => {
-    async function getLocation() {
-      return await fetchLocationList(`${userInfo.token}`).then((response) =>
-        setDistrict([...response.data.data.addresses[0].regions]),
-      );
-    }
-    getLocation();
-    setPickState(userInfo.regionName);
-  }, []);
-=======
-  let locationList: LocationType[] = [];
-  // recoil에서 비동기로 데이터 불러오는 로직
-  const getAsyncLocationList = useRecoilValueLoadable(locationState);
-  switch (getAsyncLocationList.state) {
-    case 'hasValue':
-      locationList = getAsyncLocationList.contents;
-      break;
-    case 'hasError':
-      break;
-    case 'loading':
-  }
->>>>>>> 42d8b35... Feat: useRecoilValueLoadable을 사용하여 데이터 가져오도록 설정
-=======
   const [errorMessage, setErrorMessage] = useState('');
 
   const { state, contents } = useRecoilValueLoadable(locationState);
@@ -82,7 +39,6 @@ const LocationSetting = ({ setVisible }: Props) => {
       return [];
     }
   }, [state, contents]);
->>>>>>> bdbb3bd... Refactor: recoil로 비동기 캐싱 처리
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target: any = (e.target as HTMLInputElement).dataset.id!;
@@ -94,18 +50,6 @@ const LocationSetting = ({ setVisible }: Props) => {
     const [{ regionId, regionName }] = locationList.filter(
       (list: LocationType) => list.regionName === pickState,
     );
-<<<<<<< HEAD
-    await setLocation({
-      token: `${userInfo.token}`,
-      cityId: 1,
-      regionId,
-    }).then(() => window.location.replace('/'));
-    setUserInfo((oldState) => ({
-      ...oldState,
-      regionId,
-      regionName,
-    }));
-=======
     try {
       await setLocation({
         token: `${userInfo.token}`,
@@ -122,7 +66,6 @@ const LocationSetting = ({ setVisible }: Props) => {
     } catch (e: any) {
       Toast.show(e.message);
     }
->>>>>>> 42d8b35... Feat: useRecoilValueLoadable을 사용하여 데이터 가져오도록 설정
   };
 
   return (

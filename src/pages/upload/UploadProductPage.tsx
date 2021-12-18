@@ -13,13 +13,9 @@ import {
   convertImageArray,
   timeToString,
 } from '../../utils/functions';
-import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms';
-<<<<<<< HEAD:src/pages/upload/UploadProductPage.tsx
 import { InputData } from '../../types';
-=======
->>>>>>> 5d40c63 (Feat: 관심지역 설정후 페이지 새로 고침 가능하게 만듬):src/pages/UploadProductPage/index.tsx
 
 const defaultValues = {
   name: '',
