@@ -7,11 +7,18 @@ import styled from '@emotion/styled';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { navigationState } from '../../atoms';
 
+interface Data {
+  date: string;
+  name: string;
+  price: number;
+}
+
 const SuccessBookPage = () => {
   const location = useLocation();
   const history = useHistory();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const date = new Date();
+  const [data, setDate] = useState<any>({});
 
   const setNavState = useSetRecoilState(navigationState);
   const resetNavState = useResetRecoilState(navigationState);
@@ -24,20 +31,24 @@ const SuccessBookPage = () => {
       resetNavState();
     };
   }, []);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
 
-  console.log(location.state);
-
-  // useEffect(() => {
-  //   if (!location.state) {
-  //     history.replace('/');
-  //   }
-
-  // }, []);
+  useEffect(() => {
+    if (!location.state) {
+      history.replace('/');
+    }
+    setDate({ ...(location.state as any) });
+  }, []);
 
   const handleClick = (linkto: string) => {
     history.push(linkto); // replace로 바꾸기
   };
-
+  if (loading) return <div>결제중입니다.</div>;
   return (
     <StyledSection>
       <CheckedWrapper>
@@ -45,10 +56,10 @@ const SuccessBookPage = () => {
         <SuccessText>성공적으로 예약되었습니다!</SuccessText>
       </CheckedWrapper>
       <ContentsWrapper>
-        <StyledText>결제 상품 : ㄴㄴㄴ클래스</StyledText>
+        <StyledText>결제 상품 : {data.name}</StyledText>
         <StyledText>예약 번호 : 123123123</StyledText>
-        <StyledText>예약 날짜 : 2020.123.</StyledText>
-        <StyledText>결제 금액 : 12000원</StyledText>
+        <StyledText>예약 날짜 : {data.date}</StyledText>
+        <StyledText>결제 금액 : {data.price}원</StyledText>
         <StyledText>결제 날짜 : {date.toLocaleString()}</StyledText>
       </ContentsWrapper>
       <ButtonWrapper>
