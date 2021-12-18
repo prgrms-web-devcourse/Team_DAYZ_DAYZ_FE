@@ -26,7 +26,9 @@ const SearchBackButtonWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   margin-left: 20px;
-  margin-top: 20px;
+  padding-top: 20px;
+  height: 50px;
+  box-sizing: border-box;
 `;
 
 const SearchBackButtonText = styled.div`

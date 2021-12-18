@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Link, useParams } from 'react-router-dom';
-import { Button, Image, Text } from '../../components/base';
+import { Button, Text } from '../../components/base';
 import { AteliarInformation, SimpleReview } from '../../components/domain';
 import ReviewModal from './ReviewModal';
 import { CLASS_DUMMY } from './DUMMY_DATA';
@@ -54,7 +54,7 @@ const ProductsDetailPage = () => {
 
       <ProductsDetailContainer>
         <ProductNameWrapper>
-          <HeaderText>{data.name}</HeaderText>
+          <Text style={{ fontSize: 30, fontWeight: 800 }}>{data.name}</Text>
           <RatingWrapper>
             <Star size={16} style={{ paddingBottom: '5px' }} />
             <div style={{ paddingLeft: '5px' }}>{data.avgScore}</div>
@@ -155,7 +155,7 @@ const MoreReviewWrapper = styled.div`
 `;
 const AuthorDetailContainer = styled.div`
   padding: 0 20px;
-  padding-bottom: calc(${(props) => props.theme.height.bottomHeight});
+  padding-bottom: calc(${(props) => props.theme.height.bottomHeight} * 2);
 `;
 const ReservationContainer = styled.div`
   position: fixed;
