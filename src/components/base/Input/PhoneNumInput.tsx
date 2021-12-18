@@ -2,21 +2,21 @@ import styled from '@emotion/styled';
 import React from 'react';
 import Input from '.';
 
-interface PhoneNumInputProps {
+interface PhoneNumInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   frontValue?: number | string;
   secondValue?: number | string;
 }
 
-const PhoneNumInput = ({ frontValue, secondValue }: PhoneNumInputProps) => {
+const PhoneNumInput = ({ frontValue, secondValue, ...props }: PhoneNumInputProps) => {
   return (
     <InputContainer>
       <select name="phoneNumberType" id="phoneNumberType">
         <option value="010">010</option>
         <option value="02">02</option>
       </select>
-      <InfoInput type="number" value={frontValue} />
+      <InfoInput {...props} type="number" value={frontValue} />
       <Dash>-</Dash>
-      <InfoInput type="number" value={secondValue} />
+      <InfoInput {...props} type="number" value={secondValue} />
     </InputContainer>
   );
 };

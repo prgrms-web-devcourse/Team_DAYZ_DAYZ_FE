@@ -8,11 +8,10 @@ interface IRegion {
   regionName: string;
 }
 
-interface IProps {
-  ref?: React.RefObject<HTMLSelectElement>;
-}
+type Props = React.SelectHTMLAttributes<HTMLSelectElement>;
+type Ref = HTMLSelectElement;
 
-const LoginLocationSetter = React.forwardRef<React.FC>((props, ref) => {
+const LoginLocationGetter = forwardRef<Ref, Props>((props, ref) => {
   const { token } = useRecoilValue(userState);
   const [regions, setRegions] = useState<IRegion[]>([]);
   useEffect(() => {
@@ -38,8 +37,11 @@ const LoginLocationSetter = React.forwardRef<React.FC>((props, ref) => {
       </Select>
     </>
   );
-};
-export default LoginLocationSetter;
+});
+
+LoginLocationGetter.displayName = 'LoginLocationGetter';
+
+export default LoginLocationGetter;
 
 const Select = styled.select`
   border: 1px soild black;

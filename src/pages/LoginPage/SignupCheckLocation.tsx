@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { navigationState, userState } from '../../atoms';
 import { Button } from '../../components/base';
-import { LoginLocationSetter } from '../../components/domain';
+import { LoginLocationGetter } from '../../components/domain';
 import { setLocation } from '../../utils/api/dayzApi';
 
 function SignupCheckLocation() {
@@ -12,7 +12,8 @@ function SignupCheckLocation() {
   const { token } = useRecoilValue(userState);
   const setNavigaionState = useSetRecoilState(navigationState);
   const resetPageState = useResetRecoilState(navigationState);
-  const regionSelect = useRef<HTMLSelectElement>(null);
+  // const regionSelect = useRef<HTMLSelectElement>(null);
+  const regionSelect = React.createRef<HTMLSelectElement>();
 
   const onClick = async () => {
     const regionId = +(regionSelect.current?.value ?? '1');
@@ -49,7 +50,7 @@ function SignupCheckLocation() {
       <SelectContainer>
         <p>서울 외 지역은 준비 중이에요😥</p>
         <div>
-          <LoginLocationSetter ref={regionSelect} />
+          <LoginLocationGetter ref={regionSelect} />
         </div>
         <SubmitBtn type="submit" onClick={onClick}>
           완료

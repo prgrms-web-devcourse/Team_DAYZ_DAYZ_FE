@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { navigationState } from '../../atoms';
 import { Button, Input, OfficeHourInput, PhoneNumInput } from '../../components/base';
-import { LoginLocationSetter } from '../../components/domain';
+import { LoginLocationGetter } from '../../components/domain';
 function SignupAuthorInfo() {
   const setNavigationState = useSetRecoilState(navigationState);
   const resetPageState = useResetRecoilState(navigationState);
@@ -48,16 +48,16 @@ function SignupAuthorInfo() {
         <label>공방 소개</label>
         <Input type="text" {...(register('intro'), { required: true })} />
         <label>상세 주소</label>
-        <LoginLocationSetterContainer>
-          <LoginLocationSetter />
-        </LoginLocationSetterContainer>
+        <LoginLocationGetterContainer>
+          <LoginLocationGetter />
+        </LoginLocationGetterContainer>
         <Input type="text" {...(register('addressDetail'), { required: true })} />
         <label>공방 영업 시간</label>
-        <OfficeHourInput />
+        <OfficeHourInput {...(register('addressDetail'), { required: true })} />
         <label>공방 전화번호</label>
-        <PhoneNumInput />
+        <PhoneNumInput {...(register('addressDetail'), { required: true })} />
         <SubmitBtn type="submit" onClick={onClick}>
-          가입하기
+          다음
         </SubmitBtn>
       </FormContainer>
     </LoginContainer>
@@ -93,7 +93,7 @@ const FormContainer = styled.form`
     height: 40px;
   }
 `;
-const LoginLocationSetterContainer = styled.div`
+const LoginLocationGetterContainer = styled.div`
   display: flex;
   margin-bottom: 10px;
 `;

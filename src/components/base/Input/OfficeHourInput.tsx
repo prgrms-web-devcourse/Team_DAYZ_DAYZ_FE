@@ -2,17 +2,17 @@ import styled from '@emotion/styled';
 import React from 'react';
 import Input from '.';
 
-interface OfficeHourInputProps {
+interface OfficeHourInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   startTime?: number | string;
   endTime?: number | string;
 }
 
-const OfficeHourInput = ({ startTime, endTime }: OfficeHourInputProps) => {
+const OfficeHourInput = ({ startTime, endTime, ...props }: OfficeHourInputProps) => {
   return (
     <InputContainer>
-      <InfoInput type="time" value={startTime} />
+      <InfoInput {...props} type="time" value={startTime} />
       <Dash>~</Dash>
-      <InfoInput type="time" value={endTime} />
+      <InfoInput {...props} type="time" value={endTime} />
     </InputContainer>
   );
 };
