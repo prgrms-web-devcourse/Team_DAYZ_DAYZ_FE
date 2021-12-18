@@ -8,6 +8,7 @@ import {
   HomePage,
   ProductsDetailPage,
   BookingPage,
+  SuccessBookPage,
   SearchPage,
   UserPage,
   NotFoundPage,
@@ -38,6 +39,7 @@ const Router = () => {
       <Route path="/search" exact component={SearchPage} />
       <Route path="/workshop/:id" component={WorkshopPage} />
       <Route path="/products/:id" exact component={ProductsDetailPage} />
+      <Route path="/booking/success" exact component={SuccessBookPage} />
       <Route path="/booking/:id" exact component={BookingPage} />
       <Route path="/user/book" exact component={UserBookedPage} />
       <Route path="/user/review" exact component={UserReviewPage} />
