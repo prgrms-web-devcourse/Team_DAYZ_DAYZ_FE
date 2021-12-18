@@ -17,3 +17,8 @@ export const userState = atom<IUser>({
     atelierId: 1,
   },
 });
+
+export const authUserState = atom<boolean | null>({
+  key: 'authUserState',
+  default: null,
+});

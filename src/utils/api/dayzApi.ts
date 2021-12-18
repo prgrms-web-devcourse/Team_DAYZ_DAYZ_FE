@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { API_METHOD } from '../../constants/apiConstant';
-import { AtelierClass, Email, Location, searhClassTypes } from './types';
+import { AtelierClass, Email, Location, Token, searhClassTypes } from './types';
 
 const axiosInstance = axios.create();
 
@@ -22,11 +22,10 @@ export const something = ({ email, password }: Email) => {
   });
 };
 
-// 예시2. token을 사용해야 할 경우
-export const requiredtoken = (token: string) => {
+export const checkAuthorizationUser = ({ token }: Token) => {
   return request({
     method: API_METHOD.GET,
-    url: `/main`,
+    url: '/api/v1/members/info',
     headers: {
       Authorization: token,
     },
