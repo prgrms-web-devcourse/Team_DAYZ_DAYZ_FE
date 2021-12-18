@@ -1,7 +1,102 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { Button } from '../../components/base';
+import { AiOutlineCheckCircle } from 'react-icons/ai';
+import { useEffect } from 'react';
+import styled from '@emotion/styled';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { navigationState } from '../../atoms';
 
 const SuccessBookPage = () => {
-  return <div>123</div>;
+  const location = useLocation();
+  const history = useHistory();
+  const [loading, setLoading] = useState(true);
+  const date = new Date();
+
+  const setNavState = useSetRecoilState(navigationState);
+  const resetNavState = useResetRecoilState(navigationState);
+  useEffect(() => {
+    setNavState((prev) => ({
+      ...prev,
+      bottomNavigation: false,
+    }));
+    return () => {
+      resetNavState();
+    };
+  }, []);
+
+  console.log(location.state);
+
+  // useEffect(() => {
+  //   if (!location.state) {
+  //     history.replace('/');
+  //   }
+
+  // }, []);
+
+  const handleClick = (linkto: string) => {
+    history.push(linkto); // replace로 바꾸기
+  };
+
+  return (
+    <StyledSection>
+      <CheckedWrapper>
+        <AiOutlineCheckCircle size={100} color="purple" />
+        <SuccessText>성공적으로 예약되었습니다!</SuccessText>
+      </CheckedWrapper>
+      <ContentsWrapper>
+        <StyledText>결제 상품 : ㄴㄴㄴ클래스</StyledText>
+        <StyledText>예약 번호 : 123123123</StyledText>
+        <StyledText>예약 날짜 : 2020.123.</StyledText>
+        <StyledText>결제 금액 : 12000원</StyledText>
+        <StyledText>결제 날짜 : {date.toLocaleString()}</StyledText>
+      </ContentsWrapper>
+      <ButtonWrapper>
+        <StyledButton type="button" onClick={() => handleClick('/feed')}>
+          <StyledText>피드 둘러보기</StyledText>
+        </StyledButton>
+        <StyledButton type="button" onClick={() => handleClick('/')}>
+          <StyledText>메인으로 돌아가기</StyledText>
+        </StyledButton>
+      </ButtonWrapper>
+    </StyledSection>
+  );
 };
 
+const StyledSection = styled.section`
+  margin: 0 20px;
+`;
+
+const CheckedWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 0;
+`;
+const SuccessText = styled.div`
+  font-weight: bold;
+  font-size: 25px;
+  margin-top: 10px;
+`;
+const ContentsWrapper = styled.div`
+  margin: 20px 0;
+  margin-bottom: 30px;
+`;
+const StyledText = styled.div`
+  margin: 10px 0;
+  font-size: 20px;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const StyledButton = styled(Button)`
+  display: block;
+  width: 80%;
+  height: 60px;
+  border-radius: 15px;
+  margin: 10px 0;
+`;
 export default SuccessBookPage;

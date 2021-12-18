@@ -4,11 +4,12 @@ import React from 'react';
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   type: 'button' | 'submit' | 'reset';
+  onclick?: any;
 }
 
-const Button = ({ children, type, ...props }: Props) => {
+const Button = ({ children, type, onClick, ...props }: Props) => {
   return (
-    <StyledButton type={type} style={{ ...props.style }} {...props}>
+    <StyledButton type={type} style={{ ...props.style }} onClick={onClick} {...props}>
       {children}
     </StyledButton>
   );
