@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { navigationState, userState } from '../../atoms';
@@ -12,12 +12,15 @@ function SignupCheckLocation() {
   const { token } = useRecoilValue(userState);
   const setNavigaionState = useSetRecoilState(navigationState);
   const resetPageState = useResetRecoilState(navigationState);
-  // const regionSelect = useRef<HTMLSelectElement>(null);
   const regionSelect = React.createRef<HTMLSelectElement>();
 
   const onClick = async () => {
     const regionId = +(regionSelect.current?.value ?? '1');
-    const res = await setLocation({ token, cityId: 1, regionId });
+    const regionData = {
+      cityId: 1,
+      regionId,
+    };
+    const res = await setLocation(token, regionData);
     if (res.status === 200) {
       history.push('/');
     } else {
