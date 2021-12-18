@@ -19,7 +19,7 @@ const LoginLocationGetter = forwardRef<Ref, Props>((props, ref) => {
       const seoulRegions = res.data.data.addresses[0].regions;
       setRegions(seoulRegions);
     });
-  });
+  }, []);
   return (
     <>
       <Select name="area" id="area" style={{ marginRight: '12px' }}>
