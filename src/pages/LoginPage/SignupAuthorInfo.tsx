@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { navigationState, userState } from '../../atoms';
-import { Button, Input, OfficeHourInput, PhoneNumInput } from '../../components/base';
+import { Button, Input } from '../../components/base';
 import { LoginLocationGetter } from '../../components/domain';
 import { setAtelierInfo } from '../../utils/api/dayzApi';
 import { Address, AtelierInfo } from '../../utils/api/types';
@@ -49,10 +49,15 @@ function SignupAuthorInfo() {
       workEndTime,
       callNumber,
     };
-    const res = await setAtelierInfo(token, atelierInfo);
-    if (res.status === 200) {
-      history.push('/signup/check-location');
-    } else {
+    try {
+      const res = await setAtelierInfo(token, atelierInfo);
+      if (res.status === 200) {
+        history.push('/signup/check-location');
+      } else {
+        history.push('/nothing');
+      }
+    } catch (error) {
+      console.log(error);
       history.push('/nothing');
     }
   };
