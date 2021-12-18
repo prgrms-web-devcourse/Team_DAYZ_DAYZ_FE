@@ -55,7 +55,7 @@ function SignupCheckLocation() {
         <div>
           <LoginLocationGetter ref={regionSelect} />
         </div>
-        <SubmitBtn type="submit" onClick={onClick}>
+        <SubmitBtn type="button" onClick={onClick}>
           완료
         </SubmitBtn>
       </SelectContainer>
