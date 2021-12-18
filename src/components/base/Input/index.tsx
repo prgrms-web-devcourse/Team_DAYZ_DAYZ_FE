@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState } from 'react';
 import styled from '@emotion/styled';
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   style?: CSSProperties;
   type: 'text' | 'number' | 'date' | 'time';
   value?: string | number;
