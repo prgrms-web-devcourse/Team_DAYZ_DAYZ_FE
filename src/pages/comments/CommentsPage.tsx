@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { GoBack } from '../../components/domain';
 import { useForm } from '../../hooks';
 import { Avatar } from '../../components/base';
@@ -49,6 +49,15 @@ const CommentsPage = () => {
               'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf8f324a0b9c48f77dbce3a43bd11ce785',
           },
         },
+        {
+          content: '우와킹이네요',
+          createdAt: '2021-12-10 19:24:12',
+          member: {
+            name: '너손님',
+            imageUrl:
+              'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf8f324a0b9c48f77dbce3a43bd11ce785',
+          },
+        },
       ],
       success: true,
       serverDateTime: '2021-12-14 20:21:45',
@@ -57,6 +66,7 @@ const CommentsPage = () => {
 
   return (
     <CommentsWrapper>
+      {/* <StyledDiv /> */}
       <GoBack to={'/feed'}>돌아가기</GoBack>
 
       <CommentsTopWrapper>
@@ -102,8 +112,10 @@ const CommentsPage = () => {
     </CommentsWrapper>
   );
 };
+
 const CommentsWrapper = styled.section`
   position: relative;
+  height: 100%;
 `;
 
 const CommentsTopWrapper = styled.div`
@@ -133,6 +145,13 @@ const CommentsListsWrapper = styled.ul`
   height: calc(100vh - 300px);
   overflow: scroll;
   border-top: solid 1px #c5c5c5;
+  & {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const CommentsItemWrapper = styled.li`
   margin: 20px;
@@ -170,11 +189,12 @@ const NewCommentsWrapper = styled.form`
   position: absolute;
   bottom: 0;
   margin-bottom: 20px;
+  z-index: 1000;
 `;
 const NewCommentsInput = styled.input`
   width: calc(100% - 40px);
   height: 50px;
-  background-color: transparent;
+  background-color: white transparent;
   border-radius: 16px;
   font-size: 20px;
   border: solid 1px #c4c4c4;
