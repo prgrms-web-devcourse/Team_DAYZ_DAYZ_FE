@@ -17,3 +17,8 @@ export type InputData = {
   maxPeopleNumber: number;
   price: number;
 };
+
+export interface LocationType {
+  regionId: number;
+  regionName: string;
+}

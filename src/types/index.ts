@@ -1,2 +1,2 @@
 export type { ImageObject } from './ImageType';
-export type { InputData, TimeData } from './DataTypes';
+export type { InputData, TimeData, LocationType } from './DataTypes';

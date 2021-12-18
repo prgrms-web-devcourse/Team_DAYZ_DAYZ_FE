@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Router from './routes/Router';
 import DefaultTemplate from './template/DefaultTemplate';
 import { Global, ThemeProvider } from '@emotion/react';

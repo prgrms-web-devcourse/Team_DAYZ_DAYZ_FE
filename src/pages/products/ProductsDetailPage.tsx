@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Image, Text } from '../../components/base';
@@ -11,6 +11,8 @@ import '@egjs/react-flicking/dist/flicking.css';
 import '@egjs/react-flicking/dist/flicking-inline.css';
 import '@egjs/flicking-plugins/dist/pagination.css';
 import { Star } from 'react-feather';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { modalState } from '../../atoms';
 
 const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,7 +21,16 @@ const ProductsDetailPage = () => {
   // 여기서 id 값으로 데이터를 불러온다. api
   // 현재 context안에는 공방인지 유저인지 데이터가 담겨져 있어야 한다.
   // id를 조회하면 class 소개, 별점, 후기, author 항목이 조회가 되어야함.
-
+  const setModalState = useSetRecoilState(modalState);
+  const resetModalState = useResetRecoilState(modalState);
+  useEffect(() => {
+    setModalState(() => ({
+      modalView: true,
+    }));
+    return () => {
+      resetModalState();
+    };
+  }, []);
   return (
     <>
       <Flicking align="prev" circular={false} plugins={[new Pagination({ type: 'bullet' })]}>

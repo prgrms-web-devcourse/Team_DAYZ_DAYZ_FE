@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Header } from './Header';
-import { Navigator } from './Navigator';
+import Header from './Header';
+import Navigator from './Navigator';
 import { useRecoilValue } from 'recoil';
 import { navigationState } from '../atoms/navigation';
 

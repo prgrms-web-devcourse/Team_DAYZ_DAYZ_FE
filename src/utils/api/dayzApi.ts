@@ -1,7 +1,4 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { useRecoilValue } from 'recoil';
-import { tokenToString } from 'typescript';
-import { userState } from '../../atoms';
 import { API_METHOD } from '../../constants/apiConstant';
 import { AtelierClass, Email, Location, searhClassTypes } from './types';
 
