@@ -63,3 +63,7 @@ export interface ReservationsType extends Token {
   price: number;
   peopleNumber: number;
 }
+
+export interface CategoryClass extends Token {
+  categoryId: number;
+}

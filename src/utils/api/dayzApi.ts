@@ -11,6 +11,7 @@ import {
   getAtelierListsTypes,
   ClassTimesType,
   ReservationsType,
+  CategoryClass,
 } from './types';
 
 const axiosInstance = axios.create();
@@ -199,6 +200,22 @@ export const setReservations = async ({
     },
     headers: {
       Authorization: token,
+    },
+  });
+};
+
+export const getCategoryClasses = async ({ categoryId, token }: CategoryClass) => {
+  return request({
+    method: API_METHOD.GET,
+    url: `api/v1/classes/categories/${categoryId}`,
+    headers: {
+      Authorization: token,
+    },
+    params: {
+      pageIndex: 0,
+      pageSize: 5,
+      column: 'createdAt',
+      order: 'ASC',
     },
   });
 };
