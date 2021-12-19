@@ -1,18 +1,17 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { IUser } from '../../atoms/types';
 import { API_METHOD } from '../../constants/apiConstant';
-<<<<<<< HEAD
-import { AtelierClass, Email, Location, Token, searhClassTypes, AtelierInfo } from './types';
-=======
 import {
   AtelierClass,
   Email,
   Location,
   Token,
   searhClassTypes,
+  AtelierInfo,
   getAtelierListsTypes,
+  ClassTimesType,
+  ReservationsType,
 } from './types';
->>>>>>> 9797fc5 (Feat: 홈페이지 신규 공방 조회)
 
 const axiosInstance = axios.create();
 
@@ -131,7 +130,6 @@ export const searchClasses = ({ keyword, pageIndex, pageSize, sort, token }: sea
   });
 };
 
-<<<<<<< HEAD
 export const fetchUser = async (token: string): Promise<IUser | null> => {
   try {
     const res = await request({
@@ -146,7 +144,7 @@ export const fetchUser = async (token: string): Promise<IUser | null> => {
     console.log(error);
     return null;
   }
-=======
+};
 export const getPopularClasses = (token: string) => {
   return request({
     method: API_METHOD.GET,
@@ -155,9 +153,8 @@ export const getPopularClasses = (token: string) => {
       Authorization: token,
     },
   });
->>>>>>> de6e90b (Feat: 인기클래스 조회 api 붙임)
 };
-/* eslint-disable */
+
 export const getAtelierLists = (token: string) => {
   return request({
     method: API_METHOD.GET,
@@ -172,6 +169,36 @@ export const getAtelierLists = (token: string) => {
         column: 'createdAt',
         order: 'ASC',
       },
+    },
+  });
+};
+
+export const getClassTimes = async ({ token, classId, date }: ClassTimesType) => {
+  return request({
+    method: API_METHOD.GET,
+    url: `api/v1/classtimes/classes/${classId}?date=${date}`,
+    headers: {
+      Authorization: token,
+    },
+  });
+};
+
+export const setReservations = async ({
+  classTimeId,
+  price,
+  peopleNumber,
+  token,
+}: ReservationsType) => {
+  return request({
+    method: API_METHOD.POST,
+    url: 'api/v1/reservations',
+    data: {
+      classTimeId,
+      price,
+      peopleNumber,
+    },
+    headers: {
+      Authorization: token,
     },
   });
 };

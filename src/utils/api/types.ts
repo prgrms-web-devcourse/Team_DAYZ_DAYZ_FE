@@ -52,3 +52,14 @@ export interface getAtelierListsTypes extends Token {
   sort: sortType;
 >>>>>>> 9797fc5 (Feat: 홈페이지 신규 공방 조회)
 }
+
+export interface ClassTimesType extends Token {
+  classId: number;
+  date: string;
+}
+
+export interface ReservationsType extends Token {
+  classTimeId: number;
+  price: number;
+  peopleNumber: number;
+}
