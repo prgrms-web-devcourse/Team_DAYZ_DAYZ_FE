@@ -1,27 +1,26 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { navigationState, userState } from '../../atoms';
 import { Button } from '../../components/base';
-import { fetchLocationList, setLocation } from '../../utils/api/dayzApi';
-
-interface IRegion {
-  regionId: number;
-  regionName: string;
-}
+import { LoginLocationGetter } from '../../components/domain';
+import { setLocation } from '../../utils/api/dayzApi';
 
 function SignupCheckLocation() {
   const history = useHistory();
+  const { token } = useRecoilValue(userState);
   const setNavigaionState = useSetRecoilState(navigationState);
   const resetPageState = useResetRecoilState(navigationState);
-  const { token } = useRecoilValue(userState);
-  const [regions, setRegions] = useState<IRegion[]>([]);
-  const regionSelect = useRef<HTMLSelectElement>(null);
+  const regionSelect = React.createRef<HTMLSelectElement>();
 
   const onClick = async () => {
     const regionId = +(regionSelect.current?.value ?? '1');
-    const res = await setLocation({ token, cityId: 1, regionId });
+    const regionData = {
+      cityId: 1,
+      regionId,
+    };
+    const res = await setLocation(token, regionData);
     if (res.status === 200) {
       history.push('/');
     } else {
@@ -35,10 +34,7 @@ function SignupCheckLocation() {
       topNavigation: false,
       bottomNavigation: false,
     }));
-    fetchLocationList(token).then((res) => {
-      const seoulRegions = res.data.data.addresses[0].regions;
-      setRegions(seoulRegions);
-    });
+
     return () => {
       resetPageState();
     };
@@ -57,21 +53,9 @@ function SignupCheckLocation() {
       <SelectContainer>
         <p>서울 외 지역은 준비 중이에요😥</p>
         <div>
-          <select name="area" id="area">
-            <option value="seoul">서울</option>
-          </select>
-          <select defaultValue={'DEFAULT'} name="city" id="city" ref={regionSelect}>
-            <option disabled value="DEFAULT">
-              선택
-            </option>
-            {regions?.map((region) => (
-              <option key={region.regionId} value={region.regionId}>
-                {region.regionName}
-              </option>
-            ))}
-          </select>
+          <LoginLocationGetter ref={regionSelect} />
         </div>
-        <SubmitBtn type="submit" onClick={onClick}>
+        <SubmitBtn type="button" onClick={onClick}>
           완료
         </SubmitBtn>
       </SelectContainer>
@@ -84,13 +68,13 @@ const LoginContainer = styled.div`
   margin: 40px;
 `;
 
-const Title = styled.p`
+const Title = styled.div`
   font-size: 52px;
   font-weight: 600;
   margin-bottom: 24px;
 `;
 
-const Subtitle = styled.p`
+const Subtitle = styled.div`
   margin-bottom: 80px;
 `;
 
@@ -100,18 +84,6 @@ const SelectContainer = styled.section`
   align-items: center;
   & p {
     margin-bottom: 12px;
-  }
-  & select {
-    border: 1px soild black;
-    border-radius: 12px;
-    padding: 12px 24px;
-  }
-  & select:nth-of-type(1) {
-    width: 100px;
-    margin-right: 24px;
-  }
-  & select:nth-of-type(2) {
-    width: 150px;
   }
 `;
 const SubmitBtn = styled(Button)`

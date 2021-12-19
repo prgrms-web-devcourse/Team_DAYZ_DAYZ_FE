@@ -1,12 +1,13 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { IUser } from '../../atoms/types';
 import { API_METHOD } from '../../constants/apiConstant';
-import { AtelierClass, Email, Location, Token, searhClassTypes } from './types';
+import { AtelierClass, Email, Location, Token, searhClassTypes, AtelierInfo } from './types';
 
 const axiosInstance = axios.create();
 
 axiosInstance.defaults.baseURL = process.env.REACT_APP_DAYZ_API_END_POINT;
 
-const request = async (config: AxiosRequestConfig) => {
+const request = (config: AxiosRequestConfig) => {
   return axiosInstance(config);
 };
 
@@ -56,7 +57,7 @@ export const fetchLocationList = (token: string) => {
   });
 };
 
-export const setLocation = ({ token, cityId, regionId }: Location) => {
+export const setLocation = (token: string, { cityId, regionId }: Location) => {
   return request({
     method: API_METHOD.POST,
     url: '/api/v1/members/address',
@@ -91,10 +92,22 @@ export const getAtelierClasses = ({
     },
   });
 };
+
+export const setAtelierInfo = async (token: string, atelierInfo: AtelierInfo) => {
+  return request({
+    method: API_METHOD.POST,
+    url: '/api/v1/ateliers',
+    headers: {
+      Authorization: token,
+    },
+    data: atelierInfo,
+  });
+};
+
 export const searchClasses = ({ keyword, pageIndex, pageSize, sort, token }: searhClassTypes) => {
   return request({
     method: API_METHOD.GET,
-    url: `api/v1/classes/search?keyWord="${keyword}"`,
+    url: `api/v1/classes/search?keyWord=${keyword}`,
     headers: {
       Authorization: token,
     },
@@ -104,4 +117,20 @@ export const searchClasses = ({ keyword, pageIndex, pageSize, sort, token }: sea
       sort,
     },
   });
+};
+
+export const fetchUser = async (token: string): Promise<IUser | null> => {
+  try {
+    const res = await request({
+      method: API_METHOD.GET,
+      url: '/api/v1/members/info',
+      headers: {
+        Authorization: token,
+      },
+    });
+    return res.data as IUser;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };

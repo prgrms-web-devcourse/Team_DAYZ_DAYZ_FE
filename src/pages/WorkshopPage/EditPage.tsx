@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Avatar, Button, Input, OfficeHourInput, PhoneNumInput } from '../../components/base';
+import { Avatar, Button, Input } from '../../components/base';
 import { DUMMY_ATELIER_DATA } from './DUMMY_DATA';
 import { FilePlus } from 'react-feather';
 
 const EditPage = () => {
   const { intro, name, imageUrl, address, callNo, startTime, endTime, atelierId } =
     DUMMY_ATELIER_DATA;
-  const splitCallNo = callNo.split('-');
   return (
     <EditForm>
       <AvatarContainer>
@@ -40,12 +39,14 @@ const EditPage = () => {
         <InfoInput type="text" value={address} />
       </InputContainer>
       <InputContainer>
-        <Text>공방 전화번호</Text>
-        <PhoneNumInput frontValue={splitCallNo[1]} secondValue={splitCallNo[2]} />
+        <Text>공방 영업시간</Text>
+        <InfoInput type="time" value={startTime} />
+        <Dash>~</Dash>
+        <InfoInput type="time" value={endTime} />
       </InputContainer>
       <InputContainer>
-        <Text>공방 영업시간</Text>
-        <OfficeHourInput startTime={startTime} endTime={endTime} />
+        <Text>공방 전화번호</Text>
+        <Input type="number" value={callNo} />
       </InputContainer>
       <SubmitBtn type="submit">저장</SubmitBtn>
     </EditForm>
@@ -102,4 +103,9 @@ const SubmitBtn = styled(Button)`
   font-size: 20px;
   font-weight: 700;
   margin-left: 30%;
+`;
+
+const Dash = styled.div`
+  font-size: 30px;
+  margin: 0 10px;
 `;

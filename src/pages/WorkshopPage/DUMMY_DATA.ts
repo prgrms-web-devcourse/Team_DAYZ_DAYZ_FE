@@ -4,7 +4,7 @@ export const DUMMY_ATELIER_DATA = {
   name: '이구역최강자',
   imageUrl: 'https://via.placeholder.com/150',
   address: '서울시 송파구 송파로 23길 1',
-  callNo: '02-111-2222',
+  callNo: '021112222',
   startTime: '10:00',
   endTime: '22:00',
 };

@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { Image } from '../../components/base';
 import { categoryIcons } from '../../constants/categoryItems';
 import { DUMMY_NEW_ATELIER_DATA, DUMMY_POPULAR_DATA } from './DUMMY_DATA';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { modalState } from '../../atoms';
+import { modalState, userState } from '../../atoms';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { fetchUser } from '../../utils/api/dayzApi';
 
 // 1. 카테고리 목록 조회 https://backend-devcourse.notion.site/d1a5d88893d642a48e169f5ccc10cc7c
 // 2. 금주의 인기 클래스 조회 https://backend-devcourse.notion.site/66ebc05aa398421dbf463023b8a9224f
@@ -15,6 +16,7 @@ import { modalState } from '../../atoms';
 const HomePage = () => {
   const setModalState = useSetRecoilState(modalState);
   const resetModalState = useResetRecoilState(modalState);
+  const [user, setUser] = useRecoilState(userState);
   useEffect(() => {
     setModalState(() => ({
       modalView: true,
@@ -24,6 +26,11 @@ const HomePage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    fetchUser(user.token).then((newUser) => newUser && setUser(newUser));
+  }, []);
+  //확인용으로 남겨두었습니다
+  console.log(user);
   return (
     <MainPageWrapper>
       <Container>
