@@ -52,8 +52,7 @@ const LocationSetting = ({ setVisible }: Props) => {
       (list: LocationType) => list.regionName === pickState,
     );
     try {
-      await setLocation({
-        token: `${userInfo.token}`,
+      await setLocation(userInfo.token, {
         cityId: 1,
         regionId,
       });
