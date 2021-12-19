@@ -25,32 +25,69 @@ import {
   SignupAuthorInfo,
   SignupCheckLocation,
 } from '../pages';
+import { PrivateRoute } from './CustomRoutes';
 
 const Router = () => {
   return (
     <Switch>
-      <Route path="/" exact component={HomePage} />
+      <PrivateRoute exact path="/">
+        <HomePage />
+      </PrivateRoute>
+      <PrivateRoute path="/category/:genre" exact>
+        <CategoryPage />
+      </PrivateRoute>
+      <PrivateRoute path="/feed" exact>
+        <FeedPage />
+      </PrivateRoute>
+      <PrivateRoute path="/search" exact>
+        <SearchPage />
+      </PrivateRoute>
+      <PrivateRoute path="/workshop/:id">
+        <WorkshopPage />
+      </PrivateRoute>
+      <PrivateRoute path="/products/:id" exact>
+        <ProductsDetailPage />
+      </PrivateRoute>
+      <PrivateRoute path="/booking/success" exact>
+        <SuccessBookPage />
+      </PrivateRoute>
+      <PrivateRoute path="/booking/:id" exact>
+        <BookingPage />
+      </PrivateRoute>
+      <PrivateRoute path="/user/book" exact>
+        <UserBookedPage />
+      </PrivateRoute>
+      <PrivateRoute path="/user/review" exact>
+        <UserReviewPage />
+      </PrivateRoute>
+      <PrivateRoute path="/user/following" exact>
+        <UserFollowingPage />
+      </PrivateRoute>
+      <PrivateRoute path="/user/edit" exact>
+        <UserProfileEditPage />
+      </PrivateRoute>
+      <PrivateRoute path="/user/:id" exact>
+        <UserPage />
+      </PrivateRoute>
+      <PrivateRoute path="/feed/comments/:id" exact>
+        <CommentsPage />
+      </PrivateRoute>
+      <PrivateRoute path="/search/:results" exact>
+        <SearchResultsPage />
+      </PrivateRoute>
+      <PrivateRoute path="/upload/feed" exact>
+        <UploadFeedPage />
+      </PrivateRoute>
+      <PrivateRoute path="/upload/comments/:id" exact>
+        <UploadCommentPage />
+      </PrivateRoute>
+      <PrivateRoute path="/upload/products" exact>
+        <UploadProductPage />
+      </PrivateRoute>
       <Route path="/login" component={LoginPage} />
       <Route path="/redirect-after-kakao" component={RedirectPageAfterKakao} />
       <Route path="/signup/author-info" component={SignupAuthorInfo} />
       <Route path="/signup/check-location" component={SignupCheckLocation} />
-      <Route path="/category/:genre" exact component={CategoryPage} />
-      <Route path="/feed" exact component={FeedPage} />
-      <Route path="/search" exact component={SearchPage} />
-      <Route path="/workshop/:id" component={WorkshopPage} />
-      <Route path="/products/:id" exact component={ProductsDetailPage} />
-      <Route path="/booking/success" exact component={SuccessBookPage} />
-      <Route path="/booking/:id" exact component={BookingPage} />
-      <Route path="/user/book" exact component={UserBookedPage} />
-      <Route path="/user/review" exact component={UserReviewPage} />
-      <Route path="/user/following" exact component={UserFollowingPage} />
-      <Route path="/user/edit" exact component={UserProfileEditPage} />
-      <Route path="/user/:id" exact component={UserPage} />
-      <Route path="/feed/comments/:id" exact component={CommentsPage} />
-      <Route path="/search/:results" exact component={SearchResultsPage} />
-      <Route path="/upload/feed" exact component={UploadFeedPage} />
-      <Route path="/upload/comments/:id" exact component={UploadCommentPage} />
-      <Route path="/upload/products" exact component={UploadProductPage} />
       <Route path="*" component={NotFoundPage} />
     </Switch>
   );
