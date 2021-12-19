@@ -1,7 +1,18 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { IUser } from '../../atoms/types';
 import { API_METHOD } from '../../constants/apiConstant';
+<<<<<<< HEAD
 import { AtelierClass, Email, Location, Token, searhClassTypes, AtelierInfo } from './types';
+=======
+import {
+  AtelierClass,
+  Email,
+  Location,
+  Token,
+  searhClassTypes,
+  getAtelierListsTypes,
+} from './types';
+>>>>>>> 9797fc5 (Feat: 홈페이지 신규 공방 조회)
 
 const axiosInstance = axios.create();
 
@@ -83,6 +94,7 @@ export const getAtelierClasses = ({
     url: `api/v1/classes/ateliers/${atelierId}`,
     headers: {
       Authorization: token,
+      'Content-Type': `application/json`,
     },
     data: {
       atelierId,
@@ -119,6 +131,7 @@ export const searchClasses = ({ keyword, pageIndex, pageSize, sort, token }: sea
   });
 };
 
+<<<<<<< HEAD
 export const fetchUser = async (token: string): Promise<IUser | null> => {
   try {
     const res = await request({
@@ -133,4 +146,32 @@ export const fetchUser = async (token: string): Promise<IUser | null> => {
     console.log(error);
     return null;
   }
+=======
+export const getPopularClasses = (token: string) => {
+  return request({
+    method: API_METHOD.GET,
+    url: '/api/v1/classes/popular',
+    headers: {
+      Authorization: token,
+    },
+  });
+>>>>>>> de6e90b (Feat: 인기클래스 조회 api 붙임)
+};
+/* eslint-disable */
+export const getAtelierLists = (token: string) => {
+  return request({
+    method: API_METHOD.GET,
+    url: '/api/v1/ateliers',
+    headers: {
+      Authorization: token,
+    },
+    data: {
+      pageIndex: 0,
+      pageSize: 5,
+      sort: {
+        column: 'createdAt',
+        order: 'ASC',
+      },
+    },
+  });
 };
