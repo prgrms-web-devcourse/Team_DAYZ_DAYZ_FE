@@ -15,9 +15,7 @@ export const locationState = selector<LocationType[]>({
   key: 'locationState',
   get: async ({ get }) => {
     const user = get(userState);
-    console.log('몇번 실행 되나');
     const response = await fetchLocationList(`${user.token}`);
-
     return response.data.data.addresses[0].regions;
   },
 });
