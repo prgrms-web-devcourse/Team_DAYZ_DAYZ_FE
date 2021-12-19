@@ -1,21 +1,50 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { authUserState } from '../../atoms';
+import React, { useCallback, useEffect } from 'react';
+import { Route, Redirect, RouteProps } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { authUserState, userState } from '../../atoms';
+import { checkAuthorizationUser } from '../../utils/api/dayzApi';
+import { getSessionStorageItem } from '../../utils/functions';
 
-interface IProps {
-  path: string;
-  exact: boolean;
-  component: any;
-}
+const PrivateRoute: React.FC<RouteProps> = ({ children, ...rest }: RouteProps) => {
+  const isAuthenticated = useRecoilValue(authUserState);
+  const token = getSessionStorageItem('token', '');
+  const setUserData = useSetRecoilState(userState);
+  const setAuthUser = useSetRecoilState(authUserState);
 
-const PrivateRoute = ({ component: Component, ...rest }: IProps) => {
-  const authUser = useRecoilValue(authUserState);
+  const AuthUser = useCallback(async () => {
+    try {
+      const response = await checkAuthorizationUser(token);
+      if (response.status === 200) {
+        setUserData({ ...response.data.data });
+        setAuthUser(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    AuthUser();
+  }, []);
+
+  console.log(isAuthenticated);
 
   return (
     <Route
       {...rest}
-      render={(props) => (authUser ? <Component {...props} /> : <Redirect to="/login" />)}
+      render={(props) => {
+        console.log(props.location);
+        return isAuthenticated ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: props.location },
+            }}
+          />
+        );
+      }}
     />
   );
 };

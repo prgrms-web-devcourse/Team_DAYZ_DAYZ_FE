@@ -23,7 +23,6 @@ import { getAtelierLists, getPopularClasses } from '../../utils/api/dayzApi';
 const HomePage = () => {
   const setModalState = useSetRecoilState(modalState);
   const resetModalState = useResetRecoilState(modalState);
-  const [user, setUser] = useRecoilState(userState);
   useEffect(() => {
     setModalState(() => ({
       modalView: true,
@@ -32,6 +31,7 @@ const HomePage = () => {
       resetModalState();
     };
   }, []);
+
 
   useEffect(() => {
     fetchUser(user.token).then((newUser) => newUser && setUser(newUser));
@@ -54,8 +54,7 @@ const HomePage = () => {
     popularClasses(token);
     recentAtelier(token);
   }, []);
-  console.log(Array.isArray(popularClassesData));
-  console.log(popularClassesData);
+  
 
   return (
     <MainPageWrapper>
