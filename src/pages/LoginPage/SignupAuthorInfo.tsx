@@ -93,7 +93,6 @@ function SignupAuthorInfo() {
           <Dash>~</Dash>
           <InfoInput type="time" {...register('workEndTime', { required: true })} />
         </InputContainer>
-        {/* <OfficeHourInput /> */}
         <span>{errors?.workStartTime?.message}</span>
         <label>공방 전화번호</label>
         <Input
