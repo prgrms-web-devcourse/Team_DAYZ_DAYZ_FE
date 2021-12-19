@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { navigationState, userState } from '../../atoms';
+import { setSessionStorageItem } from '../../utils/functions';
 const RedirectPageAfterKakao = () => {
   const setNavigationState = useSetRecoilState(navigationState);
   const resetPageState = useResetRecoilState(navigationState);
@@ -23,6 +24,7 @@ const RedirectPageAfterKakao = () => {
     const role = searchParams.get('auth');
     const token = searchParams.get('token') ?? '';
     setUserState((oldUserState) => ({ ...oldUserState, token }));
+    setSessionStorageItem('token', token);
     switch (role) {
       case 'ROLE_USER':
         isFillAddressInfo ? history.push('/') : history.push(PATH_CHECK_LOCATION);

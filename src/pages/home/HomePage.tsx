@@ -16,7 +16,7 @@ import { fetchUser } from '../../utils/api/dayzApi';
 const HomePage = () => {
   const setModalState = useSetRecoilState(modalState);
   const resetModalState = useResetRecoilState(modalState);
-  const [user, setUser] = useRecoilState(userState);
+  // const [user, setUser] = useRecoilState(userState);
   useEffect(() => {
     setModalState(() => ({
       modalView: true,
@@ -26,11 +26,11 @@ const HomePage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    fetchUser(user.token).then((newUser) => newUser && setUser(newUser));
-  }, []);
-  //확인용으로 남겨두었습니다
-  console.log(user);
+  // useEffect(() => {
+  //   fetchUser(user.token).then((newUser) => newUser && setUser(newUser));
+  // }, []);
+  // //확인용으로 남겨두었습니다
+  // console.log(user);
   return (
     <MainPageWrapper>
       <Container>

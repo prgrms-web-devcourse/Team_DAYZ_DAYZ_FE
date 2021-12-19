@@ -18,7 +18,7 @@ export const userState = atom<IUser>({
   },
 });
 
-export const authUserState = atom<boolean | null>({
+export const authUserState = atom<boolean>({
   key: 'authUserState',
-  default: null,
+  default: false,
 });

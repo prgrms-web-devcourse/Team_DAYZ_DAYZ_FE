@@ -1,4 +1,4 @@
-export const getSessionStorageItem = (key: string | undefined, initialState: unknown) => {
+export const getSessionStorageItem = (key: string | undefined, initialState: string): string => {
   try {
     const item = sessionStorage.getItem(key as string);
     return item ? JSON.parse(item) : initialState;

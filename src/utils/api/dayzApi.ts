@@ -23,7 +23,7 @@ export const something = ({ email, password }: Email) => {
   });
 };
 
-export const checkAuthorizationUser = ({ token }: Token) => {
+export const checkAuthorizationUser = (token: string) => {
   return request({
     method: API_METHOD.GET,
     url: '/api/v1/members/info',
