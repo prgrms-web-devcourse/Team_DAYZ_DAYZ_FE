@@ -119,6 +119,7 @@ export const searchClasses = ({ keyword, pageIndex, pageSize, sort, token }: sea
   });
 };
 
+<<<<<<< HEAD
 export const fetchUser = async (token: string): Promise<IUser | null> => {
   try {
     const res = await request({
@@ -133,4 +134,14 @@ export const fetchUser = async (token: string): Promise<IUser | null> => {
     console.log(error);
     return null;
   }
+=======
+export const getPopularClasses = (token: string) => {
+  return request({
+    method: API_METHOD.GET,
+    url: '/api/v1/classes/popular',
+    headers: {
+      Authorization: token,
+    },
+  });
+>>>>>>> de6e90b (Feat: 인기클래스 조회 api 붙임)
 };

@@ -1,12 +1,22 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react';
+=======
+import React, { useEffect, useState } from 'react';
+>>>>>>> de6e90b (Feat: 인기클래스 조회 api 붙임)
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { Image } from '../../components/base';
 import { categoryIcons } from '../../constants/categoryItems';
 import { DUMMY_NEW_ATELIER_DATA, DUMMY_POPULAR_DATA } from './DUMMY_DATA';
+<<<<<<< HEAD
 import { modalState, userState } from '../../atoms';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { fetchUser } from '../../utils/api/dayzApi';
+=======
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms';
+import { getPopularClasses } from '../../utils/api/dayzApi';
+>>>>>>> de6e90b (Feat: 인기클래스 조회 api 붙임)
 
 // 1. 카테고리 목록 조회 https://backend-devcourse.notion.site/d1a5d88893d642a48e169f5ccc10cc7c
 // 2. 금주의 인기 클래스 조회 https://backend-devcourse.notion.site/66ebc05aa398421dbf463023b8a9224f
@@ -14,6 +24,7 @@ import { fetchUser } from '../../utils/api/dayzApi';
 // 동기 처리하면 DUMMY_DATA는 삭제
 
 const HomePage = () => {
+<<<<<<< HEAD
   const setModalState = useSetRecoilState(modalState);
   const resetModalState = useResetRecoilState(modalState);
   const [user, setUser] = useRecoilState(userState);
@@ -31,6 +42,23 @@ const HomePage = () => {
   }, []);
   //확인용으로 남겨두었습니다
   console.log(user);
+=======
+  const userInfo = useRecoilValue(userState);
+  const token = userInfo.token;
+  const [popularClassesData, setPopularClassesData] = useState<any | ''>([]);
+
+  useEffect(() => {
+    async function popularClasses(token: string) {
+      return await getPopularClasses(token).then((response) =>
+        setPopularClassesData([...response.data.data.oneDayClasses]),
+      );
+    }
+    popularClasses(token);
+  }, []);
+  console.log(Array.isArray(popularClassesData));
+  console.log(popularClassesData);
+
+>>>>>>> de6e90b (Feat: 인기클래스 조회 api 붙임)
   return (
     <MainPageWrapper>
       <Container>
@@ -59,8 +87,8 @@ const HomePage = () => {
         <BestClassesWrapper>
           <Title>금주의 인기 클래스</Title>
           <BestClassItemWrapper>
-            {DUMMY_POPULAR_DATA.classes.length ? (
-              DUMMY_POPULAR_DATA.classes.map(({ classId, name, imageUrl, intro }) => (
+            {popularClassesData.length ? (
+              popularClassesData?.map(({ classId, name, imageUrl, intro }: any) => (
                 <Link to={`/products/${classId}`} key={classId}>
                   <BestClassesItem>
                     <Image
