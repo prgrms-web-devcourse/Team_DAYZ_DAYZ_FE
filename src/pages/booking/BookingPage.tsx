@@ -1,47 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router-dom';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../style/calendar.css';
 import { GoBack } from '../../components/domain';
 import { Button, Text } from '../../components/base';
-import { Link } from 'react-router-dom';
+import { DUMMY_PRICE_DATA, Dummy_TIME_Data, DUMMY_TOTAL_PEOPLE } from './DUMMY_DATA';
+import { convertFullDate } from '../../utils/functions';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { navigationState } from '../../atoms';
 
 // <Route path="/booking/:id" exact component={BookingPage} />
 
-type Data = { time: string; available: number };
-
-const totalPeople = 5;
-
-const Dummy_Data: Data[] = [
-  {
-    time: '09:00 - 10:00',
-    available: 3,
-  },
-  {
-    time: '11:00 - 12:00',
-    available: 2,
-  },
-  {
-    time: '14:00 - 16:00',
-    available: 0,
-  },
-
-  {
-    time: '13:00 - 14:00',
-    available: 1,
-  },
-  {
-    time: '16:00 - 17:00',
-    available: 5,
-  },
-];
 const BookingPage = () => {
+  const history = useHistory();
   const [date, setDate] = useState(new Date());
   const { id } = useParams<{ id: string }>();
   // state에 시간과 비어있는 인원값이 들어가야한다.
   const [pickState, setPickState] = useState<string[]>([]);
+  const [people, setPeople] = useState<number>(0);
+  const setNavState = useSetRecoilState(navigationState);
+  const resetNavState = useResetRecoilState(navigationState);
+  useEffect(() => {
+    setNavState((prev) => ({
+      ...prev,
+      bottomNavigation: false,
+    }));
+    return () => {
+      resetNavState();
+    };
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
     const target: string = e.target.value;
@@ -53,10 +42,21 @@ const BookingPage = () => {
   };
 
   useEffect(() => {
-    // date가 바끨때마다 호출 해야함.
-    console.log(date);
     setPickState([]);
   }, [date]);
+  const handlePeopleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPeople(+e.target.value);
+  };
+  const handleClick = () => {
+    // 결제 상품, 예약 날짜, 결제 금액, 결제 날짜
+    if (people && pickState.length) {
+      history.push('/booking/success', {
+        date: convertFullDate(date) + ' ' + ' ' + pickState[0],
+        name: '도자기만들기',
+        price: DUMMY_PRICE_DATA.price * people,
+      });
+    }
+  };
 
   return (
     <>
@@ -69,7 +69,7 @@ const BookingPage = () => {
           minDate={new Date()}
         />
         <Wrapper onChange={handleChange}>
-          {Dummy_Data.map(({ time, available }) => (
+          {Dummy_TIME_Data.map(({ time, available }) => (
             <ToggleContainer key={time}>
               <Input
                 type="checkbox"
@@ -81,7 +81,7 @@ const BookingPage = () => {
                 <div>{available ? '모집중' : '마감'}</div>
                 <div>{time}</div>
                 <div>
-                  {available}/{totalPeople}명
+                  {available}/{DUMMY_TOTAL_PEOPLE.maxPeople}명
                 </div>
               </StyledDiv>
             </ToggleContainer>
@@ -91,18 +91,26 @@ const BookingPage = () => {
 
       {pickState.length ? (
         <DataWrapper>
-          {date.toLocaleDateString()} {pickState}
-          <input type="number" min={1} max={3} />
+          <div>{date.toLocaleDateString()}</div>
+          <br />
+          {pickState}
+          <StyledInput
+            type="number"
+            min={1}
+            max={DUMMY_TOTAL_PEOPLE.maxPeople}
+            onChange={handlePeopleChange}
+          />
+          명
         </DataWrapper>
       ) : (
         ''
       )}
 
       <ReservationContainer>
-        <HeaderText>45,000</HeaderText>
-        <Link to={`/booking/success`} style={{ textDecoration: 'none' }}>
-          <ReservationButton type="button">결제하기</ReservationButton>
-        </Link>
+        <HeaderText>{DUMMY_PRICE_DATA.price}원</HeaderText>
+        <ReservationButton type="button" onClick={handleClick}>
+          결제하기
+        </ReservationButton>
       </ReservationContainer>
     </>
   );
@@ -158,8 +166,8 @@ const StyledDiv = styled.div`
 `;
 
 const DataWrapper = styled.div`
-  margin-top: 10px;
-  font-size: 25px;
+  margin-top: 30px;
+  font-size: 23px;
   text-align: center;
 `;
 
@@ -173,13 +181,20 @@ const ReservationContainer = styled.div`
   width: 100%;
   max-width: 640px;
   display: flex;
-  bottom: ${(props) => props.theme.height.bottomHeight};
-  background-color: #aaa;
+  bottom: 0;
+  background-color: #eee;
   z-index: 100;
   display: flex;
   justify-content: space-around;
   align-items: center;
 `;
+
+const StyledInput = styled.input`
+  margin-left: 20px;
+  margin-bottom: 10px;
+  border: 2px solid;
+`;
+
 const ReservationButton = styled(Button)`
   height: 56px;
   width: 174px;

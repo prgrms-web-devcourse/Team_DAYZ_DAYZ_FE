@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useMemo, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValueLoadable } from 'recoil';
 import { ErrorMessage } from '..';
 import { locationState, userState } from '../../../atoms';
@@ -26,10 +27,10 @@ interface Props {
 }
 
 const LocationSetting = ({ setVisible }: Props) => {
+  const history = useHistory();
   const [pickState, setPickState] = useState<string | ''>('');
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [errorMessage, setErrorMessage] = useState('');
-
   const { state, contents } = useRecoilValueLoadable(locationState);
   const locationList: LocationType[] = useMemo(() => {
     if (state === 'hasValue') {
@@ -62,6 +63,7 @@ const LocationSetting = ({ setVisible }: Props) => {
         regionName,
       }));
       setVisible(false);
+      history.push('/');
       Toast.show('성공적으로 변경되었습니다.', 2000);
     } catch (e: any) {
       Toast.show(e.message);

@@ -13,7 +13,7 @@ const CategoryPage = () => {
   const resetModalState = useResetRecoilState(modalState);
   useEffect(() => {
     setModalState(() => ({
-      modalView: false,
+      modalView: true,
     }));
     return () => {
       resetModalState();
