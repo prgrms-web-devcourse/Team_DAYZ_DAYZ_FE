@@ -7,7 +7,6 @@ import { DUMMY_NEW_ATELIER_DATA, DUMMY_POPULAR_DATA } from './DUMMY_DATA';
 
 import { modalState, userState } from '../../atoms';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
-import { fetchUser } from '../../utils/api/dayzApi';
 
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms';
@@ -240,6 +239,8 @@ const NewClassesItemWrapper = styled.div`
 `;
 const NewClassesItem = styled.div`
   position: relative;
+  width: 182px;
+  height: 182px;
 `;
 const NewClassesTitle = styled.div`
   position: absolute;

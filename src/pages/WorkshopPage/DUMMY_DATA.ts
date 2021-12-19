@@ -16,22 +16,22 @@ export const DUMMY_FEED_DATA = {
   hasNext: true,
   post: [
     {
-      postId: 0,
+      postId: 1,
       imageUrl: 'https://i.pinimg.com/564x/4c/f4/fd/4cf4fd239962a89e05b455b7fe031ba9.jpg',
       createdAt: '',
     },
     {
-      postId: 1,
+      postId: 2,
       imageUrl: 'https://i.pinimg.com/736x/07/b3/03/07b3030911e4b14b38c15868c6b443d4.jpg',
       createdAt: '',
     },
     {
-      postId: 2,
+      postId: 3,
       imageUrl: 'https://i.pinimg.com/564x/07/b9/90/07b9901d8c3579c98de1a2f12ab3b7b8.jpg',
       createdAt: '',
     },
     {
-      postId: 3,
+      postId: 4,
       imageUrl: 'https://i.pinimg.com/736x/56/f6/ef/56f6ef016dc85b56f53ba31143292445.jpg',
       createdAt: '',
     },
@@ -44,25 +44,25 @@ export const DUMMY_CLASS_DATA = {
   pageIndex: 0,
   oneDayClass: [
     {
-      classId: 0,
+      classId: 1,
       name: '네온싸인 무드등 만들기',
       intro: '네온싸인 무드등 만들기 클래스 입니다~!',
       imageUrl: 'https://i.pinimg.com/564x/be/a9/c2/bea9c2a76982db5659f7f20c1bf58a7d.jpg',
     },
     {
-      classId: 1,
+      classId: 2,
       name: '나만의 도자기 만들기',
       intro: '도자기 클래스 입니다~!',
       imageUrl: 'https://i.pinimg.com/564x/4c/f4/fd/4cf4fd239962a89e05b455b7fe031ba9.jpg',
     },
     {
-      classId: 2,
+      classId: 3,
       name: '네온싸인 무드등 만들기',
       intro: '네온싸인 무드등 만들기 클래스 입니다~!',
       imageUrl: 'https://i.pinimg.com/564x/d8/50/65/d850650e500684c42ffc423fc59212f7.jpg',
     },
     {
-      classId: 3,
+      classId: 4,
       name: '나만의 술잔 만들기',
       intro: '도예 클래스 입니다~!',
       imageUrl: 'https://via.placeholder.com/150',
