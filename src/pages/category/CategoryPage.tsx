@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { GoBack } from '../../components/domain';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { modalState, navigationState } from '../../atoms';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { modalState, userState } from '../../atoms';
+import { getCategoryClasses } from '../../utils/api/dayzApi';
 
 const CategoryPage = () => {
   const { genre } = useParams<{ genre: string }>();
-
+  const user = useRecoilValue(userState);
   const setModalState = useSetRecoilState(modalState);
   const resetModalState = useResetRecoilState(modalState);
   useEffect(() => {
@@ -19,18 +20,13 @@ const CategoryPage = () => {
       resetModalState();
     };
   }, []);
-  const setNavigationState = useSetRecoilState(navigationState);
-  const resetPageState = useResetRecoilState(navigationState);
-  useEffect(() => {
-    setNavigationState((prev) => ({
-      ...prev,
-      bottomNavigation: false,
-    }));
-    return () => {
-      resetPageState();
-    };
+  const getAsyncCategoryClasses = useCallback(async () => {
+    const response = await getCategoryClasses({ categoryId: +genre, token: user.token });
+    console.log(response);
   }, []);
-
+  useEffect(() => {
+    getAsyncCategoryClasses();
+  }, []);
   return (
     <CategoryPageWrapper>
       <GoBack to={'/'}>메인 화면으로 돌아가기</GoBack>
