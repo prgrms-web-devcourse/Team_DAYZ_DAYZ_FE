@@ -13,7 +13,7 @@ import { Star } from 'react-feather';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { modalState, navigationState, userState } from '../../atoms';
 import { fetchProductById } from '../../utils/api/dayzApi';
-import { PRODUCT_DUMMY as PRODUCT_DUMMY } from './DUMMY_DATA';
+import Loader from 'react-loader-spinner';
 
 interface Image {
   imageUrl: string;
@@ -52,7 +52,8 @@ const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { token } = useRecoilValue(userState);
   const [visible, setVisible] = useState(false);
-  const [productData, setProductData] = useState<ProductProps>(PRODUCT_DUMMY);
+  const [productData, setProductData] = useState<ProductProps>();
+  const [isLoading, setIsLoading] = useState(productData == null);
   const history = useHistory();
   const setModalState = useSetRecoilState(modalState);
   const resetModalState = useResetRecoilState(modalState);
@@ -70,6 +71,7 @@ const ProductsDetailPage = () => {
     fetchProductById(token, +id).then((res) => {
       console.log(res.data);
       setProductData(res.data);
+      setIsLoading(false);
     });
     return () => {
       resetModalState();
@@ -84,14 +86,16 @@ const ProductsDetailPage = () => {
       price: 12000,
     });
   };
-  return (
+  return isLoading ? (
+    <Loader type="Oval" color="#B88BD6" height={80} width={80} />
+  ) : (
     <>
       <Flicking align="prev" circular={false} plugins={[new Pagination({ type: 'bullet' })]}>
-        {productData.images.map((url) => (
+        {productData?.images.map((url) => (
           <img key={url.sequence} style={{ width: '100%', height: '250px' }} src={url.imageUrl} />
         ))}
         <ViewportSlot>
-          {productData.images.length > 1 ? (
+          {productData!.images!.length ?? 0 > 1 ? (
             <div className="flicking-pagination" />
           ) : (
             <div className="flicking-pagination" style={{ display: 'none' }} />
@@ -100,19 +104,19 @@ const ProductsDetailPage = () => {
       </Flicking>
       <ProductsDetailContainer>
         <ProductNameWrapper>
-          <Text style={{ fontSize: 30, fontWeight: 800 }}>{productData.name}</Text>
+          <Text style={{ fontSize: 30, fontWeight: 800 }}>{productData?.name}</Text>
           <RatingWrapper>
             <Star size={16} style={{ paddingBottom: '5px' }} />
-            <div style={{ paddingLeft: '5px' }}>{productData.avgScore}</div>
+            <div style={{ paddingLeft: '5px' }}>{productData?.avgScore}</div>
           </RatingWrapper>
         </ProductNameWrapper>
         <ProductContentWrapper>
           <HeaderText>클래스 소개</HeaderText>
-          <ContentWrapper> {productData.intro}</ContentWrapper>
+          <ContentWrapper> {productData?.intro}</ContentWrapper>
         </ProductContentWrapper>
         <ProductContentWrapper>
           <HeaderText>커리큘럼</HeaderText>
-          {productData.curriculums.map((curricurum, i) => (
+          {productData?.curriculums.map((curricurum, i) => (
             <ContentWrapper key={curricurum.curricurumId}>
               <Bullet
                 style={{
@@ -139,14 +143,14 @@ const ProductsDetailPage = () => {
       <AuthorDetailContainer>
         <HeaderText>작가 정보</HeaderText>
         <AteliarInformation
-          profileImg={productData.atelier.imageUrl}
-          name={productData.atelier.name}
-          phoneNumber={productData.atelier.callNumber}
-          openTime={`${productData.atelier.startTime} ~ ${productData.atelier.endTime}`}
+          profileImg={productData?.atelier.imageUrl}
+          name={productData?.atelier.name}
+          phoneNumber={productData?.atelier.callNumber}
+          openTime={`${productData?.atelier.startTime} ~ ${productData?.atelier.endTime}`}
         />
       </AuthorDetailContainer>
       <ReservationContainer>
-        <HeaderText>{productData.price.toLocaleString()}원</HeaderText>
+        <HeaderText>{productData?.price.toLocaleString()}원</HeaderText>
         <ReservationButton type="button" onClick={handleClick}>
           예약하기
         </ReservationButton>
