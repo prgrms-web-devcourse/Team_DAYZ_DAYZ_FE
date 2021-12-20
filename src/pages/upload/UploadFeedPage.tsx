@@ -93,6 +93,7 @@ const UploadFeedPage = () => {
 
 const StyledForm = styled.form`
   padding-bottom: ${(props) => props.theme.height.bottomHeight};
+  margin: 0 20px;
 `;
 
 const TextWrapper = styled.div`
@@ -124,10 +125,17 @@ const InputSelect = styled.select`
 `;
 
 const SubmitButton = styled(Button)`
-  width: 100%;
+  width: 200px;
   max-width: 640px;
   height: 65px;
   position: fixed;
+  margin: 10px auto;
+  left: 0;
+  right: 0;
+  border-radius: 16px;
+  color: #f5f5f5;
+  font-weight: 600;
+  font-size: 20px;
   bottom: ${(props) => props.theme.height.bottomHeight};
 `;
 

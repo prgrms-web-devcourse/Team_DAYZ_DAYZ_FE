@@ -59,6 +59,7 @@ const CategoryPage = () => {
                         height={182}
                         alt="class"
                         mode="fill"
+                        style={{ borderRadius: '16px' }}
                         placeholder="https://via.placeholder.com/150"
                       />
                     </div>
