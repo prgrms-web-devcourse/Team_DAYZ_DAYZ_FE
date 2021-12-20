@@ -40,7 +40,9 @@ const ReviewListPage = () => {
                       <StyledText>{name}</StyledText>
                       <StyledText>{createdAt}</StyledText>
                     </AteliarDetailWrapper>
-                    <ScoreWrapper>별이 {score}</ScoreWrapper>
+                    <ScoreWrapper>
+                      <Star size={18} /> {score}
+                    </ScoreWrapper>
                   </AteliarWrapper>
                   <ContentWrapper>{content}</ContentWrapper>
                   <ImageContainer>

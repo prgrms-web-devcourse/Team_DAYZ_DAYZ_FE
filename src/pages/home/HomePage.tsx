@@ -4,22 +4,21 @@ import { Link } from 'react-router-dom';
 import { Image } from '../../components/base';
 import { categoryIcons } from '../../constants/categoryItems';
 import { DUMMY_NEW_ATELIER_DATA, DUMMY_POPULAR_DATA } from './DUMMY_DATA';
-
 import { modalState, userState } from '../../atoms';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
-import { fetchUser } from '../../utils/api/dayzApi';
-
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../atoms';
-
-import { getPopularClasses } from '../../utils/api/dayzApi';
 import { getAtelierLists, getPopularClasses } from '../../utils/api/dayzApi';
 
 // 1. 카테고리 목록 조회 https://backend-devcourse.notion.site/d1a5d88893d642a48e169f5ccc10cc7c
 // 2. 금주의 인기 클래스 조회 https://backend-devcourse.notion.site/66ebc05aa398421dbf463023b8a9224f
 // 3. 공방 목록 조회 https://backend-devcourse.notion.site/6c1b449c3ae846a88f262fc67f25a281
 // 동기 처리하면 DUMMY_DATA는 삭제
-
+interface Atelier {
+  atelierId: number;
+  imageUrl: string;
+  intro: string;
+  name: string;
+}
 const HomePage = () => {
   const setModalState = useSetRecoilState(modalState);
   const resetModalState = useResetRecoilState(modalState);
@@ -32,15 +31,10 @@ const HomePage = () => {
     };
   }, []);
 
-
-  useEffect(() => {
-    fetchUser(user.token).then((newUser) => newUser && setUser(newUser));
-  }, []);
-  //확인용으로 남겨두었습니다
-  console.log(user);
   const userInfo = useRecoilValue(userState);
   const { token, cityId, regionId } = userInfo;
   const [popularClassesData, setPopularClassesData] = useState<any | ''>([]);
+  const [newAtelierData, setNewAtelierData] = useState<any>([]);
 
   useEffect(() => {
     async function popularClasses(token: string) {
@@ -49,12 +43,14 @@ const HomePage = () => {
       );
     }
     async function recentAtelier(token: string) {
-      return await getAtelierLists(token).then((response) => console.log(response));
+      return await getAtelierLists(token).then((response) => {
+        setNewAtelierData([...response.data.data.list]);
+        console.log(response.data);
+      });
     }
     popularClasses(token);
     recentAtelier(token);
   }, []);
-  
 
   return (
     <MainPageWrapper>
@@ -66,10 +62,10 @@ const HomePage = () => {
         </SearchBarWrapper>
 
         <CategoryWrapper>
-          {categoryIcons.map(({ genre, Icon, contents }) => (
+          {categoryIcons.map(({ categoryId, genre, Icon, contents }) => (
             <Link
-              to={`/category/${genre}`}
-              key={genre}
+              to={`/category/${categoryId}`}
+              key={categoryId}
               style={{
                 textDecoration: 'none',
               }}
@@ -111,8 +107,8 @@ const HomePage = () => {
         <NewClassesWrapper>
           <Title>신규 공방</Title>
           <NewClassesItemWrapper>
-            {DUMMY_NEW_ATELIER_DATA.ateliers.length ? (
-              DUMMY_NEW_ATELIER_DATA.ateliers.map(({ atelierId, name, imageUrl, intro }) => (
+            {newAtelierData.length ? (
+              newAtelierData.map(({ atelierId, name, imageUrl, intro }: Atelier) => (
                 <Link to={`/workshop/${atelierId}`} key={atelierId}>
                   <NewClassesItem>
                     <Image
@@ -240,6 +236,8 @@ const NewClassesItemWrapper = styled.div`
 `;
 const NewClassesItem = styled.div`
   position: relative;
+  width: 182px;
+  height: 182px;
 `;
 const NewClassesTitle = styled.div`
   position: absolute;

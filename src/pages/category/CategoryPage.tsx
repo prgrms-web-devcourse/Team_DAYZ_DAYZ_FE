@@ -1,16 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { GoBack } from '../../components/domain';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { modalState, navigationState } from '../../atoms';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { modalState, userState } from '../../atoms';
+import { getCategoryClasses } from '../../utils/api/dayzApi';
+import { Image } from '../../components/base';
+
+interface CategoryClassType {
+  classId: number;
+  imageUrl: string;
+  intro: string;
+  name: string;
+}
 
 const CategoryPage = () => {
   const { genre } = useParams<{ genre: string }>();
-
+  const user = useRecoilValue(userState);
   const setModalState = useSetRecoilState(modalState);
   const resetModalState = useResetRecoilState(modalState);
+  const [categoryClassData, setCategoryClassData] = useState<any>([]);
   useEffect(() => {
     setModalState(() => ({
       modalView: true,
@@ -19,18 +29,16 @@ const CategoryPage = () => {
       resetModalState();
     };
   }, []);
-  const setNavigationState = useSetRecoilState(navigationState);
-  const resetPageState = useResetRecoilState(navigationState);
-  useEffect(() => {
-    setNavigationState((prev) => ({
-      ...prev,
-      bottomNavigation: false,
-    }));
-    return () => {
-      resetPageState();
-    };
+  const getAsyncCategoryClasses = useCallback(async () => {
+    const response = await getCategoryClasses({ categoryId: +genre, token: user.token });
+    if (response.status === 200) {
+      setCategoryClassData([...response.data.data.list]);
+    }
   }, []);
-
+  useEffect(() => {
+    getAsyncCategoryClasses();
+  }, []);
+  console.log(categoryClassData);
   return (
     <CategoryPageWrapper>
       <GoBack to={'/'}>메인 화면으로 돌아가기</GoBack>
@@ -39,15 +47,29 @@ const CategoryPage = () => {
         <ResultsCategoryTitle>{genre} 전체</ResultsCategoryTitle>
         <ProductResultsWrapper>
           <ProductResultsItemWrapper>
-            <Link to="/products/:id" style={{ textDecoration: 'none' }}>
-              <ProductItem>
-                <ProductImg />
-                <ProductTitle>희진공방어쩌구</ProductTitle>
-                <ProductContent>
-                  크리스마스 어쩌구 저쩌구크리스마스 어쩌구 저쩌구크리스마스 어쩌구 저쩌구
-                </ProductContent>
-              </ProductItem>
-            </Link>
+            {categoryClassData.length ? (
+              categoryClassData.map(({ classId, imageUrl, intro, name }: CategoryClassType) => (
+                <Link key={classId} to={`/products/${classId}`} style={{ textDecoration: 'none' }}>
+                  <ProductItem>
+                    <div>
+                      <Image
+                        lazy
+                        width={'100%'}
+                        src={imageUrl}
+                        height={182}
+                        alt="class"
+                        mode="fill"
+                        placeholder="https://via.placeholder.com/150"
+                      />
+                    </div>
+                    <ProductTitle>{name}</ProductTitle>
+                    <ProductContent>{intro}</ProductContent>
+                  </ProductItem>
+                </Link>
+              ))
+            ) : (
+              <div>아직 클래스가 없어요 ㅠ </div>
+            )}
           </ProductResultsItemWrapper>
         </ProductResultsWrapper>
       </ResultsCategory>
@@ -83,12 +105,7 @@ const ProductResultsItemWrapper = styled.div`
 const ProductItem = styled.div`
   position: relative;
 `;
-const ProductImg = styled.div`
-  width: 100%;
-  padding-top: 100%;
-  border-radius: 16px;
-  background-color: grey;
-`;
+const ProductImg = styled.div``;
 const ProductTitle = styled.h6`
   font-size: 20px;
   font-weight: 600;

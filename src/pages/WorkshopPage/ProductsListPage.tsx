@@ -4,10 +4,14 @@ import { LinkBox } from '../../components/domain';
 import { Plus } from 'react-feather';
 import styled from '@emotion/styled';
 import { DUMMY_CLASS_DATA } from './DUMMY_DATA';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms';
 
 // 1. 클래스 목록 조회 https://backend-devcourse.notion.site/cbf7db08c6ae437b904d594dc92a8219
 
 const ProductsListPage = () => {
+  const user = useRecoilValue(userState);
+
   const { totalCount, oneDayClass } = DUMMY_CLASS_DATA;
   return (
     <ProductsListContainer>
@@ -25,15 +29,17 @@ const ProductsListPage = () => {
         <div>아직 클래스가 없습니다</div>
       )}
 
-      <Link to="/upload/products">
-        <ProductAdd>
-          <Plus size={50} style={{ color: '#f5f5f5' }} />
-        </ProductAdd>
-        <Balloon>
-          버튼을 눌러 <br />
-          클래스를 추가하세요!
-        </Balloon>
-      </Link>
+      {user.auth === 'ROLE_ATELIER' && (
+        <Link to="/upload/products">
+          <ProductAdd>
+            <Plus size={50} style={{ color: '#f5f5f5' }} />
+          </ProductAdd>
+          <Balloon>
+            버튼을 눌러 <br />
+            클래스를 추가하세요!
+          </Balloon>
+        </Link>
+      )}
     </ProductsListContainer>
   );
 };

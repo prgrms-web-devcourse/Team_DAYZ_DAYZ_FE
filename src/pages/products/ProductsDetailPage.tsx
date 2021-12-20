@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { Link, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Button, Text } from '../../components/base';
 import { AteliarInformation, SimpleReview } from '../../components/domain';
 import ReviewModal from './ReviewModal';
@@ -18,6 +18,7 @@ const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const [visible, setVisible] = useState(false);
   const { data } = CLASS_DUMMY;
+  const history = useHistory();
   // 여기서 id 값으로 데이터를 불러온다. api
   // 현재 context안에는 공방인지 유저인지 데이터가 담겨져 있어야 한다.
   // id를 조회하면 class 소개, 별점, 후기, author 항목이 조회가 되어야함.
@@ -31,6 +32,14 @@ const ProductsDetailPage = () => {
       resetModalState();
     };
   }, []);
+
+  const handleClick = () => {
+    history.push(`/booking/${id}`, {
+      name: '나만의 도자기 만들기',
+      maxPeopleNumber: 5,
+      price: 12000,
+    });
+  };
   return (
     <>
       <Flicking align="prev" circular={false} plugins={[new Pagination({ type: 'bullet' })]}>
@@ -106,9 +115,10 @@ const ProductsDetailPage = () => {
 
       <ReservationContainer>
         <HeaderText>{data.price.toLocaleString()}원</HeaderText>
-        <Link to={`/booking/${id}`} style={{ textDecoration: 'none' }}>
-          <ReservationButton type="button">예약하기</ReservationButton>
-        </Link>
+
+        <ReservationButton type="button" onClick={handleClick}>
+          예약하기
+        </ReservationButton>
       </ReservationContainer>
 
       <ReviewModal visible={visible} setVisible={setVisible} />

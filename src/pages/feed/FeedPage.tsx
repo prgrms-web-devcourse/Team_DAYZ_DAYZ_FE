@@ -16,12 +16,11 @@ const FeedPage = () => {
       post: [
         {
           postId: 1,
-          content: '오늘도 나는 춤을 춘ㄷr..',
+          content: '구경하세요~~~~',
           createdAt: '2021-12-11',
           images: [
             {
-              imageUrl:
-                'https://item.kakaocdn.net/do/58119590d6204ebd70e97763ca933baf8f324a0b9c48f77dbce3a43bd11ce785',
+              imageUrl: 'https://i.pinimg.com/750x/47/e2/2c/47e22cc957f2af32134045cde0d08fdc.jpg',
               sequence: 1,
             },
             {
@@ -37,9 +36,8 @@ const FeedPage = () => {
           ],
           classId: 1,
           atelierId: 1,
-          name: '방탄공방',
-          imageUrl:
-            'https://item.kakaocdn.net/do/a1866850b14ae47d0a2fd61f409dfc057154249a3890514a43687a85e6b6cc82',
+          name: '그렙 공방',
+          imageUrl: 'https://i.pinimg.com/750x/2b/6d/f0/2b6df004a324e4f303154d5e151753c7.jpg',
         },
         {
           postId: 2,
@@ -47,16 +45,14 @@ const FeedPage = () => {
           createdAt: '2021-12-10',
           images: [
             {
-              imageUrl:
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdC_mryUxAP08dKKwSw9_Xz1x8PC4g1uM6FQ&usqp=CAU',
+              imageUrl: 'https://i.pinimg.com/564x/2a/00/6d/2a006db418ff01763363f20f1c5106e0.jpg',
               sequence: 1,
             },
           ],
           classId: 2,
           atelierId: 2,
-          name: '뽀드득',
-          imageUrl:
-            'https://img.insight.co.kr/static/2021/01/10/700/img_20210110130830_kue82l80.webp',
+          name: '프로그래머스',
+          imageUrl: 'https://i.pinimg.com/564x/05/68/a4/0568a42af304f9a1f129a272ef9cd1ec.jpg',
         },
         {
           postId: 3,
@@ -201,6 +197,7 @@ const FeedImgWrapper = styled.div`
   width: 100%;
   overflow-x: scroll;
   position: relative;
+  height: 350px;
   & {
     -ms-overflow-style: none;
     scrollbar-width: none;

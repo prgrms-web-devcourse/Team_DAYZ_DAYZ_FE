@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../style/calendar.css';
@@ -8,21 +8,39 @@ import { GoBack } from '../../components/domain';
 import { Button, Text } from '../../components/base';
 import { DUMMY_PRICE_DATA, Dummy_TIME_Data, DUMMY_TOTAL_PEOPLE } from './DUMMY_DATA';
 import { convertFullDate } from '../../utils/functions';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { navigationState } from '../../atoms';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { navigationState, userState } from '../../atoms';
+import { getClassTimes, setReservations } from '../../utils/api/dayzApi';
 
-// <Route path="/booking/:id" exact component={BookingPage} />
+interface ClassTimes {
+  classTimeId: number;
+  currentPeopleNumber: number;
+  endTime: string;
+  startTime: string;
+  status: boolean;
+}
+interface StateTypes {
+  name: string;
+  maxPeopleNumber: number;
+  price: number;
+}
 
 const BookingPage = () => {
   const history = useHistory();
+  const location = useLocation();
+  const state = location.state as StateTypes;
   const [date, setDate] = useState(new Date());
   const { id } = useParams<{ id: string }>();
-  // state에 시간과 비어있는 인원값이 들어가야한다.
-  const [pickState, setPickState] = useState<string[]>([]);
+  const [classTimes, setClassTimes] = useState<any>([]);
+  const [pickState, setPickState] = useState<number | undefined>(undefined);
   const [people, setPeople] = useState<number>(0);
+  const user = useRecoilValue(userState);
   const setNavState = useSetRecoilState(navigationState);
   const resetNavState = useResetRecoilState(navigationState);
   useEffect(() => {
+    // if (!state) {
+    //   history.replace('/');
+    // }
     setNavState((prev) => ({
       ...prev,
       bottomNavigation: false,
@@ -31,29 +49,50 @@ const BookingPage = () => {
       resetNavState();
     };
   }, []);
+  const getAsyncClasstimes = useCallback(async () => {
+    const response = await getClassTimes({
+      token: user.token,
+      classId: +id,
+      date: convertFullDate(date),
+    });
+    if (response.status === 200) {
+      setClassTimes([...response.data.data.classTimes]);
+    }
+  }, []);
+  useEffect(() => {
+    getAsyncClasstimes();
+    setPickState(0);
+  }, [date]);
 
   const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
-    const target: string = e.target.value;
-    if (!pickState?.includes(target)) {
-      setPickState([target]);
-    } else {
-      setPickState(pickState.filter((pick: string) => pick !== target));
-    }
+    const target: number = e.target.value;
+    setPickState(target);
+    console.log(e.target);
+    console.log(classTimes);
   };
+  // const filters = () => {
+  //   const a = classTimes.filter((class: ClassTimes) => class.classTimeId == pickState)
+  // };
 
-  useEffect(() => {
-    setPickState([]);
-  }, [date]);
   const handlePeopleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPeople(+e.target.value);
   };
-  const handleClick = () => {
+  const handleClick = async () => {
     // 결제 상품, 예약 날짜, 결제 금액, 결제 날짜
-    if (people && pickState.length) {
+    if (people && pickState) {
+      const response = await setReservations({
+        token: user.token,
+        price: state.price,
+        peopleNumber: people,
+        classTimeId: pickState,
+      });
+      console.log(response);
+
       history.push('/booking/success', {
-        date: convertFullDate(date) + ' ' + ' ' + pickState[0],
-        name: '도자기만들기',
-        price: DUMMY_PRICE_DATA.price * people,
+        date: convertFullDate(date),
+        name: state.name,
+        price: state.price * people,
+        classId: pickState,
       });
     }
   };
@@ -69,35 +108,37 @@ const BookingPage = () => {
           minDate={new Date()}
         />
         <Wrapper onChange={handleChange}>
-          {Dummy_TIME_Data.map(({ time, available }) => (
-            <ToggleContainer key={time}>
-              <Input
-                type="checkbox"
-                value={time}
-                disabled={available ? false : true}
-                checked={pickState?.includes(time)}
-              />
-              <StyledDiv>
-                <div>{available ? '모집중' : '마감'}</div>
-                <div>{time}</div>
-                <div>
-                  {available}/{DUMMY_TOTAL_PEOPLE.maxPeople}명
-                </div>
-              </StyledDiv>
-            </ToggleContainer>
-          ))}
+          {classTimes.map(
+            ({ classTimeId, currentPeopleNumber, endTime, startTime }: ClassTimes) => (
+              <ToggleContainer key={classTimeId}>
+                <Input
+                  type="checkbox"
+                  value={classTimeId}
+                  // disabled={available ? false : true}
+                  checked={pickState == classTimeId}
+                />
+                <StyledDiv>
+                  <div>모집중 </div>
+                  <div>
+                    {startTime} - {endTime}
+                  </div>
+                  <div>
+                    {state.maxPeopleNumber - currentPeopleNumber}/{state.maxPeopleNumber}명
+                  </div>
+                </StyledDiv>
+              </ToggleContainer>
+            ),
+          )}
         </Wrapper>
       </div>
 
-      {pickState.length ? (
+      {pickState ? (
         <DataWrapper>
-          <div>{date.toLocaleDateString()}</div>
-          <br />
-          {pickState}
+          {date.toLocaleDateString()}
           <StyledInput
             type="number"
             min={1}
-            max={DUMMY_TOTAL_PEOPLE.maxPeople}
+            max={state.maxPeopleNumber}
             onChange={handlePeopleChange}
           />
           명
@@ -107,7 +148,7 @@ const BookingPage = () => {
       )}
 
       <ReservationContainer>
-        <HeaderText>{DUMMY_PRICE_DATA.price}원</HeaderText>
+        <HeaderText>{state.price * (people ? people : 1)}원</HeaderText>
         <ReservationButton type="button" onClick={handleClick}>
           결제하기
         </ReservationButton>
@@ -151,8 +192,8 @@ const Input = styled.input`
 `;
 
 const StyledDiv = styled.div`
-  width: 19vw;
-  max-width: 90px;
+  width: 25vw;
+  max-width: 130px;
   height: 60px;
   font-size: 16px;
   font-weight: 500;

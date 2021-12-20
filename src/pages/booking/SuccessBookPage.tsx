@@ -11,6 +11,7 @@ interface Data {
   date: string;
   name: string;
   price: number;
+  classId: number;
 }
 
 const SuccessBookPage = () => {
@@ -19,7 +20,7 @@ const SuccessBookPage = () => {
   const [loading, setLoading] = useState(false);
   const date = new Date();
   const [data, setDate] = useState<any>({});
-
+  const state = location.state as Data;
   const setNavState = useSetRecoilState(navigationState);
   const resetNavState = useResetRecoilState(navigationState);
   useEffect(() => {
@@ -62,10 +63,10 @@ const SuccessBookPage = () => {
         <SuccessText>성공적으로 예약되었습니다!</SuccessText>
       </CheckedWrapper>
       <ContentsWrapper>
-        <StyledText>결제 상품 : {data.name}</StyledText>
-        <StyledText>예약 번호 : 123123123</StyledText>
-        <StyledText>예약 날짜 : {data.date}</StyledText>
-        <StyledText>결제 금액 : {data.price}원</StyledText>
+        <StyledText>결제 상품 : {state.name}</StyledText>
+        <StyledText>예약 번호 : 12499362</StyledText>
+        <StyledText>예약 날짜 : {state.date}</StyledText>
+        <StyledText>결제 금액 : {state.price}원</StyledText>
         <StyledText>결제 날짜 : {date.toLocaleString()}</StyledText>
       </ContentsWrapper>
       <ButtonWrapper>

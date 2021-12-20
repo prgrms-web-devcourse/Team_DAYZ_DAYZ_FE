@@ -34,6 +34,7 @@ const defaultValues = {
 // 빈 칸들 , { required: true } 처리, 에러처리
 // 처리 안한부분, imgList, 커리큘럼 부분(커리큘럼은 무조건 3개가 필수인지?)
 const UploadProductPage = () => {
+  const user = useRecoilValue(userState);
   /* 
     직접 접근을 막는 로직 구현해야함
     const { state } = useLocation(); 
@@ -56,7 +57,7 @@ const UploadProductPage = () => {
       const { categoryId, intro, maxPeopleNumber, name, price, step1, step2, step3 } = formData;
 
       const data = {
-        // aterilerId 가 들어가야함
+        aterilerId: user.atelierId,
         name,
         intro,
         categoryId,
