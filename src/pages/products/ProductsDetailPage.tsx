@@ -13,6 +13,7 @@ import { Star } from 'react-feather';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { modalState, navigationState, userState } from '../../atoms';
 import { fetchProductById } from '../../utils/api/dayzApi';
+import { PRODUCT_DUMMY as PRODUCT_DUMMY } from './DUMMY_DATA';
 
 interface Image {
   imageUrl: string;
@@ -35,7 +36,7 @@ interface Atelier {
   imageUrl: string;
 }
 
-interface ProductProps {
+export interface ProductProps {
   atelier: Atelier;
   avgScore: number;
   classId: number;
@@ -51,7 +52,7 @@ const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { token } = useRecoilValue(userState);
   const [visible, setVisible] = useState(false);
-  const [productData, setProductData] = useState<ProductProps>();
+  const [productData, setProductData] = useState<ProductProps>(PRODUCT_DUMMY);
   const history = useHistory();
   const setModalState = useSetRecoilState(modalState);
   const resetModalState = useResetRecoilState(modalState);
@@ -85,87 +86,72 @@ const ProductsDetailPage = () => {
   };
   return (
     <>
-      {
-        <>
-          <Flicking align="prev" circular={false} plugins={[new Pagination({ type: 'bullet' })]}>
-            {productData
-              ? productData.images.map((url) => (
-                  <img
-                    key={url.sequence}
-                    style={{ width: '100%', height: '250px' }}
-                    src={url.imageUrl}
-                  />
-                ))
-              : ''}
-            <ViewportSlot>
-              {productData?.images ? (
-                <div className="flicking-pagination" />
-              ) : (
-                <div className="flicking-pagination" style={{ display: 'none' }} />
-              )}
-            </ViewportSlot>
-          </Flicking>
-          <ProductsDetailContainer>
-            <ProductNameWrapper>
-              <Text style={{ fontSize: 30, fontWeight: 800 }}>{productData?.name}</Text>
-              <RatingWrapper>
-                <Star size={16} style={{ paddingBottom: '5px' }} />
-                <div style={{ paddingLeft: '5px' }}>{productData?.avgScore}</div>
-              </RatingWrapper>
-            </ProductNameWrapper>
-            <ProductContentWrapper>
-              <HeaderText>클래스 소개</HeaderText>
-              <ContentWrapper> {productData?.intro}</ContentWrapper>
-            </ProductContentWrapper>
-            <ProductContentWrapper>
-              <HeaderText>커리큘럼</HeaderText>
-              {productData?.curriculums.map((curricurum, i) => (
-                <ContentWrapper key={curricurum.curricurumId}>
-                  <Bullet
-                    style={{
-                      backgroundColor: `rgb(184, 139, 214, ${
-                        i / productData.curriculums.length + 0.4
-                      }`,
-                    }}
-                  />
-                  {curricurum.step}단계 {curricurum.content}
-                </ContentWrapper>
-              ))}
-            </ProductContentWrapper>
-          </ProductsDetailContainer>
-
-          <ProductReviewContainer>
-            <HeaderText>
-              후기<span>(999+)</span>
-            </HeaderText>
-            <SimpleReviewContainer>
-              <SimpleReview date={'2010-05-17'}>좋아요좋아요~</SimpleReview>
-              <SimpleReview date={'2010-03-08'}>좋아요좋아요~</SimpleReview>
-            </SimpleReviewContainer>
-            <MoreReviewWrapper>
-              <span onClick={() => setVisible(true)}>+ 후기 더보기</span>
-            </MoreReviewWrapper>
-          </ProductReviewContainer>
-
-          <AuthorDetailContainer>
-            <HeaderText>작가 정보</HeaderText>
-            <AteliarInformation
-              profileImg={productData?.atelier.imageUrl}
-              name={productData?.atelier.name}
-              phoneNumber={productData?.atelier.callNumber}
-              openTime={`${productData?.atelier.startTime} ~ ${productData?.atelier.endTime}`}
-            />
-          </AuthorDetailContainer>
-
-          <ReservationContainer>
-            <HeaderText>{productData?.price.toLocaleString()}원</HeaderText>
-            <ReservationButton type="button" onClick={handleClick}>
-              예약하기
-            </ReservationButton>
-          </ReservationContainer>
-          <ReviewModal visible={visible} setVisible={setVisible} />
-        </>
-      }
+      <Flicking align="prev" circular={false} plugins={[new Pagination({ type: 'bullet' })]}>
+        {productData.images.map((url) => (
+          <img key={url.sequence} style={{ width: '100%', height: '250px' }} src={url.imageUrl} />
+        ))}
+        <ViewportSlot>
+          {productData.images.length > 1 ? (
+            <div className="flicking-pagination" />
+          ) : (
+            <div className="flicking-pagination" style={{ display: 'none' }} />
+          )}
+        </ViewportSlot>
+      </Flicking>
+      <ProductsDetailContainer>
+        <ProductNameWrapper>
+          <Text style={{ fontSize: 30, fontWeight: 800 }}>{productData.name}</Text>
+          <RatingWrapper>
+            <Star size={16} style={{ paddingBottom: '5px' }} />
+            <div style={{ paddingLeft: '5px' }}>{productData.avgScore}</div>
+          </RatingWrapper>
+        </ProductNameWrapper>
+        <ProductContentWrapper>
+          <HeaderText>클래스 소개</HeaderText>
+          <ContentWrapper> {productData.intro}</ContentWrapper>
+        </ProductContentWrapper>
+        <ProductContentWrapper>
+          <HeaderText>커리큘럼</HeaderText>
+          {productData.curriculums.map((curricurum, i) => (
+            <ContentWrapper key={curricurum.curricurumId}>
+              <Bullet
+                style={{
+                  backgroundColor: `rgb(184, 139, 214, ${i / productData.curriculums.length + 0.4}`,
+                }}
+              />
+              {curricurum.step}단계 {curricurum.content}
+            </ContentWrapper>
+          ))}
+        </ProductContentWrapper>
+      </ProductsDetailContainer>
+      <ProductReviewContainer>
+        <HeaderText>
+          후기<span>(999+)</span>
+        </HeaderText>
+        <SimpleReviewContainer>
+          <SimpleReview date={'2010-05-17'}>좋아요좋아요~</SimpleReview>
+          <SimpleReview date={'2010-03-08'}>좋아요좋아요~</SimpleReview>
+        </SimpleReviewContainer>
+        <MoreReviewWrapper>
+          <span onClick={() => setVisible(true)}>+ 후기 더보기</span>
+        </MoreReviewWrapper>
+      </ProductReviewContainer>
+      <AuthorDetailContainer>
+        <HeaderText>작가 정보</HeaderText>
+        <AteliarInformation
+          profileImg={productData.atelier.imageUrl}
+          name={productData.atelier.name}
+          phoneNumber={productData.atelier.callNumber}
+          openTime={`${productData.atelier.startTime} ~ ${productData.atelier.endTime}`}
+        />
+      </AuthorDetailContainer>
+      <ReservationContainer>
+        <HeaderText>{productData.price.toLocaleString()}원</HeaderText>
+        <ReservationButton type="button" onClick={handleClick}>
+          예약하기
+        </ReservationButton>
+      </ReservationContainer>
+      <ReviewModal visible={visible} setVisible={setVisible} />
     </>
   );
 };
