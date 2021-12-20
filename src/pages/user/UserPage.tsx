@@ -4,7 +4,10 @@ import { Settings } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Avatar } from '../../components/base';
 import { LinkBox } from '../../components/domain';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms';
 const UserPage = () => {
+  const userData = useRecoilValue(userState);
   return (
     <UserPageWrapper>
       <UserInfo>
@@ -12,10 +15,10 @@ const UserPage = () => {
           size={80}
           alt={'프로필'}
           shape={'circle'}
-          src={'https://pngrow.com/preview/4227/circle-profile-picture-png'}
+          src={userData.profileImageUrl}
           placeholder={'https://via.placeholder.com/150'}
         />
-        <UserInfoName>희진짱</UserInfoName>
+        <UserInfoName>{userData.name}</UserInfoName>
         <Link to="/user/edit" style={{ textDecoration: 'none' }}>
           <Settings style={{ position: 'absolute', top: '50px', left: '60px', color: 'black' }} />
         </Link>

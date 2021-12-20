@@ -30,24 +30,60 @@ import { PrivateRoute } from './CustomRoutes';
 const Router = () => {
   return (
     <Switch>
-      <PrivateRoute path="/" exact component={HomePage} />
-      <PrivateRoute path="/category/:genre" exact component={CategoryPage} />
-      <PrivateRoute path="/feed" exact component={FeedPage} />
-      <PrivateRoute path="/search" exact component={SearchPage} />
-      <PrivateRoute path="/workshop/:id" exact component={WorkshopPage} />
-      <PrivateRoute path="/products/:id" exact component={ProductsDetailPage} />
-      <PrivateRoute path="/booking/success" exact component={SuccessBookPage} />
-      <PrivateRoute path="/booking/:id" exact component={BookingPage} />
-      <PrivateRoute path="/user/book" exact component={UserBookedPage} />
-      <PrivateRoute path="/user/review" exact component={UserReviewPage} />
-      <PrivateRoute path="/user/following" exact component={UserFollowingPage} />
-      <PrivateRoute path="/user/edit" exact component={UserProfileEditPage} />
-      <PrivateRoute path="/user/:id" exact component={UserPage} />
-      <PrivateRoute path="/feed/comments/:id" exact component={CommentsPage} />
-      <PrivateRoute path="/search/:results" exact component={SearchResultsPage} />
-      <PrivateRoute path="/upload/feed" exact component={UploadFeedPage} />
-      <PrivateRoute path="/upload/comments/:id" exact component={UploadCommentPage} />
-      <PrivateRoute path="/upload/products" exact component={UploadProductPage} />
+      <PrivateRoute exact path="/">
+        <HomePage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/category/:genre">
+        <CategoryPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/feed">
+        <FeedPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/search">
+        <SearchPage />
+      </PrivateRoute>
+      <PrivateRoute path="/workshop/:id">
+        <WorkshopPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/products/:id">
+        <ProductsDetailPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/booking/success">
+        <SuccessBookPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/booking/:id">
+        <BookingPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/user/book">
+        <UserBookedPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/user/review">
+        <UserReviewPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/user/following">
+        <UserFollowingPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/user/edit">
+        <UserProfileEditPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/user/:id">
+        <UserPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/feed/comments/:id">
+        <CommentsPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/search/:results">
+        <SearchResultsPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/upload/feed">
+        <UploadFeedPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/upload/comments/:id">
+        <UploadCommentPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/upload/products">
+        <UploadProductPage />
+      </PrivateRoute>
       <Route path="/login" component={LoginPage} />
       <Route path="/redirect-after-kakao" component={RedirectPageAfterKakao} />
       <Route path="/signup/author-info" component={SignupAuthorInfo} />

@@ -234,3 +234,19 @@ export const getBookingData = async ({ token }: Token) => {
     },
   });
 };
+
+export const fetchProductById = async (token: string, id: number) => {
+  try {
+    const res = await request({
+      method: API_METHOD.GET,
+      url: `api/v1/classes/${id}`,
+      headers: {
+        Authorization: token,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

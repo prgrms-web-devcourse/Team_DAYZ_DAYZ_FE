@@ -13,7 +13,7 @@ const GoBack = ({ children, to, ...props }: Props) => {
   return (
     <SearchBackButtonWrapper>
       <Link to={to} replace={true} style={{ color: 'black' }}>
-        <ChevronLeft size={40} />
+        <ChevronLeft size={30} />
       </Link>
       <SearchBackButtonText> {children}</SearchBackButtonText>
     </SearchBackButtonWrapper>
@@ -23,11 +23,8 @@ const GoBack = ({ children, to, ...props }: Props) => {
 const SearchBackButtonWrapper = styled.div`
   top: 0;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  margin-left: 20px;
-  padding-top: 20px;
-  height: 50px;
+  margin-top: 20px;
   box-sizing: border-box;
 `;
 

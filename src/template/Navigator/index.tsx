@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { Home, Grid, Search, Circle, Plus } from 'react-feather';
+import { Home, Grid, Search, User, Plus } from 'react-feather';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms';
 
@@ -32,7 +32,7 @@ const Navigator = () => {
         },
     {
       to: '/user/:id',
-      Icon: Circle,
+      Icon: User,
       contents: '내정보',
     },
   ];
