@@ -213,7 +213,7 @@ export const getCategoryClasses = async ({ categoryId, token }: CategoryClass) =
     params: {
       pageIndex: 0,
       pageSize: 5,
-      column: 'createdAt',
+      column: 'id',
       order: 'ASC',
     },
   });
@@ -229,7 +229,7 @@ export const getBookingData = async ({ token }: Token) => {
     params: {
       pageIndex: 0,
       pageSize: 10,
-      column: 'id',
+      column: 'createdAt',
       order: 'ASC',
     },
   });
@@ -258,6 +258,12 @@ export const fetchProductReviewById = async (token: string, id: number) => {
       url: `api/v1/reviews/classes/${id}`,
       headers: {
         Authorization: token,
+      },
+      params: {
+        pageIndex: 1,
+        pageSize: 10,
+        column: 'createdAt',
+        order: 'ASC',
       },
     });
     return res.data;

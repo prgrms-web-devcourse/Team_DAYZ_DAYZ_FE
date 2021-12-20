@@ -12,21 +12,21 @@ import '@egjs/flicking-plugins/dist/pagination.css';
 import { Star } from 'react-feather';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { modalState, navigationState, userState } from '../../atoms';
-import { fetchProductById } from '../../utils/api/dayzApi';
+import { fetchProductById, fetchProductReviewById } from '../../utils/api/dayzApi';
 import Loader from 'react-loader-spinner';
 
-interface Image {
+interface IImage {
   imageUrl: string;
   sequence: number;
 }
 
-interface Curricurum {
+interface ICurricurum {
   curricurumId: number;
   step: number;
   content: string;
 }
 
-interface Atelier {
+interface IAtelier {
   address: string;
   atelierId: number;
   callNumber: string;
@@ -36,23 +36,48 @@ interface Atelier {
   imageUrl: string;
 }
 
-export interface ProductProps {
-  atelier: Atelier;
+interface IProductProps {
+  atelier: IAtelier;
   avgScore: number;
   classId: number;
-  curriculums: Curricurum[];
-  images: Image[];
+  curriculums: ICurricurum[];
+  images: IImage[];
   intro: string;
   maxPeopleNumber: number;
   name: string;
   price: number;
 }
 
+export interface IReviewImage {
+  imageUrl: string;
+  sequence: number;
+}
+
+export interface IMember {
+  id: number;
+  profileImageUrl: string;
+  username: string;
+}
+
+export interface IList {
+  content: string;
+  createdAt: string;
+  id: number;
+  member: IMember[];
+  reviewImage: IReviewImage[];
+}
+
+export interface IReviewProps {
+  hasNext: boolean;
+  list: IList[];
+}
+
 const ProductsDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { token } = useRecoilValue(userState);
   const [visible, setVisible] = useState(false);
-  const [productData, setProductData] = useState<ProductProps>();
+  const [productData, setProductData] = useState<IProductProps>();
+  const [reviewData, setReviewData] = useState<IReviewProps>();
   const [isLoading, setIsLoading] = useState(productData == null);
   const history = useHistory();
   const setModalState = useSetRecoilState(modalState);
@@ -69,8 +94,8 @@ const ProductsDetailPage = () => {
       bottomNavigation: false,
     }));
     fetchProductById(token, +id).then((res) => {
-      console.log(res.data);
       setProductData(res.data);
+      fetchProductReviewById(token, +res.data.classId).then((res) => setReviewData(res.data));
       setIsLoading(false);
     });
     return () => {
@@ -130,11 +155,14 @@ const ProductsDetailPage = () => {
       </ProductsDetailContainer>
       <ProductReviewContainer>
         <HeaderText>
-          후기<span>(999+)</span>
+          <span>후기({reviewData?.list.length})</span>
         </HeaderText>
         <SimpleReviewContainer>
-          <SimpleReview date={'2010-05-17'}>좋아요좋아요~</SimpleReview>
-          <SimpleReview date={'2010-03-08'}>좋아요좋아요~</SimpleReview>
+          {reviewData?.list.map((review) => (
+            <SimpleReview key={review.id} date={review.createdAt}>
+              {review.content}
+            </SimpleReview>
+          ))}
         </SimpleReviewContainer>
         <MoreReviewWrapper>
           <span onClick={() => setVisible(true)}>+ 후기 더보기</span>
@@ -155,7 +183,12 @@ const ProductsDetailPage = () => {
           예약하기
         </ReservationButton>
       </ReservationContainer>
-      <ReviewModal visible={visible} setVisible={setVisible} />
+      <ReviewModal
+        avgScore={+productData!.avgScore}
+        id={+id}
+        visible={visible}
+        setVisible={setVisible}
+      />
     </>
   );
 };
