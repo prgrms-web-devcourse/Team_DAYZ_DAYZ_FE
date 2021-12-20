@@ -45,7 +45,6 @@ const HomePage = () => {
     async function recentAtelier(token: string) {
       return await getAtelierLists(token).then((response) => {
         setNewAtelierData([...response.data.data.list]);
-        console.log(response.data);
       });
     }
     popularClasses(token);
@@ -119,7 +118,7 @@ const HomePage = () => {
                       height={'100%'}
                       alt="Atelier"
                       mode="fill"
-                      style={{ borderRadius: '16px' }}
+                      style={{ borderRadius: '16px', position: 'absolute' }}
                     />
                     <NewClassesTitle>{name}</NewClassesTitle>
                   </NewClassesItem>
@@ -186,6 +185,7 @@ const Title = styled.div`
   font-weight: 700;
   margin-left: 20px;
   margin-bottom: 10px;
+  box-sizing: border-box;
 `;
 const BestClassesWrapper = styled.section`
   width: 100%;
@@ -225,19 +225,19 @@ const NewClassesWrapper = styled.section`
   margin-top: 40px;
   padding-bottom: 40px;
   width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
 `;
 const NewClassesItemWrapper = styled.div`
   display: grid;
-  margin: 0 20px;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 10px;
   column-gap: 10px;
+  margin: 0 20px;
 `;
 const NewClassesItem = styled.div`
   position: relative;
-  width: 182px;
-  height: 182px;
+  padding-bottom: 100%;
+  overflow: hidden;
 `;
 const NewClassesTitle = styled.div`
   position: absolute;

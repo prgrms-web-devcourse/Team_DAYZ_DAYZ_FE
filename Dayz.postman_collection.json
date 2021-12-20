@@ -1,0 +1,1238 @@
+{
+	"info": {
+		"_postman_id": "08612073-19cd-4012-8796-4dcf837b858a",
+		"name": "Dayz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "카테고리 목록 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTUwODMyNywiaWF0IjoxNjM5NDQ4MzI3LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.t9sC4OwzEw7xTf1o_7KKXDz3e9rPfz4FX5iQ8tQ849kaldLmDTu1pQDzI9EkL7R8IeTCQSxc0Xu7hm_POgpjhg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://52.78.50.134:63458/api/v1/categories",
+							"protocol": "http",
+							"host": [
+								"52",
+								"78",
+								"50",
+								"134"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Address",
+			"item": [
+				{
+					"name": "모든 주소 목록 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTYxMzEyOCwiaWF0IjoxNjM5NTUzMTI4LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.RVjuPeIvs4sRDprhFTkcaVvxve-peeWSWf-IuXuTCVhIf8FPlUSz2jKefDdP8gB0wmHz-pDW_yIsJYWoGK_4Cg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:63458/api/v1/addresses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "관심지역 설정",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg4MzQ0NywiaWF0IjoxNjM5ODgzNDQ3LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.mdHBNxgbJ1hWJlWrPaXbBzDo1JqhcpvkaMf0xKuMdVcGRyGweFkrWNVlwuWRLMw4wQM4mk9jj20_FtIOo5AccQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cityId\" : 1,\r\n    \"regionId\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:63458/api/v1/members/address",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"address"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OneDayClass",
+			"item": [
+				{
+					"name": "카테고리 별 원데이클래스 목록 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:63458/api/v1/classes/categories/1?pageIndex=0&pageSize=5&order=DESC&column=createdAt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"classes",
+								"categories",
+								"1"
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "column",
+									"value": "createdAt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "원데이 클래스 상세조회",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTg1ODU4MCwiaWF0IjoxNjM5Nzk4NTgwLCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.t9X6FReBjG9WDD6iKsiDpeC7HJYhcX7UtJWUchFfkRDrFMSYAU5Q0JRF5JNHYWltOeKNV8qqkwvpy4cYyKCTEw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://52.78.50.134:63458/api/v1/classes/26",
+							"protocol": "https",
+							"host": [
+								"52",
+								"78",
+								"50",
+								"134"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"classes",
+								"26"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "공방 별 원데이 클래스 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:63458/api/v1/classes/ateliers/1?pageIndex=0&pageSize=5&order=DESC&column=createdAt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"classes",
+								"ateliers",
+								"1"
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "column",
+									"value": "createdAt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "원데이 클래스 등록",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTcxMDg4OSwiaWF0IjoxNjM5NjUwODg5LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.nbpdnrbHM2T7mpuwk2Iif_ekPxMBN5fqcFxVne0R546Ix2k6kEMt-F53Wc01q1wVG7wtrMwT3TyGOYLE2sYCpw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"atelierId\" : 1,\r\n    \"categoryId\" : 4,\r\n    \"name\" : \"엽떡 먹고싶다!! 클래스\",\r\n    \"intro\" : \"엽사모입니다.\",\r\n    \"maxPeopleNumber\" : 5,\r\n\t\"price\" : 12000,\r\n\t\"requiredTime\" : \"01:30\",\r\n    \"curriculums\" : [\r\n\t\t{\r\n\t\t\t\"step\" : 1,\r\n\t\t\t\"content\" : \"원하는 스케치를 준비한다.\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"step\" : 2,\r\n\t\t\t\"content\" : \"스케치를 원판에 붙인다.\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"step\" : 3,\r\n\t\t\t\"content\" : \"스케치 데로 네온싸인 선을 붙인다.\"\r\n\t\t}\r\n\t],\r\n\t\"images\" : [\r\n\t\t{\r\n\t\t\t\"imageUrl\" : \"https://dayz-s3.s3.ap-northeast-2.amazonaws.com/dochi.jpg\",\r\n\t\t\t\"sequence\" : 1\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"imageUrl\" : \"https://dayz-s3.s3.ap-northeast-2.amazonaws.com/dochi.jpg\",\r\n\t\t\t\"sequence\" : 2\r\n\t\t}\r\n\t],\r\n\t\"classTimes\" : [\r\n\t\t{\r\n\t\t\t\"date\" : \"2021-12-03\",\r\n\t\t\t\"startTime\" : \"12:30\",\r\n\t\t\t\"closeTime\" : \"13:30\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"date\" : \"2021-12-03\",\r\n\t\t\t\"startTime\" : \"14:30\",\r\n\t\t\t\"closeTime\" : \"15:30\"\r\n\t\t}\r\n\t]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://52.78.50.134:63458/api/v1/classes",
+							"protocol": "http",
+							"host": [
+								"52",
+								"78",
+								"50",
+								"134"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"classes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "날짜 별 원데이 클래스 시간 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://52.78.50.134:63458/api/v1/classtimes/classes/1?date=2021-12-19",
+							"protocol": "http",
+							"host": [
+								"52",
+								"78",
+								"50",
+								"134"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"classtimes",
+								"classes",
+								"1"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2021-12-19"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "금주의 인기 클래스 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://52.78.50.134:63458/api/v1/classes/popular",
+							"protocol": "http",
+							"host": [
+								"52",
+								"78",
+								"50",
+								"134"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"classes",
+								"popular"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "원데이 클래스 이름으로 검색",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:63458/api/v1/classes/search?keyWord=도자기&pageIndex=0&pageSize=5&order=DESC&column=createdAt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"classes",
+								"search"
+							],
+							"query": [
+								{
+									"key": "keyWord",
+									"value": "도자기"
+								},
+								{
+									"key": "pageIndex",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "column",
+									"value": "createdAt"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Atelier",
+			"item": [
+				{
+					"name": "공방 등록",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"서버공방\",\r\n    \"businessNumber\" : \"1111222334\",\r\n    \"intro\" : \"안녕하세요. 서버공방입니다.\",\r\n    \"callNumber\" : \"01034567846\",\r\n    \"address\" : {\r\n        \"cityId\" : 1,\r\n        \"regionId\" : 1,\r\n        \"detail\" : \"대륭타워 8층\"\r\n    },\r\n    \"workStartTime\" : \"12:30\",\r\n    \"workEndTime\" : \"17:00\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:63458/api/v1/ateliers",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"ateliers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "공방 목록 조회 ( 사용자 관심지역 기준 )",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:63458/api/v1/ateliers?pageIndex=0&pageSize=5&order=DESC&column=createdAt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"ateliers"
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "column",
+									"value": "createdAt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "공방 상세조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTYxMzEyOCwiaWF0IjoxNjM5NTUzMTI4LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.RVjuPeIvs4sRDprhFTkcaVvxve-peeWSWf-IuXuTCVhIf8FPlUSz2jKefDdP8gB0wmHz-pDW_yIsJYWoGK_4Cg"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:63458/api/v1/ateliers/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"ateliers",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "공방 이름으로 검색",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://52.78.50.134:63458/api/v1/ateliers/search?keyWord=희진&pageIndex=0&pageSize=5&order=DESC&column=createdAt",
+							"protocol": "http",
+							"host": [
+								"52",
+								"78",
+								"50",
+								"134"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"ateliers",
+								"search"
+							],
+							"query": [
+								{
+									"key": "keyWord",
+									"value": "희진"
+								},
+								{
+									"key": "pageIndex",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "column",
+									"value": "createdAt"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Member",
+			"item": [
+				{
+					"name": "회원정보조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAzMzQxMzY2NiIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjU0LCJleHAiOjE2NDU4NDc4NzUsImlhdCI6MTYzOTg0Nzg3NSwidXNlcm5hbWUiOiLsnoTtmqjshLEifQ.7RTlz5RKZfBV4VoVEU9rQPp0eWk_4WHjb8IP0nCnnpnxdlTeKRu_00Unf-0r12Vw7rmQiqDxTEgG9tdYRsdSUA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://52.78.50.134:63458/api/v1/members/info",
+							"protocol": "http",
+							"host": [
+								"52",
+								"78",
+								"50",
+								"134"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원 프로필 수정",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTc4MTc1MSwiaWF0IjoxNjM5NzIxNzUxLCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Up9c43nhy6fNvkufA81obPflC-kPMrWVkOo2nplLwOqEKuvehpy3z3am180UTERJYsPsLpqvVxVtixRGSCTw3A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"김지훈\",\r\n    \"imageUrl\" : \"https://dayz-s3.s3.ap-northeast-2.amazonaws.com/dochi.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://52.78.50.134:63458/api/v1/members",
+							"protocol": "http",
+							"host": [
+								"52",
+								"78",
+								"50",
+								"134"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"members"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Image",
+			"item": [
+				{
+					"name": "이미지 업로드",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTcxMDg4OSwiaWF0IjoxNjM5NjUwODg5LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.nbpdnrbHM2T7mpuwk2Iif_ekPxMBN5fqcFxVne0R546Ix2k6kEMt-F53Wc01q1wVG7wtrMwT3TyGOYLE2sYCpw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/devru/Desktop/KakaoTalk_20210616_220854417.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://52.78.50.134:63458/api/v1/images",
+							"protocol": "http",
+							"host": [
+								"52",
+								"78",
+								"50",
+								"134"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"images"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "내가 쓴 후기 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:63458/api/v1/reviews?pageIndex=0&pageSize=5&order=DESC&column=createdAt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "column",
+									"value": "createdAt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "공방 별 후기 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:63458/api/v1/reviews/ateliers/1?pageIndex=0&pageSize=5&order=DESC&column=createdAt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"ateliers",
+								"1"
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "column",
+									"value": "createdAt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "후기 등록",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reservationId\": 1,\r\n    \"title\":\"아주 재밌어용\",\r\n    \"content\": \"시간 가는줄 몰랐네요\",\r\n    \"score\": 5,\r\n    \"images\": [\r\n        {\r\n            \"imageUrl\": \"s3://devrun-image/KakaoTalk_20210616_220854417.jpg\",\r\n            \"sequence\": 1\r\n        },\r\n        {\r\n            \"imageUrl\": \"s3://devrun-image/KakaoTalk_20210616_220854417.jpg\",\r\n            \"sequence\": 1\r\n        }\r\n      ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:63458/api/v1/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "원데이 클래스 별 리뷰 목록 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTY4NjE5NCwiaWF0IjoxNjM5NjI2MTk0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.LTe4eUjkO9KqqdYi25L23tUDI3h5vKkm9pYeYJtGIyqRcGZuhQ-V98B5pjGLqiPCxM3w87lv8dIyXeLrj8pPXA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:63458/api/v1/reviews/classes/1?pageIndex=0&pageSize=5&order=DESC&column=createdAt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"classes",
+								"1"
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "column",
+									"value": "createdAt"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "게시글 상세조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTYxMzEyOCwiaWF0IjoxNjM5NTUzMTI4LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.RVjuPeIvs4sRDprhFTkcaVvxve-peeWSWf-IuXuTCVhIf8FPlUSz2jKefDdP8gB0wmHz-pDW_yIsJYWoGK_4Cg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://52.78.50.134:63458/api/v1/posts/21",
+							"protocol": "http",
+							"host": [
+								"52",
+								"78",
+								"50",
+								"134"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "팔로워의 게시글 상세목록 조회 ( 피드 목록 )",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:63458/api/v1/posts?pageIndex=0&pageSize=5&order=DESC&column=createdAt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "column",
+									"value": "createdAt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "공방 별 게시글 간소화 목록 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:63458/api/v1/posts/ateliers/1?pageIndex=0&pageSize=5&order=DESC&column=createdAt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"ateliers",
+								"1"
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "column",
+									"value": "createdAt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "게시글 등록",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTY4NjE5NCwiaWF0IjoxNjM5NjI2MTk0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.LTe4eUjkO9KqqdYi25L23tUDI3h5vKkm9pYeYJtGIyqRcGZuhQ-V98B5pjGLqiPCxM3w87lv8dIyXeLrj8pPXA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"atelierId\" : 1,\r\n    \"oneDayClassId\" : 1,\r\n    \"content\" : \"겁나 재밌어서 오늘 밤 코딩 못할것같아요~\",\r\n    \"images\" : [\r\n        {\r\n            \"imageUrl\" : \"https://dayz-s3.s3.ap-northeast-2.amazonaws.com/dochi.jpg\",\r\n            \"sequence\" : 1\r\n        },\r\n        {\r\n            \"imageUrl\" : \"https://dayz-s3.s3.ap-northeast-2.amazonaws.com/macjji.jpg\",\r\n            \"sequence\" : 2   \r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:63458/api/v1/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Follow",
+			"item": [
+				{
+					"name": "팔로우 하기",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"memberId\" : 1,\r\n    \"atelierId\" : 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://52.78.50.134:63458/api/v1/follows",
+							"protocol": "http",
+							"host": [
+								"52",
+								"78",
+								"50",
+								"134"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"follows"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "팔로워 목록 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:63458/api/v1/follows?pageIndex=0&pageSize=5&order=DESC&column=createdAt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"follows"
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "column",
+									"value": "createdAt"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "댓글 등록",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTYzOTY4NjE5NCwiaWF0IjoxNjM5NjI2MTk0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.LTe4eUjkO9KqqdYi25L23tUDI3h5vKkm9pYeYJtGIyqRcGZuhQ-V98B5pjGLqiPCxM3w87lv8dIyXeLrj8pPXA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"atelierId\": 1,\r\n\t\"postId\": 1,\r\n\t\"content\": \"예약 문의는 어디로 하나요?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:63458/api/v1/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "댓글 목록 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJwcm92aWRlcklkIjoiMjAxOTk0ODQ5MSIsInJvbGVzIjpbIlJPTEVfQVRFTElFUiJdLCJpc3MiOiJkYXl6IiwiaWQiOjEsImV4cCI6MTY0NTg3Njc3NCwiaWF0IjoxNjM5ODc2Nzc0LCJ1c2VybmFtZSI6Iuq5gOyngO2biCJ9.Lgh_OY04uOBY-eEDDAlT-Mhr-pu3KKPYRWm6RB58mBDN5zDO9860JFJY2w0AEN-_YTartKTp0Gxcc6zs8WM8pA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://52.78.50.134:63458/api/v1/comments/posts/1?pageIndex=0&pageSize=5&order=DESC&column=createdAt",
+							"protocol": "http",
+							"host": [
+								"52",
+								"78",
+								"50",
+								"134"
+							],
+							"port": "63458",
+							"path": [
+								"api",
+								"v1",
+								"comments",
+								"posts",
+								"1"
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "column",
+									"value": "createdAt"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -21,6 +21,7 @@ const CategoryPage = () => {
   const setModalState = useSetRecoilState(modalState);
   const resetModalState = useResetRecoilState(modalState);
   const [categoryClassData, setCategoryClassData] = useState<any>([]);
+  const genreArray = ['도자기', '요리', '플라워', '미술', '뷰티', '음악', '수공예', '액티비티'];
   useEffect(() => {
     setModalState(() => ({
       modalView: true,
@@ -38,13 +39,12 @@ const CategoryPage = () => {
   useEffect(() => {
     getAsyncCategoryClasses();
   }, []);
-  console.log(categoryClassData);
   return (
     <CategoryPageWrapper>
       <GoBack to={'/'}>메인 화면으로 돌아가기</GoBack>
 
       <ResultsCategory>
-        <ResultsCategoryTitle>{genre} 전체</ResultsCategoryTitle>
+        <ResultsCategoryTitle>{genreArray[parseInt(genre) - 1]} 전체</ResultsCategoryTitle>
         <ProductResultsWrapper>
           <ProductResultsItemWrapper>
             {categoryClassData.length ? (
@@ -59,6 +59,7 @@ const CategoryPage = () => {
                         height={182}
                         alt="class"
                         mode="fill"
+                        style={{ borderRadius: '16px' }}
                         placeholder="https://via.placeholder.com/150"
                       />
                     </div>
