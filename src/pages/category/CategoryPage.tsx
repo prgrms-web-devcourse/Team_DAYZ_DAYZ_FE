@@ -21,6 +21,7 @@ const CategoryPage = () => {
   const setModalState = useSetRecoilState(modalState);
   const resetModalState = useResetRecoilState(modalState);
   const [categoryClassData, setCategoryClassData] = useState<any>([]);
+  const genreArray = ['도자기', '요리', '플라워', '미술', '뷰티', '음악', '수공예', '액티비티'];
   useEffect(() => {
     setModalState(() => ({
       modalView: true,
@@ -44,7 +45,7 @@ const CategoryPage = () => {
       <GoBack to={'/'}>메인 화면으로 돌아가기</GoBack>
 
       <ResultsCategory>
-        <ResultsCategoryTitle>{genre} 전체</ResultsCategoryTitle>
+        <ResultsCategoryTitle>{genreArray[parseInt(genre) - 1]} 전체</ResultsCategoryTitle>
         <ProductResultsWrapper>
           <ProductResultsItemWrapper>
             {categoryClassData.length ? (
