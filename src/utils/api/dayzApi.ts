@@ -229,7 +229,7 @@ export const getBookingData = async ({ token }: Token) => {
     params: {
       pageIndex: 0,
       pageSize: 10,
-      column: 'createdAt',
+      column: 'id',
       order: 'ASC',
     },
   });
@@ -240,6 +240,22 @@ export const fetchProductById = async (token: string, id: number) => {
     const res = await request({
       method: API_METHOD.GET,
       url: `api/v1/classes/${id}`,
+      headers: {
+        Authorization: token,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const fetchProductReviewById = async (token: string, id: number) => {
+  try {
+    const res = await request({
+      method: API_METHOD.GET,
+      url: `api/v1/reviews/classes/${id}`,
       headers: {
         Authorization: token,
       },
