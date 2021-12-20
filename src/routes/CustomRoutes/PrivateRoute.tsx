@@ -31,7 +31,6 @@ const PrivateRoute: React.FC<RouteProps> = ({ children, ...rest }: RouteProps) =
     <Route
       {...rest}
       render={(props) => {
-        console.log(props.location);
         return isAuthenticated ? (
           children
         ) : (
