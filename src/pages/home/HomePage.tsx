@@ -3,9 +3,8 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { Image } from '../../components/base';
 import { categoryIcons } from '../../constants/categoryItems';
-import { DUMMY_NEW_ATELIER_DATA, DUMMY_POPULAR_DATA } from './DUMMY_DATA';
 import { modalState, userState } from '../../atoms';
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { useRecoilValue } from 'recoil';
 import { getAtelierLists, getPopularClasses } from '../../utils/api/dayzApi';
 

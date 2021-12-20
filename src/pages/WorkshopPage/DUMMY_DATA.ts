@@ -4,7 +4,7 @@ export const DUMMY_ATELIER_DATA = {
   name: '그렙 공방',
   imageUrl: 'https://i.pinimg.com/564x/d0/c4/1b/d0c41b2734aa37dd363f4cc9ebf8ff90.jpg',
   address: '서울시 송파구 송파로 23길 1',
-  callNo: '021112222',
+  callNo: '02-111-2222',
   startTime: '10:00',
   endTime: '22:00',
 };
