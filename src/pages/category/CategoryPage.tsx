@@ -39,7 +39,6 @@ const CategoryPage = () => {
   useEffect(() => {
     getAsyncCategoryClasses();
   }, []);
-  console.log(categoryClassData);
   return (
     <CategoryPageWrapper>
       <GoBack to={'/'}>메인 화면으로 돌아가기</GoBack>
