@@ -41,85 +41,65 @@ const CategoryPage = () => {
   }, []);
   return (
     <CategoryPageWrapper>
-      <GoBack to={'/'}>메인 화면으로 돌아가기</GoBack>
+      <GoBack to={'/'}>뒤로 가기</GoBack>
 
       <ResultsCategory>
-        <ResultsCategoryTitle>{genreArray[parseInt(genre) - 1]} 전체</ResultsCategoryTitle>
-        <ProductResultsWrapper>
-          <ProductResultsItemWrapper>
-            {categoryClassData.length ? (
-              categoryClassData.map(({ classId, imageUrl, intro, name }: CategoryClassType) => (
-                <Link key={classId} to={`/products/${classId}`} style={{ textDecoration: 'none' }}>
-                  <ProductItem>
-                    <div>
-                      <Image
-                        lazy
-                        width={'100%'}
-                        src={imageUrl}
-                        height={182}
-                        alt="class"
-                        mode="fill"
-                        style={{ borderRadius: '16px' }}
-                        placeholder="https://via.placeholder.com/150"
-                      />
-                    </div>
-                    <ProductTitle>{name}</ProductTitle>
-                    <ProductContent>{intro}</ProductContent>
-                  </ProductItem>
-                </Link>
-              ))
-            ) : (
-              <div>아직 클래스가 없어요 ㅠ </div>
-            )}
-          </ProductResultsItemWrapper>
-        </ProductResultsWrapper>
+        <ResultsCategoryTitle> 검색 결과 {categoryClassData.length} 개 </ResultsCategoryTitle>
+        <ProductResultsItemWrapper>
+          {categoryClassData.length ? (
+            categoryClassData.map(({ classId, imageUrl, intro, name }: CategoryClassType) => (
+              <Link key={classId} to={`/products/${classId}`} style={{ textDecoration: 'none' }}>
+                <Image
+                  lazy
+                  width={170}
+                  src={imageUrl}
+                  height={120}
+                  alt="class"
+                  mode="cover"
+                  placeholder="https://via.placeholder.com/150"
+                  style={{ borderRadius: '8px', marginTop: '20px' }}
+                />
+                <ProductTitle>{name}</ProductTitle>
+                <ProductContent>{intro}</ProductContent>
+              </Link>
+            ))
+          ) : (
+            <div>아직 클래스가 없어요 ㅠ </div>
+          )}
+        </ProductResultsItemWrapper>
       </ResultsCategory>
     </CategoryPageWrapper>
   );
 };
 
-const CategoryPageWrapper = styled.section``;
+const CategoryPageWrapper = styled.section`
+  margin: 20px;
+`;
 
 const ResultsCategory = styled.div`
   margin-top: 20px;
 `;
 const ResultsCategoryTitle = styled.h4`
-  margin-left: 20px;
   font-size: 20px;
   font-weight: 700;
 `;
-const ProductResultsWrapper = styled.section`
-  margin-top: 20px;
-  padding-bottom: 40px;
-  width: 100%;
-  overflow: none;
-`;
 const ProductResultsItemWrapper = styled.div`
-  margin: 0px 20px;
   display: grid;
-  justify-content: flex-start;
   grid-template-columns: repeat(2, 1fr);
-  row-gap: 10px;
-  column-gap: 10px;
-  width: calc(100% - 40px);
+  justify-content: center;
+  gap: 10px;
 `;
-const ProductItem = styled.div`
-  position: relative;
-`;
-const ProductImg = styled.div``;
 const ProductTitle = styled.h6`
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   color: black;
-  margin-top: 10px;
+  margin: 10px 0 5px 0;
 `;
 const ProductContent = styled.div`
   width: 150px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  font-size: 16px;
   color: black;
-  margin-top: 5px;
 `;
 export default CategoryPage;

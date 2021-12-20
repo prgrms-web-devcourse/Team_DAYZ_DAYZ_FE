@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { Settings, Layout, Calendar, Star } from 'react-feather';
-import { Avatar, Button } from '../../components/base';
+import { Layout, Calendar, Star } from 'react-feather';
+import { Avatar } from '../../components/base';
 import { RoutePath } from '.';
 import { DUMMY_ATELIER_DATA } from './DUMMY_DATA';
 import { useRecoilValue } from 'recoil';
@@ -95,7 +95,7 @@ const ContentsWrapper = styled.div`
   }
 `;
 const ProfileEditBtn = styled.button`
-  background: #a8bac8;
+  background: rgb(184, 139, 214);
   border: none;
   border-radius: 8px;
   font-size: 18px;
