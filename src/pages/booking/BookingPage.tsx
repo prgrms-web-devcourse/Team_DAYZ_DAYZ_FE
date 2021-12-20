@@ -58,11 +58,11 @@ const BookingPage = () => {
     if (response.status === 200) {
       setClassTimes([...response.data.data.classTimes]);
     }
-  }, []);
+  }, [date]);
   useEffect(() => {
     getAsyncClasstimes();
     setPickState(0);
-  }, [date]);
+  }, [getAsyncClasstimes]);
 
   const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
     const target: number = e.target.value;
