@@ -218,3 +218,19 @@ export const getCategoryClasses = async ({ categoryId, token }: CategoryClass) =
     },
   });
 };
+
+export const getBookingData = async ({ token }: Token) => {
+  return request({
+    method: API_METHOD.GET,
+    url: 'api/v1/reservations',
+    headers: {
+      Authorization: token,
+    },
+    params: {
+      pageIndex: 0,
+      pageSize: 10,
+      column: 'createdAt',
+      order: 'ASC',
+    },
+  });
+};
