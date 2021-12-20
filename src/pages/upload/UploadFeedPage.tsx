@@ -36,6 +36,7 @@ type Inputs = {
 */
 
 const UploadFeedPage = () => {
+  const user = useRecoilValue(userState);
   const [imgSrcArray, setImgSrcArray] = useState<string[]>([]);
   const { id, token, auth } = useRecoilValue(userState);
   const history = useHistory();

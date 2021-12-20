@@ -29,7 +29,6 @@ export interface searhClassTypes extends Token {
   sort: sortType;
 }
 
-<<<<<<< HEAD
 export interface AtelierInfo {
   name: string;
   businessNumber: string;
@@ -44,13 +43,12 @@ export interface Address {
   cityId: number;
   regionId: number;
   detail: string;
-=======
+}
 export interface getAtelierListsTypes extends Token {
   pageIndex: number;
   pageSize: number;
 
   sort: sortType;
->>>>>>> 9797fc5 (Feat: 홈페이지 신규 공방 조회)
 }
 
 export interface ClassTimesType extends Token {

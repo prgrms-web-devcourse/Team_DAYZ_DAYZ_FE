@@ -163,13 +163,12 @@ export const getAtelierLists = (token: string) => {
     headers: {
       Authorization: token,
     },
-    data: {
+    params: {
       pageIndex: 0,
       pageSize: 5,
-      sort: {
-        column: 'createdAt',
-        order: 'ASC',
-      },
+
+      column: 'createdAt',
+      order: 'ASC',
     },
   });
 };
