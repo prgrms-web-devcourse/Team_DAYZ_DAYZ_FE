@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { Star } from 'react-feather';
 import { Avatar, Image, Text } from '../../components/base';
 import { DUMMY_REVIEW_DATA } from './DUMMY_DATA';
-// 1. 전체 리뷰 가져오기 https://backend-devcourse.notion.site/cbf7db08c6ae437b904d594dc92a8219
 
 const ReviewListPage = () => {
   const { averageScore, reviews } = DUMMY_REVIEW_DATA;
@@ -11,7 +10,10 @@ const ReviewListPage = () => {
   return (
     <>
       <StarContainer>
-        <StyledStar size={36} />
+        <Star size={20} />
+        <Star size={20} />
+        <Star size={20} />
+        <Star size={20} style={{ marginRight: '12px' }} />
         <span>{averageScore}</span>
       </StarContainer>
       <section>
@@ -32,7 +34,7 @@ const ReviewListPage = () => {
                       lazy
                       src={imageUrl}
                       shape="circle"
-                      size={70}
+                      size={60}
                       alt="profile"
                       placeholder="https://via.placeholder.com/150"
                     />
@@ -40,9 +42,6 @@ const ReviewListPage = () => {
                       <StyledText>{name}</StyledText>
                       <StyledText>{createdAt}</StyledText>
                     </AteliarDetailWrapper>
-                    <ScoreWrapper>
-                      <Star size={18} /> {score}
-                    </ScoreWrapper>
                   </AteliarWrapper>
                   <ContentWrapper>{content}</ContentWrapper>
                   <ImageContainer>
@@ -72,14 +71,11 @@ const ReviewListPage = () => {
 };
 
 const StarContainer = styled.div`
-  margin: 24px 36px;
+  margin: 12px;
   display: flex;
   align-items: center;
-  font-size: 36px;
-`;
-
-const StyledStar = styled(Star)`
-  margin-right: 20px;
+  font-size: 18px;
+  color: rgb(184, 139, 214);
 `;
 
 const ReviewContainer = styled.div`
@@ -101,9 +97,6 @@ const AteliarDetailWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 20px;
-`;
-const ScoreWrapper = styled.div`
-  margin-left: 30px;
 `;
 
 const StyledText = styled(Text)`

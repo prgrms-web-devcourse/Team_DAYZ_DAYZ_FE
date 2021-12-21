@@ -71,19 +71,18 @@ export const DUMMY_CLASS_DATA = {
   hasNext: false,
 };
 
-//https://backend-devcourse.notion.site/5993a2d2ff5642889a592841cde56dcd
 export const DUMMY_REVIEW_DATA = {
   totalCount: 15,
   pageIndex: 1,
   hasNext: false,
-  averageScore: 5,
+  averageScore: 4,
   reviews: [
     {
       reviewId: 1,
       title: '아주 재밌어용',
       content: '시간 가는줄 몰랐네요',
       createdAt: '2021-11-30 22:00:00',
-      score: 5,
+      score: 4,
       images: [
         {
           imageUrl: 'https://i.pinimg.com/736x/fc/a6/50/fca650c2d7a6b2b60af597fa5ecbd345.jpg',
