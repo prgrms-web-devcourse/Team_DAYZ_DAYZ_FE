@@ -40,7 +40,7 @@ export const DUMMY_FEED_DATA = {
 
 // https://backend-devcourse.notion.site/cbf7db08c6ae437b904d594dc92a8219
 export const DUMMY_CLASS_DATA = {
-  totalCount: 10,
+  totalCount: 4,
   pageIndex: 0,
   oneDayClass: [
     {
@@ -65,25 +65,24 @@ export const DUMMY_CLASS_DATA = {
       classId: 4,
       name: '나만의 술잔 만들기',
       intro: '도예 클래스 입니다~!',
-      imageUrl: 'https://via.placeholder.com/150',
+      imageUrl: 'https://i.pinimg.com/564x/3c/18/7a/3c187af10142a507e8b74b9c9b3a0033.jpg',
     },
   ],
   hasNext: false,
 };
 
-//https://backend-devcourse.notion.site/5993a2d2ff5642889a592841cde56dcd
 export const DUMMY_REVIEW_DATA = {
   totalCount: 15,
   pageIndex: 1,
   hasNext: false,
-  averageScore: 5,
+  averageScore: 4,
   reviews: [
     {
       reviewId: 1,
       title: '아주 재밌어용',
       content: '시간 가는줄 몰랐네요',
       createdAt: '2021-11-30 22:00:00',
-      score: 5,
+      score: 4,
       images: [
         {
           imageUrl: 'https://i.pinimg.com/736x/fc/a6/50/fca650c2d7a6b2b60af597fa5ecbd345.jpg',

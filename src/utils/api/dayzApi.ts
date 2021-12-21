@@ -13,6 +13,7 @@ import {
   ReservationsType,
   CategoryClass,
   UploadProduct,
+  FollowByUser,
 } from './types';
 
 const axiosInstance = axios.create();
@@ -167,7 +168,6 @@ export const getAtelierLists = (token: string) => {
     params: {
       pageIndex: 0,
       pageSize: 5,
-
       column: 'createdAt',
       order: 'ASC',
     },
@@ -304,6 +304,45 @@ export const uploadProducts = async ({
       maxPeopleNumber,
       price,
       requiredTime,
+    },
+  });
+};
+
+export const getAtelierDetail = async (token: string, atelierId: string) => {
+  return request({
+    url: `/api/v1/ateliers/${atelierId}`,
+    method: API_METHOD.GET,
+    headers: {
+      Authorization: token,
+    },
+  });
+};
+
+export const followByUser = async (token: string, id: FollowByUser) => {
+  return request({
+    method: API_METHOD.POST,
+    url: 'api/v1/follows',
+    headers: {
+      Authorization: token,
+    },
+    data: {
+      ...id,
+    },
+  });
+};
+
+export const fetchFeedContents = async (token: string) => {
+  return request({
+    method: API_METHOD.GET,
+    url: '/api/v1/posts',
+    headers: {
+      Authorization: token,
+    },
+    params: {
+      pageIndex: 0,
+      pageSize: 10,
+      column: 'id',
+      order: 'ASC',
     },
   });
 };

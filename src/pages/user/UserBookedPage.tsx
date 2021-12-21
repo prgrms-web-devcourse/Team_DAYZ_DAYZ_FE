@@ -106,44 +106,34 @@ const UserBookedPage = () => {
 const UserBookedPageWrapper = styled.section``;
 const BookedLists = styled.ul``;
 const BookedItem = styled.li`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   border: solid 1px #c4c4c4;
   border-radius: 16px;
   margin: 20px;
-  padding: 20px 20px;
-  height: 130px;
-  box-sizing: border-box;
+  padding: 20px;
+  height: 60px;
 `;
 const ProductName = styled.h4`
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 600;
   max-width: 220px;
 `;
 const ProductDateData = styled.div`
-  display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
   margin-top: 10px;
 `;
-const ProductDate = styled.div`
-  font-size: 20px;
-  margin-right: 5px;
-`;
-const ProductDay = styled.div`
-  font-size: 20px;
-  margin-right: 5px;
-`;
-const ProductTime = styled.div`
-  font-size: 20px;
-`;
+const ProductDay = styled.div``;
+const ProductTime = styled.div``;
 
 const Button = styled.button`
-  font-size: 20px;
   font-weight: 600;
-  width: 108px;
+  width: 80px;
   color: #f5f5f5;
   border: none;
   padding: 0 10px;
-  height: 40px;
+  height: 30px;
   border-radius: 8px;
 `;
 
