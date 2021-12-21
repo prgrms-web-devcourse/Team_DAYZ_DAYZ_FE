@@ -260,7 +260,7 @@ export const fetchProductReviewById = async (token: string, id: number) => {
         Authorization: token,
       },
       params: {
-        pageIndex: 1,
+        pageIndex: 0,
         pageSize: 10,
         column: 'id',
         order: 'ASC',
