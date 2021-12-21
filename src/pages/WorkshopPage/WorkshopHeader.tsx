@@ -4,40 +4,53 @@ import { Link, useParams } from 'react-router-dom';
 import { Layout, Calendar, Star, Phone, Home, Clock } from 'react-feather';
 import { Avatar } from '../../components/base';
 import { RoutePath } from '.';
-import { DUMMY_ATELIER_DATA } from './DUMMY_DATA';
-import { getAtelierDetail } from '../../utils/api/dayzApi';
+import { followByUser, getAtelierDetail } from '../../utils/api/dayzApi';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms';
+import Loader from 'react-loader-spinner';
 
-// 1. 공방 상세정보 조회 https://backend-devcourse.notion.site/2158d2bf8bab4792baea605062c15d69
-// TODO:
-// 공방 정보가 없으면 뒤로가기 or 메인페이지로 가기
+interface AtelierProps {
+  address: string;
+  atelierId: number;
+  callNumber: string;
+  endTime: string;
+  imageUrl: string;
+  intro: string;
+  name: string;
+  startTime: string;
+}
 
 const WorkshopHeader = () => {
-  const { intro, name, imageUrl, address, callNo, startTime, endTime, atelierId } =
-    DUMMY_ATELIER_DATA;
   const ICON_SIZE = 26;
   const user = useRecoilValue(userState);
   const { id } = useParams<{ id: string }>();
-  const [atelierData, setAtelierData] = useState<any>({});
-
+  const [atelierData, setAtelierData] = useState<AtelierProps>();
+  const [isLoading, setIsLoading] = useState(atelierData == null);
   const getAsyncAtelierDetail = useCallback(async () => {
     const response = await getAtelierDetail(user.token, id);
     if (response.status === 200) {
       setAtelierData({ ...response.data.data });
+      setIsLoading(false);
       console.log(response.data.data);
     }
   }, [id]);
-
-  const formatPhoneNum = (num: string) => {
-    return num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, '$1-$2-$3');
-  };
 
   useEffect(() => {
     getAsyncAtelierDetail();
   }, [getAsyncAtelierDetail]);
 
-  return (
+  const followClick = () => {
+    // followByUser();
+  };
+  const formatPhoneNum = (num: string) => {
+    return num?.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, '$1-$2-$3');
+  };
+
+  return isLoading ? (
+    <LoaderContainer>
+      <Loader type="Oval" color="#B88BD6" height={80} width={80} />
+    </LoaderContainer>
+  ) : (
     <>
       <InfoContainer>
         <WorkshopProfile>
@@ -45,60 +58,43 @@ const WorkshopHeader = () => {
             size={80}
             alt={'profile'}
             shape={'circle'}
-            src={atelierData.imageUrl ? atelierData.imageUrl : imageUrl}
+            src={atelierData!.imageUrl}
             placeholder={'https://via.placeholder.com/150'}
           />
           <ContentsWrapper>
-            <span style={{ fontSize: '18px', fontWeight: '600' }}>
-              {atelierData.name ? atelierData.name : name}
-            </span>
-            <span style={{ margin: '10px 0' }}>
-              {atelierData.intro ? atelierData.intro : intro}
-            </span>
+            <span style={{ fontSize: '18px', fontWeight: '600' }}>{atelierData?.name}</span>
+            <span style={{ margin: '10px 0' }}>{atelierData?.intro}</span>
             <InfoDetailContainer>
-              <Home size={12} /> <span>{atelierData.address ? atelierData.address : address}</span>
+              <Home size={12} /> <span>{atelierData?.address}</span>
             </InfoDetailContainer>
             <InfoDetailContainer>
-              <Phone size={12} />{' '}
-              <span>
-                {atelierData.callNumber ? formatPhoneNum(atelierData.callNumber) : callNo}
-              </span>
+              <Phone size={12} /> <span>{formatPhoneNum(atelierData!.callNumber)}</span>
             </InfoDetailContainer>
             <InfoDetailContainer>
               <Clock size={12} />{' '}
               <span>
-                {atelierData.startTime ? atelierData.startTime : startTime} -{' '}
-                {atelierData.endTime ? atelierData.endTime : endTime}
+                {atelierData?.startTime} - {atelierData?.endTime}
               </span>
             </InfoDetailContainer>
           </ContentsWrapper>
         </WorkshopProfile>
         {user.auth === 'ROLE_USER' ? (
-          <FollowBtn>팔로우</FollowBtn>
+          <FollowBtn onClick={followClick}>팔로우</FollowBtn>
         ) : (
-          <Link
-            to={RoutePath.Setting(atelierId)}
-            style={{ textDecoration: 'none', color: 'black' }}
-          >
+          <Link to={RoutePath.Setting(id)} style={{ textDecoration: 'none', color: 'black' }}>
             <ProfileEditBtn>프로필 수정</ProfileEditBtn>
           </Link>
         )}
       </InfoContainer>
 
       <Tabs>
-        <Link to={RoutePath.Workshop(atelierId)} style={{ textDecoration: 'none', color: 'black' }}>
+        <Link to={RoutePath.Workshop(id)} style={{ textDecoration: 'none', color: 'black' }}>
           <Layout size={`${ICON_SIZE}px`} />
         </Link>
-        <Link
-          to={RoutePath.ProductList(atelierId)}
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
+        <Link to={RoutePath.ProductList(id)} style={{ textDecoration: 'none', color: 'black' }}>
           <Calendar size={`${ICON_SIZE}px`} />
         </Link>
-        <Link
-          to={RoutePath.ReviewList(atelierId)}
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
+        <Link to={RoutePath.ReviewList(id)} style={{ textDecoration: 'none', color: 'black' }}>
           <Star size={`${ICON_SIZE}px`} />
         </Link>
       </Tabs>
@@ -148,4 +144,9 @@ const Tabs = styled.div`
   justify-content: space-around;
   background-color: #f5f5f5;
   padding: 12px 0;
+`;
+
+const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;
