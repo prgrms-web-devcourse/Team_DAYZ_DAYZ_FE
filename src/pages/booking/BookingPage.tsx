@@ -85,7 +85,7 @@ const BookingPage = () => {
         peopleNumber: people,
         classTimeId: pickState,
       });
-      console.log(response);
+      // console.log(response);
 
       history.push('/booking/success', {
         date: convertFullDate(date),
@@ -157,7 +157,6 @@ const BookingPage = () => {
 };
 const Wrapper = styled.form`
   display: flex;
-  /* width: 100%; */
   overflow-x: scroll;
   & {
     -ms-overflow-style: none;
@@ -207,8 +206,10 @@ const StyledDiv = styled.div`
 
 const DataWrapper = styled.div`
   margin-top: 30px;
-  font-size: 23px;
-  text-align: center;
+  font-size: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const HeaderText = styled(Text)`
@@ -233,9 +234,10 @@ const ReservationContainer = styled.div`
 `;
 
 const StyledInput = styled.input`
-  margin-left: 20px;
-  margin-bottom: 10px;
   border: 2px solid;
+  border-radius: 8px;
+  padding: 5px 10px;
+  margin-left: 12px;
 `;
 
 const ReservationButton = styled(Button)`
