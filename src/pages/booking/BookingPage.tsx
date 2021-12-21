@@ -6,7 +6,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../../style/calendar.css';
 import { GoBack } from '../../components/domain';
 import { Button, Text } from '../../components/base';
-import { DUMMY_PRICE_DATA, Dummy_TIME_Data, DUMMY_TOTAL_PEOPLE } from './DUMMY_DATA';
 import { convertFullDate } from '../../utils/functions';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { navigationState, userState } from '../../atoms';
@@ -99,7 +98,7 @@ const BookingPage = () => {
 
   return (
     <>
-      <GoBack to={`/products/${id}`}>이전으로 돌아가기</GoBack>
+      <GoBack to={`/products/${id}`}>이전</GoBack>
       <div>
         <ReactDatePicker
           selected={date}
@@ -228,6 +227,9 @@ const ReservationContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  border-top: 1px solid #c4c4c4;
+  padding: 10px 0;
+  background-color: #ffffff;
 `;
 
 const StyledInput = styled.input`
@@ -243,5 +245,6 @@ const ReservationButton = styled(Button)`
   font-weight: bold;
   font-size: 25px;
   line-height: 29px;
+  color: #f5f5f5;
 `;
 export default BookingPage;
