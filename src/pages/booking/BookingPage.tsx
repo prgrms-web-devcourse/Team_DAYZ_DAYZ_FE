@@ -6,7 +6,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../../style/calendar.css';
 import { GoBack } from '../../components/domain';
 import { Button, Text } from '../../components/base';
-import { DUMMY_PRICE_DATA, Dummy_TIME_Data, DUMMY_TOTAL_PEOPLE } from './DUMMY_DATA';
 import { convertFullDate } from '../../utils/functions';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { navigationState, userState } from '../../atoms';
@@ -74,6 +73,10 @@ const BookingPage = () => {
   //   const a = classTimes.filter((class: ClassTimes) => class.classTimeId == pickState)
   // };
 
+  const formatPrice = (price: number) => {
+    return price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  };
+
   const handlePeopleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPeople(+e.target.value);
   };
@@ -86,7 +89,7 @@ const BookingPage = () => {
         peopleNumber: people,
         classTimeId: pickState,
       });
-      console.log(response);
+      // console.log(response);
 
       history.push('/booking/success', {
         date: convertFullDate(date),
@@ -99,7 +102,7 @@ const BookingPage = () => {
 
   return (
     <>
-      <GoBack to={`/products/${id}`}>이전으로 돌아가기</GoBack>
+      <GoBack to={`/products/${id}`}>이전</GoBack>
       <div>
         <ReactDatePicker
           selected={date}
@@ -148,7 +151,7 @@ const BookingPage = () => {
       )}
 
       <ReservationContainer>
-        <HeaderText>{state.price * (people ? people : 1)}원</HeaderText>
+        <HeaderText>{formatPrice(state.price * (people ? people : 1))}원</HeaderText>
         <ReservationButton type="button" onClick={handleClick}>
           결제하기
         </ReservationButton>
@@ -158,7 +161,6 @@ const BookingPage = () => {
 };
 const Wrapper = styled.form`
   display: flex;
-  /* width: 100%; */
   overflow-x: scroll;
   & {
     -ms-overflow-style: none;
@@ -208,12 +210,14 @@ const StyledDiv = styled.div`
 
 const DataWrapper = styled.div`
   margin-top: 30px;
-  font-size: 23px;
-  text-align: center;
+  font-size: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const HeaderText = styled(Text)`
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 700;
 `;
 
@@ -228,12 +232,16 @@ const ReservationContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  border-top: 1px solid #c4c4c4;
+  padding: 10px 0;
+  background-color: #ffffff;
 `;
 
 const StyledInput = styled.input`
-  margin-left: 20px;
-  margin-bottom: 10px;
   border: 2px solid;
+  border-radius: 8px;
+  padding: 5px 10px;
+  margin-left: 12px;
 `;
 
 const ReservationButton = styled(Button)`
@@ -243,5 +251,6 @@ const ReservationButton = styled(Button)`
   font-weight: bold;
   font-size: 25px;
   line-height: 29px;
+  color: #f5f5f5;
 `;
 export default BookingPage;

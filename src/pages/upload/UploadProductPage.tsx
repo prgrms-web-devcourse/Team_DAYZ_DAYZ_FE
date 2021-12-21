@@ -16,6 +16,7 @@ import {
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms';
 import { InputData } from '../../types';
+import { uploadProducts } from '../../utils/api/dayzApi';
 
 const defaultValues = {
   name: '',
@@ -52,23 +53,23 @@ const UploadProductPage = () => {
     control,
   } = useForm<InputData>({ defaultValues });
 
-  const onSubmit: SubmitHandler<any> = (formData: InputData) => {
+  const onSubmit: SubmitHandler<any> = async (formData: InputData) => {
     if (pickDate.length && imgSrcArray.length) {
       const { categoryId, intro, maxPeopleNumber, name, price, step1, step2, step3 } = formData;
-
       const data = {
-        aterilerId: user.atelierId,
+        token: user.token,
+        atelierId: user.atelierId,
         name,
         intro,
-        categoryId,
-        curricurums: convertCurricurums({ step1, step2, step3 }),
+        categoryId: +categoryId,
+        curriculums: convertCurricurums({ step1, step2, step3 }),
         images: convertImageArray(imgSrcArray),
         classTimes: pickDate,
-        maxPeopleNumber,
-        price,
+        maxPeopleNumber: +maxPeopleNumber,
+        price: +price,
         requiredTime: timeToString(formData.requiredTime),
       };
-      console.log('data : ', data);
+      await uploadProducts(data);
     }
   };
 

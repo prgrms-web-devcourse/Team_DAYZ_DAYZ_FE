@@ -44,7 +44,9 @@ const CategoryPage = () => {
       <GoBack to={'/'}>뒤로 가기</GoBack>
 
       <ResultsCategory>
-        <ResultsCategoryTitle> 검색 결과 {categoryClassData.length} 개 </ResultsCategoryTitle>
+        <ResultsCategoryTitle>
+          {genreArray[parseInt(genre) - 1]} 검색 결과 {categoryClassData.length} 개{' '}
+        </ResultsCategoryTitle>
         <ProductResultsItemWrapper>
           {categoryClassData.length ? (
             categoryClassData.map(({ classId, imageUrl, intro, name }: CategoryClassType) => (

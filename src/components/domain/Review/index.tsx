@@ -4,13 +4,13 @@ import { Avatar, Image } from '../../base';
 
 interface Props {
   profileImg: string;
-  ateliarName: string;
+  userName: string;
   content: string;
   uploadDate: string;
   imgList: string[];
 }
 
-const Review = ({ profileImg, ateliarName, content, uploadDate, imgList }: Props) => {
+const Review = ({ profileImg, userName, content, uploadDate, imgList }: Props) => {
   return (
     <ReviewWrapper>
       <AteliarContainer>
@@ -22,7 +22,7 @@ const Review = ({ profileImg, ateliarName, content, uploadDate, imgList }: Props
           alt={'profile'}
         />
         <NameWrapper>
-          <div>{ateliarName}</div>
+          <div>{userName}</div>
           <div>{uploadDate}</div>
         </NameWrapper>
       </AteliarContainer>
@@ -38,7 +38,7 @@ const Review = ({ profileImg, ateliarName, content, uploadDate, imgList }: Props
               height={100}
               alt={'image'}
               mode={'cover'}
-              style={{ borderRadius: '15px' }}
+              style={{ borderRadius: '15px', marginRight: '4px' }}
               key={img}
             />
           ))}

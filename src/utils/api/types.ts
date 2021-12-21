@@ -65,3 +65,31 @@ export interface ReservationsType extends Token {
 export interface CategoryClass extends Token {
   categoryId: number;
 }
+
+type ClassTime = {
+  data: string;
+  startTime: string;
+  closeTime: string;
+};
+type Curricurum = {
+  step: number;
+  content: string;
+};
+type Image = {
+  imageUrl: string;
+  sequence: number;
+};
+
+export interface UploadProduct {
+  token: string;
+  atelierId: number;
+  name: string;
+  intro: string;
+  categoryId: number;
+  curriculums: Curricurum[];
+  images: Image[];
+  classTimes: ClassTime[];
+  maxPeopleNumber: number;
+  price: number;
+  requiredTime: string;
+}

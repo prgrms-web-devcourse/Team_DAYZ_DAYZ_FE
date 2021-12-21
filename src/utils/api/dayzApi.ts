@@ -12,6 +12,7 @@ import {
   ClassTimesType,
   ReservationsType,
   CategoryClass,
+  UploadProduct,
 } from './types';
 
 const axiosInstance = axios.create();
@@ -213,7 +214,7 @@ export const getCategoryClasses = async ({ categoryId, token }: CategoryClass) =
     params: {
       pageIndex: 0,
       pageSize: 5,
-      column: 'createdAt',
+      column: 'id',
       order: 'ASC',
     },
   });
@@ -229,7 +230,7 @@ export const getBookingData = async ({ token }: Token) => {
     params: {
       pageIndex: 0,
       pageSize: 10,
-      column: 'createdAt',
+      column: 'id',
       order: 'ASC',
     },
   });
@@ -249,4 +250,60 @@ export const fetchProductById = async (token: string, id: number) => {
     console.log(error);
     return null;
   }
+};
+
+export const fetchProductReviewById = async (token: string, id: number) => {
+  try {
+    const res = await request({
+      method: API_METHOD.GET,
+      url: `api/v1/reviews/classes/${id}`,
+      headers: {
+        Authorization: token,
+      },
+      params: {
+        pageIndex: 0,
+        pageSize: 10,
+        column: 'id',
+        order: 'ASC',
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const uploadProducts = async ({
+  token,
+  atelierId,
+  name,
+  intro,
+  categoryId,
+  curriculums,
+  images,
+  classTimes,
+  maxPeopleNumber,
+  price,
+  requiredTime,
+}: UploadProduct) => {
+  return request({
+    method: API_METHOD.POST,
+    url: 'api/v1/classes',
+    headers: {
+      Authorization: token,
+    },
+    data: {
+      atelierId,
+      name,
+      intro,
+      categoryId,
+      curriculums,
+      images,
+      classTimes,
+      maxPeopleNumber,
+      price,
+      requiredTime,
+    },
+  });
 };
