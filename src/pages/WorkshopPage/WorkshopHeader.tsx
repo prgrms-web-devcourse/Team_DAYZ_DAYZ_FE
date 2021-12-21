@@ -8,6 +8,7 @@ import { followByUser, getAtelierDetail } from '../../utils/api/dayzApi';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms';
 import Loader from 'react-loader-spinner';
+import { FollowByUser } from '../../utils/api/types';
 
 interface AtelierProps {
   address: string;
@@ -26,12 +27,12 @@ const WorkshopHeader = () => {
   const { id } = useParams<{ id: string }>();
   const [atelierData, setAtelierData] = useState<AtelierProps>();
   const [isLoading, setIsLoading] = useState(atelierData == null);
+  const [isFollowed, setIsFollowed] = useState(false);
   const getAsyncAtelierDetail = useCallback(async () => {
     const response = await getAtelierDetail(user.token, id);
     if (response.status === 200) {
       setAtelierData({ ...response.data.data });
       setIsLoading(false);
-      console.log(response.data.data);
     }
   }, [id]);
 
@@ -39,9 +40,16 @@ const WorkshopHeader = () => {
     getAsyncAtelierDetail();
   }, [getAsyncAtelierDetail]);
 
-  const followClick = () => {
-    // followByUser();
+  const followClick = async () => {
+    const token = user.token;
+    const id: FollowByUser = {
+      memberId: user.id,
+      atelierId: atelierData!.atelierId,
+    };
+    const res = await followByUser(token, id);
+    res.status === 200 && setIsFollowed(!res.data.data.followingFlag);
   };
+
   const formatPhoneNum = (num: string) => {
     return num?.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, '$1-$2-$3');
   };
@@ -79,7 +87,11 @@ const WorkshopHeader = () => {
           </ContentsWrapper>
         </WorkshopProfile>
         {user.auth === 'ROLE_USER' ? (
-          <FollowBtn onClick={followClick}>팔로우</FollowBtn>
+          isFollowed ? (
+            <FollowedBtn>언팔로우</FollowedBtn>
+          ) : (
+            <FollowBtn onClick={followClick}>팔로우</FollowBtn>
+          )
         ) : (
           <Link to={RoutePath.Setting(id)} style={{ textDecoration: 'none', color: 'black' }}>
             <ProfileEditBtn>프로필 수정</ProfileEditBtn>
@@ -138,6 +150,9 @@ const ProfileEditBtn = styled.button`
 `;
 
 const FollowBtn = styled(ProfileEditBtn)``;
+const FollowedBtn = styled(ProfileEditBtn)`
+  background: #80808099;
+`;
 
 const Tabs = styled.div`
   display: flex;

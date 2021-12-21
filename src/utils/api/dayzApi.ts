@@ -327,7 +327,7 @@ export const followByUser = async (token: string, id: FollowByUser) => {
       Authorization: token,
     },
     data: {
-      id,
+      ...id,
     },
   });
 };
