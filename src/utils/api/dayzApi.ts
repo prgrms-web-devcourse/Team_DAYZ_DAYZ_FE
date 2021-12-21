@@ -229,7 +229,7 @@ export const getBookingData = async ({ token }: Token) => {
     params: {
       pageIndex: 0,
       pageSize: 10,
-      column: 'createdAt',
+      column: 'id',
       order: 'ASC',
     },
   });
@@ -262,7 +262,7 @@ export const fetchProductReviewById = async (token: string, id: number) => {
       params: {
         pageIndex: 1,
         pageSize: 10,
-        column: 'createdAt',
+        column: 'id',
         order: 'ASC',
       },
     });
