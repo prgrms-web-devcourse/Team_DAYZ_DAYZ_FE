@@ -12,6 +12,7 @@ import {
   ClassTimesType,
   ReservationsType,
   CategoryClass,
+  UploadProduct,
 } from './types';
 
 const axiosInstance = axios.create();
@@ -271,4 +272,38 @@ export const fetchProductReviewById = async (token: string, id: number) => {
     console.log(error);
     return null;
   }
+};
+
+export const uploadProducts = async ({
+  token,
+  atelierId,
+  name,
+  intro,
+  categoryId,
+  curriculums,
+  images,
+  classTimes,
+  maxPeopleNumber,
+  price,
+  requiredTime,
+}: UploadProduct) => {
+  return request({
+    method: API_METHOD.POST,
+    url: 'api/v1/classes',
+    headers: {
+      Authorization: token,
+    },
+    data: {
+      atelierId,
+      name,
+      intro,
+      categoryId,
+      curriculums,
+      images,
+      classTimes,
+      maxPeopleNumber,
+      price,
+      requiredTime,
+    },
+  });
 };
