@@ -17,6 +17,8 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms';
 import { InputData } from '../../types';
 import { uploadProducts } from '../../utils/api/dayzApi';
+import { Toast } from '../../components/base';
+import { useHistory } from 'react-router-dom';
 
 const defaultValues = {
   name: '',
@@ -44,6 +46,7 @@ const UploadProductPage = () => {
   const { token } = useRecoilValue(userState);
   const [imgSrcArray, setImgSrcArray] = useState<string[]>([]);
   const [pickDate, setPickDate] = useState<any | undefined>('');
+  const history = useHistory();
 
   const {
     register,
@@ -69,7 +72,12 @@ const UploadProductPage = () => {
         price: +price,
         requiredTime: timeToString(formData.requiredTime),
       };
-      await uploadProducts(data);
+      const response = await uploadProducts(data);
+      if (response.status === 200) {
+        history.replace('/');
+      } else {
+        Toast.show(response.data.data.message, 2000);
+      }
     }
   };
 
