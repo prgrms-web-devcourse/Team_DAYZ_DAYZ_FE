@@ -31,7 +31,7 @@ const HomePage = () => {
   }, []);
 
   const userInfo = useRecoilValue(userState);
-  const { token, cityId, regionId } = userInfo;
+  const { token } = userInfo;
   const [popularClassesData, setPopularClassesData] = useState<any | ''>([]);
   const [newAtelierData, setNewAtelierData] = useState<any>([]);
 
@@ -60,7 +60,7 @@ const HomePage = () => {
         </SearchBarWrapper>
 
         <CategoryWrapper>
-          {categoryIcons.map(({ categoryId, genre, Icon, contents }) => (
+          {categoryIcons.map(({ categoryId, Icon, contents }) => (
             <Link
               to={`/category/${categoryId}`}
               key={categoryId}
@@ -80,7 +80,7 @@ const HomePage = () => {
           <BestClassItemWrapper>
             {popularClassesData.length ? (
               popularClassesData?.map(({ classId, name, imageUrl, intro }: any) => (
-                <Link to={`/products/${classId}`} key={classId}>
+                <Link to={`/products/${classId}`} key={classId} style={{ textDecoration: 'none' }}>
                   <BestClassesItem>
                     <Image
                       lazy
@@ -90,9 +90,10 @@ const HomePage = () => {
                       height={120}
                       alt="Atelier"
                       mode="fill"
-                      style={{ borderRadius: '16px' }}
+                      style={{ borderRadius: '8px', marginBottom: '8px' }}
                     />
                     <BestClassesTitle>{name}</BestClassesTitle>
+                    <span>{intro}</span>
                   </BestClassesItem>
                 </Link>
               ))
@@ -107,19 +108,24 @@ const HomePage = () => {
           <NewClassesItemWrapper>
             {newAtelierData.length ? (
               newAtelierData.map(({ atelierId, name, imageUrl, intro }: Atelier) => (
-                <Link to={`/workshop/${atelierId}`} key={atelierId}>
+                <Link
+                  style={{ textDecoration: 'none' }}
+                  to={`/workshop/${atelierId}`}
+                  key={atelierId}
+                >
                   <NewClassesItem>
                     <Image
                       lazy
                       src={imageUrl}
                       placeholder="https://via.placeholder.com/150"
-                      width={'100%'}
-                      height={'100%'}
+                      width={160}
+                      height={160}
                       alt="Atelier"
-                      mode="fill"
-                      style={{ borderRadius: '16px', position: 'absolute' }}
+                      mode="cover"
+                      style={{ borderRadius: '8px' }}
                     />
                     <NewClassesTitle>{name}</NewClassesTitle>
+                    <span>{intro}</span>
                   </NewClassesItem>
                 </Link>
               ))
@@ -145,7 +151,7 @@ const Container = styled.div`
 const SearchBarWrapper = styled.section`
   width: 300px;
   height: 60px;
-  border-radius: 16px;
+  border-radius: 8px;
   margin: 30px calc(50% - 150px);
   margin-top: 40px;
   background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
@@ -161,7 +167,7 @@ const PlaceHolder = styled.div`
   font-weight: 600;
   color: rgba(0, 0, 0, 0.55);
   background-color: white;
-  border-radius: 10px;
+  border-radius: 8px;
   line-height: 50px;
   text-align: center;
 `;
@@ -195,8 +201,6 @@ const BestClassItemWrapper = styled.div`
   overflow-y: hidden;
   overflow-x: scroll;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
   & {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -206,18 +210,18 @@ const BestClassItemWrapper = styled.div`
   }
 `;
 const BestClassesItem = styled.div`
-  position: relative;
+  width: 200px;
   margin-right: 10px;
-  text-align: center;
   word-break: keep-all;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: black;
 `;
 const BestClassesTitle = styled.div`
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  font-size: 20px;
   font-weight: 600;
-  color: #f5f5f5;
+  margin-bottom: 4px;
+  color: black;
 `;
 
 const NewClassesWrapper = styled.section`
@@ -227,23 +231,24 @@ const NewClassesWrapper = styled.section`
   overflow-x: hidden;
 `;
 const NewClassesItemWrapper = styled.div`
+  margin: 20px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  row-gap: 10px;
-  column-gap: 10px;
-  margin: 0 20px;
+  justify-content: center;
+  grid-gap: 10px;
 `;
 const NewClassesItem = styled.div`
-  position: relative;
-  padding-bottom: 100%;
+  color: black;
+  word-break: keep-all;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   overflow: hidden;
+  width: 160px;
+  margin-bottom: 24px;
 `;
 const NewClassesTitle = styled.div`
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  color: #f5f5f5;
+  margin: 5px 0;
 `;
 export default HomePage;
