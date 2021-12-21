@@ -13,6 +13,7 @@ import {
   ReservationsType,
   CategoryClass,
   UploadProduct,
+  FollowByUser,
 } from './types';
 
 const axiosInstance = axios.create();
@@ -314,6 +315,19 @@ export const getAtelierDetail = async (token: string, atelierId: string) => {
     method: API_METHOD.GET,
     headers: {
       Authorization: token,
+    },
+  });
+};
+
+export const followByUser = async (token: string, id: FollowByUser) => {
+  return request({
+    method: API_METHOD.POST,
+    url: 'api/v1/follows',
+    headers: {
+      Authorization: token,
+    },
+    data: {
+      id,
     },
   });
 };

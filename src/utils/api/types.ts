@@ -93,3 +93,8 @@ export interface UploadProduct {
   price: number;
   requiredTime: string;
 }
+
+export interface FollowByUser {
+  memberId: number;
+  atelierId: number;
+}
