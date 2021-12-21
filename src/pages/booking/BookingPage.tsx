@@ -73,6 +73,10 @@ const BookingPage = () => {
   //   const a = classTimes.filter((class: ClassTimes) => class.classTimeId == pickState)
   // };
 
+  const formatPrice = (price: number) => {
+    return price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  };
+
   const handlePeopleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPeople(+e.target.value);
   };
@@ -147,7 +151,7 @@ const BookingPage = () => {
       )}
 
       <ReservationContainer>
-        <HeaderText>{state.price * (people ? people : 1)}원</HeaderText>
+        <HeaderText>{formatPrice(state.price * (people ? people : 1))}원</HeaderText>
         <ReservationButton type="button" onClick={handleClick}>
           결제하기
         </ReservationButton>
@@ -213,7 +217,7 @@ const DataWrapper = styled.div`
 `;
 
 const HeaderText = styled(Text)`
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 700;
 `;
 
