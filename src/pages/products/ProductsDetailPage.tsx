@@ -132,7 +132,7 @@ const ProductsDetailPage = () => {
           <Text style={{ fontSize: 30, fontWeight: 800 }}>{productData?.name}</Text>
           <RatingWrapper>
             <Star size={16} style={{ paddingBottom: '5px' }} />
-            <div style={{ paddingLeft: '5px' }}>{productData?.avgScore}</div>
+            <div style={{ paddingLeft: '5px' }}>{productData?.avgScore.toString().slice(0, 1)}</div>
           </RatingWrapper>
         </ProductNameWrapper>
         <ProductContentWrapper>
@@ -184,7 +184,7 @@ const ProductsDetailPage = () => {
         </ReservationButton>
       </ReservationContainer>
       <ReviewModal
-        avgScore={+productData!.avgScore}
+        avgScore={+productData!.avgScore.toString().slice(0, 1)}
         id={+id}
         visible={visible}
         setVisible={setVisible}
