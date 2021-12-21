@@ -168,7 +168,6 @@ export const getAtelierLists = (token: string) => {
     params: {
       pageIndex: 0,
       pageSize: 5,
-
       column: 'createdAt',
       order: 'ASC',
     },
@@ -328,6 +327,22 @@ export const followByUser = async (token: string, id: FollowByUser) => {
     },
     data: {
       ...id,
+    },
+  });
+};
+
+export const fetchFeedContents = async (token: string) => {
+  return request({
+    method: API_METHOD.GET,
+    url: '/api/v1/posts',
+    headers: {
+      Authorization: token,
+    },
+    params: {
+      pageIndex: 0,
+      pageSize: 10,
+      column: 'id',
+      order: 'ASC',
     },
   });
 };
