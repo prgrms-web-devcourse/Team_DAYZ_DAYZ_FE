@@ -119,6 +119,14 @@ const ProductsDetailPage = () => {
     return num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, '$1-$2-$3');
   };
 
+  const countStar = (num: any) => {
+    const starArray = [];
+    for (let i = 0; i < num; i++) {
+      starArray.push(<Star size={18} style={{ paddingBottom: '5px' }} />);
+    }
+    return starArray;
+  };
+
   return isLoading ? (
     <Loader type="Oval" color="#B88BD6" height={80} width={80} />
   ) : (
@@ -142,7 +150,7 @@ const ProductsDetailPage = () => {
         <ProductNameWrapper>
           <Text style={{ fontSize: 30, fontWeight: 800 }}>{productData?.name}</Text>
           <RatingWrapper>
-            <Star size={16} style={{ paddingBottom: '5px' }} />
+            {countStar(productData?.avgScore.toString().slice(0, 1))}
             <div style={{ paddingLeft: '5px' }}>{productData?.avgScore.toString().slice(0, 1)}</div>
           </RatingWrapper>
         </ProductNameWrapper>
@@ -169,7 +177,7 @@ const ProductsDetailPage = () => {
           <span>후기({reviewData?.list.length})</span>
         </HeaderText>
         <SimpleReviewContainer>
-          {reviewData?.list.map((review) => (
+          {reviewData?.list.slice(0, 2).map((review) => (
             <SimpleReview key={review.id} date={review.createdAt}>
               {review.content}
             </SimpleReview>
@@ -224,7 +232,7 @@ const ProductsDetailContainer = styled.section`
 `;
 const ProductNameWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin: 20px 0;
 `;
 const ProductContentWrapper = styled.div`
@@ -290,7 +298,10 @@ const Bullet = styled.span`
 `;
 const RatingWrapper = styled.div`
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  margin-top: 12px;
+  color: #b88bd6;
+  & div {
+    font-size: 18px;
+  }
 `;
 export default ProductsDetailPage;
