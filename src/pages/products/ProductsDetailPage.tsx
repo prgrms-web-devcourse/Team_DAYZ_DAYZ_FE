@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { Button, Text } from '../../components/base';
-import { AteliarInformation, SimpleReview } from '../../components/domain';
+import { AteliarInformation, GoBack, SimpleReview } from '../../components/domain';
 import ReviewModal from './ReviewModal';
 import Flicking, { ViewportSlot } from '@egjs/react-flicking';
 import { Pagination } from '@egjs/flicking-plugins';
@@ -14,6 +14,7 @@ import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { modalState, navigationState, userState } from '../../atoms';
 import { fetchProductById, fetchProductReviewById } from '../../utils/api/dayzApi';
 import Loader from 'react-loader-spinner';
+import { ChevronLeft } from 'react-feather';
 
 interface IImage {
   imageUrl: string;
@@ -111,10 +112,18 @@ const ProductsDetailPage = () => {
       price: 12000,
     });
   };
+
+  const fomatPhoneNum = (num: string) => {
+    return num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, '$1-$2-$3');
+  };
+
   return isLoading ? (
     <Loader type="Oval" color="#B88BD6" height={80} width={80} />
   ) : (
     <>
+      <DetailPageHeader onClick={() => history.goBack()}>
+        <ChevronLeft size={30} /> 이전
+      </DetailPageHeader>
       <Flicking align="prev" circular={false} plugins={[new Pagination({ type: 'bullet' })]}>
         {productData?.images.map((url) => (
           <img key={url.sequence} style={{ width: '100%', height: '250px' }} src={url.imageUrl} />
@@ -173,7 +182,7 @@ const ProductsDetailPage = () => {
         <AteliarInformation
           profileImg={productData?.atelier.imageUrl}
           name={productData?.atelier.name}
-          phoneNumber={productData?.atelier.callNumber}
+          phoneNumber={fomatPhoneNum(productData!.atelier.callNumber)}
           openTime={`${productData?.atelier.startTime} ~ ${productData?.atelier.endTime}`}
         />
       </AuthorDetailContainer>
@@ -192,6 +201,17 @@ const ProductsDetailPage = () => {
     </>
   );
 };
+
+const DetailPageHeader = styled.button`
+  position: fixed;
+  display: flex;
+  align-items: center;
+  z-index: 101;
+  height: 40px;
+  background: #ffffffa4;
+  width: 100%;
+  border: none;
+`;
 
 const ProductsDetailContainer = styled.section`
   margin: 20px 0;
