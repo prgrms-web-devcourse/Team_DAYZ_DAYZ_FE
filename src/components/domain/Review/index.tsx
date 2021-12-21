@@ -38,7 +38,7 @@ const Review = ({ profileImg, userName, content, uploadDate, imgList }: Props) =
               height={100}
               alt={'image'}
               mode={'cover'}
-              style={{ borderRadius: '15px' }}
+              style={{ borderRadius: '15px', marginRight: '4px' }}
               key={img}
             />
           ))}
