@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
-import { Layout, Calendar, Star } from 'react-feather';
+import { Link, useParams } from 'react-router-dom';
+import { Layout, Calendar, Star, Phone, Home, Clock } from 'react-feather';
 import { Avatar } from '../../components/base';
 import { RoutePath } from '.';
 import { DUMMY_ATELIER_DATA } from './DUMMY_DATA';
+import { getAtelierDetail } from '../../utils/api/dayzApi';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms';
 
@@ -13,10 +14,29 @@ import { userState } from '../../atoms';
 // 공방 정보가 없으면 뒤로가기 or 메인페이지로 가기
 
 const WorkshopHeader = () => {
-  const { auth } = useRecoilValue(userState);
   const { intro, name, imageUrl, address, callNo, startTime, endTime, atelierId } =
     DUMMY_ATELIER_DATA;
   const ICON_SIZE = 26;
+  const user = useRecoilValue(userState);
+  const { id } = useParams<{ id: string }>();
+  const [atelierData, setAtelierData] = useState<any>({});
+
+  const getAsyncAtelierDetail = useCallback(async () => {
+    const response = await getAtelierDetail(user.token, id);
+    if (response.status === 200) {
+      setAtelierData({ ...response.data.data });
+      console.log(response.data.data);
+    }
+  }, [id]);
+
+  const formatPhoneNum = (num: string) => {
+    return num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, '$1-$2-$3');
+  };
+
+  useEffect(() => {
+    getAsyncAtelierDetail();
+  }, [getAsyncAtelierDetail]);
+
   return (
     <>
       <InfoContainer>
@@ -25,20 +45,35 @@ const WorkshopHeader = () => {
             size={80}
             alt={'profile'}
             shape={'circle'}
-            src={imageUrl}
+            src={atelierData.imageUrl ? atelierData.imageUrl : imageUrl}
             placeholder={'https://via.placeholder.com/150'}
           />
           <ContentsWrapper>
-            <span>{name}</span>
-            <span>{intro}</span>
-            <span>{address}</span>
-            <span>{callNo}</span>
-            <span>
-              {startTime} - {endTime}
+            <span style={{ fontSize: '18px', fontWeight: '600' }}>
+              {atelierData.name ? atelierData.name : name}
             </span>
+            <span style={{ margin: '10px 0' }}>
+              {atelierData.intro ? atelierData.intro : intro}
+            </span>
+            <InfoDetailContainer>
+              <Home size={12} /> <span>{atelierData.address ? atelierData.address : address}</span>
+            </InfoDetailContainer>
+            <InfoDetailContainer>
+              <Phone size={12} />{' '}
+              <span>
+                {atelierData.callNumber ? formatPhoneNum(atelierData.callNumber) : callNo}
+              </span>
+            </InfoDetailContainer>
+            <InfoDetailContainer>
+              <Clock size={12} />{' '}
+              <span>
+                {atelierData.startTime ? atelierData.startTime : startTime} -{' '}
+                {atelierData.endTime ? atelierData.endTime : endTime}
+              </span>
+            </InfoDetailContainer>
           </ContentsWrapper>
         </WorkshopProfile>
-        {auth === 'ROLE_USER' ? (
+        {user.auth === 'ROLE_USER' ? (
           <FollowBtn>팔로우</FollowBtn>
         ) : (
           <Link
@@ -49,6 +84,7 @@ const WorkshopHeader = () => {
           </Link>
         )}
       </InfoContainer>
+
       <Tabs>
         <Link to={RoutePath.Workshop(atelierId)} style={{ textDecoration: 'none', color: 'black' }}>
           <Layout size={`${ICON_SIZE}px`} />
@@ -84,16 +120,16 @@ const WorkshopProfile = styled.section`
 const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 270px;
+  word-break: keep-all;
   margin-left: 18px;
-  & span:first-of-type {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  & span:not(first-of-type) {
-    margin: 2px 0;
-  }
 `;
+
+const InfoDetailContainer = styled.div`
+  margin: 3px 0;
+  font-size: 14px;
+`;
+
 const ProfileEditBtn = styled.button`
   background: rgb(184, 139, 214);
   border: none;
@@ -102,6 +138,7 @@ const ProfileEditBtn = styled.button`
   font-weight: 600;
   color: white;
   width: 100%;
+  padding: 4px 0;
 `;
 
 const FollowBtn = styled(ProfileEditBtn)``;

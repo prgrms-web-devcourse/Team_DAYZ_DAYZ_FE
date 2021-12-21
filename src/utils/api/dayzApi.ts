@@ -307,3 +307,13 @@ export const uploadProducts = async ({
     },
   });
 };
+
+export const getAtelierDetail = async (token: string, atelierId: string) => {
+  return request({
+    url: `/api/v1/ateliers/${atelierId}`,
+    method: API_METHOD.GET,
+    headers: {
+      Authorization: token,
+    },
+  });
+};
