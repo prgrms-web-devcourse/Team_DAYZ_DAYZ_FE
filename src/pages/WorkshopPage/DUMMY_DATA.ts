@@ -40,7 +40,7 @@ export const DUMMY_FEED_DATA = {
 
 // https://backend-devcourse.notion.site/cbf7db08c6ae437b904d594dc92a8219
 export const DUMMY_CLASS_DATA = {
-  totalCount: 10,
+  totalCount: 4,
   pageIndex: 0,
   oneDayClass: [
     {
@@ -65,7 +65,7 @@ export const DUMMY_CLASS_DATA = {
       classId: 4,
       name: '나만의 술잔 만들기',
       intro: '도예 클래스 입니다~!',
-      imageUrl: 'https://via.placeholder.com/150',
+      imageUrl: 'https://i.pinimg.com/564x/3c/18/7a/3c187af10142a507e8b74b9c9b3a0033.jpg',
     },
   ],
   hasNext: false,

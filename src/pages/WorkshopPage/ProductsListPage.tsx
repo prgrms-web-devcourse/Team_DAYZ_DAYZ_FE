@@ -7,8 +7,6 @@ import { DUMMY_CLASS_DATA } from './DUMMY_DATA';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms';
 
-// 1. 클래스 목록 조회 https://backend-devcourse.notion.site/cbf7db08c6ae437b904d594dc92a8219
-
 const ProductsListPage = () => {
   const user = useRecoilValue(userState);
 
@@ -18,7 +16,6 @@ const ProductsListPage = () => {
       <ProductsCnt>
         총 <strong style={{ fontWeight: '600' }}>{totalCount}</strong> 개의 결과
       </ProductsCnt>
-
       {oneDayClass.length ? (
         oneDayClass.map(({ classId, name, imageUrl }) => (
           <LinkBox key={classId} src={imageUrl}>
@@ -28,17 +25,18 @@ const ProductsListPage = () => {
       ) : (
         <div>아직 클래스가 없습니다</div>
       )}
-
       {user.auth === 'ROLE_ATELIER' && (
-        <Link to="/upload/products">
-          <ProductAdd>
-            <Plus size={50} style={{ color: '#f5f5f5' }} />
-          </ProductAdd>
-          <Balloon>
-            버튼을 눌러 <br />
-            클래스를 추가하세요!
-          </Balloon>
-        </Link>
+        <ProductAddContainer>
+          <Link to="/upload/products">
+            <ProductAdd>
+              <Plus size={50} style={{ color: '#f5f5f5' }} />
+            </ProductAdd>
+            <Balloon>
+              버튼을 눌러 <br />
+              클래스를 추가하세요!
+            </Balloon>
+          </Link>
+        </ProductAddContainer>
       )}
     </ProductsListContainer>
   );
@@ -53,6 +51,12 @@ const ProductsCnt = styled.div`
   opacity: 0.7;
 `;
 
+const ProductAddContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+`;
 const ProductAdd = styled.div`
   display: flex;
   justify-content: center;
@@ -61,9 +65,6 @@ const ProductAdd = styled.div`
   height: 80px;
   border-radius: 50%;
   background: linear-gradient(135deg, #b88bd6 0%, #b88bd6 0.01%, #a8bac8 100%);
-  position: fixed;
-  right: 20px;
-  bottom: 80px;
   &:hover + div {
     display: block;
   }
