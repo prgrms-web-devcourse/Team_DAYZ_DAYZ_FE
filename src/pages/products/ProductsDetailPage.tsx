@@ -64,7 +64,7 @@ export interface IList {
   content: string;
   createdAt: string;
   id: number;
-  member: IMember[];
+  member: IMember;
   reviewImage: IReviewImage[];
 }
 
@@ -104,12 +104,14 @@ const ProductsDetailPage = () => {
       resetPageState();
     };
   }, []);
-
   const handleClick = () => {
+    const bookingData = {
+      name: productData!.name,
+      maxPeopleNumber: productData!.maxPeopleNumber,
+      price: productData!.price,
+    };
     history.push(`/booking/${id}`, {
-      name: '나만의 도자기 만들기',
-      maxPeopleNumber: 5,
-      price: 12000,
+      ...bookingData,
     });
   };
 
@@ -208,6 +210,8 @@ const DetailPageHeader = styled.button`
   align-items: center;
   z-index: 101;
   height: 40px;
+  font-weight: 600;
+  font-size: 18px;
   background: #ffffffa4;
   width: 100%;
   border: none;

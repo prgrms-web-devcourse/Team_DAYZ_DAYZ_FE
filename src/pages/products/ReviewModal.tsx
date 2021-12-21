@@ -22,11 +22,10 @@ const ReviewModal = ({ visible = false, setVisible, id, avgScore }: Props) => {
   const [isLoading, setIsLoading] = useState(reviewList == null);
   // Todo: 바깥 스크롤 막기 추가
   useEffect(() => {
-    if (visible) {
-      fetchProductReviewById(token, id).then((res) => setReviewList(res.data));
-      setIsLoading(false);
-    }
+    fetchProductReviewById(token, id).then((res) => setReviewList(res.data));
+    setIsLoading(false);
   }, []);
+  console.log(reviewList);
   return isLoading ? (
     <StyledModal visible={visible} onClose={() => setVisible(false)} width={'100%'} height={'80%'}>
       <ModalHeader>
@@ -87,8 +86,8 @@ const ReviewModal = ({ visible = false, setVisible, id, avgScore }: Props) => {
         {reviewList?.list.map((review) => (
           <Review
             key={review.id}
-            profileImg={'https://via.placeholder.com/150'}
-            userName={'여기 어떻게 채우죠.. 도와주세유'}
+            profileImg={review.member.profileImageUrl}
+            userName={review.member.username}
             content={review.content}
             uploadDate={review.createdAt}
             imgList={review.reviewImage.map((img) => img.imageUrl)}
