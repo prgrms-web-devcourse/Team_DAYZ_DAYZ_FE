@@ -61,7 +61,7 @@ const UploadProductPage = () => {
       const { categoryId, intro, maxPeopleNumber, name, price, step1, step2, step3 } = formData;
       const data = {
         token: user.token,
-        atelierId: user.atelierId,
+        atelierId: user.atelierId as number,
         name,
         intro,
         categoryId: +categoryId,
