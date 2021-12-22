@@ -25,7 +25,7 @@ function LoginPage() {
     };
   }, []);
   const PATH_REDIRECT_KAKAO = '/redirect-after-kakao';
-  const redirectURI = `${process.env.REACT_APP_DAYZ_API_END_POINT}/oauth2/authorization/kakao?redirect_uri=https://onedayz.netlify.app/${PATH_REDIRECT_KAKAO}`;
+  const redirectURI = `${process.env.REACT_APP_DAYZ_API_END_POINT}/oauth2/authorization/kakao?redirect_uri=https://onedayz.netlify.app${PATH_REDIRECT_KAKAO}`;
 
   return (
     <>
