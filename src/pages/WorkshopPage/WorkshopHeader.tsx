@@ -43,7 +43,7 @@ const WorkshopHeader = () => {
   const followClick = async () => {
     const token = user.token;
     const id: FollowByUser = {
-      memberId: user.id,
+      memberId: user.id as number,
       atelierId: atelierData!.atelierId,
     };
     const res = await followByUser(token, id);
