@@ -1,69 +1,104 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useRecoilState, useRecoilValueLoadable } from 'recoil';
+import { ErrorMessage } from '..';
+import { locationState, userState } from '../../../atoms';
+import { LocationType } from '../../../types';
+import { setLocation } from '../../../utils/api/dayzApi';
+import { Toast } from '../../base';
 
-const LocationSetting = () => {
-  const [pickState, setPickState] = useState<string[]>([]);
+// locationList = [
+//   {
+//     regionId: 1,
+//     regionName: '강남구',
+//   },
+//   {
+//     regionId: 2,
+//     regionName: '강동구',
+//   },
+//   {
+//     regionId: 3,
+//     regionName: '강북구',
+//   } 등등의 데이터를 recoil 에서 불러옵니다.
+// ];
+interface Props {
+  setVisible: (T: boolean) => void;
+}
 
-  const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
-    const target: string = (e.target as HTMLFormElement).dataset.id!;
-    if (!pickState?.includes(target)) {
-      if (pickState.length < 3) {
-        setPickState([...pickState, target]);
-      } else {
-        pickState.shift();
-        setPickState([...pickState, target]);
-      }
-    } else {
-      setPickState(pickState.filter((pick: string) => pick !== target));
+const LocationSetting = ({ setVisible }: Props) => {
+  const history = useHistory();
+  const [pickState, setPickState] = useState<string | ''>('');
+  const [userInfo, setUserInfo] = useRecoilState(userState);
+  const [errorMessage, setErrorMessage] = useState('');
+  const { state, contents } = useRecoilValueLoadable(locationState);
+  const locationList: LocationType[] = useMemo(() => {
+    if (state === 'hasValue') {
+      return contents;
+    } else if (state === 'hasError') {
+      setErrorMessage('지역정보를 불러오지 못했습니다.');
+      return [];
+    }
+  }, [state, contents]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target: any = (e.target as HTMLInputElement).dataset.id!;
+    setPickState(target);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const [{ regionId, regionName }] = locationList.filter(
+      (list: LocationType) => list.regionName === pickState,
+    );
+    try {
+      await setLocation(userInfo.token, {
+        cityId: 1,
+        regionId,
+      });
+      setUserInfo((oldState) => ({
+        ...oldState,
+        regionId,
+        regionName,
+      }));
+      setVisible(false);
+      history.push('/');
+      Toast.show('성공적으로 변경되었습니다.', 2000);
+    } catch (e: any) {
+      Toast.show(e.message);
     }
   };
-  const district = [
-    '강남구',
-    '강동구',
-    '강북구',
-    '강서구',
-    '관악구',
-    '구로구',
-    '금천구',
-    '노원구',
-    '도봉구',
-    '동대문구',
-    '동작구',
-    '마포구',
-    '서대문구',
-    '서초구',
-    '성동구',
-    '성북구',
-    '송파구',
-    '양천구',
-    '영등포구',
-    '용산구',
-    '은평구',
-    '종로구',
-    '중구',
-    '중랑구',
-  ];
+
   return (
     <Wrapper>
-      <H4>관심지역 3곳을 선택해 주세요</H4>
-      <div
-        style={{
-          margin: '10px auto',
-          paddingBottom: '20px',
-          borderBottom: 'solid 1px #c4c4c4',
-          left: '0',
-          right: '0',
-        }}
-      >
-        {pickState.length
-          ? pickState.map((pick: any) => <SelectedButton key={pick}>{pick}</SelectedButton>)
-          : ''}
-      </div>
-      <form onChange={handleChange}>
-        {district.map((location) => (
-          <ToggleContainer key={location}>
-            <Input type="checkbox" data-id={location} checked={pickState?.includes(location)} />
-            <Button>{location}</Button>
+      <H4>관심지역을 선택해 주세요</H4>
+      <form onSubmit={handleSubmit}>
+        <div
+          style={{
+            margin: '10px auto',
+            paddingBottom: '20px',
+            borderBottom: 'solid 1px #c4c4c4',
+            left: '0',
+            right: '0',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <SelectedButton>{pickState ? pickState : userInfo.regionName}</SelectedButton>
+          <SubmitButton type="submit">저장</SubmitButton>
+        </div>
+        <div />
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        {locationList?.map(({ regionId, regionName }: LocationType) => (
+          <ToggleContainer key={regionId}>
+            <Input
+              type="checkbox"
+              data-id={regionName}
+              checked={pickState?.includes(regionName)}
+              onChange={handleChange}
+            />
+            <Button>{regionName}</Button>
           </ToggleContainer>
         ))}
       </form>
@@ -83,7 +118,7 @@ const ToggleContainer = styled.label`
 const Input = styled.input`
   display: none;
   &:checked + div {
-    background: #b88bd6;
+    background: #c4c4c4;
     color: #f5f5f5;
     border: none;
   }
@@ -114,5 +149,12 @@ const SelectedButton = styled.div`
   padding: 5px 10px;
   text-align: center;
   margin: 5px;
+`;
+const SubmitButton = styled.button`
+  background: transparent;
+  border: solid 2px black;
+  color: black;
+  border-radius: 4px;
+  font-weight: 600;
 `;
 export default LocationSetting;

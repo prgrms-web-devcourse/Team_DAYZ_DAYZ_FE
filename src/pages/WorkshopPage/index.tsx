@@ -5,8 +5,16 @@ export { default as ReviewListPage } from './ReviewListPage';
 export { default as SettingPage } from './SettingPage';
 export { default as EditPage } from './EditPage';
 
-export const WORKSHOP = '/workshop';
-export const PRODUCTSLIST = '/workshop/productsList';
-export const REVIEWLIST = '/workshop/reviewList';
-export const SETTING = '/workshop/setting';
-export const EDIT = '/workshop/edit';
+const WORKSHOP = 'workshop';
+const PRODUCTLIST = 'product-list';
+const REVIEWLIST = 'review-list';
+const SETTING = 'setting';
+const EDIT = 'edit';
+
+export const RoutePath = {
+  Workshop: (id: string | number) => `/${WORKSHOP}/${id}`,
+  ProductList: (id: string | number) => `/${WORKSHOP}/${id}/${PRODUCTLIST}`,
+  ReviewList: (id: string | number) => `/${WORKSHOP}/${id}/${REVIEWLIST}`,
+  Setting: (id: string | number) => `/${WORKSHOP}/${id}/${SETTING}`,
+  Edit: (id: string | number) => `/${WORKSHOP}/${id}/${EDIT}`,
+};

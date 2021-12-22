@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
-import React, { CSSProperties } from 'react';
+import React from 'react';
 
-interface Props {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   type: 'button' | 'submit' | 'reset';
-  style?: CSSProperties;
+  onclick?: any;
 }
 
-const Button = ({ children, type, ...props }: Props) => {
+const Button = ({ children, type, onClick, ...props }: Props) => {
   return (
-    <StyledButton type={type} style={{ ...props.style }} {...props}>
+    <StyledButton type={type} style={{ ...props.style }} onClick={onClick} {...props}>
       {children}
     </StyledButton>
   );

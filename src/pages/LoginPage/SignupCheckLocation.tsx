@@ -1,6 +1,45 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { navigationState, userState } from '../../atoms';
+import { Button } from '../../components/base';
+import { LoginLocationGetter } from '../../components/domain';
+import { setLocation } from '../../utils/api/dayzApi';
+
 function SignupCheckLocation() {
+  const history = useHistory();
+  const { token } = useRecoilValue(userState);
+  const setNavigaionState = useSetRecoilState(navigationState);
+  const resetPageState = useResetRecoilState(navigationState);
+  const regionSelect = React.createRef<HTMLSelectElement>();
+
+  const onClick = async () => {
+    const regionId = +(regionSelect.current?.value ?? '1');
+    const regionData = {
+      cityId: 1,
+      regionId,
+    };
+    const res = await setLocation(token, regionData);
+    if (res.status === 200) {
+      history.push('/');
+    } else {
+      history.push('/nothing');
+    }
+  };
+
+  useEffect(() => {
+    setNavigaionState((prev) => ({
+      ...prev,
+      topNavigation: false,
+      bottomNavigation: false,
+    }));
+
+    return () => {
+      resetPageState();
+    };
+  }, []);
+
   return (
     <LoginContainer>
       <Title>
@@ -12,18 +51,13 @@ function SignupCheckLocation() {
         <p>공방을 보여드려요</p>
       </Subtitle>
       <SelectContainer>
-        <p>서울 외 지역은 아직 준비 중이에요😥</p>
+        <p>서울 외 지역은 준비 중이에요😥</p>
         <div>
-          <select name="area" id="area">
-            <option value="seoul">서울</option>
-          </select>
-          <select name="city" id="city">
-            <option value="">선택</option>
-            <option value="Gangdong">강동구</option>
-            <option value="Gangnam">강남구</option>
-            <option value="Seocho">서초구</option>
-          </select>
+          <LoginLocationGetter ref={regionSelect} />
         </div>
+        <SubmitBtn type="button" onClick={onClick}>
+          완료
+        </SubmitBtn>
       </SelectContainer>
     </LoginContainer>
   );
@@ -34,37 +68,31 @@ const LoginContainer = styled.div`
   margin: 40px;
 `;
 
-const Title = styled.p`
-  font-size: 58px;
+const Title = styled.div`
+  font-size: 52px;
   font-weight: 600;
   margin-bottom: 24px;
 `;
 
-const Subtitle = styled.p`
-  font-size: 24px;
-  margin-bottom: 180px;
+const Subtitle = styled.div`
+  margin-bottom: 80px;
 `;
 
 const SelectContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 24px;
   & p {
     margin-bottom: 12px;
   }
-  & select {
-    font-size: 28px;
-    background-color: #eed6fc;
-    border-style: none;
-    border-radius: 12px;
-    padding: 12px 24px;
-  }
-  & select:nth-of-type(1) {
-    width: 150px;
-    margin-right: 24px;
-  }
-  & select:nth-of-type(2) {
-    width: 300px;
-  }
+`;
+const SubmitBtn = styled(Button)`
+  height: 40px;
+  width: 80px;
+  text-decoration: none;
+  border-radius: 12px;
+  color: #f5f5f5;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 100px;
 `;

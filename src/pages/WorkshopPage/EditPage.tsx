@@ -1,63 +1,98 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Button, Input } from '../../components/base';
+import { Avatar, Button, Input } from '../../components/base';
+import { DUMMY_ATELIER_DATA } from './DUMMY_DATA';
+import { FilePlus } from 'react-feather';
 
 const EditPage = () => {
+  const { intro, name, imageUrl, address, callNo, startTime, endTime, atelierId } =
+    DUMMY_ATELIER_DATA;
   return (
-    <>
-      <UserEditForm>
-        <AvatarContainer>
-          <Avator />
-          <AvatarChange type="file" accept="image/*" />
-        </AvatarContainer>
-        <InputContainer>
-          <Text>이름</Text>
-          <InfoInput type="text" />
-        </InputContainer>
-        <InputContainer>
-          <Text>비밀번호</Text>
-          <InfoInput type="text" />
-        </InputContainer>
-        <InputContainer>
-          <Text>비밀번호 확인</Text>
-          <InfoInput type="text" />
-        </InputContainer>
-        <SubmitBtn type="submit">저장</SubmitBtn>
-      </UserEditForm>
-    </>
+    <EditForm>
+      <AvatarContainer>
+        <Label>
+          <AvatarImg
+            src={imageUrl}
+            placeholder={imageUrl}
+            alt={'profile'}
+            size={100}
+            shape={'circle'}
+            lazy
+          />
+          <FilePlus
+            size={30}
+            style={{ position: 'absolute', top: '80px', left: '70px', color: 'black' }}
+          />
+          <AvatarInput type="file" accept="image/*" />
+        </Label>
+      </AvatarContainer>
+      <InputContainer>
+        <Text>공방 이름</Text>
+        <InfoInput type="text" value={name} />
+      </InputContainer>
+      <InputContainer>
+        <Text>공방 소개</Text>
+        <InfoInput type="text" value={intro} />
+      </InputContainer>
+      <InputContainer>
+        <Text>공방 주소</Text>
+        <InfoInput type="text" value={address} />
+      </InputContainer>
+      <InputContainer>
+        <Text>공방 영업시간</Text>
+        <InfoInput type="time" value={startTime} />
+        <Dash>~</Dash>
+        <InfoInput type="time" value={endTime} />
+      </InputContainer>
+      <InputContainer>
+        <Text>공방 전화번호</Text>
+        <Input type="number" value={callNo} />
+      </InputContainer>
+      <SubmitBtn type="submit">저장</SubmitBtn>
+    </EditForm>
   );
 };
 export default EditPage;
 
-const UserEditForm = styled.form`
+const EditForm = styled.form`
   margin-top: 40px;
 `;
 const InputContainer = styled.div`
   margin: 20px;
+  & select,
+  input {
+    height: 40px;
+  }
 `;
 const Text = styled.div`
-  font-size: 16px;
   font-weight: 600;
   margin-bottom: 10px;
 `;
 const AvatarContainer = styled.div`
-  margin-left: calc(50% - 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
-const Avator = styled.div`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: grey;
-  border: none;
+
+const AvatarInput = styled.input`
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
 `;
-const AvatarChange = styled.input`
-  margin-top: 10px;
+
+const AvatarImg = styled(Avatar)`
+  position: relative;
 `;
+
+const Label = styled.label`
+  position: relative;
+`;
+
 const InfoInput = styled(Input)`
   width: calc(100% - 20px);
-  height: 40px;
-  font-size: 16px;
-  padding-left: 20px;
+  padding-left: 10px;
 `;
 const SubmitBtn = styled(Button)`
   width: 40%;
@@ -68,4 +103,9 @@ const SubmitBtn = styled(Button)`
   font-size: 20px;
   font-weight: 700;
   margin-left: 30%;
+`;
+
+const Dash = styled.div`
+  font-size: 30px;
+  margin: 0 10px;
 `;

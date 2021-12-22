@@ -3,32 +3,29 @@ import styled from '@emotion/styled';
 import { Switch, Route } from 'react-router-dom';
 import WorkshopHeader from './WorkshopHeader';
 import { SettingPage, ReviewListPage, FeedListPage, ProductsListPage, EditPage } from '.';
-import { WORKSHOP, PRODUCTSLIST, REVIEWLIST, SETTING, EDIT } from '.';
+import { RoutePath } from '.';
+
 const WorkshopPage = () => {
-  const canShowHeader = () => {
-    const path = window.location.pathname;
-    return path === `${WORKSHOP}` || path === `${PRODUCTSLIST}` || path === `${REVIEWLIST}`;
-  };
-  const isFeed = () => {
-    const path = window.location.pathname;
-    return path === `${WORKSHOP}`;
-  };
   return (
     <WorkshopContainer>
-      {canShowHeader() && <WorkshopHeader />}
-      {isFeed() && <FeedListPage />}
       <Switch>
-        <Route path={PRODUCTSLIST}>
+        <Route path={RoutePath.ProductList(':id')}>
+          <WorkshopHeader />
           <ProductsListPage />
         </Route>
-        <Route path={REVIEWLIST}>
+        <Route path={RoutePath.ReviewList(':id')}>
+          <WorkshopHeader />
           <ReviewListPage />
         </Route>
-        <Route path={SETTING}>
+        <Route path={RoutePath.Setting(':id')}>
           <SettingPage />
         </Route>
-        <Route path={EDIT}>
+        <Route path={RoutePath.Edit(':id')}>
           <EditPage />
+        </Route>
+        <Route path={RoutePath.Workshop(':id')}>
+          <WorkshopHeader />
+          <FeedListPage />
         </Route>
       </Switch>
     </WorkshopContainer>
@@ -37,5 +34,5 @@ const WorkshopPage = () => {
 export default WorkshopPage;
 
 const WorkshopContainer = styled.div`
-  margin-top: 36px;
+  margin-top: 25px;
 `;

@@ -5,13 +5,15 @@ import { Link, Switch, Route } from 'react-router-dom';
 import { Avatar } from '../../components/base';
 import { GoBack, LinkBox } from '../../components/domain';
 import { EditPage } from '.';
-import { EDIT } from '.';
+import { RoutePath } from '.';
+import { DUMMY_ATELIER_DATA } from './DUMMY_DATA';
 
 const SettingPage = () => {
+  const { atelierId } = DUMMY_ATELIER_DATA;
   return (
     <div>
+      <GoBack to="/workshop/:id">뒤로가기</GoBack>
       <WorkshopProfileContainer>
-        <GoBack to="/workshop">뒤로가기</GoBack>
         <Avatar
           size={80}
           alt={'프로필'}
@@ -20,7 +22,7 @@ const SettingPage = () => {
           placeholder={'https://via.placeholder.com/150'}
         />
         <WorkshopName>공방짱</WorkshopName>
-        <Link to={EDIT}>
+        <Link to={RoutePath.Edit(atelierId)}>
           <Settings style={{ position: 'absolute', top: '50px', left: '60px', color: 'black' }} />
         </Link>
       </WorkshopProfileContainer>
@@ -31,7 +33,7 @@ const SettingPage = () => {
       </SettingListContainer>
 
       <Switch>
-        <Route path={EDIT}>
+        <Route path={RoutePath.Edit(atelierId)}>
           <EditPage />
         </Route>
       </Switch>
