@@ -1,7 +1,8 @@
 # Dayz (내 손안의 원데이 클래스)
 
 <div align='center'>
-  <img src='' alt="logo">
+  <img src='https://user-images.githubusercontent.com/79011228/147031597-5cf463f4-a2e3-40a5-a140-4b3e3cd2e56f.png' alt="logo" width="200">
+
 
 📆 2021.11.26 ~ 2021.12.21
 
