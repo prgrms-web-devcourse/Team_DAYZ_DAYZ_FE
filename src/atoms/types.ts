@@ -1,14 +1,14 @@
 export interface IUser {
-  id: number;
+  id: number | null;
   token: string;
   name: string;
   profileImageUrl: string;
-  cityId: number;
+  cityId: number | null;
   cityName: string;
-  regionId: number;
+  regionId: number | null;
   regionName: string;
-  auth: 'ROLE_ATELIER' | 'ROLE_USER';
-  atelierId: number;
+  auth: 'ROLE_ATELIER' | 'ROLE_USER' | '';
+  atelierId: number | null;
 }
 
 export interface INavigation {

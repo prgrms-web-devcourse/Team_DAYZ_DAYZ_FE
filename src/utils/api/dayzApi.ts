@@ -167,9 +167,9 @@ export const getAtelierLists = (token: string) => {
     },
     params: {
       pageIndex: 0,
-      pageSize: 5,
-      column: 'createdAt',
-      order: 'ASC',
+      pageSize: 10,
+      column: 'id',
+      order: 'ESC',
     },
   });
 };
