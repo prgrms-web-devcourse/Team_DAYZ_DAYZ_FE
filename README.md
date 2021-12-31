@@ -46,17 +46,17 @@
     </tr>
     <tr align="center">
         <td>
-            <img src="https://github.com/chloe41297.png?size=200">
+            <img src="https://github.com/chloe41297.png?size=150">
             <br>
             <a href="https://github.com/chloe41297"><I>chloe41297</I></a>
         </td>
         <td>
-            <img src="https://github.com/jinhwansuh.png?size=200">
+            <img src="https://github.com/jinhwansuh.png?size=150">
             <br>
             <a href="https://github.com/jinhwansuh"><I>jinhwansuh</I></a>
         </td>
         <td>
-            <img src="https://github.com/lorraine98.png?size=200">
+            <img src="https://github.com/lorraine98.png?size=150">
             <br>
             <a href="https://github.com/lorraine98"><I>lorraine98</I></a>
         </td>
