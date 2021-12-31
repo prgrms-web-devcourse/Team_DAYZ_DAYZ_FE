@@ -46,32 +46,29 @@
     </tr>
     <tr align="center">
         <td>
-            <img src="https://github.com/chloe41297.png?size=100">
+            <img src="https://github.com/chloe41297.png?size=200">
             <br>
             <a href="https://github.com/chloe41297"><I>chloe41297</I></a>
         </td>
         <td>
-            <img src="https://github.com/jinhwansuh.png?size=100">
+            <img src="https://github.com/jinhwansuh.png?size=200">
             <br>
             <a href="https://github.com/jinhwansuh"><I>jinhwansuh</I></a>
         </td>
         <td>
-            <img src="https://github.com/lorraine98.png?size=100">
+            <img src="https://github.com/lorraine98.png?size=200">
             <br>
             <a href="https://github.com/lorraine98"><I>lorraine98</I></a>
         </td>
     </tr>
 </table>
 
-## 시연
-
+## 💻 주요 기능
 
 
 |                   **작가 로그인/회원가입**                   |                **일반 회원 로그인/회원가입**                 |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| ![공방회원가입](https://user-images.githubusercontent.com/61727311/147812553-02b7b726-441e-4ea1-a56d-94336b182bc8.gif)|![일반회원 로그인](https://user-images.githubusercontent.com/61727311/147812727-9c68e617-da55-479f-b8a6-377994ffd854.gif) |
-
-
+| <img height='600' src='https://user-images.githubusercontent.com/61727311/147812553-02b7b726-441e-4ea1-a56d-94336b182bc8.gif'>| <img height='600' src='https://user-images.githubusercontent.com/61727311/147812727-9c68e617-da55-479f-b8a6-377994ffd854.gif'> |
 
 
 
@@ -82,12 +79,9 @@
 
 
 
-
-
-
 |                     **작가 클래스 등록**                     |                        **예약 하기**                         |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| ![공방클래스등록-gif](https://user-images.githubusercontent.com/61727311/147812646-3e0b4bb1-9ec2-46c9-9087-0f9bf9d46aa0.gif)| ![예약하기](https://user-images.githubusercontent.com/61727311/147812658-71716dbd-f5f6-48b5-9fd9-8239e82aedb7.gif)|
+| <img height='600' src='https://user-images.githubusercontent.com/61727311/147812646-3e0b4bb1-9ec2-46c9-9087-0f9bf9d46aa0.gif'>| <img height='600' src='https://user-images.githubusercontent.com/61727311/147812658-71716dbd-f5f6-48b5-9fd9-8239e82aedb7.gif'>|
           
           
           
