@@ -1,5 +1,7 @@
 # Dayz (내 손안의 원데이 클래스)
 
+## 배포링크 [링크 누르고 바로가기](https://onedayz.netlify.app/login)
+
 <div align='center'>
   <img src='https://user-images.githubusercontent.com/61550839/147042242-b4aad6c1-7384-42a5-8548-3defd19fd611.png' alt="logo" width="200">
 
